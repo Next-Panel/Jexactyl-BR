@@ -34,12 +34,12 @@ export default ({ subuser }: { subuser: Subuser }) => {
             <Dialog.Confirm
                 open={showConfirmation}
                 onClose={() => setShowConfirmation(false)}
-                title={'Confirm task deletion'}
-                confirm={'Yes, delete subuser'}
+                title={'Confirme a exclusão da tarefa'}
+                confirm={'Sim, exclua o sub-usuário'}
                 onConfirmed={doDeletion}
             >
-                Are you sure you wish to remove this subuser? They will have all access to this server revoked
-                immediately.
+                Tem certeza de que deseja remover este sub-usuário? Eles terão todo o acesso a este servidor revogado
+                imediatamente.
             </Dialog.Confirm>
             <button
                 type={'button'}

@@ -113,8 +113,8 @@ export default () => {
     if (!nodes) {
         return (
             <StoreError
-                message={'Nenhum nó está disponível para implantação. Tente novamente mais tarde.'}
-                admin={'Verifique se você tem pelo menos um nó que possa ser implantado.'}
+                message={'Nenhum Node está disponível para implantação. Tente novamente mais tarde.'}
+                admin={'Verifique se você tem pelo menos um Node que possa ser implantado.'}
                 link={'https://docs.jexactyl.com'}
             />
         );
@@ -233,9 +233,9 @@ export default () => {
                         </TitledGreyBox>
                     </StoreContainer>
                     <h1 className={'j-left text-5xl'}>Implantação</h1>
-                    <h3 className={'j-left text-2xl text-neutral-500'}>Escolha um Nó e um tipo de servidor.</h3>
+                    <h3 className={'j-left text-2xl text-neutral-500'}>Escolha um Node e um tipo de servidor.</h3>
                     <StoreContainer className={'lg:grid lg:grid-cols-3 my-10 gap-4'}>
-                        <TitledGreyBox title={'Nós disponíveis'} icon={faLayerGroup} className={'mt-8 sm:mt-0'}>
+                        <TitledGreyBox title={'Nodes disponíveis'} icon={faLayerGroup} className={'mt-8 sm:mt-0'}>
                             <Select name={'node'} onChange={(e) => setNode(parseInt(e.target.value))}>
                                 {nodes.map((n) => (
                                     <option key={n.id} value={n.id}>
@@ -244,7 +244,7 @@ export default () => {
                                     </option>
                                 ))}
                             </Select>
-                            <p className={'mt-1 text-xs text-gray-400'}>Selecione um Nó para implantar o servidor.</p>
+                            <p className={'mt-1 text-xs text-gray-400'}>Selecione um Node para implantar o servidor.</p>
                         </TitledGreyBox>
                         <TitledGreyBox title={'Ninho do Servidor'} icon={faCube} className={'mt-8 sm:mt-0'}>
                             <Select name={'nest'} onChange={(nest) => changeNest(nest)}>

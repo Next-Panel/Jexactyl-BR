@@ -81,7 +81,7 @@ export default () => {
             case 'archive':
                 terminal.writeln(
                     TERMINAL_PRELUDE +
-                        'O servidor foi arquivado com sucesso, tentando a conexão com o nó de destino.\u001b[0m'
+                        'O servidor foi arquivado com sucesso, tentando a conexão com o Node de destino.\u001b[0m'
                 );
         }
     };

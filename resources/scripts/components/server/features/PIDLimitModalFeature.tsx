@@ -61,14 +61,14 @@ const PIDLimitModalFeature = () => {
                         <Icon.AlertTriangle css={tw`pr-4`} color={'orange'} size={'4x'} />
                         <h2 css={tw`text-2xl mb-4 text-neutral-100 `}>Memory or process limit reached...</h2>
                     </div>
-                    <p css={tw`mt-4`}>This server has reached the maximum process or memory limit.</p>
+                    <p css={tw`mt-4`}>Este servidor atingiu o limite máximo de processo ou memória.</p>
                     <p css={tw`mt-4`}>
-                        Increasing <code css={tw`font-mono bg-neutral-900`}>container_pid_limit</code> in the wings
-                        configuration, <code css={tw`font-mono bg-neutral-900`}>config.yml</code>, might help resolve
-                        this issue.
+                        Aumentar <code css={tw`font-mono bg-neutral-900`}>container_pid_limit</code> nas configurações 
+                        da Wings, <code css={tw`font-mono bg-neutral-900`}>config.yml</code>, Pode ajudar a resolver
+                       esse assunto.
                     </p>
                     <p css={tw`mt-4`}>
-                        <b>Note: Wings must be restarted for the configuration file changes to take effect</b>
+                        <b>Nota: as Wings devem ser reiniciadas para as alterações do arquivo de configuração para entrar em vigor</b>
                     </p>
                     <div css={tw`mt-8 sm:flex items-center justify-end`}>
                         <Button onClick={() => setVisible(false)} css={tw`w-full sm:w-auto border-transparent`}>
@@ -80,20 +80,20 @@ const PIDLimitModalFeature = () => {
                 <>
                     <div css={tw`mt-4 sm:flex items-center`}>
                         <Icon.AlertTriangle css={tw`pr-4`} color={'orange'} size={'4x'} />
-                        <h2 css={tw`text-2xl mb-4 text-neutral-100`}>Possible resource limit reached...</h2>
+                        <h2 css={tw`text-2xl mb-4 text-neutral-100`}>Possível limite de recursos alcançado...</h2>
                     </div>
                     <p css={tw`mt-4`}>
-                        This server is attempting to use more resources than allocated. Please contact the administrator
-                        and give them the error below.
+                        Este servidor está tentando usar mais recursos do que o alocado. Entre em contato com o administrador
+                        e dê a eles o erro abaixo.
                     </p>
                     <p css={tw`mt-4`}>
                         <code css={tw`font-mono bg-neutral-900`}>
-                            pthread_create failed, Possibly out of memory or process/resource limits reached
+                            pthread_create falhou, Possivelmente sem memória ou limites de processo/recursos atingidos
                         </code>
                     </p>
                     <div css={tw`mt-8 sm:flex items-center justify-end`}>
                         <Button onClick={() => setVisible(false)} css={tw`w-full sm:w-auto border-transparent`}>
-                            Close
+                            Fechar
                         </Button>
                     </div>
                 </>

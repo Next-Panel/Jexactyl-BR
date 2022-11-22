@@ -246,7 +246,7 @@ export default () => {
                             </Select>
                             <p className={'mt-1 text-xs text-gray-400'}>Selecione um Node para implantar o servidor.</p>
                         </TitledGreyBox>
-                        <TitledGreyBox title={'Ninho do Servidor'} icon={faCube} className={'mt-8 sm:mt-0'}>
+                        <TitledGreyBox title={'Next do Servidor'} icon={faCube} className={'mt-8 sm:mt-0'}>
                             <Select name={'nest'} onChange={(nest) => changeNest(nest)}>
                                 {nests.map((n) => (
                                     <option key={n.id} value={n.id}>
@@ -254,7 +254,7 @@ export default () => {
                                     </option>
                                 ))}
                             </Select>
-                            <p className={'mt-1 text-xs text-gray-400'}>Selecione um ninho a ser usado para o servidor.</p>
+                            <p className={'mt-1 text-xs text-gray-400'}>Selecione um Next a ser usado para o servidor.</p>
                         </TitledGreyBox>
                         <TitledGreyBox title={'Egg do servidor'} icon={faEgg} className={'mt-8 sm:mt-0'}>
                             <Select name={'egg'} onChange={(e) => setEgg(parseInt(e.target.value))}>

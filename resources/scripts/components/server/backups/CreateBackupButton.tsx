@@ -28,21 +28,21 @@ const ModalContent = ({ ...props }: RequiredModalProps) => {
         <Modal {...props} showSpinnerOverlay={isSubmitting}>
             <Form>
                 <FlashMessageRender byKey={'backups:create'} css={tw`mb-4`} />
-                <h2 css={tw`text-2xl mb-6`}>Create server backup</h2>
+                <h2 css={tw`text-2xl mb-6`}>Crie backup do servidor</h2>
                 <Field
                     name={'name'}
-                    label={'Backup name'}
-                    description={'If provided, the name that should be used to reference this backup.'}
+                    label={'Nome de backup'}
+                    description={'Se fornecido, o nome que deve ser usado para fazer referência a este backup.'}
                 />
                 <div css={tw`mt-6`}>
                     <FormikFieldWrapper
                         name={'ignored'}
-                        label={'Ignored Files & Directories'}
+                        label={'Arquivos e diretórios ignorados'}
                         description={`
-                            Enter the files or folders to ignore while generating this backup. Leave blank to use
-                            the contents of the .pteroignore file in the root of the server directory if present.
-                            Wildcard matching of files and folders is supported in addition to negating a rule by
-                            prefixing the path with an exclamation point.
+                            Digite os arquivos ou pastas para ignorar enquanto gera esse backup.Deixar em branco para usar
+                            O conteúdo do arquivo .pteroignore na raiz do diretório do servidor, se estiver presente.
+                            A correspondência curinga de arquivos e pastas é suportada, além de negar uma regra por
+                            Prefixando o caminho com um ponto de exclamação.
                         `}
                     >
                         <FormikField as={Textarea} name={'ignored'} rows={6} />
@@ -52,14 +52,14 @@ const ModalContent = ({ ...props }: RequiredModalProps) => {
                     <div css={tw`mt-6 bg-neutral-700 border border-neutral-800 shadow-inner p-4 rounded`}>
                         <FormikSwitch
                             name={'isLocked'}
-                            label={'Locked'}
-                            description={'Prevents this backup from being deleted until explicitly unlocked.'}
+                            label={'Trancado'}
+                            description={'Impede que esse backup seja excluído até ser desbloqueado explicitamente.'}
                         />
                     </div>
                 </Can>
                 <div css={tw`flex justify-end mt-6`}>
                     <Button type={'submit'} disabled={isSubmitting}>
-                        Start backup
+                        Iniciar backup
                     </Button>
                 </div>
             </Form>
@@ -109,7 +109,7 @@ export default () => {
                 </Formik>
             )}
             <Button css={tw`w-full sm:w-auto`} onClick={() => setVisible(true)}>
-                Create backup
+                Criar backup
             </Button>
         </>
     );

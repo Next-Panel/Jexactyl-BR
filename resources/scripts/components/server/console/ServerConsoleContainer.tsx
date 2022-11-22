@@ -27,8 +27,8 @@ const ServerConsoleContainer = () => {
             {(isInstalling || isTransferring) && (
                 <Alert type={'warning'} className={'mb-4'}>
                     {isInstalling
-                        ? 'This server is currently running its installation process and most actions are unavailable.'
-                        : 'This server is currently being transferred to another node and all actions are unavailable.'}
+                        ? 'Atualmente, este servidor está executando seu processo de instalação e a maioria das ações não está disponível.'
+                        : 'Atualmente, este servidor está sendo transferido para outro Node e todas as ações não estão disponíveis.'}
                 </Alert>
             )}
             <FlashMessageRender byKey={'console:share'} className={'mb-2'} />

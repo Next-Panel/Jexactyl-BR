@@ -48,15 +48,15 @@ const FileUploadList = () => {
                 </div>
             ))}
             <Dialog.Footer>
-                <Button.Text onClick={close}>Close</Button.Text>
+                <Button.Text onClick={close}>Fechar</Button.Text>
             </Dialog.Footer>
         </div>
     );
 };
 
 const FileUploadListDialog = asDialog({
-    title: 'File Uploads',
-    description: 'The following files are being uploaded to your server.',
+    title: 'Uploads de arquivo',
+    description: 'Os seguintes arquivos estão sendo carregados no seu servidor.',
 })(FileUploadList);
 
 export default () => {
@@ -77,7 +77,7 @@ export default () => {
     return (
         <>
             {count > 0 && (
-                <Tooltip content={`${count} files are uploading, click to view`}>
+                <Tooltip content={`${count} arquivos estão sendo carregados, clique para ver`}>
                     <button className={'flex items-center justify-center w-10 h-10'} onClick={setOpen.bind(this, true)}>
                         <Spinner progress={(progress.uploaded / progress.total) * 100} className={'w-8 h-8'} />
                         <CloudUploadIcon className={'h-3 absolute mx-auto animate-pulse'} />

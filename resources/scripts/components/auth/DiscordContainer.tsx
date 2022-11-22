@@ -16,7 +16,7 @@ const DiscordContainer = () => {
 
         discordLogin()
             .then((data) => {
-                if (!data) return clearAndAddHttpError({ error: 'Discord auth failed. Please try again.' });
+                if (!data) return clearAndAddHttpError({ error: 'A autenticação do Discord falhou. Por favor tente novamente.' });
                 window.location.href = data;
             })
             .then(() => setLoading(false))
@@ -31,7 +31,7 @@ const DiscordContainer = () => {
             <div css={tw`flex flex-col md:h-full`}>
                 <div css={tw`mt-6`}>
                     <Button type={'button'} css={tw`w-full`} onClick={() => login()} disabled={loading}>
-                        Connect with Discord
+                        Conectar com Discord
                     </Button>
                 </div>
                 <div css={tw`mt-6 text-center`}>
@@ -39,7 +39,7 @@ const DiscordContainer = () => {
                         to={'/auth/login'}
                         css={tw`text-xs text-neutral-500 tracking-wide no-underline uppercase hover:text-neutral-600`}
                     >
-                        Return to login
+                        Voltar ao Login
                     </Link>
                 </div>
             </div>

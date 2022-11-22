@@ -34,8 +34,8 @@ export default () => {
     return (
         <ServerContentBlock title={'Activity Log'}>
             <FlashMessageRender byKey={'server:activity'} />
-            <h1 className={'j-left text-5xl'}>Server Activity</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>View activity on this server.</h3>
+            <h1 className={'j-left text-5xl'}>Atividade do servidor</h1>
+            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>Ver atividade neste servidor.</h3>
             {(filters.filters?.event || filters.filters?.ip) && (
                 <div className={'flex justify-end mb-2'}>
                     <Link
@@ -43,14 +43,14 @@ export default () => {
                         className={classNames(btnStyles.button, btnStyles.text, 'w-full sm:w-auto')}
                         onClick={() => setFilters((value) => ({ ...value, filters: {} }))}
                     >
-                        Clear Filters <Icon.XCircle className={'w-4 h-4 ml-2'} />
+                        Limpar Filtros <Icon.XCircle className={'w-4 h-4 ml-2'} />
                     </Link>
                 </div>
             )}
             {!data && isValidating ? (
                 <Spinner centered />
             ) : !data?.items.length ? (
-                <p className={'j-up text-sm text-center text-gray-400'}>No activity logs available for this server.</p>
+                <p className={'j-up text-sm text-center text-gray-400'}>Nenhum registro de atividade disponível para este servidor.</p>
             ) : (
                 <div className={'bg-neutral-900 j-up'}>
                     {data?.items.map((activity) => (

@@ -29,12 +29,12 @@ export default () => {
                     <div>
                         <NavLink to={'/account'} exact>
                             <div css={tw`flex items-center justify-between`}>
-                                Account <Icon.User css={tw`ml-1`} size={18} />
+                            Conta <Icon.User css={tw`ml-1`} size={18} />
                             </div>
                         </NavLink>
                         <NavLink to={'/account/security'}>
                             <div css={tw`flex items-center justify-between`}>
-                                Security <Icon.Key css={tw`ml-1`} size={18} />
+                            Segurança <Icon.Key css={tw`ml-1`} size={18} />
                             </div>
                         </NavLink>
                         <NavLink to={'/account/api'}>
@@ -44,7 +44,7 @@ export default () => {
                         </NavLink>
                         <NavLink to={'/account/ssh'}>
                             <div css={tw`flex items-center justify-between`}>
-                                SSH Keys <Icon.Terminal css={tw`ml-1`} size={18} />
+                            Chaves SSH <Icon.Terminal css={tw`ml-1`} size={18} />
                             </div>
                         </NavLink>
                     </div>

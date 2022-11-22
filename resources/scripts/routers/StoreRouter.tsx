@@ -29,23 +29,23 @@ const StoreRouter = () => {
                 <div>
                     <NavLink to={`${match.url}`} exact>
                         <div css={tw`flex items-center justify-between`}>
-                            Overview <Icon.Home css={tw`ml-1`} size={18} />
+                        Visão geral <Icon.Home css={tw`ml-1`} size={18} />
                         </div>
                     </NavLink>
                     <NavLink to={`${match.url}/balance`}>
                         <div css={tw`flex items-center justify-between`}>
-                            Balance <Icon.DollarSign css={tw`ml-1`} size={18} />
+                        Saldo <Icon.DollarSign css={tw`ml-1`} size={18} />
                         </div>
                     </NavLink>
                     <NavLink to={`${match.url}/resources`}>
                         <div css={tw`flex items-center justify-between`}>
-                            Resources <Icon.ShoppingCart css={tw`ml-1`} size={18} />
+                        Recursos <Icon.ShoppingCart css={tw`ml-1`} size={18} />
                         </div>
                     </NavLink>
                     {referrals.enabled && (
                         <NavLink to={`${match.url}/referrals`}>
                             <div css={tw`flex items-center justify-between`}>
-                                Referrals <Icon.Users css={tw`ml-1`} size={18} />
+                            Referências <Icon.Users css={tw`ml-1`} size={18} />
                             </div>
                         </NavLink>
                     )}

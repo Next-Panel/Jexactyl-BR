@@ -113,20 +113,20 @@ export default () => {
     if (!nodes) {
         return (
             <StoreError
-                message={'No nodes are available for deployment. Try again later.'}
-                admin={'Ensure you have at least one node that can be deployed to.'}
+                message={'Nenhum nó está disponível para implantação. Tente novamente mais tarde.'}
+                admin={'Verifique se você tem pelo menos um nó que possa ser implantado.'}
                 link={'https://docs.jexactyl.com'}
             />
         );
     }
 
     return (
-        <PageContentBlock title={'Create a server'} showFlashKey={'store:create'}>
+        <PageContentBlock title={'Criar um servidor'} showFlashKey={'store:create'}>
             <Formik
                 onSubmit={submit}
                 initialValues={{
-                    name: `${user.username}'s server`,
-                    description: 'Write a short description here.',
+                    name: `Servidor da(o) ${user.username}`,
+                    description: 'Escreva uma breve descrição aqui.',
                     cpu: resources.cpu,
                     memory: resources.memory / 1024,
                     disk: resources.disk / 1024,
@@ -164,89 +164,89 @@ export default () => {
                         <Link to={'/store'}>
                             <Button.Text className={'w-full lg:w-1/6 m-2'}>
                                 <Icon.ArrowLeft className={'mr-1'} />
-                                Return to Storefront
+                                Voltar à vitrine
                             </Button.Text>
                         </Link>
                         <Link to={'/store/resources'}>
                             <Button className={'w-full lg:w-1/6 m-2'}>
                                 <Icon.ShoppingCart className={'mr-2'} />
-                                Purchase Resources
+                                Recursos de Compra
                             </Button>
                         </Link>
                     </div>
-                    <h1 className={'j-left text-5xl'}>Basic Details</h1>
-                    <h3 className={'j-left text-2xl text-neutral-500'}>Set the basic fields for your new server.</h3>
+                    <h1 className={'j-left text-5xl'}>Detalhes Básicos</h1>
+                    <h3 className={'j-left text-2xl text-neutral-500'}>Defina os campos básicos para o novo servidor.</h3>
                     <StoreContainer className={'lg:grid lg:grid-cols-2 my-10 gap-4'}>
-                        <TitledGreyBox title={'Server name'} icon={faStickyNote} className={'mt-8 sm:mt-0'}>
+                        <TitledGreyBox title={'Nome do Servidor'} icon={faStickyNote} className={'mt-8 sm:mt-0'}>
                             <Field name={'name'} />
-                            <p className={'mt-1 text-xs'}>Assign a name to your server for use in the Panel.</p>
+                            <p className={'mt-1 text-xs'}>Atribua um nome ao servidor para uso no Painel.</p>
                             <p className={'mt-1 text-xs text-gray-400'}>
-                                Character limits: <code>a-z A-Z 0-9 _ - .</code> and <code>[Space]</code>.
+                                Limites de caracteres: <code>a-z A-Z 0-9 _ - .</code> e <code>[Espaço]</code>.
                             </p>
                         </TitledGreyBox>
-                        <TitledGreyBox title={'Server description'} icon={faList} className={'mt-8 sm:mt-0'}>
+                        <TitledGreyBox title={'Descrição do Servidor'} icon={faList} className={'mt-8 sm:mt-0'}>
                             <Field name={'description'} />
-                            <p className={'mt-1 text-xs'}>Set a description for your server.</p>
-                            <p className={'mt-1 text-xs text-yellow-400'}>* Optional</p>
+                            <p className={'mt-1 text-xs'}>Defina uma descrição para o servidor.</p>
+                            <p className={'mt-1 text-xs text-yellow-400'}>* Opcional</p>
                         </TitledGreyBox>
                     </StoreContainer>
-                    <h1 className={'j-left text-5xl'}>Resource Limits</h1>
-                    <h3 className={'j-left text-2xl text-neutral-500'}>Set specific limits for CPU, RAM and more.</h3>
+                    <h1 className={'j-left text-5xl'}>Limites de Recursos</h1>
+                    <h3 className={'j-left text-2xl text-neutral-500'}>Defina limites específicos para CPU, RAM e muito mais.</h3>
                     <StoreContainer className={'lg:grid lg:grid-cols-3 my-10 gap-4'}>
-                        <TitledGreyBox title={'Server CPU limit'} icon={faMicrochip} className={'mt-8 sm:mt-0'}>
+                        <TitledGreyBox title={'Limite de CPU do Servidor'} icon={faMicrochip} className={'mt-8 sm:mt-0'}>
                             <Field name={'cpu'} />
-                            <p className={'mt-1 text-xs'}>Assign a limit for usable CPU.</p>
-                            <p className={'mt-1 text-xs text-gray-400'}>{resources.cpu}% available</p>
+                            <p className={'mt-1 text-xs'}>Atribua um limite para CPU utilizável.</p>
+                            <p className={'mt-1 text-xs text-gray-400'}>{resources.cpu}% disponível</p>
                         </TitledGreyBox>
-                        <TitledGreyBox title={'Server RAM limit'} icon={faMemory} className={'mt-8 sm:mt-0'}>
+                        <TitledGreyBox title={'Limite de RAM do Servidor'} icon={faMemory} className={'mt-8 sm:mt-0'}>
                             <Field name={'memory'} />
-                            <p className={'mt-1 text-xs'}>Assign a limit for usable RAM.</p>
+                            <p className={'mt-1 text-xs'}>Atribua um limite para RAM utilizável.</p>
                             <p className={'mt-1 text-xs text-gray-400'}>
-                                {megabytesToHuman(resources.memory)} available
+                                {megabytesToHuman(resources.memory)} disponível
                             </p>
                         </TitledGreyBox>
-                        <TitledGreyBox title={'Server Storage limit'} icon={faHdd} className={'mt-8 sm:mt-0'}>
+                        <TitledGreyBox title={'Limite de Armazenamento do Servidor'} icon={faHdd} className={'mt-8 sm:mt-0'}>
                             <Field name={'disk'} />
-                            <p className={'mt-1 text-xs'}>Assign a limit for usable storage.</p>
-                            <p className={'mt-1 text-xs text-gray-400'}>{megabytesToHuman(resources.disk)} available</p>
+                            <p className={'mt-1 text-xs'}>Atribua um limite para armazenamento utilizável.</p>
+                            <p className={'mt-1 text-xs text-gray-400'}>{megabytesToHuman(resources.disk)} disponível</p>
                         </TitledGreyBox>
                     </StoreContainer>
-                    <h1 className={'j-left text-5xl'}>Feature Limits</h1>
+                    <h1 className={'j-left text-5xl'}>Limites de Recursos</h1>
                     <h3 className={'j-left text-2xl text-neutral-500'}>
-                        Add databases, allocations and ports to your server.
+                        Adicione bancos de dados, alocações e portas ao seu servidor.
                     </h3>
                     <StoreContainer className={'lg:grid lg:grid-cols-3 my-10 gap-4'}>
-                        <TitledGreyBox title={'Server allocations'} icon={faNetworkWired} className={'mt-8 sm:mt-0'}>
+                        <TitledGreyBox title={'Alocações de Servidor'} icon={faNetworkWired} className={'mt-8 sm:mt-0'}>
                             <Field name={'ports'} />
-                            <p className={'mt-1 text-xs'}>Assign a number of ports to your server.</p>
-                            <p className={'mt-1 text-xs text-gray-400'}>{resources.ports} available</p>
+                            <p className={'mt-1 text-xs'}>Atribua o número de portas para seu servidor.</p>
+                            <p className={'mt-1 text-xs text-gray-400'}>{resources.ports} disponível</p>
                         </TitledGreyBox>
-                        <TitledGreyBox title={'Server backups'} icon={faArchive} className={'mt-8 sm:mt-0'}>
+                        <TitledGreyBox title={'Backups do Servidor'} icon={faArchive} className={'mt-8 sm:mt-0'}>
                             <Field name={'backups'} />
-                            <p className={'mt-1 text-xs'}>Assign a number of backups to your server.</p>
-                            <p className={'mt-1 text-xs text-gray-400'}>{resources.backups} available</p>
+                            <p className={'mt-1 text-xs'}>Atribua o número de backups para seu servidor.</p>
+                            <p className={'mt-1 text-xs text-gray-400'}>{resources.backups} disponível</p>
                         </TitledGreyBox>
-                        <TitledGreyBox title={'Server databases'} icon={faDatabase} className={'mt-8 sm:mt-0'}>
+                        <TitledGreyBox title={'Bancos de dados do Servidor'} icon={faDatabase} className={'mt-8 sm:mt-0'}>
                             <Field name={'databases'} />
-                            <p className={'mt-1 text-xs'}>Assign a number of databases to your server.</p>
-                            <p className={'mt-1 text-xs text-gray-400'}>{resources.databases} available</p>
+                            <p className={'mt-1 text-xs'}>Atribua o número de bancos de dados para o servidor.</p>
+                            <p className={'mt-1 text-xs text-gray-400'}>{resources.databases} disponível</p>
                         </TitledGreyBox>
                     </StoreContainer>
-                    <h1 className={'j-left text-5xl'}>Deployment</h1>
-                    <h3 className={'j-left text-2xl text-neutral-500'}>Choose a node and server type.</h3>
+                    <h1 className={'j-left text-5xl'}>Implantação</h1>
+                    <h3 className={'j-left text-2xl text-neutral-500'}>Escolha um Nó e um tipo de servidor.</h3>
                     <StoreContainer className={'lg:grid lg:grid-cols-3 my-10 gap-4'}>
-                        <TitledGreyBox title={'Available Nodes'} icon={faLayerGroup} className={'mt-8 sm:mt-0'}>
+                        <TitledGreyBox title={'Nós disponíveis'} icon={faLayerGroup} className={'mt-8 sm:mt-0'}>
                             <Select name={'node'} onChange={(e) => setNode(parseInt(e.target.value))}>
                                 {nodes.map((n) => (
                                     <option key={n.id} value={n.id}>
                                         {n.name} - {n.fqdn} | {100 - parseInt(((n?.used / n?.total) * 100).toFixed(0))}%
-                                        space remaining
+                                        espaço restante
                                     </option>
                                 ))}
                             </Select>
-                            <p className={'mt-1 text-xs text-gray-400'}>Select a node to deploy your server to.</p>
+                            <p className={'mt-1 text-xs text-gray-400'}>Selecione um Nó para implantar o servidor.</p>
                         </TitledGreyBox>
-                        <TitledGreyBox title={'Server Nest'} icon={faCube} className={'mt-8 sm:mt-0'}>
+                        <TitledGreyBox title={'Ninho do Servidor'} icon={faCube} className={'mt-8 sm:mt-0'}>
                             <Select name={'nest'} onChange={(nest) => changeNest(nest)}>
                                 {nests.map((n) => (
                                     <option key={n.id} value={n.id}>
@@ -254,9 +254,9 @@ export default () => {
                                     </option>
                                 ))}
                             </Select>
-                            <p className={'mt-1 text-xs text-gray-400'}>Select a nest to use for your server.</p>
+                            <p className={'mt-1 text-xs text-gray-400'}>Selecione um ninho a ser usado para o servidor.</p>
                         </TitledGreyBox>
-                        <TitledGreyBox title={'Server Egg'} icon={faEgg} className={'mt-8 sm:mt-0'}>
+                        <TitledGreyBox title={'Egg do servidor'} icon={faEgg} className={'mt-8 sm:mt-0'}>
                             <Select name={'egg'} onChange={(e) => setEgg(parseInt(e.target.value))}>
                                 {eggs.map((e) => (
                                     <option key={e.id} value={e.id}>
@@ -265,7 +265,7 @@ export default () => {
                                 ))}
                             </Select>
                             <p className={'mt-1 text-xs text-gray-400'}>
-                                Choose what game you want to run on your server.
+                                Escolha o jogo que você deseja executar no seu servidor.
                             </p>
                         </TitledGreyBox>
                     </StoreContainer>
@@ -277,7 +277,7 @@ export default () => {
                                 size={Button.Sizes.Large}
                                 disabled={loading}
                             >
-                                <Icon.Server className={'mr-2'} /> Create
+                                <Icon.Server className={'mr-2'} /> Criar
                             </Button>
                         </div>
                     </InputSpinner>

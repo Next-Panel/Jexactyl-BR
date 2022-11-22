@@ -48,7 +48,7 @@ export default () => {
                 addFlash({
                     type: 'success',
                     key: 'store:resources',
-                    message: 'Resource has been added to your account.',
+                    message: 'O recurso foi adicionado à sua conta.',
                 })
             )
             .catch((error) => {
@@ -57,22 +57,22 @@ export default () => {
     };
 
     return (
-        <PageContentBlock title={'Store Products'} showFlashKey={'store:resources'}>
+        <PageContentBlock title={'Produtos da Loja'} showFlashKey={'store:resources'}>
             <SpinnerOverlay size={'large'} visible={open} />
             <Dialog.Confirm
                 open={open}
                 onClose={() => setOpen(false)}
-                title={'Confirm resource seletion'}
-                confirm={'Continue'}
+                title={'Confirmar a seleção de recursos'}
+                confirm={'Continuar'}
                 onConfirmed={() => purchase(resource)}
             >
-                Are you sure you want to purchase this resource? This will take credits from your account and add the
-                resource. This is not a reversible transaction.
+                Tem certeza de que deseja comprar este recurso? Isso tirará créditos da sua conta e adicionará o
+                recurso. Esta não é uma transação reversível.
             </Dialog.Confirm>
-            <h1 className={'j-left text-5xl'}>Order resources</h1>
-            <h3 className={'j-left text-2xl text-neutral-500'}>Buy more resources to add to your server.</h3>
+            <h1 className={'j-left text-5xl'}>Outros Recursos</h1>
+            <h3 className={'j-left text-2xl text-neutral-500'}>Compre mais recursos para adicionar ao seu servidor.</h3>
             <Container className={'j-up lg:grid lg:grid-cols-3 my-10'}>
-                <TitledGreyBox title={'Purchase CPU'} css={tw`mt-8 sm:mt-0`}>
+                <TitledGreyBox title={'Comprar CPU'} css={tw`mt-8 sm:mt-0`}>
                     <Wrapper>
                         <Icon.Cpu size={40} />
                         <Button.Success
@@ -87,11 +87,11 @@ export default () => {
                         </Button.Success>
                     </Wrapper>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Purchase CPU to improve server performance.
+                        Compre CPU para melhorar o desempenho do servidor.
                     </p>
-                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>Cost per 50% CPU: {cost.cpu} credits</p>
+                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>Custo por 50% de CPU: {cost.cpu} creditos</p>
                 </TitledGreyBox>
-                <TitledGreyBox title={'Purchase RAM'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                <TitledGreyBox title={'Comprar RAM'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     <Wrapper>
                         <Icon.PieChart size={40} />
                         <Button.Success
@@ -106,13 +106,13 @@ export default () => {
                         </Button.Success>
                     </Wrapper>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Purchase RAM to improve server performance.
+                        Compre RAM para melhorar o desempenho do servidor.
                     </p>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Cost per 1GB RAM: {cost.memory} credits
+                        Custo por 1GB RAM: {cost.memory} creditos
                     </p>
                 </TitledGreyBox>
-                <TitledGreyBox title={'Purchase Disk'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                <TitledGreyBox title={'Comprar Disco'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     <Wrapper>
                         <Icon.HardDrive size={40} />
                         <Button.Success
@@ -123,19 +123,22 @@ export default () => {
                                 setResource('disk');
                             }}
                         >
-                            +1GB DISK
+                            +1GB DE DISCO
                         </Button.Success>
                     </Wrapper>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Purchase disk space to improve server capacity.
+                        Compre espaço para aumentar o armazenamento do
                     </p>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Cost per 1GB disk: {cost.disk} credits
+                        servidor.
+                    </p>
+                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
+                        Custo por 1GB de disco: {cost.disk} creditos
                     </p>
                 </TitledGreyBox>
             </Container>
             <Container className={'j-up lg:grid lg:grid-cols-4 my-10'}>
-                <TitledGreyBox title={'Purchase Server Slot'} css={tw`mt-8 sm:mt-0`}>
+                <TitledGreyBox title={'Comprar Slot para Servidor'} css={tw`mt-8 sm:mt-0`}>
                     <Wrapper>
                         <Icon.Server size={40} />
                         <Button.Success
@@ -150,11 +153,14 @@ export default () => {
                         </Button.Success>
                     </Wrapper>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Purchase a server slot to deploy a server.
+                        Compre um slot de servidor para
                     </p>
-                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>Cost per slot: {cost.slot} credits</p>
+                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
+                        implantar um servidor.
+                    </p>
+                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>Custo por slot: {cost.slot} creditos</p>
                 </TitledGreyBox>
-                <TitledGreyBox title={'Purchase Server Ports'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                <TitledGreyBox title={'Comprar Portas'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     <Wrapper>
                         <Icon.Share2 size={40} />
                         <Button.Success
@@ -165,15 +171,18 @@ export default () => {
                                 setResource('ports');
                             }}
                         >
-                            +1 port
+                            +1 porta
                         </Button.Success>
                     </Wrapper>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Purchase a port to connect to your server.
+                        Compre uma porta para se conectar ao
                     </p>
-                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>Cost per port: {cost.port} credits</p>
+                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
+                        seu servidor.
+                    </p>
+                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>Custo por porta: {cost.port} creditos</p>
                 </TitledGreyBox>
-                <TitledGreyBox title={'Purchase Server Backups'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                <TitledGreyBox title={'Comprar backups'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     <Wrapper>
                         <Icon.Archive size={40} />
                         <Button.Success
@@ -188,13 +197,16 @@ export default () => {
                         </Button.Success>
                     </Wrapper>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Purchase a backup to protect your data.
+                        Compre um backup para proteger seus
+                    </p>
+                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>    
+                        dados.
                     </p>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Cost per backup slot: {cost.backup} credits
+                        Custo por backup slot: {cost.backup} creditos
                     </p>
                 </TitledGreyBox>
-                <TitledGreyBox title={'Purchase Server Databases'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                <TitledGreyBox title={'Comprar Banco de Dados'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     <Wrapper>
                         <Icon.Database size={40} />
                         <Button.Success
@@ -205,12 +217,17 @@ export default () => {
                                 setResource('databases');
                             }}
                         >
-                            +1 database
+                            +1 Banco de Dados
                         </Button.Success>
                     </Wrapper>
-                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>Purchase a database to store data.</p>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Cost per database: {cost.database} credits
+                        Compre um Banco de Dados para
+                    </p>
+                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
+                        armazenar dados.
+                    </p>
+                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
+                        Custo por Banco de Dados: {cost.database} creditos
                     </p>
                 </TitledGreyBox>
             </Container>

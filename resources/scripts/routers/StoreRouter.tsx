@@ -34,7 +34,7 @@ const StoreRouter = () => {
                     </NavLink>
                     <NavLink to={`${match.url}/balance`}>
                         <div css={tw`flex items-center justify-between`}>
-                        Saldo <Icon.DollarSign css={tw`ml-1`} size={18} />
+                        Carteira <Icon.DollarSign css={tw`ml-1`} size={18} />
                         </div>
                     </NavLink>
                     <NavLink to={`${match.url}/resources`}>

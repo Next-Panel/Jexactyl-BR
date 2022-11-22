@@ -94,8 +94,8 @@ const EditScheduleModal = ({ schedule }: Props) => {
                     <FlashMessageRender byKey={'schedule:edit'} css={tw`mb-6`} />
                     <Field
                         name={'name'}
-                        label={'Nome do cronograma'}
-                        description={'Um identificador legível humano para este cronograma.'}
+                        label={'Nome da programação'}
+                        description={'Um identificador legível humano para esta programação.'}
                     />
                     <div css={tw`grid grid-cols-2 sm:grid-cols-5 gap-4 mt-6`}>
                         <Field name={'minute'} label={'Minuto'} />
@@ -105,7 +105,7 @@ const EditScheduleModal = ({ schedule }: Props) => {
                         <Field name={'dayOfWeek'} label={'Dia da semana'} />
                     </div>
                     <p css={tw`text-neutral-400 text-xs mt-2`}>
-                    O sistema de cronograma suporta o uso da sintaxe de Cronjob ao definir quando as tarefas devem começar.
+                    O sistema de programação suporta o uso da sintaxe de Cronjob ao definir quando as tarefas devem começar.
                     Use os campos acima para especificar quando essas tarefas devem começar a ser executadas.
                     </p>
                     <div css={tw`mt-6 bg-neutral-900 border border-neutral-800 shadow-inner p-4 rounded`}>
@@ -125,20 +125,20 @@ const EditScheduleModal = ({ schedule }: Props) => {
                     <div css={tw`mt-6 bg-neutral-900 border border-neutral-800 shadow-inner p-4 rounded`}>
                         <FormikSwitch
                             name={'onlyWhenOnline'}
-                            description={'Execute apenas esse cronograma quando o servidor estiver em um estado em execução.'}
+                            description={'Execute apenas esta programação quando o servidor estiver em um estado em execução.'}
                             label={'Somente quando o servidor está online'}
                         />
                     </div>
                     <div css={tw`mt-6 bg-neutral-900 border border-neutral-800 shadow-inner p-4 rounded`}>
                         <FormikSwitch
                             name={'enabled'}
-                            description={'Este cronograma será executado automaticamente se ativado.'}
-                            label={'Cronograma ativado'}
+                            description={'Esta programação será executado automaticamente se ativado.'}
+                            label={'Programação ativado'}
                         />
                     </div>
                     <div css={tw`mt-6 text-right`}>
                         <Button className={'w-full sm:w-auto'} type={'submit'} disabled={isSubmitting}>
-                            {schedule ? 'Save changes' : 'Create schedule'}
+                            {schedule ? 'Salvar mudanças' : 'Criar programação'}
                         </Button>
                     </div>
                 </Form>

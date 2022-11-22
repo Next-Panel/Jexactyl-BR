@@ -42,7 +42,7 @@ export default ({ scheduleId, onDeleted }: Props) => {
             <Dialog.Confirm
                 open={visible}
                 onClose={() => setVisible(false)}
-                title={'Excluir cronograma'}
+                title={'Excluir programação'}
                 confirm={'Excluir'}
                 onConfirmed={onDelete}
             >

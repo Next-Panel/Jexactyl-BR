@@ -13,7 +13,7 @@ export default ({ schedule }: { schedule: Schedule }) => (
         <div css={tw`flex-1 md:ml-4`}>
             <p>{schedule.name}</p>
             <p css={tw`text-xs text-neutral-400`}>
-                Last run at: {schedule.lastRunAt ? format(schedule.lastRunAt, "MMM do 'at' h:mma") : 'never'}
+                Última execução em: {schedule.lastRunAt ? format(schedule.lastRunAt, "MMM do 'at' h:mma") : 'never'}
             </p>
         </div>
         <div>

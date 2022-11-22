@@ -97,7 +97,7 @@ export default () => {
                                             css={tw`flex items-center rounded-full px-2 py-px text-xs ml-4 uppercase bg-neutral-600 text-white`}
                                         >
                                             <Spinner css={tw`w-3! h-3! mr-2`} />
-                                            Processing
+                                            Em processamento
                                         </span>
                                     ) : (
                                         <ActivePill active={schedule.isActive} />
@@ -111,7 +111,7 @@ export default () => {
                                         <span css={tw`text-neutral-300`}>n/a</span>
                                     )}
                                     <span css={tw`ml-4 pl-4 border-l-4 border-neutral-600 py-px`}>
-                                        Next run at:&nbsp;
+                                        Próxima execução em:&nbsp;
                                         {schedule.nextRunAt ? (
                                             format(schedule.nextRunAt, "MMM do 'at' h:mma")
                                         ) : (
@@ -123,18 +123,18 @@ export default () => {
                             <div css={tw`flex sm:block mt-3 sm:mt-0`}>
                                 <Can action={'schedule.update'}>
                                     <Button.Text className={'flex-1 mr-4'} onClick={toggleEditModal}>
-                                        Edit
+                                        Editar
                                     </Button.Text>
                                     <NewTaskButton schedule={schedule} />
                                 </Can>
                             </div>
                         </div>
                         <div css={tw`hidden sm:grid grid-cols-5 md:grid-cols-5 gap-4 mb-4 mt-4`}>
-                            <CronBox title={'Minute'} value={schedule.cron.minute} />
-                            <CronBox title={'Hour'} value={schedule.cron.hour} />
-                            <CronBox title={'Day (Month)'} value={schedule.cron.dayOfMonth} />
-                            <CronBox title={'Month'} value={schedule.cron.month} />
-                            <CronBox title={'Day (Week)'} value={schedule.cron.dayOfWeek} />
+                            <CronBox title={'Minuto'} value={schedule.cron.minute} />
+                            <CronBox title={'Hora'} value={schedule.cron.hour} />
+                            <CronBox title={'Dia do mês'} value={schedule.cron.dayOfMonth} />
+                            <CronBox title={'Mês'} value={schedule.cron.month} />
+                            <CronBox title={'Dia da semana'} value={schedule.cron.dayOfWeek} />
                         </div>
                         <div css={tw`bg-neutral-700 rounded-b`}>
                             {schedule.tasks.length > 0

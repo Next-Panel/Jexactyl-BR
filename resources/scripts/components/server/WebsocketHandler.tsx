@@ -54,7 +54,7 @@ export default () => {
                 updateToken(uuid, socket);
             } else {
                 setError(
-                    'There was an error validating the credentials provided for the websocket. Please refresh the page.'
+                    'Houve um erro validando as credenciais fornecidas para o WebSocket. Atualize a página.'
                 );
             }
         });
@@ -111,7 +111,7 @@ export default () => {
                     {error === 'connecting' ? (
                         <>
                             <Spinner size={'small'} />
-                            <p css={tw`ml-2 text-sm text-red-100`}>Please wait while we connect to your instance.</p>
+                            <p css={tw`ml-2 text-sm text-red-100`}>Aguarde enquanto nos conectarmos à sua instância.</p>
                         </>
                     ) : (
                         <p css={tw`ml-2 text-sm text-white`}>{error}</p>

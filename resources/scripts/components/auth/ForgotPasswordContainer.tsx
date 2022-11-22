@@ -38,7 +38,7 @@ export default () => {
                 console.error(error);
 
                 setSubmitting(false);
-                addFlash({ type: 'error', title: 'Error', message: httpErrorToHuman(error) });
+                addFlash({ type: 'error', title: 'Erro', message: httpErrorToHuman(error) });
             });
 
             return;
@@ -47,11 +47,11 @@ export default () => {
         requestPasswordResetEmail(email, token)
             .then((response) => {
                 resetForm();
-                addFlash({ type: 'success', title: 'Success', message: response });
+                addFlash({ type: 'success', title: 'Successo', message: response });
             })
             .catch((error) => {
                 console.error(error);
-                addFlash({ type: 'error', title: 'Error', message: httpErrorToHuman(error) });
+                addFlash({ type: 'error', title: 'Erro', message: httpErrorToHuman(error) });
             })
             .then(() => {
                 setToken('');
@@ -67,24 +67,24 @@ export default () => {
             initialValues={{ email: '' }}
             validationSchema={object().shape({
                 email: string()
-                    .email('A valid email address must be provided to continue.')
-                    .required('A valid email address must be provided to continue.'),
+                    .email('Deve ser fornecido um endereço de correio E-Mail válido para continuar.')
+                    .required('Deve ser fornecido um endereço de E-Mail válido para continuar.'),
             })}
         >
             {({ isSubmitting, setSubmitting, submitForm }) => (
-                <LoginFormContainer title={'Request Password Reset'} css={tw`w-full flex`}>
+                <LoginFormContainer title={'Pedir redefinição de senha'} css={tw`w-full flex`}>
                     <Field
                         light
                         label={'Email'}
                         description={
-                            'Enter your account email address to receive instructions on resetting your password.'
+                            'Introduza o endereço de e-mail da sua conta para receber instruções sobre como redefinir a sua senha.'
                         }
                         name={'email'}
                         type={'email'}
                     />
                     <div css={tw`mt-6`}>
                         <Button size={Button.Sizes.Large} css={tw`w-full`} type={'submit'} disabled={isSubmitting}>
-                            Send Email
+                            Enviar Email
                         </Button>
                     </div>
                     {recaptchaEnabled && (
@@ -107,7 +107,7 @@ export default () => {
                             to={'/auth/login'}
                             css={tw`text-xs text-neutral-500 tracking-wide uppercase no-underline hover:text-neutral-700`}
                         >
-                            Return to Login
+                            Voltar ao Login
                         </Link>
                     </div>
                 </LoginFormContainer>

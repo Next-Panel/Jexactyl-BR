@@ -39,7 +39,7 @@ export default ({ match, location }: RouteComponentProps<{ token: string }>) => 
                 console.error(error);
 
                 setSubmitting(false);
-                addFlash({ type: 'error', title: 'Error', message: httpErrorToHuman(error) });
+                addFlash({ type: 'error', title: 'Erro', message: httpErrorToHuman(error) });
             });
     };
 
@@ -52,16 +52,16 @@ export default ({ match, location }: RouteComponentProps<{ token: string }>) => 
             }}
             validationSchema={object().shape({
                 password: string()
-                    .required('A new password is required.')
-                    .min(8, 'Your new password should be at least 8 characters in length.'),
+                    .required('É necessária uma nova palavra-passe.')
+                    .min(8, 'A sua nova senha deve ter pelo menos 8 caracteres.'),
                 passwordConfirmation: string()
-                    .required('Your new password does not match.')
+                    .required('A sua nova senha não corresponde.')
                     // @ts-expect-error this is valid
-                    .oneOf([ref('password'), null], 'Your new password does not match.'),
+                    .oneOf([ref('password'), null], 'A sua nova senha não corresponde.'),
             })}
         >
             {({ isSubmitting }) => (
-                <LoginFormContainer title={'Reset Password'} css={tw`w-full flex`}>
+                <LoginFormContainer title={'Redefinir Senha'} css={tw`w-full flex`}>
                     <div>
                         <label>Email</label>
                         <Input value={email} isLight disabled />
@@ -69,10 +69,10 @@ export default ({ match, location }: RouteComponentProps<{ token: string }>) => 
                     <div css={tw`mt-6`}>
                         <Field
                             light
-                            label={'New Password'}
-                            name={'password'}
+                            label={'Nova Senha'}
+                            name={'senha'}
                             type={'password'}
-                            description={'Passwords must be at least 8 characters in length.'}
+                            description={'As senha devem ter pelo menos 8 caracteres de comprimento.'}
                         />
                     </div>
                     <div css={tw`mt-6`}>
@@ -80,7 +80,7 @@ export default ({ match, location }: RouteComponentProps<{ token: string }>) => 
                     </div>
                     <div css={tw`mt-6`}>
                         <Button size={Button.Sizes.Large} css={tw`w-full`} type={'submit'} disabled={isSubmitting}>
-                            Reset Password
+                            Resetar Senha
                         </Button>
                     </div>
                     <div css={tw`mt-6 text-center`}>

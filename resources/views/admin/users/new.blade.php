@@ -9,7 +9,7 @@
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.index') }}">Administrador</a></li>
         <li><a href="{{ route('admin.users') }}">Usu&aacute;rios</a></li>
-        <li class="active">Create</li>
+        <li class="active">Criar</li>
     </ol>
 @endsection
 

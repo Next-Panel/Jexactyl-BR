@@ -7,8 +7,8 @@
 @section('content-header')
     <h1>Usu&aacute;rios<small>Todos os usu&aacute;rios registrados no sistema.</small></h1>
     <ol class="breadcrumb">
-        <li><a href="{{ route('admin.index') }}">Admin</a></li>
-        <li class="active">Users</li>
+        <li><a href="{{ route('admin.index') }}">Administrador</a></li>
+        <li class="active">Usu&aacute;rios</li>
     </ol>
 @endsection
 

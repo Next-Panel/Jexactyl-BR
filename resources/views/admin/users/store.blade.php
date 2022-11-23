@@ -11,7 +11,7 @@
         <li><a href="{{ route('admin.index') }}">Administrador</a></li>
         <li><a href="{{ route('admin.users') }}">Usu&aacute;rios</a></li>
         <li class="{{ route('admin.users.view', ['user' => $user]) }}">{{ $user->username }}</li>
-        <li class="active">Storefront</li>
+        <li class="active">Loja</li>
     </ol>
 @endsection
 

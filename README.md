@@ -18,16 +18,11 @@ Construído em [Pterodactyl](https://pterodactyl.io), este software é projetado
 * Muitas, muito mais melhorias na qualidade de vida em todo o software.
 
 ## Patrocinadores
-* Quer patrocinar a Jexactyl? [Doe aqui.](https://donate.stripe.com/6oE02Zftd9cC34IbIS)*
+* Quer patrocinar a tradução do Jexactyl? [Doe aqui.](https://donate.stripe.com/6oE02Zftd9cC34IbIS)*
 
-| Company | About | Sponsor |
+| Empresa | Sobre | Patrocinador |
 | ------- | ----- | ------- |
-| [**HostEZ**](https://hostez.io) | Providing North America Valheim, Minecraft and other popular games with low latency, high uptime and maximum availability. EZ! | [@hostez](https://hostez.io) |
-| [**Nero Nodes**](https://neronodes.net) | A Minecraft server provider that's completely free, 24/7. | [@lucatolton](https://github.com/lucatolton) |
-| [**SneakyHub**](https://sneakyhub.com/discord) | A SneakyNodes LTD project, Free 24/7 hosting for games, websites, discord bots and more. | [@SneakyHub](https://github.com/sneakyhub) |
-| [**Wumpus Host**](https://wumpus.host) | A Discord bot host that offers free hosting, 24/7. | [@WumpusHost](https://github.com/wumpushost) |
-| [**GigaNodes**](https://client.giganodes.net) | A cheap host, with many locations like Europe, United States, Asia, United Kingdom | [@GigaNodes](https://discord.gg/dSgpmZ2C) |
-| [**ShieldCore**](https://crypto-hosting.eu) | ShieldCore offer high performance servers with extreme DDoS protection! | [@ShieldCore](https://crypto-hosting.eu) |
+| [**Nenhum patrocínio**](https://) | Descrição | [@ninguém](https://) |
 
 ## Previews
 <p float="left">

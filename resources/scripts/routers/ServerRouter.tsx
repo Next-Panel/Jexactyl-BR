@@ -53,7 +53,7 @@ const ConflictStateRenderer = () => {
         <Suspended />
     ) : (
         <ScreenBlock
-            title={isTransferring ? 'Transferring' : 'Restoring from Backup'}
+            title={isTransferring ? 'Transferindo' : 'Restaurando Backup'}
             image={ServerRestoreSvg}
             message={
                 isTransferring

@@ -31,7 +31,7 @@ export default () => {
                 addFlash({
                     type: 'success',
                     key: 'account:username',
-                    message: 'O seu usúario foi alterado.',
+                    message: 'O seu usuário foi alterado.',
                 })
             )
             .catch((error) =>

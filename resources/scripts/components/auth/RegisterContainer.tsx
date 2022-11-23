@@ -104,7 +104,7 @@ const RegisterContainer = ({ history }: RouteComponentProps) => {
                         disabled={isSubmitting}
                     />
                     <Button type={'submit'} css={tw`my-6 w-full`} size={Button.Sizes.Large} disabled={isSubmitting}>
-                        Register
+                        Registrar
                     </Button>
                     {recaptchaEnabled && (
                         <Reaptcha

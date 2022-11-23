@@ -72,13 +72,13 @@ const LoginContainer = ({ history }: RouteComponentProps) => {
             onSubmit={onSubmit}
             initialValues={{ username: '', password: '' }}
             validationSchema={object().shape({
-                username: string().required('Deve ser fornecido um nome de usúario ou e-mail.'),
+                username: string().required('Deve ser fornecido um nome de usuário ou e-mail.'),
                 password: string().required('Por favor introduza a senha da sua conta.'),
             })}
         >
             {({ isSubmitting, setSubmitting, submitForm }) => (
                 <LoginFormContainer title={'Logar no Painel ' + name} css={tw`w-full flex`}>
-                    <Field light type={'text'} label={'Usúario ou Email'} name={'username'} disabled={isSubmitting} />
+                    <Field light type={'text'} label={'Usuário ou Email'} name={'username'} disabled={isSubmitting} />
                     <div css={tw`mt-6`}>
                         <Field light type={'password'} label={'Senha'} name={'password'} disabled={isSubmitting} />
                     </div>

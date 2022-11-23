@@ -84,7 +84,7 @@ const RegisterContainer = ({ history }: RouteComponentProps) => {
                 <LoginFormContainer title={'Criar Uma Conta'} css={tw`w-full flex`}>
                     <FlashMessageRender byKey={'auth:register'} css={tw`my-3`} />
                     <Field type={'text'} 
-                    label={'Usúario'} 
+                    label={'Usuário'} 
                     name={'username'} 
                     css={tw`my-3`} 
                     disabled={isSubmitting} 

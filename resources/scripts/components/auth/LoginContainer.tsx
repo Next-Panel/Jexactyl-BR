@@ -84,7 +84,7 @@ const LoginContainer = ({ history }: RouteComponentProps) => {
                     </div>
                     <div css={tw`mt-6`}>
                         <Button type={'submit'} size={Button.Sizes.Large} css={tw`w-full`} disabled={isSubmitting}>
-                            Login
+                            Logar
                         </Button>
                     </div>
                     {recaptchaEnabled && (

@@ -8,7 +8,7 @@
  */
 return [
     'auth' => [
-        'fail' => 'falha na Log',
+        'fail' => 'Falha na Log',
         'success' => 'Logado em',
         'password-reset' => 'Password reset',
         'reset-password' => 'Requested password reset',

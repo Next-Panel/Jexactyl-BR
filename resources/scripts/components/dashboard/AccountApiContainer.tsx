@@ -41,7 +41,7 @@ export default () => {
     };
 
     return (
-        <PageContentBlock title={'Account API'}>
+        <PageContentBlock title={'API da Conta'}>
             <h1 className={'j-left text-5xl'}>Chaves API</h1>
             <h3 className={'j-left text-2xl text-neutral-500'}>Criar chaves API para interagir com o Painel.</h3>
             <FlashMessageRender byKey={'account'} />

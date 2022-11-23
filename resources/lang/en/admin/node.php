@@ -1,16 +1,23 @@
 <?php
+/**
+ * Pterodactyl - Panel
+ * Copyright (c) 2015 - 2017 Dane Everitt <dane@daneeveritt.com>.
+ *
+ * This software is licensed under the terms of the MIT license.
+ * https://opensource.org/licenses/MIT
+ */
 
 return [
     'validation' => [
-        'fqdn_not_resolvable' => 'The FQDN or IP address provided does not resolve to a valid IP address.',
-        'fqdn_required_for_ssl' => 'A fully qualified domain name that resolves to a public IP address is required in order to use SSL for this node.',
+        'fqdn_not_resolvable' => 'O endereço FQDN ou IP fornecido não resolve um endereço IP válido.',
+        'fqdn_required_for_ssl' => 'Um nome de domínio totalmente qualificado que se resolve com um endereço IP público é necessário para usar o SSL para este nó.',
     ],
     'notices' => [
-        'allocations_added' => 'Allocations have successfully been added to this node.',
-        'node_deleted' => 'Node has been successfully removed from the panel.',
-        'location_required' => 'You must have at least one location configured before you can add a node to this panel.',
-        'node_created' => 'Successfully created new node. You can automatically configure the daemon on this machine by visiting the \'Configuration\' tab. <strong>Before you can add any servers you must first allocate at least one IP address and port.</strong>',
-        'node_updated' => 'Node information has been updated. If any daemon settings were changed you will need to reboot it for those changes to take effect.',
-        'unallocated_deleted' => 'Deleted all un-allocated ports for <code>:ip</code>.',
+        'allocations_added' => 'As alocações foram adicionadas com sucesso a este nó.',
+        'node_deleted' => 'O nó foi removido com sucesso do painel.',
+        'location_required' => 'Você deve ter pelo menos um local configurado antes de poder adicionar um nó a este painel.',
+        'node_created' => 'Criou com sucesso um novo nó. Você pode configurar automaticamente o daemon nesta máquina visitando o \'Configuration\' tab. <strong>Antes de adicionar quaisquer servidores, você deve primeiro alocar pelo menos um endereço IP e porta.</strong>',
+        'node_updated' => 'As informações do nó foram atualizadas. Se alguma configuração de daemon foi alterada, você precisará reiniciá-la para que essas alterações entrem em vigor.',
+        'unallocated_deleted' => 'Excluiu todas as portas não alocadas para <code>:ip</code>.',
     ],
 ];

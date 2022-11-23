@@ -1,26 +1,33 @@
 <?php
+/**
+ * Pterodactyl - Panel
+ * Copyright (c) 2015 - 2017 Dane Everitt <dane@daneeveritt.com>.
+ *
+ * This software is licensed under the terms of the MIT license.
+ * https://opensource.org/licenses/MIT
+ */
 
 return [
     'notices' => [
-        'created' => 'A new nest, :name, has been successfully created.',
-        'deleted' => 'Successfully deleted the requested nest from the Panel.',
-        'updated' => 'Successfully updated the nest configuration options.',
+        'created' => 'Um novo ninho, :name, foi criado com sucesso.',
+        'deleted' => 'Excluiu com sucesso o ninho solicitado do Painel.',
+        'updated' => 'Atualizou com sucesso as opções de configuração do ninho.',
     ],
     'eggs' => [
         'notices' => [
-            'imported' => 'Successfully imported this Egg and its associated variables.',
-            'updated_via_import' => 'This Egg has been updated using the file provided.',
-            'deleted' => 'Successfully deleted the requested egg from the Panel.',
-            'updated' => 'Egg configuration has been updated successfully.',
-            'script_updated' => 'Egg install script has been updated and will run whenever servers are installed.',
-            'egg_created' => 'A new egg was laid successfully. You will need to restart any running daemons to apply this new egg.',
+            'imported' => 'Importou este egg com sucesso e suas variáveis associadas.',
+            'updated_via_import' => 'Este egg foi atualizado usando o arquivo fornecido.',
+            'deleted' => 'Excluiu com sucesso o egg solicitado do Painel.',
+            'updated' => 'A configuração do egg foi atualizada com sucesso.',
+            'script_updated' => 'O script de instalação de eggs foi atualizado e será executado sempre que os servidores forem instalados.',
+            'egg_created' => 'Um novo egg foi colocado com sucesso. Você precisará reiniciar quaisquer daemons em execução para aplicar este novo egg.',
         ],
     ],
     'variables' => [
         'notices' => [
-            'variable_deleted' => 'The variable ":variable" has been deleted and will no longer be available to servers once rebuilt.',
-            'variable_updated' => 'The variable ":variable" has been updated. You will need to rebuild any servers using this variable in order to apply changes.',
-            'variable_created' => 'New variable has successfully been created and assigned to this egg.',
+            'variable_deleted' => 'A variável ":variable" foi excluído e não estará mais disponível para servidores uma vez reconstruídos.',
+            'variable_updated' => 'A variável ":variable" foi atualizado. Você precisará reconstruir quaisquer servidores usando essa variável para aplicar alterações.',
+            'variable_created' => 'Nova variável foi criada com sucesso e atribuída a este ovo.',
         ],
     ],
 ];

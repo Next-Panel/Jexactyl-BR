@@ -70,7 +70,7 @@ export default ({ match, location }: RouteComponentProps<{ token: string }>) => 
                         <Field
                             light
                             label={'Nova Senha'}
-                            name={'senha'}
+                            name={'password'}
                             type={'password'}
                             description={'As senha devem ter pelo menos 8 caracteres de comprimento.'}
                         />

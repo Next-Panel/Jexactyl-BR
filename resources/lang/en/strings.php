@@ -12,7 +12,7 @@ return [
     'servers' => 'Servidores',
     'id' => 'ID',
     'name' => 'Nome',
-    'node' => 'Nó',
+    'node' => 'Node',
     'connection' => 'Conexão',
     'memory' => 'Memoria',
     'cpu' => 'CPU',

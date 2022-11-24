@@ -107,7 +107,7 @@
                                 </optgroup>
                             @endforeach
                         </select>
-                        <p class="text-muted small">Esta configuração não faz nada além do padrão para este host de banco de dados ao adicionar um banco de dados a um servidor no nó selecionado.</p>
+                        <p class="text-muted small">Esta configuração não faz nada além do padrão para este host de banco de dados ao adicionar um banco de dados a um servidor no Node selecionado.</p>
                     </div>
                 </div>
                 <div class="modal-footer">

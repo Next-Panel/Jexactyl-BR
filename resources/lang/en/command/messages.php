@@ -36,14 +36,14 @@ return [
         'deleting_service_backup' => 'Excluindo arquivo de backup do serviço :file.',
     ],
     'server' => [
-        'rebuild_failed' => 'Pedido de reconstrução para ":name" (#:id) no nó ":node" falhou com erro: :message',
+        'rebuild_failed' => 'Pedido de reconstrução para ":name" (#:id) no Node ":node" falhou com erro: :message',
         'reinstall' => [
-            'failed' => 'Solicitação de reinstalação para ":name" (#:id) no nó ":node" falhou com erro: :message',
+            'failed' => 'Solicitação de reinstalação para ":name" (#:id) no Node ":node" falhou com erro: :message',
             'confirm' => 'Você está prestes a reinstalar contra um grupo de servidores. Você deseja continuar?',
         ],
         'power' => [
             'confirm' => 'Você está prestes a realizar um :action contra :count servidores. Você deseja continuar?',
-            'action_failed' => 'Pedido de ação de energia para ":name" (#:id) no nó ":node" falhou com o errr: :message',
+            'action_failed' => 'Pedido de ação de energia para ":name" (#:id) no Node ":node" falhou com o errr: :message',
         ],
     ],
     'environment' => [

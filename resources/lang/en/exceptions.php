@@ -3,7 +3,7 @@
 return [
     'daemon_connection_failed' => 'Houve uma exceção ao tentar se comunicar com o daemon resultando em um código de resposta http/:code. Esta exceção foi registrada.',
     'node' => [
-        'servers_attached' => 'Um nó não deve ter servidores vinculados a ele para ser excluído.',
+        'servers_attached' => 'Um Node não deve ter servidores vinculados a ele para ser excluído.',
         'daemon_off_config_updated' => 'A configuração daemon <strong> foi atualizada </strong>, no entanto, houve um erro encontrado ao tentar atualizar automaticamente o arquivo de configuração no Daemon. Você precisará atualizar manualmente o arquivo de configuração (config.yml) para que o daemon aplique essas alterações.',
     ],
     'allocations' => [

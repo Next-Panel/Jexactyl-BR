@@ -10,14 +10,14 @@
 return [
     'validation' => [
         'fqdn_not_resolvable' => 'O endereço FQDN ou IP fornecido não resolve um endereço IP válido.',
-        'fqdn_required_for_ssl' => 'Um nome de domínio totalmente qualificado que se resolve com um endereço IP público é necessário para usar o SSL para este nó.',
+        'fqdn_required_for_ssl' => 'Um nome de domínio totalmente qualificado que se resolve com um endereço IP público é necessário para usar o SSL para este Node.',
     ],
     'notices' => [
-        'allocations_added' => 'As alocações foram adicionadas com sucesso a este nó.',
-        'node_deleted' => 'O nó foi removido com sucesso do painel.',
-        'location_required' => 'Você deve ter pelo menos um local configurado antes de poder adicionar um nó a este painel.',
-        'node_created' => 'Criou com sucesso um novo nó. Você pode configurar automaticamente o daemon nesta máquina visitando o \'Configuration\' tab. <strong>Antes de adicionar quaisquer servidores, você deve primeiro alocar pelo menos um endereço IP e porta.</strong>',
-        'node_updated' => 'As informações do nó foram atualizadas. Se alguma configuração de daemon foi alterada, você precisará reiniciá-la para que essas alterações entrem em vigor.',
+        'allocations_added' => 'As alocações foram adicionadas com sucesso a este Node.',
+        'node_deleted' => 'O Node foi removido com sucesso do painel.',
+        'location_required' => 'Você deve ter pelo menos um local configurado antes de poder adicionar um Node a este painel.',
+        'node_created' => 'Criou com sucesso um novo Node. Você pode configurar automaticamente o daemon nesta máquina visitando o \'Configuration\' tab. <strong>Antes de adicionar quaisquer servidores, você deve primeiro alocar pelo menos um endereço IP e porta.</strong>',
+        'node_updated' => 'As informações do Node foram atualizadas. Se alguma configuração de daemon foi alterada, você precisará reiniciá-la para que essas alterações entrem em vigor.',
         'unallocated_deleted' => 'Excluiu todas as portas não alocadas para <code>:ip</code>.',
     ],
 ];

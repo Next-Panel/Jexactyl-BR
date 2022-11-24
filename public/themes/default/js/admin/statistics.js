@@ -12,7 +12,7 @@ const freeMemory = Pterodactyl.memoryTotal - Pterodactyl.memoryUsed;
 const diskChart = new Chart($("#disk_chart"), {
     type: "pie",
     data: {
-        labels: ["Free Disk", "Used Disk"],
+        labels: ["Disco livre", "Disco usado"],
         datasets: [{
             backgroundColor: ["#189a1c", "hsl(211, 22%, 21%)"],
             data: [freeDisk, Pterodactyl.diskUsed]
@@ -23,7 +23,7 @@ const diskChart = new Chart($("#disk_chart"), {
 const ramChart = new Chart($("#ram_chart"), {
     type: "pie",
     data: {
-        labels: ["Free RAM", "Used RAM"],
+        labels: ["RAM livre", "RAM usada"],
         datasets: [{
             backgroundColor: ["#189a1c", "hsl(211, 22%, 21%)"],
             data: [freeMemory, Pterodactyl.memoryUsed]
@@ -34,7 +34,7 @@ const ramChart = new Chart($("#ram_chart"), {
 const serversChart = new Chart($("#servers_chart"), {
     type: "pie",
     data: {
-        labels: ["Active Servers", "Suspended Servers"],
+        labels: ["Servidores ativos", "Servidores suspensos"],
         datasets: [{
             backgroundColor: ["#189a1c", "hsl(211, 22%, 21%)"],
             data: [active, suspended]

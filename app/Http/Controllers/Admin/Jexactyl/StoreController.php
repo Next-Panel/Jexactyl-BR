@@ -38,7 +38,7 @@ class StoreController extends Controller
             'enabled' => $this->settings->get($prefix . 'enabled', false),
             'paypal_enabled' => $this->settings->get($prefix . 'paypal:enabled', false),
             'stripe_enabled' => $this->settings->get($prefix . 'stripe:enabled', false),
-            'selected_currency' => $this->settings->get($prefix . 'currency', 'USD'),
+            'selected_currency' => $this->settings->get($prefix . 'currency', 'BRL'),
             'currencies' => $currencies,
 
             'earn_enabled' => $this->settings->get('jexactyl::earn:enabled', false),

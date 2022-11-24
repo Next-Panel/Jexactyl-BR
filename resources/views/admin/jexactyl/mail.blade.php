@@ -2,11 +2,13 @@
 @include('partials/admin.jexactyl.nav', ['activeTab' => 'mail'])
 
 @section('title')
-    Jexactyl Mail
+    Jexactyl e-mail
+
 @endsection
 
 @section('content-header')
-    <h1>Mail Settings<small>Configure how Jexactyl should handle sending emails.</small></h1>
+    <h1>Ajustes do e-mail
+<small>Configurar como o Jexactyl deve lidar com o envio de e-mails.</small></h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.index') }}">Admin</a></li>
         <li class="active">Settings</li>
@@ -19,14 +21,15 @@
         <div class="col-xs-12">
             <div class="box box-info">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Email Settings</h3>
+                    <h3 class="box-title">Configurações de e-mail</h3>
                 </div>
                 @if($disabled)
                     <div class="box-body">
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="alert alert-info no-margin-bottom">
-                                    This interface is limited to instances using SMTP as the mail driver. Please either use <code>php artisan p:environment:mail</code> command to update your email settings, or set <code>MAIL_DRIVER=smtp</code> in your environment file.
+                                Esta interface é limitada às instâncias que utilizam SMTP como o driver de e-mail
+. Por favor, use <code>php artisan p:environment:mail</code> para atualizar suas configurações de e-mail, ou defina <code>MAIL_DRIVER=smtp</code> em seu arquivo de ambiente.
                                 </div>
                             </div>
                         </div>
@@ -36,62 +39,65 @@
                         <div class="box-body">
                             <div class="row">
                                 <div class="form-group col-md-6">
-                                    <label class="control-label">SMTP Host</label>
+                                    <label class="control-label">Hospedagem SMTP</label>
                                     <div>
                                         <input required type="text" class="form-control" name="mail:host" value="{{ old('mail:host', config('mail.mailers.smtp.host')) }}" />
-                                        <p class="text-muted small">Enter the SMTP server address that mail should be sent through.</p>
+                                        <p class="text-muted small">Digite o endereço do servidor SMTP pelo qual o e-mail
+ deve ser enviado.</p>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label class="control-label">SMTP Port</label>
+                                    <label class="control-label">Porta SMTP</label>
                                     <div>
                                         <input required type="number" class="form-control" name="mail:port" value="{{ old('mail:port', config('mail.mailers.smtp.port')) }}" />
-                                        <p class="text-muted small">Enter the SMTP server port that mail should be sent through.</p>
+                                        <p class="text-muted small">Digite a porta do servidor SMTP pela qual o e-mail
+ deve ser enviado.</p>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label class="control-label">Encryption</label>
+                                    <label class="control-label">Criptografia</label>
                                     <div>
                                         @php
                                             $encryption = old('mail:encryption', config('mail.mailers.smtp.encryption'));
                                         @endphp
                                         <select name="mail:encryption" class="form-control">
-                                            <option value="" @if($encryption === '') selected @endif>None</option>
+                                            <option value="" @if($encryption === '') selected @endif>Nenhuma</option>
                                             <option value="tls" @if($encryption === 'tls') selected @endif>Transport Layer Security (TLS)</option>
                                             <option value="ssl" @if($encryption === 'ssl') selected @endif>Secure Sockets Layer (SSL)</option>
                                         </select>
-                                        <p class="text-muted small">Select the type of encryption to use when sending mail.</p>
+                                        <p class="text-muted small">Selecione o tipo de criptografia a ser usada ao enviar o e-mail
+.</p>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label class="control-label">Username <span class="field-optional"></span></label>
+                                    <label class="control-label">Nome de usuário <span class="field-optional"></span></label>
                                     <div>
                                         <input type="text" class="form-control" name="mail:username" value="{{ old('mail:username', config('mail.mailers.smtp.username')) }}" />
-                                        <p class="text-muted small">The username to use when connecting to the SMTP server.</p>
+                                        <p class="text-muted small">O nome de usuário a ser usado ao conectar-se ao servidor SMTP.</p>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label class="control-label">Password <span class="field-optional"></span></label>
+                                    <label class="control-label">Senha <span class="field-optional"></span></label>
                                     <div>
                                         <input type="password" class="form-control" name="mail:password"/>
-                                        <p class="text-muted small">The password to use in conjunction with the SMTP username. Leave blank to continue using the existing password. To set the password to an empty value enter <code>!e</code> into the field.</p>
+                                        <p class="text-muted small">A senha a ser usada em conjunto com o nome de usuário SMTP. Deixe em branco para continuar usando a senha existente. Para definir a senha para um valor vazio, digite <code>!e</code> no campo.</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <hr />
                                 <div class="form-group col-md-6">
-                                    <label class="control-label">Mail From</label>
+                                    <label class="control-label">E-mail enviado de</label>
                                     <div>
                                         <input required type="email" class="form-control" name="mail:from:address" value="{{ old('mail:from:address', config('mail.from.address')) }}" />
-                                        <p class="text-muted small">Enter an email address that all outgoing emails will originate from.</p>
+                                        <p class="text-muted small">Digite um endereço de e-mail de onde todos os e-mails enviados serão originados.</p>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label class="control-label">Mail From Name <span class="field-optional"></span></label>
+                                    <label class="control-label">E-mail a partir do nome <span class="field-optional"></span></label>
                                     <div>
                                         <input type="text" class="form-control" name="mail:from:name" value="{{ old('mail:from:name', config('mail.from.name')) }}" />
-                                        <p class="text-muted small">The name that emails should appear to come from.</p>
+                                        <p class="text-muted small">O nome de onde devem ser enviados os e-mails.</p>
                                     </div>
                                 </div>
                             </div>

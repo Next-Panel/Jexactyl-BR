@@ -43,8 +43,9 @@ return [
         ],
         'power' => [
             'confirm' => 'Você está prestes a realizar um :action contra :count servidores. Você deseja continuar?',
-            'action_failed' => 'Pedido de ação de energia para ":name" (#:id) no nó ":node" falhou com o errr: :message'
+            'action_failed' => 'Pedido de ação de energia para ":name" (#:id) no nó ":node" falhou com o errr: :message',
         ],
+    ],
     'environment' => [
         'mail' => [
             'ask_smtp_host' => 'SMTP Host (e.g. smtp.gmail.com)',

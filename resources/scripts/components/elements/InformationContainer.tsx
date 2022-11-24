@@ -35,24 +35,24 @@ export default () => {
             <div className={'inline-flex'}>
                 {store.earn.enabled ? (
                     <InformationBox icon={faCircle} iconCss={'animate-pulse'}>
-                        Earning <span className={'text-green-600'}>{store.earn.amount}</span> credits / min.
+                        Ganhando <span className={'text-green-600'}>{store.earn.amount}</span> créditos / min.
                     </InformationBox>
                 ) : (
                     <InformationBox icon={faExclamationCircle}>
-                        Credit earning is currently <span className={'text-red-600'}>disabled.</span>
+                        Atualmente, os ganhos de crédito estão <span className={'text-red-600'}>desativados.</span>
                     </InformationBox>
                 )}
                 <InformationBox icon={faCoins}>
-                    You have <span className={'text-green-600'}>{bal}</span> credits available.
+                Você tem <span className={'text-green-600'}>{bal}</span> créditos disponíveis.
                 </InformationBox>
                 <InformationBox icon={faUserLock}>
                     {user.useTotp ? (
                         <>
-                            <span className={'text-green-600'}>2FA is enabled</span> on your account.
+                            <span className={'text-green-600'}>2FA está habilitado</span> em sua conta.
                         </>
                     ) : (
                         <>
-                            <span className={'text-yellow-600'}>Enable 2FA</span> to secure your account.
+                            <span className={'text-yellow-600'}>Habilite o 2FA</span> para proteger sua conta.
                         </>
                     )}
                 </InformationBox>
@@ -73,8 +73,8 @@ export default () => {
             {!user.verified && (
                 <div className={'flex justify-center items-center mt-3 mb-1'}>
                     <AlertCircle size={16} className={'mr-1'}/>
-                    <span className={'mr-2'}>Your account is not verified! Email: {user.email}</span>
-                    <span onClick={verify} className={'cursor-pointer text-blue-400'}>Resend</span>
+                    <span className={'mr-2'}>Sua conta não foi verificada! Email: {user.email}</span>
+                    <span onClick={verify} className={'cursor-pointer text-blue-400'}>Reenviar</span>
                 </div>
             )}
         </div>

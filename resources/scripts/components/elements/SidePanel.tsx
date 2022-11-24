@@ -52,18 +52,18 @@ export default () => {
                     <SearchContainer size={32} />
                 </div>
                 <NavLink to={'/'} className={'navigation-link'} exact>
-                    <Tooltip placement={'bottom'} content={'Servers'}>
+                    <Tooltip placement={'bottom'} content={'Servidores'}>
                         <Icon.Server size={32} css={tw`my-8`} />
                     </Tooltip>
                 </NavLink>
                 <NavLink to={'/account'} className={'navigation-link'}>
-                    <Tooltip placement={'bottom'} content={'Account'}>
+                    <Tooltip placement={'bottom'} content={'Conta'}>
                         <Icon.User size={32} css={tw`my-8`} />
                     </Tooltip>
                 </NavLink>
                 {store && (
                     <NavLink to={'/store'} className={'navigation-link'}>
-                        <Tooltip placement={'bottom'} content={'Store'}>
+                        <Tooltip placement={'bottom'} content={'Loja'}>
                             <Icon.ShoppingCart size={32} css={tw`my-8`} />
                         </Tooltip>
                     </NavLink>
@@ -77,7 +77,7 @@ export default () => {
                 )}
                 <div id={'logo'}>
                     <button onClick={onTriggerLogout} className={'navigation-link'}>
-                        <Tooltip placement={'bottom'} content={'Logout'}>
+                        <Tooltip placement={'bottom'} content={'Sair'}>
                             <Icon.LogOut size={32} css={tw`flex flex-row fixed bottom-0 mb-8`} />
                         </Tooltip>
                     </button>

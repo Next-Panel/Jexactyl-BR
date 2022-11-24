@@ -45,8 +45,8 @@ const PaginationFooter = ({ pagination, className, onPageSelect }: Props) => {
                     {Math.max(start, Math.min(pagination.total, 1))}
                 </span>
                 &nbsp;to&nbsp;
-                <span className={'font-semibold text-neutral-400'}>{end}</span> of&nbsp;
-                <span className={'font-semibold text-neutral-400'}>{pagination.total}</span> results.
+                <span className={'font-semibold text-neutral-400'}>{end}</span> de&nbsp;
+                <span className={'font-semibold text-neutral-400'}>{pagination.total}</span> resultados.
             </p>
             {pagination.totalPages > 1 && (
                 <div className={'flex space-x-1'}>

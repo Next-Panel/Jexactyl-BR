@@ -15,7 +15,7 @@ export default ({ message, admin, link }: Props) => (
             <Alert type={'warning'} className={'mt-2'}>
                 (Admin Message) {admin}
                 <a href={link} className={'text-blue-400 ml-1'} target={'_blank'} rel={'noreferrer'}>
-                    How do I fix this error?
+                Como corrigir este erro?
                 </a>
             </Alert>
         )}

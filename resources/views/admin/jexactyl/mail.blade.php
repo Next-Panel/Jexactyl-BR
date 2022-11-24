@@ -11,7 +11,7 @@
 <small>Configurar como o Jexactyl deve lidar com o envio de e-mails.</small></h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.index') }}">Admin</a></li>
-        <li class="active">Settings</li>
+        <li class="active">Definições</li>
     </ol>
 @endsection
 

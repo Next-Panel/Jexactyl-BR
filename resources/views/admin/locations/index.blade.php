@@ -8,7 +8,7 @@
     <h1>Localizações<small>Todos os locais aos quais os nodes podem ser atribuídos para facilitar a categorização.</small></h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.index') }}">Administrador</a></li>
-        <li class="active">localizações</li>
+        <li class="active">Localizações</li>
     </ol>
 @endsection
 

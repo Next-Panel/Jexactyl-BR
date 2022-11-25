@@ -2,11 +2,11 @@
 @include('partials/admin.jexactyl.nav', ['activeTab' => 'index'])
 
 @section('title')
-    Jexactyl Settings
+    Configurações do Jexactyl
 @endsection
 
 @section('content-header')
-    <h1>Jexactyl Settings<small>Configure Jexactyl-specific settings for the Panel.</small></h1>
+    <h1>Configurações do Jexactyl<small>Defina as configurações específicas do Jexactyl para o Painel.</small></h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.index') }}">Admin</a></li>
         <li class="active">Jexactyl</li>

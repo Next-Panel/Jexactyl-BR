@@ -117,7 +117,7 @@ export default ({ backup }: Props) => {
                 title={`Unlock "${backup.name}"`}
                 onConfirmed={onLockToggle}
             >
-                This backup will no longer be protected from automated or accidental deletions.
+                Esse backup não será mais protegido das deleções automatizadas ou acidentais.
             </Dialog.Confirm>
             <Dialog.Confirm
                 open={modal === 'restore'}
@@ -127,8 +127,8 @@ export default ({ backup }: Props) => {
                 onConfirmed={() => doRestorationAction()}
             >
                 <p>
-                    Your server will be stopped. You will not be able to control the power state, access the file
-                    manager, or create additional backups until completed.
+                    Seu servidor será interrompido.Você não poderá controlar o estado de energia, acessar o arquivo
+                    Gerente ou crie backups adicionais até concluir.
                 </p>
                 <p css={tw`mt-4 -mb-2 bg-gray-700 p-3 rounded`}>
                     <label htmlFor={'restore_truncate'} css={tw`text-base flex items-center cursor-pointer`}>
@@ -140,18 +140,18 @@ export default ({ backup }: Props) => {
                             checked={truncate}
                             onChange={() => setTruncate((s) => !s)}
                         />
-                        Delete all files before restoring backup.
+                       Exclua todos os arquivos antes de restaurar o backup.
                     </label>
                 </p>
             </Dialog.Confirm>
             <Dialog.Confirm
-                title={`Delete "${backup.name}"`}
-                confirm={'Continue'}
+                title={`Excluir "${backup.name}"`}
+                confirm={'Continuar'}
                 open={modal === 'delete'}
                 onClose={() => setModal('')}
                 onConfirmed={doDeletion}
             >
-                This is a permanent operation. The backup cannot be recovered once deleted.
+                Esta é uma operação permanente.O backup não pode ser recuperado depois de excluído.
             </Dialog.Confirm>
             <SpinnerOverlay visible={loading} fixed />
             {backup.isSuccessful ? (
@@ -175,7 +175,7 @@ export default ({ backup }: Props) => {
                         <Can action={'backup.restore'}>
                             <DropdownButtonRow onClick={() => setModal('restore')}>
                                 <Icon.Upload css={tw`text-xs`} />
-                                <span css={tw`ml-2`}>Restore</span>
+                                <span css={tw`ml-2`}>Restaurar</span>
                             </DropdownButtonRow>
                         </Can>
                         <Can action={'backup.delete'}>
@@ -184,12 +184,12 @@ export default ({ backup }: Props) => {
                                     {backup.isLocked ? (
                                         <>
                                             <Icon.Unlock css={tw`text-xs mr-2`} />
-                                            Unlock
+                                            Desbloquear
                                         </>
                                     ) : (
                                         <>
                                             <Icon.Lock css={tw`text-xs mr-2`} />
-                                            Lock
+                                            Trancar
                                         </>
                                     )}
                                 </DropdownButtonRow>

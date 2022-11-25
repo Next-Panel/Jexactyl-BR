@@ -39,8 +39,8 @@ export default ({ database, className }: Props) => {
 
     const schema = object().shape({
         confirm: string()
-            .required('The database name must be provided.')
-            .oneOf([database.name.split('_', 2)[1], database.name], 'The database name must be provided.'),
+            .required('O nome do banco de dados deve ser fornecido.')
+            .oneOf([database.name.split('_', 2)[1], database.name], 'O nome do banco de dados deve ser fornecido.'),
     });
 
     const submit = (values: { confirm: string }, { setSubmitting }: FormikHelpers<{ confirm: string }>) => {
@@ -71,18 +71,18 @@ export default ({ database, className }: Props) => {
                         }}
                     >
                         <FlashMessageRender byKey={'database:delete'} css={tw`mb-6`} />
-                        <h2 css={tw`text-2xl mb-6`}>Confirm database deletion</h2>
+                        <h2 css={tw`text-2xl mb-6`}>Confirme a exclusão do banco de dados</h2>
                         <p css={tw`text-sm`}>
-                            Deleting a database is a permanent action, it cannot be undone. This will permanently delete
-                            the <strong>{database.name}</strong> database and remove all associated data.
+                            A exclusão de um banco de dados é uma ação permanente, não pode ser desfeita. Isso vai excluir permanentemente
+                            a <strong>{database.name}</strong>banco de dados e remova todos os dados associados.
                         </p>
                         <Form css={tw`m-0 mt-6`}>
                             <Field
                                 type={'text'}
                                 id={'confirm_name'}
                                 name={'confirm'}
-                                label={'Confirm Database Name'}
-                                description={'Enter the database name to confirm deletion.'}
+                                label={'Confirme o nome do banco de dados'}
+                                description={'Digite o nome do banco de dados para confirmar a exclusão.'}
                             />
                             <div css={tw`mt-6 text-right`}>
                                 <Button
@@ -91,10 +91,10 @@ export default ({ database, className }: Props) => {
                                     css={tw`mr-2`}
                                     onClick={() => setVisible(false)}
                                 >
-                                    Cancel
+                                    Cancelar
                                 </Button>
                                 <Button type={'submit'} color={'red'} disabled={!isValid}>
-                                    Delete Database
+                                    Excluir banco de dados
                                 </Button>
                             </div>
                         </Form>
@@ -103,7 +103,7 @@ export default ({ database, className }: Props) => {
             </Formik>
             <Modal visible={connectionVisible} onDismissed={() => setConnectionVisible(false)}>
                 <FlashMessageRender byKey={'database-connection-modal'} css={tw`mb-6`} />
-                <h3 css={tw`mb-6 text-2xl`}>Database connection details</h3>
+                <h3 css={tw`mb-6 text-2xl`}>Detalhes da conexão do banco de dados</h3>
                 <div>
                     <Label>Endpoint</Label>
                     <CopyOnClick text={database.connectionString}>
@@ -111,7 +111,7 @@ export default ({ database, className }: Props) => {
                     </CopyOnClick>
                 </div>
                 <div css={tw`mt-6`}>
-                    <Label>Connections from</Label>
+                    <Label>Conexões de</Label>
                     <Input type={'text'} readOnly value={database.allowConnectionsFrom} />
                 </div>
                 <div css={tw`mt-6`}>
@@ -122,14 +122,14 @@ export default ({ database, className }: Props) => {
                 </div>
                 <Can action={'database.view_password'}>
                     <div css={tw`mt-6`}>
-                        <Label>Password</Label>
+                        <Label>Senha</Label>
                         <CopyOnClick text={database.password}>
                             <Input type={'text'} readOnly value={database.password} />
                         </CopyOnClick>
                     </div>
                 </Can>
                 <div css={tw`mt-6`}>
-                    <Label>JDBC Connection String</Label>
+                    <Label>String de conexão JDBC</Label>
                     <CopyOnClick text={jdbcConnectionString}>
                         <Input type={'text'} readOnly value={jdbcConnectionString} />
                     </CopyOnClick>
@@ -139,7 +139,7 @@ export default ({ database, className }: Props) => {
                         <RotatePasswordButton databaseId={database.id} onUpdate={appendDatabase} />
                     </Can>
                     <Button variant={Button.Variants.Secondary} onClick={() => setConnectionVisible(false)}>
-                        Close
+                        Perto
                     </Button>
                 </div>
             </Modal>
@@ -160,7 +160,7 @@ export default ({ database, className }: Props) => {
                 </div>
                 <div css={tw`ml-8 text-center hidden md:block`}>
                     <p css={tw`text-sm`}>{database.allowConnectionsFrom}</p>
-                    <p css={tw`mt-1 text-2xs text-neutral-500 uppercase select-none`}>Connections from</p>
+                    <p css={tw`mt-1 text-2xs text-neutral-500 uppercase select-none`}>Conexões de</p>
                 </div>
                 <div css={tw`ml-8 text-center hidden md:block`}>
                     <CopyOnClick text={database.username}>

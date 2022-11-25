@@ -37,7 +37,7 @@
         <div class="wrapper">
             <header class="main-header">
                 <a href="{{ route('index') }}" class="logo">
-                    <img src="{{ config('app.logo') }}" width="48" height="48" />
+                    <img src="https://avatars.githubusercontent.com/u/91636558" width="48" height="48" />
                 </a>
             </header>
             <aside class="main-sidebar">
@@ -100,7 +100,7 @@
                         <div class="col-xs-12">
                             @if (count($errors) > 0)
                                 <div class="alert alert-danger">
-                                    There was an error validating the data provided.<br><br>
+                                    Ocorreu um erro ao validar os dados fornecidos.<br><br>
                                     <ul>
                                         @foreach ($errors->all() as $error)
                                             <li>{{ $error }}</li>
@@ -146,12 +146,12 @@
 
                         var that = this;
                         swal({
-                            title: 'Do you want to log out?',
+                            title: 'Deseja deslogar?',
                             type: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#d9534f',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: 'Log out'
+                            confirmButtonText: 'Deslogar'
                         }, function () {
                              $.ajax({
                                 type: 'POST',

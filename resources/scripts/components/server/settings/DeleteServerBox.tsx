@@ -29,7 +29,7 @@ export default () => {
                 addFlash({
                     key: 'settings',
                     type: 'success',
-                    message: 'Your server has been deleted.',
+                    message: 'Seu servidor foi excluído.',
                 });
                 // @ts-expect-error this is valid
                 window.location = '/';
@@ -38,19 +38,19 @@ export default () => {
     };
 
     return (
-        <TitledGreyBox title={'Delete Server'} className={'relative mb-12'}>
+        <TitledGreyBox title={'Excluir servidor'} className={'relative mb-12'}>
             <Dialog.Confirm
                 open={warn}
-                title={'Confirm server deletion'}
-                confirm={'Yes, delete server'}
+                title={'Confirme a exclusão do servidor'}
+                confirm={'Sim, exclua o servidor'}
                 onClose={() => setWarn(false)}
                 onConfirmed={() => {
                     setConfirm(true);
                     setWarn(false);
                 }}
             >
-                Your server will be deleted, with all files being purged and the server&apos;s resources being returned
-                to your account. Are you sure you wish to continue?
+                Seu servidor será excluído, com todos os arquivos sendo purgados e os recursos do servidor são retornados
+                para sua conta.Tem certeza que deseja continuar?
             </Dialog.Confirm>
             <form id={'delete-server-form'} onSubmit={submit}>
                 <Dialog
@@ -64,7 +64,7 @@ export default () => {
                     {name !== serverName && (
                         <>
                             <p className={'my-2 text-gray-400'}>
-                                Type <Code>{serverName}</Code> below.
+                            Modelo <Code>{serverName}</Code> abaixo de.
                             </p>
                             <Input type={'text'} value={name} onChange={(n) => setName(n.target.value)} />
                         </>
@@ -75,20 +75,20 @@ export default () => {
                         className={'mt-2'}
                         form={'delete-server-form'}
                     >
-                        Yes, delete server
+                        Sim, exclua o servidor
                     </Button>
                 </Dialog>
             </form>
             <p className={'text-sm'}>
-                Deleting your server will shut down any processes, return the resources to your account and delete all
-                files associated with the instance - as well as backups, databases and settings.{' '}
+            Excluir seu servidor desligará qualquer processo, retornará os recursos para sua conta e excluirá todos os
+                arquivos associados à instância - bem como backups, bancos de dados e configurações.{' '}
                 <strong className={'font-medium'}>
-                    All data will be permenantly lost if you continue with this action.
+                Todos os dados serão perdidos permanentemente se você continuar com esta ação.
                 </strong>
             </p>
             <div className={'mt-6 font-medium text-right'}>
                 <Button.Danger variant={Button.Variants.Secondary} onClick={() => setWarn(true)}>
-                    Delete Server
+                Excluir servidor
                 </Button.Danger>
             </div>
         </TitledGreyBox>

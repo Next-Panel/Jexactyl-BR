@@ -68,20 +68,20 @@ export default () => {
 
     return (
         <>
-            <ChartBlock title={'CPU Load'}>
+            <ChartBlock title={'Uso da CPU'}>
                 <Line {...cpu.props} />
             </ChartBlock>
-            <ChartBlock title={'Memory'}>
+            <ChartBlock title={'Memória'}>
                 <Line {...memory.props} />
             </ChartBlock>
             <ChartBlock
-                title={'Network'}
+                title={'Rede'}
                 legend={
                     <>
-                        <Tooltip arrow content={'Inbound'}>
+                        <Tooltip arrow content={'Entrada'}>
                             <Icon.UploadCloud className={'mr-2 w-4 h-4 text-green-400'} />
                         </Tooltip>
-                        <Tooltip arrow content={'Outbound'}>
+                        <Tooltip arrow content={'Saída'}>
                             <Icon.DownloadCloud className={'w-4 h-4 text-cyan-400'} />
                         </Tooltip>
                     </>

@@ -5,31 +5,24 @@
 ![Downloads - Total](https://img.shields.io/github/downloads/jexactyl/jexactyl/total)
 ![Downloads - Latest](https://img.shields.io/github/downloads/jexactyl/jexactyl/latest/total)
 ![Version](https://img.shields.io/github/v/release/jexactyl/jexactyl)
-![Contributors](https://img.shields.io/github/contributors-anon/jexactyl/jexactyl)
 
 # Jexactyl
-Jexactyl is a fast, advanced and customisable game management panel and billing system in one.
-Built on [Pterodactyl](https://pterodactyl.io), this software is designed from the ground up with security and stability first.
+Jexactyl é um painel de gerenciamento de jogos e sistema de faturamento rápido, avançado e personalizável em um só.
+Construído em [Pterodactyl](https://pterodactyl.io), este software é projetado a partir do zero com segurança e estabilidade em primeiro lugar.
 
-## Why use Jexactyl?
-* Advanced authentication methods and security steps.
-* Billing system which supports [Stripe](https://stripe.com) and [PayPal](https://paypal.com) out of the box.
-* Full customizability via a simple administrative dashboard.
-* Easy to set up and get started, with minimal install steps.
-* Many, many more quality-of-life improvements throughout the software.
+## Por que usar Jexactyl?
+* Métodos avançados de autenticação e passos de segurança.
+* Sistema de faturamento que suporta [Stripe](https://stripe.com) e [PayPal](https://paypal.com) redondo.
+* Total personalização através de um simples painel de controle administrativo.
+* Fácil de configurar e começar, com o mínimo de etapas de instalação.
+* Muitas, muito mais melhorias na qualidade de vida em todo o software.
 
-## Sponsors
-*Want to sponsor Jexactyl? [Donate Here.](https://donate.stripe.com/6oE02Zftd9cC34IbIS)*
+## Patrocinadores
+* Quer patrocinar a tradução do Jexactyl? [Doe aqui.](https://donate.stripe.com/6oE02Zftd9cC34IbIS)*
 
-| Company | About | Sponsor |
+| Empresa | Sobre | Patrocinador |
 | ------- | ----- | ------- |
-| [**HostEZ**](https://hostez.io) | Providing North America Valheim, Minecraft and other popular games with low latency, high uptime and maximum availability. EZ! | [Website](https://hostez.io) |
-| [**Nero Nodes**](https://neronodes.net) | A Minecraft server provider that's completely free, 24/7. | [GitHub](https://github.com/lucatolton) |
-| [**SneakyHub**](https://sneakyhub.com/discord) | A SneakyNodes LTD project, Free 24/7 hosting for games, websites, discord bots and more. | [GitHub](https://github.com/sneakyhub) |
-| [**Lightbulb Host**](https://lightbulb.host) | A Discord bot host that offers free hosting, 24/7. | [Discord](https://discord.wumpus.host) |
-| [**GigaNodes**](https://client.giganodes.net) | A cheap host, with many locations like Europe, United States, Asia, United Kingdom | [Discord](https://discord.gg/dSgpmZ2C) |
-| [**ShieldCore**](https://crypto-hosting.eu) | ShieldCore offer high performance servers with extreme DDoS protection! | [Website](https://crypto-hosting.eu) |
-| [**ShadowHub**](https://shadowhub.tk/) | Server hosting for Discord Bots, Minecraft servers and more. | [Discord](https://discord.gg/sXxJ7PkhC3) |
+| [**Nenhum patrocínio**](https://) | Descrição | [@ninguém](https://) |
 
 ## Previews
 ![image](https://user-images.githubusercontent.com/72230943/201116518-af5e3291-74f7-433a-b035-6d80e8c7e8f8.png)

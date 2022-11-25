@@ -40,15 +40,15 @@ export default () => {
     return (
         <ServerContentBlock title={'Schedules'}>
             <FlashMessageRender byKey={'schedules'} css={tw`mb-4`} />
-            <h1 className={'j-left text-5xl'}>Schedules</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>Manage functions for your server.</h3>
+            <h1 className={'j-left text-5xl'}>Programações</h1>
+            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>Gerencie funções para seu servidor.</h3>
             {!schedules.length && loading ? (
                 <Spinner size={'large'} centered />
             ) : (
                 <>
                     {schedules.length === 0 ? (
                         <p css={tw`text-sm text-center text-neutral-300`}>
-                            There are no schedules configured for this server.
+                            Não há programações configuradas para este servidor.
                         </p>
                     ) : (
                         schedules.map((schedule) => (
@@ -70,7 +70,7 @@ export default () => {
                         <div css={tw`mt-8 flex justify-end`}>
                             <EditScheduleModal visible={visible} onModalDismissed={() => setVisible(false)} />
                             <Button type={'button'} onClick={() => setVisible(true)}>
-                                Create schedule
+                            Criar programação
                             </Button>
                         </div>
                     </Can>

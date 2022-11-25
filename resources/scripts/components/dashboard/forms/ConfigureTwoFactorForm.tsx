@@ -32,14 +32,14 @@ export default () => {
             <DisableTOTPDialog open={visible === 'disable'} onClose={() => setVisible(null)} />
             <p css={tw`text-sm`}>
                 {isEnabled
-                    ? 'Two-step verification is currently enabled on your account.'
-                    : 'You do not currently have two-step verification enabled on your account. Click the button below to begin configuring it.'}
+                    ? 'A verificação em duas etapas está atualmente activa na sua conta.'
+                    : ' Atualmente não tem a verificação em duas etapas ativada na sua conta. Clique no botão abaixo para iniciar a sua configuração.'}
             </p>
             <div css={tw`mt-6`}>
                 {isEnabled ? (
-                    <Button.Danger onClick={() => setVisible('disable')}>Disable Two-Step</Button.Danger>
+                    <Button.Danger onClick={() => setVisible('disable')}>Desativar Duas Etapas</Button.Danger>
                 ) : (
-                    <Button onClick={() => setVisible('enable')}>Enable Two-Step</Button>
+                    <Button onClick={() => setVisible('enable')}>Ativar Duas Etapas</Button>
                 )}
             </div>
         </div>

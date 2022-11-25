@@ -22,16 +22,16 @@ const ServerConsoleContainer = () => {
     const isTransferring = ServerContext.useStoreState((state) => state.server.data!.isTransferring);
     const eggFeatures = ServerContext.useStoreState((state) => state.server.data!.eggFeatures, isEqual);
     const isNodeUnderMaintenance = ServerContext.useStoreState((state) => state.server.data!.isNodeUnderMaintenance);
-
+    
     return (
         <ServerContentBlock title={'Console'}>
             {(isNodeUnderMaintenance || isInstalling || isTransferring) && (
                 <Alert type={'warning'} className={'mb-4'}>
                     {isNodeUnderMaintenance
-                        ? 'The node of this server is currently under maintenance and all actions are unavailable.'
+                        ? 'O nó deste servidor está atualmente em manutenção e todas as ações não estão disponíveis.'
                         : isInstalling
-                        ? 'This server is currently running its installation process and most actions are unavailable.'
-                        : 'This server is currently being transferred to another node and all actions are unavailable.'}
+                        ? 'Atualmente, este servidor está executando seu processo de instalação e a maioria das ações não está disponível.'
+                        : 'Atualmente, este servidor está sendo transferido para outro nó e todas as ações não estão disponíveis.'}
                 </Alert>
             )}
             <FlashMessageRender byKey={'console:share'} className={'mb-2'} />

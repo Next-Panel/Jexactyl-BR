@@ -39,8 +39,8 @@ export default () => {
     return (
         <ServerContentBlock title={'Databases'}>
             <FlashMessageRender byKey={'databases'} css={tw`mb-4`} />
-            <h1 className={'j-left text-5xl'}>Databases</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>Create databases for your application.</h3>
+            <h1 className={'j-left text-5xl'}>Bancos de dados</h1>
+            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>Crie bancos de dados para o seu game.</h3>
             {!databases.length && loading ? (
                 <Spinner size={'large'} centered />
             ) : (
@@ -57,16 +57,16 @@ export default () => {
                         ) : (
                             <p css={tw`text-center text-sm text-neutral-300`}>
                                 {databaseLimit > 0
-                                    ? 'It looks like you have no databases.'
-                                    : 'Databases cannot be created for this server.'}
+                                    ? 'Parece que você não tem bancos de dados.'
+                                    : 'Os bancos de dados não podem ser criados para este servidor.'}
                             </p>
                         )}
                         <Can action={'database.create'}>
                             <div css={tw`mt-6 flex items-center justify-end`}>
                                 {databaseLimit > 0 && databases.length > 0 && (
                                     <p css={tw`text-sm text-neutral-300 mb-4 sm:mr-6 sm:mb-0`}>
-                                        {databases.length} of {databaseLimit} databases have been allocated to this
-                                        server.
+                                        {databases.length} de {databaseLimit} bancos de dados foram alocados para isso
+                                        servidor.
                                     </p>
                                 )}
                                 {databaseLimit > 0 && databaseLimit !== databases.length && (

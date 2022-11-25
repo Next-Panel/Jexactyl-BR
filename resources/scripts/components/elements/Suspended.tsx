@@ -73,7 +73,7 @@ export default () => {
                 onConfirmed={() => doRenewal()}
             >
                 <SpinnerOverlay visible={isSubmit} />
-                Are you sure you want to spend {store.renewals.cost} credits to renew your server?
+                Tem certeza que deseja gastar {store.renewals.cost} {store.currency} Para renovar seu servidor?
             </Dialog.Confirm>
             <Dialog.Confirm
                 open={deleteDialog}
@@ -83,14 +83,14 @@ export default () => {
                 onConfirmed={() => setConfirmDialog(true)}
             >
                 <SpinnerOverlay visible={isSubmit} />
-                This action will remove your server from the system, along with all files and configurations.
+                Essa ação removerá seu servidor do sistema, juntamente com todos os arquivos e configurações.
             </Dialog.Confirm>
             <form id={'delete-suspended-server-form'} onSubmit={doDeletion}>
                 <Dialog open={confirmDialog} title={'Confirm server deletion'} onClose={() => setConfirmDialog(false)}>
                     {name !== serverName && (
                         <>
                             <p className={'my-2 text-gray-400'}>
-                                Type <Code>{serverName}</Code> below.
+                                Modelo <Code>{serverName}</Code> abaixo de.
                             </p>
                             <Input type={'text'} value={name} onChange={(n) => setName(n.target.value)} />
                         </>
@@ -101,7 +101,7 @@ export default () => {
                         className={'mt-2'}
                         form={'delete-suspended-server-form'}
                     >
-                        Confirm
+                        Confirme
                     </Button>
                 </Dialog>
             </form>
@@ -112,32 +112,32 @@ export default () => {
                         css={tw`w-full sm:w-3/4 md:w-1/2 p-12 md:p-20 bg-neutral-900 rounded-lg shadow-lg text-center relative`}
                     >
                         <img src={ServerErrorSvg} css={tw`w-2/3 h-auto select-none mx-auto`} />
-                        <h2 css={tw`mt-10 font-bold text-4xl`}>Suspended</h2>
+                        <h2 css={tw`mt-10 font-bold text-4xl`}>Suspenso</h2>
                         {renewable ? (
                             <>
                                 <p css={tw`text-sm my-2`}>
-                                    Your server has been suspended due to it not being renewed on time. Please click the
-                                    &apos;Renew&apos; button in order to reactivate your server. If you want to delete
-                                    your server, the resources will automatically be added back to your account so you
-                                    can re-deploy a new server easily.
+                                    Seu servidor foi suspenso por não ser renovado a tempo. Clique no
+                                    Renove o botão para reativar seu servidor. Se você quiser excluir
+                                    Seu servidor, os recursos serão adicionados automaticamente à sua conta para que você
+                                    pode implantar novamente um novo servidor facilmente.
                                 </p>
                                 <Button
                                     className={'mx-2 my-1'}
                                     onClick={() => setRenewDialog(true)}
                                     disabled={isSubmit}
                                 >
-                                    Renew Now
+                                    Renovar agora
                                 </Button>
                                 <Button.Danger
                                     className={'mx-2 my-1'}
                                     onClick={() => setDeleteDialog(true)}
                                     disabled={isSubmit}
                                 >
-                                    Delete Server
+                                    Excluir servidor
                                 </Button.Danger>
                             </>
                         ) : (
-                            <>This server is suspended and cannot be accessed.</>
+                            <>Este servidor está suspenso e não pode ser acessado. acesse: <a  className='text-blue-600'   href="https://dash.seventyhost.net/">https://dash.seventyhost.net/</a></>
                         )}
                     </div>
                 </div>

@@ -48,7 +48,7 @@ export default () => {
                 addFlash({
                     key: 'server:plugins',
                     type: 'success',
-                    message: 'Plugin installed successfully.',
+                    message: 'Plugin instalado com sucesso.',
                 })
             )
             .catch((error) => clearAndAddHttpError(error));
@@ -57,8 +57,8 @@ export default () => {
     return (
         <ServerContentBlock title={'Plugins'}>
             <FlashMessageRender byKey={'server:plugins'} />
-            <h1 className={'j-left text-5xl'}>Plugin Installer</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>Search and download Spigot plugins.</h3>
+            <h1 className={'j-left text-5xl'}>Instalador de Plug-ins</h1>
+            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>Pesquise e faça o download dos plugins de Spigot.</h3>
             <Formik
                 onSubmit={submit}
                 initialValues={{ query: '' }}
@@ -84,11 +84,11 @@ export default () => {
             {!data ? null : (
                 <>
                     {!data.plugins ? (
-                        <p className={'j-up text-gray-400 text-center'}>Waiting for a search query to be provided...</p>
+                        <p className={'j-up text-gray-400 text-center'}>Aguardando uma consulta de busca...</p>
                     ) : (
                         <>
                             {data.plugins.length < 1 ? (
-                                <p>Couldn&apos;t find any plugins.</p>
+                                <p>Não foi encontrado nenhum plug-in.</p>
                             ) : (
                                 <div className={'j-up lg:grid lg:grid-cols-3 p-2'}>
                                     {data.plugins.map((plugin, key) => (
@@ -96,10 +96,10 @@ export default () => {
                                             <Dialog.Confirm
                                                 open={open}
                                                 onClose={() => setOpen(false)}
-                                                title={'Plugin Installation'}
+                                                title={'Instalação de Plug-in'}
                                                 onConfirmed={() => doDownload(plugin.id)}
                                             >
-                                                Are you sure you wish to download this plugin?
+                                                Você tem certeza de que deseja baixar este plug-in?
                                             </Dialog.Confirm>
                                             <TitledGreyBox title={plugin.name} key={key} className={'m-2'}>
                                                 <div className={'lg:grid lg:grid-cols-5'}>

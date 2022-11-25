@@ -34,31 +34,31 @@ export default () => {
     const referrals = useStoreState((state) => state.storefront.data!.referrals.enabled);
 
     return (
-        <PageContentBlock title={'Account Overview'}>
-            <h1 className={'j-left text-5xl'}>Account Overview</h1>
-            <h3 className={'j-left text-2xl text-neutral-500'}>View and update account details.</h3>
+        <PageContentBlock title={'Visão Geral da Conta'}>
+            <h1 className={'j-left text-5xl'}>Visão Geral da Conta</h1>
+            <h3 className={'j-left text-2xl text-neutral-500'}>Ver e atualizar os detalhes da conta.</h3>
             {state?.twoFactorRedirect && (
                 <Alert type={'error'}>
-                    Your account must have two-factor authentication enabled in order to continue.
+                    A sua conta deve ter a autenticação de duas etapas ativada para poder continuar.
                 </Alert>
             )}
             <Container
                 className={'j-up'}
                 css={[tw`lg:grid lg:grid-cols-2 gap-8 mb-10`, state?.twoFactorRedirect ? tw`mt-4` : tw`mt-10`]}
             >
-                <ContentBox title={'Update Username'} showFlashes={'account:username'}>
+                <ContentBox title={'Utualizar Usuário'} showFlashes={'account:username'}>
                     <UpdateUsernameForm />
                 </ContentBox>
-                <ContentBox title={'Update Email Address'} showFlashes={'account:email'}>
+                <ContentBox title={'Atualizar Endereço de Email'} showFlashes={'account:email'}>
                     <UpdateEmailAddressForm />
                 </ContentBox>
                 {referrals && (
-                    <ContentBox title={'Referral Codes'} showFlashes={'account:referral'}>
+                    <ContentBox title={'Código de Referéncia'} showFlashes={'account:referral'}>
                         <AddReferralCodeForm />
                     </ContentBox>
                 )}
                 {discord && (
-                    <ContentBox title={'Connect with Discord'} showFlashes={'account:discord'}>
+                    <ContentBox title={'Conectar com o Discord'} showFlashes={'account:discord'}>
                         <DiscordAccountForm />
                     </ContentBox>
                 )}

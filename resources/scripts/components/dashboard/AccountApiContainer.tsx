@@ -41,28 +41,28 @@ export default () => {
     };
 
     return (
-        <PageContentBlock title={'Account API'}>
-            <h1 className={'j-left text-5xl'}>API Keys</h1>
-            <h3 className={'j-left text-2xl text-neutral-500'}>Create API keys to interact with the Panel.</h3>
+        <PageContentBlock title={'API da Conta'}>
+            <h1 className={'j-left text-5xl'}>Chaves API</h1>
+            <h3 className={'j-left text-2xl text-neutral-500'}>Criar chaves API para interagir com o Painel.</h3>
             <FlashMessageRender byKey={'account'} />
             <div className={'j-up md:flex flex-nowrap my-10'}>
-                <ContentBox title={'Create API Key'} css={tw`flex-none w-full md:w-1/2`}>
+                <ContentBox title={'Criar Chave API'} css={tw`flex-none w-full md:w-1/2`}>
                     <CreateApiKeyForm onKeyCreated={(key) => setKeys((s) => [...s!, key])} />
                 </ContentBox>
-                <ContentBox title={'API Keys'} css={tw`flex-1 overflow-hidden mt-8 md:mt-0 md:ml-8`}>
+                <ContentBox title={'Chaves API'} css={tw`flex-1 overflow-hidden mt-8 md:mt-0 md:ml-8`}>
                     <SpinnerOverlay visible={loading} />
                     <Dialog.Confirm
-                        title={'Delete API Key'}
-                        confirm={'Delete Key'}
+                        title={'Deletar Chave API'}
+                        confirm={'Deletar Chave'}
                         open={!!deleteIdentifier}
                         onClose={() => setDeleteIdentifier('')}
                         onConfirmed={() => doDeletion(deleteIdentifier)}
                     >
-                        All requests using the <Code>{deleteIdentifier}</Code> key will be invalidated.
+                        Todos os pedidos utilizando a chave <Code>{deleteIdentifier}</Code> será invalidado.
                     </Dialog.Confirm>
                     {keys.length === 0 ? (
                         <p css={tw`text-center text-sm`}>
-                            {loading ? 'Loading...' : 'No API keys exist for this account.'}
+                            {loading ? 'Carregando...' : 'Não existem chaves API para esta conta.'}
                         </p>
                     ) : (
                         keys.map((key, index) => (

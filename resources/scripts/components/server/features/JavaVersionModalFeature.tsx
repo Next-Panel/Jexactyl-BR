@@ -16,9 +16,9 @@ import setSelectedDockerImage from '@/api/server/setSelectedDockerImage';
 const MATCH_ERRORS = [
     'unsupported major.minor version',
     'java.lang.unsupportedclassversionerror',
-    'has been compiled by a more recent version of the java runtime',
-    'minecraft 1.17 requires running the server with java 16 or above',
-    'minecraft 1.18 requires running the server with java 17 or above',
+    'foi compilado por uma versão mais recente do tempo de execução do Java',
+    'minecraft 1.17 Requer executar o servidor com Java 16 ou acima',
+    'minecraft 1.18 Requer executar o servidor com Java 17 ou acima',
 ];
 
 const JavaVersionModalFeature = () => {
@@ -76,11 +76,11 @@ const JavaVersionModalFeature = () => {
             showSpinnerOverlay={loading}
         >
             <FlashMessageRender key={'feature:javaVersion'} css={tw`mb-4`} />
-            <h2 css={tw`text-2xl mb-4 text-neutral-100`}>Unsupported Java Version</h2>
+            <h2 css={tw`text-2xl mb-4 text-neutral-100`}>Versão Java não suportada</h2>
             <p css={tw`mt-4`}>
-                This server is currently running an unsupported version of Java and cannot be started.
+                Atualmente, este servidor está executando uma versão não suportada do Java e não pode ser iniciada.
                 <Can action={'startup.docker-image'}>
-                    &nbsp;Please select a supported version from the list below to continue starting the server.
+                    &nbsp;Selecione uma versão suportada na lista abaixo para continuar iniciando o servidor.
                 </Can>
             </p>
             <Can action={'startup.docker-image'}>
@@ -106,11 +106,11 @@ const JavaVersionModalFeature = () => {
                     onClick={() => setVisible(false)}
                     css={tw`w-full sm:w-auto`}
                 >
-                    Cancel
+                    Cancelar
                 </Button>
                 <Can action={'startup.docker-image'}>
                     <Button onClick={updateJava} css={tw`w-full sm:w-auto`}>
-                        Update Docker Image
+                        Atualize a imagem do Docker
                     </Button>
                 </Can>
             </div>

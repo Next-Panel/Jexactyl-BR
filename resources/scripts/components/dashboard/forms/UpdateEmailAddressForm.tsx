@@ -16,7 +16,7 @@ interface Values {
 
 const schema = Yup.object().shape({
     email: Yup.string().email().required(),
-    password: Yup.string().required('You must provide your current account password.'),
+    password: Yup.string().required('Deve fornecer a sua senha de conta corrente.'),
 });
 
 export default () => {
@@ -33,14 +33,14 @@ export default () => {
                 addFlash({
                     type: 'success',
                     key: 'account:email',
-                    message: 'Your primary email has been updated.',
+                    message: 'O seu e-mail principal foi atualizado.',
                 })
             )
             .catch((error) =>
                 addFlash({
                     type: 'error',
                     key: 'account:email',
-                    title: 'Error',
+                    title: 'Erro',
                     message: httpErrorToHuman(error),
                 })
             )
@@ -62,11 +62,11 @@ export default () => {
                                 id={'confirm_password'}
                                 type={'password'}
                                 name={'password'}
-                                label={'Confirm Password'}
+                                label={'Confirmar Senha'}
                             />
                         </div>
                         <div css={tw`mt-6`}>
-                            <Button disabled={isSubmitting || !isValid}>Update Email</Button>
+                            <Button disabled={isSubmitting || !isValid}>Atualizar Email</Button>
                         </div>
                     </Form>
                 </React.Fragment>

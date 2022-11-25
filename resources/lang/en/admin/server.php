@@ -1,27 +1,34 @@
 <?php
+/**
+ * Pterodactyl - Panel
+ * Copyright (c) 2015 - 2017 Dane Everitt <dane@daneeveritt.com>.
+ *
+ * This software is licensed under the terms of the MIT license.
+ * https://opensource.org/licenses/MIT
+ */
 
 return [
     'exceptions' => [
-        'no_new_default_allocation' => 'You are attempting to delete the default allocation for this server but there is no fallback allocation to use.',
-        'marked_as_failed' => 'This server was marked as having failed a previous installation. Current status cannot be toggled in this state.',
-        'bad_variable' => 'There was a validation error with the :name variable.',
-        'daemon_exception' => 'There was an exception while attempting to communicate with the daemon resulting in a HTTP/:code response code. This exception has been logged. (request id: :request_id)',
-        'default_allocation_not_found' => 'The requested default allocation was not found in this server\'s allocations.',
+        'no_new_default_allocation' => 'Você está tentando excluir a alocação padrão para este servidor, mas não há alocação de recuo para usar.',
+        'marked_as_failed' => 'Este servidor foi marcado como tendo falhado em uma instalação anterior. O status atual não pode ser alternado neste estado.',
+        'bad_variable' => 'Houve um erro de validação com a variável :name.',
+        'daemon_exception' => 'Houve uma exceção ao tentar se comunicar com o daemon resultando em um código de resposta HTTP/: Esta exceção foi registrada. (request id: :request_id)',
+        'default_allocation_not_found' => 'A alocação padrão solicitada não foi encontrada neste servidor\'s Alocações.',
     ],
     'alerts' => [
-        'startup_changed' => 'The startup configuration for this server has been updated. If this server\'s nest or egg was changed a reinstall will be occurring now.',
-        'server_deleted' => 'Server has successfully been deleted from the system.',
-        'server_created' => 'Server was successfully created on the panel. Please allow the daemon a few minutes to completely install this server.',
-        'build_updated' => 'The build details for this server have been updated. Some changes may require a restart to take effect.',
-        'suspension_toggled' => 'Server suspension status has been changed to :status.',
-        'rebuild_on_boot' => 'This server has been marked as requiring a Docker Container rebuild. This will happen the next time the server is started.',
-        'install_toggled' => 'The installation status for this server has been toggled.',
-        'server_reinstalled' => 'This server has been queued for a reinstallation beginning now.',
-        'details_updated' => 'Server details have been successfully updated.',
-        'docker_image_updated' => 'Successfully changed the default Docker image to use for this server. A reboot is required to apply this change.',
-        'node_required' => 'You must have at least one node configured before you can add a server to this panel.',
-        'transfer_nodes_required' => 'You must have at least two nodes configured before you can transfer servers.',
-        'transfer_started' => 'Server transfer has been started.',
-        'transfer_not_viable' => 'The node you selected does not have the required disk space or memory available to accommodate this server.',
+        'startup_changed' => 'A configuração de inicialização para este servidor foi atualizada. Se este servidor\'s ninho ou egg foi alterado uma reinstalação vai ocorrer agora.',
+        'server_deleted' => 'O servidor foi excluído com sucesso do sistema.',
+        'server_created' => 'O servidor foi criado com sucesso no painel. Por favor, permita que o daemon alguns minutos instale completamente este servidor.',
+        'build_updated' => 'Os detalhes da compilação deste servidor foram atualizados. Algumas alterações podem exigir um reiniciar para fazer efeito.',
+        'suspension_toggled' => 'O status de suspensão do servidor foi alterado para :status.',
+        'rebuild_on_boot' => 'Este servidor foi marcado como exigindo uma reconstrução do Contêiner Docker. Isso acontecerá na próxima vez que o servidor for iniciado.',
+        'install_toggled' => 'O status de instalação deste servidor foi alternado.',
+        'server_reinstalled' => 'Este servidor foi enfileiado para uma reinstalação a partir de agora.',
+        'details_updated' => 'Os detalhes do servidor foram atualizados com sucesso.',
+        'docker_image_updated' => 'Alterou com sucesso a imagem padrão do Docker para usar para este servidor. Uma reinicialização é necessária para aplicar essa alteração.',
+        'node_required' => 'Você deve ter pelo menos um Node configurado antes de poder adicionar um servidor a este painel.',
+        'transfer_nodes_required' => 'Você deve ter pelo menos dois Nodes configurados antes de poder transferir servidores.',
+        'transfer_started' => 'A transferência do servidor foi iniciada.',
+        'transfer_not_viable' => 'O Node selecionado não tem o espaço ou memória de disco necessários para acomodar este servidor.',
     ],
 ];

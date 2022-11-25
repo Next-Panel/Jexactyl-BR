@@ -50,10 +50,10 @@ export default () => {
     return (
         <ServerContentBlock title={'Users'}>
             <FlashMessageRender byKey={'users'} css={tw`mb-4`} />
-            <h1 className={'j-left text-5xl'}>Subusers</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>Add or remove users from your server.</h3>
+            <h1 className={'j-left text-5xl'}>Sub-usuário</h1>
+            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>Adicione ou remova os usuários que podem gerenciar seu servidor.</h3>
             {!subusers.length ? (
-                <p css={tw`text-center text-sm text-neutral-300`}>It looks like you don&apos;t have any subusers.</p>
+                <p css={tw`text-center text-sm text-neutral-300`}>Parece que você não tem nenhum sub-usuário.</p>
             ) : (
                 subusers.map((subuser) => <UserRow key={subuser.uuid} subuser={subuser} />)
             )}

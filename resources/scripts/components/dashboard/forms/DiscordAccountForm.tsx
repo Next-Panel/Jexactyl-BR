@@ -15,12 +15,12 @@ export default () => {
     return (
         <>
             {discordId ? (
-                <p className={'text-gray-400'}>Your account is currently linked to the Discord: {discordId}</p>
+                <p className={'text-gray-400'}>A sua conta está atualmente ligada ao Discord: {discordId}</p>
             ) : (
                 <>
-                    <p className={'text-gray-400'}>Your account is not linked to Discord.</p>
+                    <p className={'text-gray-400'}>A sua conta não está ligada ao Discord.</p>
                     <Button.Success className={'mt-4'} onClick={() => link()}>
-                        Connect with Discord
+                        Linkar com o Discord
                     </Button.Success>
                 </>
             )}

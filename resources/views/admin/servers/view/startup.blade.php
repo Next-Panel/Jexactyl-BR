@@ -1,16 +1,16 @@
 @extends('layouts.admin')
 
 @section('title')
-    Server — {{ $server->name }}: Startup
+Servidor — {{ $server->name }}: Inicialização
 @endsection
 
 @section('content-header')
-    <h1>{{ $server->name }}<small>Control startup command as well as variables.</small></h1>
+    <h1>{{ $server->name }}<small>Comando de inicialização de controle, bem como variáveis.</small></h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.index') }}">Admin</a></li>
-        <li><a href="{{ route('admin.servers') }}">Servers</a></li>
+        <li><a href="{{ route('admin.servers') }}">Servidores</a></li>
         <li><a href="{{ route('admin.servers.view', $server->id) }}">{{ $server->name }}</a></li>
-        <li class="active">Startup</li>
+        <li class="active">Inicialização</li>
     </ol>
 @endsection
 
@@ -21,20 +21,22 @@
         <div class="col-xs-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Startup Command Modification</h3>
+                    <h3 class="box-title">Modificar comando de Inicialização</h3>
                 </div>
                 <div class="box-body">
-                    <label for="pStartup" class="form-label">Startup Command</label>
+                    <label for="pStartup" class="form-label">Comando de inicialização</label>
                     <input id="pStartup" name="startup" class="form-control" type="text" value="{{ old('startup', $server->startup) }}" />
-                    <p class="small text-muted">Edit your server's startup command here. The following variables are available by default: <code>@{{SERVER_MEMORY}}</code>, <code>@{{SERVER_IP}}</code>, and <code>@{{SERVER_PORT}}</code>.</p>
+                    <p class="small text-muted">Edite aqui o comando de inicialização de seu servidor.
+                    As seguintes variáveis estão disponíveis por padrão:
+                          <code>@{{SERVER_MEMORY}}</code>, <code>@{{SERVER_IP}}</code>, e <code>@{{SERVER_PORT}}</code>.</p>
                 </div>
                 <div class="box-body">
-                    <label for="pDefaultStartupCommand" class="form-label">Default Service Start Command</label>
+                    <label for="pDefaultStartupCommand" class="form-label">Comando de inicialização padrão</label>
                     <input id="pDefaultStartupCommand" class="form-control" type="text" readonly />
                 </div>
                 <div class="box-footer">
                     {!! csrf_field() !!}
-                    <button type="submit" class="btn btn-primary btn-sm pull-right">Save Modifications</button>
+                    <button type="submit" class="btn btn-primary btn-sm pull-right">Salvar Modificações</button>
                 </div>
             </div>
         </div>
@@ -43,16 +45,18 @@
         <div class="col-md-6">
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Service Configuration</h3>
+                    <h3 class="box-title">Configurações dos serviços</h3>
                 </div>
                 <div class="box-body row">
                     <div class="col-xs-12">
                         <p class="small text-danger">
-                            Changing any of the below values will result in the server processing a re-install command. The server will be stopped and will then proceed.
-                            If you would like the service scripts to not run, ensure the box is checked at the bottom.
+                        A alteração de qualquer um dos valores abaixo resultará em um comando de reinstalação no servidor.
+                            O servidor será parado e então prosseguirá.
+                            Se você quiser que os scripts de serviço não sejam executados, certifique-se de que a caixa esteja marcada na parte inferior.
                         </p>
                         <p class="small text-danger">
-                            <strong>This is a destructive operation in many cases. This server will be stopped immediately in order for this action to proceed.</strong>
+                            <strong>Esta é em muitos casos uma operação destrutiva.
+                                Este servidor será interrompido imediatamente para que esta ação prossiga.</strong>
                         </p>
                     </div>
                     <div class="form-group col-xs-12">
@@ -66,32 +70,34 @@
                                 >{{ $nest->name }}</option>
                             @endforeach
                         </select>
-                        <p class="small text-muted no-margin">Select the Nest that this server will be grouped into.</p>
+                        <p class="small text-muted no-margin">Selecione o Nest no qual este servidor será agrupado.</p>
                     </div>
                     <div class="form-group col-xs-12">
                         <label for="pEggId">Egg</label>
                         <select name="egg_id" id="pEggId" class="form-control"></select>
-                        <p class="small text-muted no-margin">Select the Egg that will provide processing data for this server.</p>
+                        <p class="small text-muted no-margin">Selecione o Egg que fornecerá os dados de processamento para este servidor.</p>
                     </div>
                     <div class="form-group col-xs-12">
                         <div class="checkbox checkbox-primary no-margin-bottom">
                             <input id="pSkipScripting" name="skip_scripts" type="checkbox" value="1" @if($server->skip_scripts) checked @endif />
-                            <label for="pSkipScripting" class="strong">Skip Egg Install Script</label>
+                            <label for="pSkipScripting" class="strong">Pular o Script de Instalação do Egg</label>
                         </div>
-                        <p class="small text-muted no-margin">If the selected Egg has an install script attached to it, the script will run during install. If you would like to skip this step, check this box.</p>
+                        <p class="small text-muted no-margin">Se o Egg selecionado tiver um script de instalação anexado a ele, o script será executado durante a instalação.
+                             Se você gostaria de pular esta etapa, marque esta caixa.</p>
                     </div>
                 </div>
             </div>
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Docker Image Configuration</h3>
+                    <h3 class="box-title">Configuração da imagem do Docker</h3>
                 </div>
                 <div class="box-body">
                     <div class="form-group">
-                        <label for="pDockerImage">Image</label>
+                        <label for="pDockerImage">Imagem</label>
                         <select id="pDockerImage" name="docker_image" class="form-control"></select>
                         <input id="pDockerImageCustom" name="custom_docker_image" value="{{ old('custom_docker_image') }}" class="form-control" placeholder="Or enter a custom image..." style="margin-top:1rem"/>
-                        <p class="small text-muted no-margin">This is the Docker image that will be used to run this server. Select an image from the dropdown or enter a custom image in the text field above.</p>
+                        <p class="small text-muted no-margin">Esta é a imagem do Docker que será usada para executar este servidor.
+Selecione uma imagem do campo ou digite uma imagem personalizada no campo de texto acima.</p>
                     </div>
                 </div>
             </div>

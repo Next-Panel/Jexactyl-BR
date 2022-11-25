@@ -1,16 +1,16 @@
 @extends('layouts.admin')
 
 @section('title')
-    Server — {{ $server->name }}: Delete
+Servidor — {{ $server->name }}: Deletar
 @endsection
 
 @section('content-header')
-    <h1>{{ $server->name }}<small>Delete this server from the panel.</small></h1>
+    <h1>{{ $server->name }}<small>Excluir este servidor do painel.</small></h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.index') }}">Admin</a></li>
-        <li><a href="{{ route('admin.servers') }}">Servers</a></li>
+        <li><a href="{{ route('admin.servers') }}">Servidores</a></li>
         <li><a href="{{ route('admin.servers.view', $server->id) }}">{{ $server->name }}</a></li>
-        <li class="active">Delete</li>
+        <li class="active">Deletar</li>
     </ol>
 @endsection
 
@@ -21,18 +21,18 @@
         <div class="col-md-6">
             <div class="box box-warning">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Safely Delete Server</h3>
+                    <h3 class="box-title">Excluir servidor com segurança</h3>
                 </div>
                 <div class="box-body">
-                    <p>This will attempt to remove the server from the associated node and remove data linked to it.</p>
+                    <p>Isto tentará remover o servidor do Node associado e remover os dados ligados a ele.</p>
                     <div class="checkbox checkbox-primary no-margin-bottom">
                         <input id="pReturnResourcesSafe" name="return_resources" type="checkbox" value="1" />
-                        <label for="pReturnResourcesSafe">Return resources to user on server deletion?</label>
+                        <label for="pReturnResourcesSafe">Devolver recursos ao usuário na exclusão do servidor?</label>
                     </div>
                 </div>
                 <div class="box-footer">
                     {!! csrf_field() !!}
-                    <button id="deletebtn" class="btn btn-warning">Safely Delete This Server</button>
+                    <button id="deletebtn" class="btn btn-warning">Apagar este servidor de forma segura</button>
                 </div>
             </div>
         </div>
@@ -41,19 +41,19 @@
         <div class="col-md-6">
             <div class="box box-danger">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Forcibly Delete Server</h3>
+                    <h3 class="box-title">Excluir à força o servidor</h3>
                 </div>
                 <div class="box-body">
-                    <p>This will remove all server data from the Panel regardless of whether Wings is able to delete the server from the system.</p>
+                    <p>Isto removerá todos os dados do servidor do Painel, independentemente de Wings ser capaz de excluir o servidor do sistema.</p>
                     <div class="checkbox checkbox-primary no-margin-bottom">
                         <input id="pReturnResources" name="return_resources" type="checkbox" value="1" />
-                        <label for="pReturnResources">Return resources to user on server deletion?</label>
+                        <label for="pReturnResources">Devolver recursos ao usuário na exclusão do servidor?</label>
                     </div>
                 </div>
                 <div class="box-footer">
                     {!! csrf_field() !!}
                     <input type="hidden" name="force_delete" value="1" />
-                    <button id="forcedeletebtn"" class="btn btn-danger">Forcibly Delete This Server</button>
+                    <button id="forcedeletebtn"" class="btn btn-danger">Excluir à força este servidor</button>
                 </div>
             </div>
         </div>
@@ -67,8 +67,8 @@
     $('#deletebtn').click(function (event) {
         event.preventDefault();
         swal({
-            title: 'Delete Server',
-            text: 'All data will be removed from the Panel and your node.',
+            title: 'Excluir servidor',
+            text: 'Todos os dados serão removidos do Painel e de seu Node.',
             showCancelButton: true,
             confirmButtonText: 'Delete',
             confirmButtonColor: 'orange',
@@ -81,8 +81,8 @@
     $('#forcedeletebtn').click(function (event) {
         event.preventDefault();
         swal({
-            title: 'Delete Server',
-            text: 'All data will be removed from the Panel and your node.',
+            title: 'Excluir servidor',
+            text: 'Todos os dados serão removidos do Painel e de seu Node.',
             showCancelButton: true,
             confirmButtonText: 'Delete',
             confirmButtonColor: 'red',

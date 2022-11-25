@@ -2,11 +2,11 @@
 @include('partials/admin.jexactyl.nav', ['activeTab' => 'server'])
 
 @section('title')
-    Jexactyl Servers
+   Servidores Jexactyl
 @endsection
 
 @section('content-header')
-    <h1>Server Settings<small>Configure Jexactyl's server settings.</small></h1>
+    <h1>Configurações do servidor<small>Definir as configurações do servidor da Jexactyl.</small></h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.index') }}">Admin</a></li>
         <li class="active">Jexactyl</li>
@@ -26,38 +26,38 @@
                     @endif
                 ">
                     <div class="box-header with-border">
-                        <i class="fa fa-clock-o"></i> <h3 class="box-title">Server Renewals <small>Configure settings for server renewals.</small></h3>
+                        <i class="fa fa-clock-o"></i> <h3 class="box-title">Renovações dos servidores <small>Definir as configurações das renovações dos servidores.</small></h3>
                     </div>
                     <div class="box-body">
                         <div class="row">
                             <div class="form-group col-md-4">
-                                <label class="control-label">Renewal System</label>
+                                <label class="control-label">Sistema de renovação</label>
                                 <div>
                                     <select name="enabled" class="form-control">
-                                        <option @if ($enabled == 'false') selected @endif value="false">Disabled</option>
-                                        <option @if ($enabled == 'true') selected @endif value="true">Enabled</option>
+                                        <option @if ($enabled == 'false') selected @endif value="false">Desabilitado</option>
+                                        <option @if ($enabled == 'true') selected @endif value="true">Habilitado</option>
                                     </select>
-                                    <p class="text-muted"><small>Determines whether users must renew their servers.</small></p>
+                                    <p class="text-muted"><small>Determina se os usuários precisam renovar seus servidores.</small></p>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="control-label">Default Renewal Timer</label>
+                                <label class="control-label">Prazo de renovação padrão</label>
                                 <div>
                                     <div class="input-group">
                                         <input type="text" id="default" name="default" class="form-control" value="{{ $default }}" />
-                                        <span class="input-group-addon">days</span>
+                                        <span class="input-group-addon">dias</span>
                                     </div>
-                                    <p class="text-muted"><small>Determines the amount of days that servers have before their first renewal is due.</small></p>
+                                    <p class="text-muted"><small>Determina a quantidade de dias que os servidores têm antes que sua renovação seja necessária.</small></p>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="control-label">Renewal cost</label>
+                                <label class="control-label">Custo de renovação</label>
                                 <div>
                                     <div class="input-group">
                                         <input type="text" id="cost" name="cost" class="form-control" value="{{ $cost }}" />
-                                        <span class="input-group-addon">credits</span>
+                                        <span class="input-group-addon">créditos</span>
                                     </div>
-                                    <p class="text-muted"><small>Determines the amount of credits that a renewal costs.</small></p>
+                                    <p class="text-muted"><small>Determina a quantidade de créditos que uma renovação custa.</small></p>
                                 </div>
                             </div>
                         </div>
@@ -71,35 +71,35 @@
                     @endif
                 ">
                     <div class="box-header with-border">
-                        <i class="fa fa-server"></i> <h3 class="box-title">Server Settings <small>Configure settings for servers.</small></h3>
+                        <i class="fa fa-server"></i> <h3 class="box-title">Configurações dos servidores <small>Definir as configurações dos servidores.</small></h3>
                     </div>
                     <div class="box-body">
                         <div class="row">
                             <div class="form-group col-md-4">
-                                <label class="control-label">Server Resource Editing</label>
+                                <label class="control-label">Editar recursos dos servidores</label>
                                 <div>
                                     <select name="editing" class="form-control">
-                                        <option @if ($editing == 'false') selected @endif value="false">Disabled</option>
-                                        <option @if ($editing == 'true') selected @endif value="true">Enabled</option>
+                                        <option @if ($editing == 'false') selected @endif value="false">Desabilitado</option>
+                                        <option @if ($editing == 'true') selected @endif value="true">Habilitado</option>
                                     </select>
-                                    <p class="text-muted"><small>Determines whether users can edit the amount of resources assigned to their server.</small></p>
+                                    <p class="text-muted"><small>Determina se os usuários podem editar a quantidade de recursos atribuídos ao seu servidor.</small></p>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="control-label">Allow Server Deletion</label>
+                                <label class="control-label">Permitir a exclusão do servidor</label>
                                 <div>
                                     <select name="deletion" class="form-control">
-                                        <option @if ($deletion == 'false') selected @endif value="false">Disabled</option>
-                                        <option @if ($deletion == 'true') selected @endif value="true">Enabled</option>
+                                        <option @if ($deletion == 'false') selected @endif value="false">Desabilitado</option>
+                                        <option @if ($deletion == 'true') selected @endif value="true">Habilitado</option>
                                     </select>
-                                    <p class="text-muted"><small>Determines whether users are able to delete their own servers. (default: true)</small></p>
+                                    <p class="text-muted"><small>Determina se os usuários são capazes de excluir seus próprios servidores. (Padrão: Habilitado)</small></p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 {!! csrf_field() !!}
-                <button type="submit" name="_method" value="PATCH" class="btn btn-default pull-right">Save Changes</button>
+                <button type="submit" name="_method" value="PATCH" class="btn btn-default pull-right">Salvar mudanças</button>
             </form>
         </div>
     </div>

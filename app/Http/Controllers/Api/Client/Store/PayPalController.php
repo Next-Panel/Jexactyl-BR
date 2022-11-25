@@ -38,7 +38,7 @@ class PayPalController extends ClientApiController
         $client = $this->getClient();
         $amount = $request->input('amount');
         $cost = config('gateways.paypal.cost', 1) / 100 * $amount; // Calculate the cost of credits.
-        $currency = config('gateways.currency', 'USD');
+        $currency = config('gateways.currency', 'BRL');
 
         // This isn't the best way of doing things,
         // but we'll store a temporary database entry

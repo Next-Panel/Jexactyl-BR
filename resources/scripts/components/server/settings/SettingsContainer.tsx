@@ -20,7 +20,7 @@ export default () => {
             <FlashMessageRender byKey={'settings'} css={tw`mb-4`} />
             <h1 className={'j-left text-5xl'}>Settings</h1>
             <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>
-                Control important settings for your server.
+            Controle configurações importantes para o seu servidor.
             </h3>
             <div className={'md:flex'}>
                 <div className={'j-right w-full md:flex-1 md:mr-10'}>
@@ -31,7 +31,7 @@ export default () => {
                         </div>
                         <CopyOnClick text={uuid}>
                             <div css={tw`flex items-center justify-between mt-2 text-sm`}>
-                                <p>Server ID</p>
+                                <p>ID do servidor</p>
                                 <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>{uuid}</code>
                             </div>
                         </CopyOnClick>

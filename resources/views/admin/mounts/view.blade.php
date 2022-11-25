@@ -2,14 +2,14 @@
 @extends('layouts.admin')
 
 @section('title')
-    Mounts &rarr; View &rarr; {{ $mount->id }}
+    Montagens &rarr; View &rarr; {{ $mount->id }}
 @endsection
 
 @section('content-header')
     <h1>{{ $mount->name }}<small>{{ str_limit($mount->description, 75) }}</small></h1>
     <ol class="breadcrumb">
-        <li><a href="{{ route('admin.index') }}">Admin</a></li>
-        <li><a href="{{ route('admin.mounts') }}">Mounts</a></li>
+        <li><a href="{{ route('admin.index') }}">Administrador</a></li>
+        <li><a href="{{ route('admin.mounts') }}">Montagens</a></li>
         <li class="active">{{ $mount->name }}</li>
     </ol>
 @endsection
@@ -19,67 +19,67 @@
         <div class="col-sm-6">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Mount Details</h3>
+                    <h3 class="box-title">Detalhes da montagem</h3>
                 </div>
 
                 <form action="{{ route('admin.mounts.view', $mount->id) }}" method="POST">
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="PUniqueID" class="form-label">Unique ID</label>
+                            <label for="PUniqueID" class="form-label">ID único</label>
                             <input type="text" id="PUniqueID" class="form-control" value="{{ $mount->uuid }}" disabled />
                         </div>
 
                         <div class="form-group">
-                            <label for="pName" class="form-label">Name</label>
+                            <label for="pName" class="form-label">Nome</label>
                             <input type="text" id="pName" name="name" class="form-control" value="{{ $mount->name }}" />
                         </div>
 
                         <div class="form-group">
-                            <label for="pDescription" class="form-label">Description</label>
+                            <label for="pDescription" class="form-label">Descrição</label>
                             <textarea id="pDescription" name="description" class="form-control" rows="4">{{ $mount->description }}</textarea>
                         </div>
 
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label for="pSource" class="form-label">Source</label>
+                                <label for="pSource" class="form-label">Fonte</label>
                                 <input type="text" id="pSource" name="source" class="form-control" value="{{ $mount->source }}" />
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label for="pTarget" class="form-label">Target</label>
+                                <label for="pTarget" class="form-label">Alvo</label>
                                 <input type="text" id="pTarget" name="target" class="form-control" value="{{ $mount->target }}" />
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label class="form-label">Read Only</label>
+                                <label class="form-label">Somente Leitura</label>
 
                                 <div>
                                     <div class="radio radio-success radio-inline">
                                         <input type="radio" id="pReadOnlyFalse" name="read_only" value="0" @if(!$mount->read_only) checked @endif>
-                                        <label for="pReadOnlyFalse">False</label>
+                                        <label for="pReadOnlyFalse">Falso</label>
                                     </div>
 
                                     <div class="radio radio-warning radio-inline">
                                         <input type="radio" id="pReadOnly" name="read_only" value="1" @if($mount->read_only) checked @endif>
-                                        <label for="pReadOnly">True</label>
+                                        <label for="pReadOnly">Verdadeiro</label>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label class="form-label">User Mountable</label>
+                                <label class="form-label">Montagem do Usuário</label>
 
                                 <div>
                                     <div class="radio radio-success radio-inline">
                                         <input type="radio" id="pUserMountableFalse" name="user_mountable" value="0" @if(!$mount->user_mountable) checked @endif>
-                                        <label for="pUserMountableFalse">False</label>
+                                        <label for="pUserMountableFalse">Falso</label>
                                     </div>
 
                                     <div class="radio radio-warning radio-inline">
                                         <input type="radio" id="pUserMountable" name="user_mountable" value="1" @if($mount->user_mountable) checked @endif>
-                                        <label for="pUserMountable">True</label>
+                                        <label for="pUserMountable">Verdadeiro</label>
                                     </div>
                                 </div>
                             </div>
@@ -90,7 +90,7 @@
                         {!! csrf_field() !!}
                         {!! method_field('PATCH') !!}
 
-                        <button name="action" value="edit" class="btn btn-sm btn-primary pull-right">Save</button>
+                        <button name="action" value="edit" class="btn btn-sm btn-primary pull-right">Salvar</button>
                         <button name="action" value="delete" class="btn btn-sm btn-danger pull-left muted muted-hover"><i class="fa fa-trash-o"></i></button>
                     </div>
                 </form>
@@ -103,7 +103,7 @@
                     <h3 class="box-title">Eggs</h3>
 
                     <div class="box-tools">
-                        <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addEggsModal">Add Eggs</button>
+                        <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addEggsModal">Adicionar Eggs</button>
                     </div>
                 </div>
 
@@ -111,7 +111,7 @@
                     <table class="table table-hover">
                         <tr>
                             <th>ID</th>
-                            <th>Name</th>
+                            <th>Nome</th>
                             <th></th>
                         </tr>
 
@@ -133,7 +133,7 @@
                     <h3 class="box-title">Nodes</h3>
 
                     <div class="box-tools">
-                        <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addNodesModal">Add Nodes</button>
+                        <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addNodesModal">Adicionar Nodes</button>
                     </div>
                 </div>
 
@@ -141,7 +141,7 @@
                     <table class="table table-hover">
                         <tr>
                             <th>ID</th>
-                            <th>Name</th>
+                            <th>Nome</th>
                             <th>FQDN</th>
                             <th></th>
                         </tr>
@@ -171,7 +171,7 @@
                             <span aria-hidden="true" style="color: #FFFFFF">&times;</span>
                         </button>
 
-                        <h4 class="modal-title">Add Eggs</h4>
+                        <h4 class="modal-title">Adicionar Eggs</h4>
                     </div>
 
                     <div class="modal-body">
@@ -198,8 +198,8 @@
                     <div class="modal-footer">
                         {!! csrf_field() !!}
 
-                        <button type="button" class="btn btn-default btn-sm pull-left" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary btn-sm">Add</button>
+                        <button type="button" class="btn btn-default btn-sm pull-left" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Adicionar</button>
                     </div>
                 </form>
             </div>
@@ -215,7 +215,7 @@
                             <span aria-hidden="true" style="color: #FFFFFF">&times;</span>
                         </button>
 
-                        <h4 class="modal-title">Add Nodes</h4>
+                        <h4 class="modal-title">Adicionar Nodes</h4>
                     </div>
 
                     <div class="modal-body">
@@ -242,8 +242,8 @@
                     <div class="modal-footer">
                         {!! csrf_field() !!}
 
-                        <button type="button" class="btn btn-default btn-sm pull-left" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary btn-sm">Add</button>
+                        <button type="button" class="btn btn-default btn-sm pull-left" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Adicionar</button>
                     </div>
                 </form>
             </div>
@@ -257,11 +257,11 @@
     <script>
         $(document).ready(function() {
             $('#pEggs').select2({
-                placeholder: 'Select eggs..',
+                placeholder: 'Selecionar',
             });
 
             $('#pNodes').select2({
-                placeholder: 'Select nodes..',
+                placeholder: 'Selecionar',
             });
 
             $('button[data-action="detach-egg"]').click(function (event) {

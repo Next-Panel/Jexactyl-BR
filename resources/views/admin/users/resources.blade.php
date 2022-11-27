@@ -9,7 +9,7 @@
     <h1>{{ $user->name_first }} {{ $user->name_last}}<small>{{ $user->username }}</small></h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.index') }}">Admin</a></li>
-        <li><a href="{{ route('admin.users') }}">Users</a></li>
+        <li><a href="{{ route('admin.users') }}">Usuários</a></li>
         <li class="{{ route('admin.users.view', ['user' => $user]) }}">{{ $user->username }}</li>
         <li class="active">Recursos</li>
     </ol>

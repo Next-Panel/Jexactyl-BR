@@ -25,13 +25,13 @@
                     </div>
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="email" class="control-label">Endere&ccedil;o Email</label>
+                            <label for="email" class="control-label">Endereço de Email</label>
                             <div>
                                 <input type="email" name="email" value="{{ $user->email }}" class="form-control form-autocomplete-stop">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="registered" class="control-label">Usu&aacute;rio</label>
+                            <label for="registered" class="control-label">Usuário</label>
                             <div>
                                 <input type="text" name="username" value="{{ $user->username }}" class="form-control form-autocomplete-stop">
                             </div>
@@ -49,7 +49,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Idioma padr&atilde;o</label>
+                            <label class="control-label">Idioma padrão</label>
                             <div>
                                 <select name="language" class="form-control">
                                     @foreach($languages as $key => $value)
@@ -87,15 +87,15 @@
             <div class="col-md-6">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Permissoes</h3>
+                        <h3 class="box-title">Permissões</h3>
                     </div>
                     <div class="box-body">
                         <div class="form-group">
                             <label for="root_admin" class="control-label">Administrador</label>
                             <div>
                                 <select name="root_admin" class="form-control">
-                                    <option value="0">@lang('strings.no')</option>
-                                    <option value="1" {{ $user->root_admin ? 'selected="selected"' : '' }}>@lang('strings.yes')</option>
+                                    <option value="0">@lang('Não')</option>
+                                    <option value="1" {{ $user->root_admin ? 'selected="selected"' : '' }}>@lang('Sim')</option>
                                 </select>
                                 <p class="text-muted"><small>Definir isso como 'Sim' da ao usu&aacute;rio acesso administrativo total.</small></p>
                             </div>

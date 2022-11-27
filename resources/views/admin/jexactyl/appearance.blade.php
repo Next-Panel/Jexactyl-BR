@@ -6,7 +6,7 @@
 @endsection
 
 @section('content-header')
-    <h1>Jexactyl aparência<small>Configurar o tema para Jexactyl.</small></h1>
+    <h1>aparência do Jexactyl <small>Configurar o tema para Jexactyl.</small></h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.index') }}">Admin</a></li>
         <li class="active">Jexactyl</li>

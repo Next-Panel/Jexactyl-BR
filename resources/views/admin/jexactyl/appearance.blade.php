@@ -2,7 +2,7 @@
 @include('partials/admin.jexactyl.nav', ['activeTab' => 'appearance'])
 
 @section('title')
-    Theme Settings
+    Configurações de Tema
 @endsection
 
 @section('content-header')

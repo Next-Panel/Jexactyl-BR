@@ -52,7 +52,7 @@
                                 <div>
                                     <select name="theme:admin" class="form-control">
                                         <option @if ($admin == 'jexactyl') selected @endif value="jexactyl">Tema padrão</option>
-                                        <option @if ($admin == 'dark') selected @endif value="dark">Tema Escudo</option>
+                                        <option @if ($admin == 'dark') selected @endif value="dark">Tema Escuro</option>
                                         <option @if ($admin == 'light') selected @endif value="light">Tema Claro</option>
                                         <option @if ($admin == 'blue') selected @endif value="blue">Tema Azul</option>
                                         <option @if ($admin == 'minecraft') selected @endif value="minecraft">Tema do Minecraft&#8482; </option>

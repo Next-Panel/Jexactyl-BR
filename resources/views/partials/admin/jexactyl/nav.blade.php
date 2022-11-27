@@ -8,31 +8,31 @@
                         <a href="{{ route('admin.index') }}">Home</a>
                     </li>
                     <li @if($activeTab === 'appearance') class="active" @endif>
-                        <a href="{{ route('admin.jexactyl.appearance') }}">Appearance</a>
+                        <a href="{{ route('admin.jexactyl.appearance') }}">Aparência</a>
                     </li>
                     <li @if($activeTab === 'mail') class="active" @endif>
-                        <a href="{{ route('admin.jexactyl.mail') }}">Mail</a>
+                        <a href="{{ route('admin.jexactyl.mail') }}">E-mail</a>
                     </li>
                     <li @if($activeTab === 'advanced') class="active" @endif>
-                        <a href="{{ route('admin.jexactyl.advanced') }}">Advanced</a>
+                        <a href="{{ route('admin.jexactyl.advanced') }}">Avançado</a>
                     </li>
 
                     <li style="margin-left: 5px; margin-right: 5px;"><a>-</a></li>
 
                     <li @if($activeTab === 'store') class="active" @endif>
-                        <a href="{{ route('admin.jexactyl.store') }}">Storefront</a>
+                        <a href="{{ route('admin.jexactyl.store') }}">Loja</a>
                     </li>
                     <li @if($activeTab === 'registration') class="active" @endif>
-                        <a href="{{ route('admin.jexactyl.registration') }}">Registration</a>
+                        <a href="{{ route('admin.jexactyl.registration') }}">Registro</a>
                     </li>
                     <li @if($activeTab === 'approvals') class="active" @endif>
-                        <a href="{{ route('admin.jexactyl.approvals') }}">Approvals</a>
+                        <a href="{{ route('admin.jexactyl.approvals') }}">Aprovações</a>
                     </li>
                     <li @if($activeTab === 'server') class="active" @endif>
-                        <a href="{{ route('admin.jexactyl.server') }}">Server Settings</a>
+                        <a href="{{ route('admin.jexactyl.server') }}">Configurações do servidor</a>
                     </li>
                     <li @if($activeTab === 'referrals') class="active" @endif>
-                        <a href="{{ route('admin.jexactyl.referrals') }}">Referrals</a>
+                        <a href="{{ route('admin.jexactyl.referrals') }}">Referências</a>
                     </li>
                     
                 </ul>

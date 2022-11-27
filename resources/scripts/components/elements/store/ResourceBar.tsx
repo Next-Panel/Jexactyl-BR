@@ -10,9 +10,6 @@ import Tooltip from '@/components/elements/tooltip/Tooltip';
 import StoreContainer from '@/components/elements/StoreContainer';
 import { getResources, Resources } from '@/api/store/getResources';
 
-import useWindowDimensions from '@/plugins/useWindowDimensions';
-
-
 const Wrapper = styled.div`
     ${tw`text-2xl flex flex-row justify-center items-center`};
 `;
@@ -33,7 +30,6 @@ interface BoxProps {
 
 export default ({ className, titles }: RowProps) => {
     const [resources, setResources] = useState<Resources>();
-    const { width } = useWindowDimensions();
 
     useEffect(() => {
         getResources().then((resources) => setResources(resources));
@@ -54,56 +50,58 @@ export default ({ className, titles }: RowProps) => {
     );
 
     return (
-        <>
-            {width >= 1024 && (
-                <div>
-                    <StoreContainer className={classNames(className, 'j-right grid grid-cols-2 sm:grid-cols-7 gap-x-6 gap-y-2')}>
-                <ResourceBox
+        <StoreContainer className={classNames(className, 'j-right grid grid-cols-2 sm:grid-cols-7 gap-x-6 gap-y-2')}>
+            <ResourceBox
                     title={'Créditos'}
                     description={'A quantidade de créditos que você tem disponível.'}
                     icon={<Icon.DollarSign />}
-                    amount={resources.balance} />
+                    amount={resources.balance} 
+                    />
                 <ResourceBox
                     title={'CPU'}
                     description={'A quantidade de CPU (em %) que você tem disponível.'}
                     icon={<Icon.Cpu />}
                     amount={resources.cpu}
-                    suffix={'%'} />
+                    suffix={'%'} 
+                    />
                 <ResourceBox
                     title={'Memória'}
                     description={'A quantidade de RAM (em MB/GB) que você tem disponível.'}
                     icon={<Icon.PieChart />}
                     amount={resources.memory}
-                    toHuman />
+                    toHuman 
+                    />
                 <ResourceBox
                     title={'Disco'}
                     description={'A quantidade de armazenamento (em MB/GB) que você tem disponível.'}
                     icon={<Icon.HardDrive />}
                     amount={resources.disk}
-                    toHuman />
+                    toHuman 
+                    />
                 <ResourceBox
                     title={'Slots'}
                     description={'A quantidade de servidores que você pode implantar.'}
                     icon={<Icon.Server />}
-                    amount={resources.slots} />
+                    amount={resources.slots} 
+                    />
                 <ResourceBox
                     title={'Portas'}
                     description={'A quantidade de portas que você pode adicionar aos seus servidores.'}
                     icon={<Icon.Share2 />}
-                    amount={resources.ports} />
+                    amount={resources.ports} 
+                    />
                 <ResourceBox
                     title={'Backups'}
                     description={'A quantidade de slots de backup que você pode adicionar aos seus servidores.'}
                     icon={<Icon.Archive />}
-                    amount={resources.backups} />
+                    amount={resources.backups} 
+                    />
                 <ResourceBox
                     title={'Databases'}
                     description={'A quantidade de slots de banco de dados que você pode adicionar aos seus servidores.'}
                     icon={<Icon.Database />}
-                    amount={resources.databases} />
-            </StoreContainer>
-                </div>
-            )}
-        </>
-    );
-};
+                    amount={resources.databases}
+                    />
+                </StoreContainer>
+            );
+        };

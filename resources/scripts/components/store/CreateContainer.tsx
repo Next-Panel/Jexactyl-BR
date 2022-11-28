@@ -171,7 +171,7 @@ export default () => {
                         <Link to={'/store'}>
                             <Button.Text className={'w-full lg:w-1/6 m-2'}>
                                 <Icon.ArrowLeft className={'mr-1'} />
-                                Voltar à vitrine
+                                Voltar à Loja
                             </Button.Text>
                         </Link>
                         <Link to={'/store/resources'}>

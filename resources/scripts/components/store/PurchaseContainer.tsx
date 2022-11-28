@@ -42,21 +42,21 @@ export default () => {
     if (!resources) return <Spinner size={'large'} centered />;
 
     return (
-        <PageContentBlock title={'Account Balance'}>
+        <PageContentBlock title={'Carteira do Usuário'}>
             <div className={'my-10'}>
                 <Link to={'/store'}>
                     <Button.Text className={'w-full lg:w-1/6 m-2'}>
                         <ArrowLeft className={'mr-1'} />
-                        Return to Storefront
+                        Voltar à loja
                     </Button.Text>
                 </Link>
             </div>
-            <h1 className={'j-left text-5xl'}>Account Balance</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500'}>Purchase credits easily via Stripe or PayPal.</h3>
+            <h1 className={'j-left text-5xl'}>Carteira do Usuário</h1>
+            <h3 className={'j-left text-2xl mt-2 text-neutral-500'}>Compre créditos facilmente via Stripe ou PayPal.</h3>
             <Container className={'j-up lg:grid lg:grid-cols-2 my-10'}>
                 <ContentBox title={'Account Balance'} showFlashes={'account:balance'} css={tw`sm:mt-0`}>
                     <h1 css={tw`text-7xl flex justify-center items-center`}>
-                        {resources.balance} <span className={'text-base ml-4'}>credits</span>
+                        {resources.balance} <span className={'text-base ml-4'}>creditos</span>
                     </h1>
                 </ContentBox>
                 <ContentBox title={'Purchase credits'} showFlashes={'account:balance'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
@@ -64,29 +64,29 @@ export default () => {
                     {stripe && <StripePurchaseForm />}
                     {!paypal && !stripe && (
                         <p className={'text-gray-400 text-sm m-2'}>
-                            If no gateways appear here, it&apos;s because they haven&apos;t been configured yet.
+                            Se nenhum gateway aparecer aqui, é porque eles ainda não foram configurados.
                         </p>
                     )}
                 </ContentBox>
             </Container>
             {earn.enabled && (
                 <>
-                    <h1 className={'j-left text-5xl'}>Idle Credit Earning</h1>
+                    <h1 className={'j-left text-5xl'}>Ganhos de crédito AFK</h1>
                     <h3 className={'j-left text-2xl text-neutral-500'}>
-                        See how many credits you will recieve per minute of AFK.
+                        Veja quantos créditos você receberá por minuto de AFK.
                     </h3>
                     <Container className={'j-up lg:grid lg:grid-cols-2 my-10'}>
                         <ContentBox title={'Earn Rate'} showFlashes={'earn:rate'} css={tw`sm:mt-0`}>
                             <h1 css={tw`text-7xl flex justify-center items-center`}>
-                                {earn.amount} <span className={'text-base ml-4'}>credits / min</span>
+                                {earn.amount} <span className={'text-base ml-4'}>creditos / min</span>
                             </h1>
                         </ContentBox>
-                        <ContentBox title={'How to earn'} showFlashes={'earn:how'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
-                            <p>You can earn credits by having any page of this panel open.</p>
+                        <ContentBox title={'Como ganhar'} showFlashes={'earn:how'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                            <p>Você pode ganhar créditos tendo qualquer página deste painel aberta.</p>
                             <p css={tw`mt-1`}>
                                 <span css={tw`text-green-500`}>{earn.amount}&nbsp;</span>
-                                credit(s) per minute will automatically be added to your account, as long as this site
-                                is open in a browser tab.
+                                credito(s) por minuto será automaticamente adicionado à sua conta, desde que este site
+                                esteja aberto em uma guia do navegador.
                             </p>
                         </ContentBox>
                     </Container>

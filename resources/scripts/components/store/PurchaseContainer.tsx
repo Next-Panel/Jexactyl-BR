@@ -59,7 +59,7 @@ export default () => {
                         {resources.balance} <span className={'text-base ml-4'}>creditos</span>
                     </h1>
                 </ContentBox>
-                <ContentBox title={'Purchase credits'} showFlashes={'account:balance'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                <ContentBox title={'Comprar Créditos'} showFlashes={'account:balance'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     {paypal && <PaypalPurchaseForm />}
                     {stripe && <StripePurchaseForm />}
                     {!paypal && !stripe && (

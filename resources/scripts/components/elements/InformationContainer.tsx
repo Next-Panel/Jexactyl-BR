@@ -63,9 +63,10 @@ export default () => {
                 )}
             </InformationBox>
             {!user.verified ? (
-                 <InformationBox icon={faTimesCircle} iconCss={'text-yellow-500'}>
+                <InformationBox icon={faTimesCircle}>
+                    <span className={'mr-2'}>Você deve verificar sua conta para implantar servidores.</span>
                     <span onClick={verify} className={'cursor-pointer text-blue-400'}>
-                    Verifique sua conta para começar.
+                    Verifique
                     </span>
                 </InformationBox>
             ) : (

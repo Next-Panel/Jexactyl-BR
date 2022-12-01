@@ -17,11 +17,11 @@ interface Values {
 }
 
 const schema = Yup.object().shape({
-    current: Yup.string().min(1).required('Deve fornecer a sua palavra-passe actual.'),
+    current: Yup.string().min(1).required('You must provide your current password.'),
     password: Yup.string().min(8).required(),
     confirmPassword: Yup.string().test(
         'password',
-        'A confirmação da senha não corresponde à senha que introduziu.',
+        'Password confirmation does not match the password you entered.',
         function (value) {
             return value === this.parent.password;
         }
@@ -46,18 +46,8 @@ export default () => {
             .catch((error) =>
                 addFlash({
                     key: 'account:password',
-<<<<<<< Updated upstream
-                    type: 'error',
-                    title: 'Erro',
-=======
-<<<<<<< HEAD
                     type: 'danger',
                     title: 'Error',
-=======
-                    type: 'error',
-                    title: 'Erro',
->>>>>>> develop
->>>>>>> Stashed changes
                     message: httpErrorToHuman(error),
                 })
             )

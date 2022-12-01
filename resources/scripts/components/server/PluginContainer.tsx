@@ -21,6 +21,7 @@ export default () => {
     const [query, setQuery] = useState('');
     const [open, setOpen] = useState(false);
     const { clearFlashes, addFlash, clearAndAddHttpError } = useFlash();
+    const [pluginId, setPluginId] = useState<number>(0);
     const uuid = ServerContext.useStoreState((state) => state.server.data!.uuid);
 
     const { data, error } = useSWR<Plugin>([uuid, query, '/plugins'], (uuid, query) => getPlugins(uuid, query));
@@ -48,7 +49,7 @@ export default () => {
                 addFlash({
                     key: 'server:plugins',
                     type: 'success',
-                    message: 'Plugin instalado com sucesso.',
+                    message: 'Plugin installed successfully.',
                 })
             )
             .catch((error) => clearAndAddHttpError(error));
@@ -57,8 +58,8 @@ export default () => {
     return (
         <ServerContentBlock title={'Plugins'}>
             <FlashMessageRender byKey={'server:plugins'} />
-            <h1 className={'j-left text-5xl'}>Instalador de Plug-ins</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>Pesquise e faça o download dos plugins de Spigot.</h3>
+            <h1 className={'j-left text-5xl'}>Plugin Installer</h1>
+            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>Search and download Spigot plugins.</h3>
             <Formik
                 onSubmit={submit}
                 initialValues={{ query: '' }}
@@ -81,35 +82,26 @@ export default () => {
                     </div>
                 </Form>
             </Formik>
+            <Dialog.Confirm
+                open={open}
+                onClose={() => setOpen(false)}
+                title={'Plugin Installation'}
+                onConfirmed={() => doDownload(pluginId)}
+            >
+                Are you sure you wish to download this plugin?
+            </Dialog.Confirm>
             {!data ? null : (
                 <>
                     {!data.plugins ? (
-                        <p className={'j-up text-gray-400 text-center'}>Aguardando uma consulta de busca...</p>
+                        <p className={'j-up text-gray-400 text-center'}>Waiting for a search query to be provided...</p>
                     ) : (
                         <>
                             {data.plugins.length < 1 ? (
-                                <p>Não foi encontrado nenhum plug-in.</p>
+                                <p>Couldn&apos;t find any plugins.</p>
                             ) : (
                                 <div className={'j-up lg:grid lg:grid-cols-3 p-2'}>
                                     {data.plugins.map((plugin, key) => (
                                         <>
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-=======
->>>>>>> Stashed changes
-                                            <Dialog.Confirm
-                                                open={open}
-                                                onClose={() => setOpen(false)}
-                                                title={'Instalação de Plug-in'}
-                                                onConfirmed={() => doDownload(plugin.id)}
-                                            >
-                                                Você tem certeza de que deseja baixar este plug-in?
-                                            </Dialog.Confirm>
-<<<<<<< Updated upstream
-=======
->>>>>>> develop
->>>>>>> Stashed changes
                                             <TitledGreyBox title={plugin.name} key={key} className={'m-2'}>
                                                 <div className={'lg:grid lg:grid-cols-5'}>
                                                     <div className={'lg:col-span-4'}>
@@ -124,7 +116,11 @@ export default () => {
                                                                 <Icon.DownloadCloud size={18} />
                                                             </Button.Text>
                                                         ) : (
-                                                            <Button className={'m-1'} onClick={() => setOpen(true)}>
+                                                            <Button className={'m-1'} onClick={() =>{
+                                                                setPluginId(plugin.id)
+                                                                setOpen(true)
+                                                            }
+                                                            }>
                                                                 <Icon.DownloadCloud size={18} />
                                                             </Button>
                                                         )}

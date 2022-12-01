@@ -39,15 +39,7 @@ export default ({ match, location }: RouteComponentProps<{ token: string }>) => 
                 console.error(error);
 
                 setSubmitting(false);
-<<<<<<< Updated upstream
-                addFlash({ type: 'error', title: 'Erro', message: httpErrorToHuman(error) });
-=======
-<<<<<<< HEAD
                 addFlash({ type: 'danger', title: 'Error', message: httpErrorToHuman(error) });
-=======
-                addFlash({ type: 'error', title: 'Erro', message: httpErrorToHuman(error) });
->>>>>>> develop
->>>>>>> Stashed changes
             });
     };
 

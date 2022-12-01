@@ -61,7 +61,7 @@ export default () => {
                         <span className={'text-yellow-600'}>Habilitar 2FA</span> para proteger sua conta.
                     </>
                 )}
-            </InformationBox>
+</InformationBox>
             {!user.verified ? (
                 <InformationBox icon={faTimesCircle} iconCss={'text-yellow-500'}>
                     <span onClick={verify} className={'cursor-pointer text-blue-400'}>

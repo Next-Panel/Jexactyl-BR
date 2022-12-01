@@ -17,8 +17,11 @@ import { usePersistedState } from '@/plugins/usePersistedState';
 import ResourceBar from '@/components/elements/store/ResourceBar';
 import PageContentBlock from '@/components/elements/PageContentBlock';
 
+import useWindowDimensions from '@/plugins/useWindowDimensions';
+
 export default () => {
     const { search } = useLocation();
+    const { width } = useWindowDimensions();
     const defaultPage = Number(new URLSearchParams(search).get('page') || '1');
 
     const [page, setPage] = useState(!isNaN(defaultPage) && defaultPage > 0 ? defaultPage : 1);
@@ -53,7 +56,9 @@ export default () => {
 
     return (
         <PageContentBlock title={'Painel'} css={tw`mt-4 sm:mt-10`} showFlashKey={'dashboard' || 'store:create'}>
+             {width >= 1024 && (
             <ResourceBar className={'my-10'} titles />
+            )}
             {rootAdmin && (
                 <div css={tw`mb-10 flex justify-between items-center`}>
                     <div>

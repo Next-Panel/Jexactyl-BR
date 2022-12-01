@@ -45,7 +45,7 @@ export default () => {
                 </InformationBox>
             ) : (
                 <InformationBox icon={faExclamationCircle}>
-                   O ganho de crédito está atualmente <span className={'text-red-600'}>desativado.</span>
+                  Atualmente, os ganhos de crédito estão <span className={'text-red-600'}>desativado.</span>
                 </InformationBox>
             )}
             <InformationBox icon={faCoins}>

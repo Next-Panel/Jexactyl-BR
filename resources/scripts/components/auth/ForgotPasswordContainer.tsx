@@ -38,7 +38,15 @@ export default () => {
                 console.error(error);
 
                 setSubmitting(false);
+<<<<<<< Updated upstream
                 addFlash({ type: 'error', title: 'Erro', message: httpErrorToHuman(error) });
+=======
+<<<<<<< HEAD
+                addFlash({ type: 'danger', title: 'Error', message: httpErrorToHuman(error) });
+=======
+                addFlash({ type: 'error', title: 'Erro', message: httpErrorToHuman(error) });
+>>>>>>> develop
+>>>>>>> Stashed changes
             });
 
             return;
@@ -51,7 +59,15 @@ export default () => {
             })
             .catch((error) => {
                 console.error(error);
+<<<<<<< Updated upstream
                 addFlash({ type: 'error', title: 'Erro', message: httpErrorToHuman(error) });
+=======
+<<<<<<< HEAD
+                addFlash({ type: 'danger', title: 'Error', message: httpErrorToHuman(error) });
+=======
+                addFlash({ type: 'error', title: 'Erro', message: httpErrorToHuman(error) });
+>>>>>>> develop
+>>>>>>> Stashed changes
             })
             .then(() => {
                 setToken('');

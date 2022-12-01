@@ -38,8 +38,18 @@ export default () => {
             <h1 className={'j-left text-5xl'}>Visão Geral da Conta</h1>
             <h3 className={'j-left text-2xl text-neutral-500'}>Ver e atualizar os detalhes da conta.</h3>
             {state?.twoFactorRedirect && (
+<<<<<<< Updated upstream
                 <Alert type={'error'}>
                     A sua conta deve ter a autenticação de duas etapas ativada para poder continuar.
+=======
+<<<<<<< HEAD
+                <Alert type={'danger'}>
+                    Your account must have two-factor authentication enabled in order to continue.
+=======
+                <Alert type={'error'}>
+                    A sua conta deve ter a autenticação de duas etapas ativada para poder continuar.
+>>>>>>> develop
+>>>>>>> Stashed changes
                 </Alert>
             )}
             <Container

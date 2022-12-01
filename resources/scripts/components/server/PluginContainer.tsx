@@ -93,6 +93,11 @@ export default () => {
                                 <div className={'j-up lg:grid lg:grid-cols-3 p-2'}>
                                     {data.plugins.map((plugin, key) => (
                                         <>
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
                                             <Dialog.Confirm
                                                 open={open}
                                                 onClose={() => setOpen(false)}
@@ -101,6 +106,10 @@ export default () => {
                                             >
                                                 Você tem certeza de que deseja baixar este plug-in?
                                             </Dialog.Confirm>
+<<<<<<< Updated upstream
+=======
+>>>>>>> develop
+>>>>>>> Stashed changes
                                             <TitledGreyBox title={plugin.name} key={key} className={'m-2'}>
                                                 <div className={'lg:grid lg:grid-cols-5'}>
                                                     <div className={'lg:col-span-4'}>

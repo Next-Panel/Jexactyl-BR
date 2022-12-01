@@ -63,10 +63,23 @@ export default () => {
                 )}
             </InformationBox>
             {!user.verified ? (
+<<<<<<< Updated upstream
                 <InformationBox icon={faTimesCircle}>
                     <span className={'mr-2'}>Você deve verificar sua conta para implantar servidores.</span>
                     <span onClick={verify} className={'cursor-pointer text-blue-400'}>
                     Verifique
+=======
+<<<<<<< HEAD
+                <InformationBox icon={faTimesCircle} iconCss={'text-yellow-500'}>
+                    <span onClick={verify} className={'cursor-pointer text-blue-400'}>
+                        Verify your account to get started.
+=======
+                <InformationBox icon={faTimesCircle}>
+                    <span className={'mr-2'}>Você deve verificar sua conta para implantar servidores.</span>
+                    <span onClick={verify} className={'cursor-pointer text-blue-400'}>
+                    Verifique
+>>>>>>> develop
+>>>>>>> Stashed changes
                     </span>
                 </InformationBox>
             ) : (

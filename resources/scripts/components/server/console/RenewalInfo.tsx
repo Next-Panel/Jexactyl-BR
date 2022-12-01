@@ -37,8 +37,18 @@ export default () => {
                 console.log(httpErrorToHuman(error));
                 addFlash({
                     key: 'console:share',
+<<<<<<< Updated upstream
                     type: 'error',
                     message: 'Incapaz de renovar seu servidor. Tem certeza de que tem créditos suficientes?',
+=======
+<<<<<<< HEAD
+                    type: 'danger',
+                    message: 'Unable to renew your server. Are you sure you have enough credits?',
+=======
+                    type: 'error',
+                    message: 'Incapaz de renovar seu servidor. Tem certeza de que tem créditos suficientes?',
+>>>>>>> develop
+>>>>>>> Stashed changes
                 });
             });
     };

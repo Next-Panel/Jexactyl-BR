@@ -46,8 +46,18 @@ export default () => {
             .catch((error) =>
                 addFlash({
                     key: 'account:password',
+<<<<<<< Updated upstream
                     type: 'error',
                     title: 'Erro',
+=======
+<<<<<<< HEAD
+                    type: 'danger',
+                    title: 'Error',
+=======
+                    type: 'error',
+                    title: 'Erro',
+>>>>>>> develop
+>>>>>>> Stashed changes
                     message: httpErrorToHuman(error),
                 })
             )

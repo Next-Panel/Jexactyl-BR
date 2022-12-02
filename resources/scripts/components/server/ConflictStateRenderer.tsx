@@ -36,8 +36,8 @@ export default () => {
             image={ServerRestoreSvg}
             message={
                 isTransferring
-                ? 'Seu servidor está sendo transferido para um novo Node, verifique novamente mais tarde.'
-                : 'Seu servidor está sendo restaurado de um backup, verifique em alguns minutos.'
+                    ? 'Seu servidor está sendo transferido para um novo Node, verifique novamente mais tarde.'
+                    : 'Seu servidor está sendo restaurado de um backup, verifique em alguns minutos.'
             }
         />
     );

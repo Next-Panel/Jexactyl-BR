@@ -43,7 +43,10 @@ const NetworkContainer = () => {
         setLoading(true);
         createServerAllocation(uuid)
             .then((allocation) => {
-                setServerFromState((s) => ({ ...s, allocations: s.allocations.concat(allocation) }));
+                setServerFromState((s) => ({
+                    ...s,
+                    allocations: s.allocations.concat(allocation),
+                }));
                 return mutate(data?.concat(allocation), false);
             })
             .catch((error) => clearAndAddHttpError(error))
@@ -66,8 +69,8 @@ const NetworkContainer = () => {
                             <SpinnerOverlay visible={loading} />
                             <div css={tw`mt-6 sm:flex items-center justify-end`}>
                                 <p css={tw`text-sm text-neutral-300 mb-4 sm:mr-6 sm:mb-0`}>
-                                Você está usando atualmente {data.length} de {allocationLimit} alocações permitidas para
-                                    este servidor.
+                                    Você está usando atualmente {data.length} de {allocationLimit} alocações permitidas
+                                    para este servidor.
                                 </p>
                                 {allocationLimit > data.length && (
                                     <Button css={tw`w-full sm:w-auto`} onClick={onCreateAllocation}>

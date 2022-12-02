@@ -86,7 +86,7 @@ const StartupContainer = () => {
         <ServerContentBlock title={'Configurações de inicialização'} showFlashKey={'startup:image'}>
             <h1 className={'j-left text-5xl'}>Propriedades</h1>
             <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>
-            Ajuste fino das variáveis para seu servidor durante a inicialização.
+                Ajuste fino das variáveis para seu servidor durante a inicialização.
             </h3>
             <div className={'md:flex j-up'}>
                 <TitledGreyBox title={'Comando de inicialização'} css={tw`flex-1`}>
@@ -111,8 +111,8 @@ const StartupContainer = () => {
                                 </Select>
                             </InputSpinner>
                             <p css={tw`text-xs text-neutral-300 mt-2`}>
-                            Este é um recurso avançado, permitindo que você selecione uma imagem do Docker para usar ao executar
-                                esta instância do servidor.
+                                Este é um recurso avançado, permitindo que você selecione uma imagem do Docker para usar
+                                ao executar esta instância do servidor.
                             </p>
                         </>
                     ) : (
@@ -120,8 +120,8 @@ const StartupContainer = () => {
                             <Input disabled readOnly value={variables.dockerImage} />
                             {isCustomImage && (
                                 <p css={tw`text-xs text-neutral-300 mt-2`}>
-                                    Este {"server's"} A imagem do docker foi manualmente definida por um administrador e não pode
-                                    ser alterado através desta interface do usuário.
+                                    Este {"server's"} A imagem do docker foi manualmente definida por um administrador e
+                                    não pode ser alterado através desta interface do usuário.
                                 </p>
                             )}
                         </>

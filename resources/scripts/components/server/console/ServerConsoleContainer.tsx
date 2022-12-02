@@ -22,7 +22,7 @@ const ServerConsoleContainer = () => {
     const isTransferring = ServerContext.useStoreState((state) => state.server.data!.isTransferring);
     const eggFeatures = ServerContext.useStoreState((state) => state.server.data!.eggFeatures, isEqual);
     const isNodeUnderMaintenance = ServerContext.useStoreState((state) => state.server.data!.isNodeUnderMaintenance);
-    
+
     return (
         <ServerContentBlock title={'Console'}>
             {(isNodeUnderMaintenance || isInstalling || isTransferring) && (

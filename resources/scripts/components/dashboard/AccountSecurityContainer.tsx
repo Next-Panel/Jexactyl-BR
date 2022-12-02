@@ -33,7 +33,12 @@ export default () => (
                 <ContentBox className={'j-right'} title={'Atualizar Senha'} showFlashes={'account:password'}>
                     <UpdatePasswordForm />
                 </ContentBox>
-                <ContentBox className={'j-right'} title={'Configurar Duas Etapas'} css={tw`mt-8`} showFlashes={'account:2fa'}>
+                <ContentBox
+                    className={'j-right'}
+                    title={'Configurar Duas Etapas'}
+                    css={tw`mt-8`}
+                    showFlashes={'account:2fa'}
+                >
                     <ConfigureTwoFactorForm />
                 </ContentBox>
             </div>

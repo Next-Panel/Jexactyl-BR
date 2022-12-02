@@ -124,8 +124,8 @@ export default () => {
                                 {files.length > 250 && (
                                     <div css={tw`rounded bg-yellow-400 mb-px p-3`}>
                                         <p css={tw`text-yellow-900 text-sm text-center`}>
-                                            Este diretório é muito grande para ser exibido no navegador, limitando a saída
-                                            para os primeiros 250 arquivos.
+                                            Este diretório é muito grande para ser exibido no navegador, limitando a
+                                            saída para os primeiros 250 arquivos.
                                         </p>
                                     </div>
                                 )}

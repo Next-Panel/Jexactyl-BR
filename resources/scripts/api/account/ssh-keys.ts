@@ -21,7 +21,10 @@ const useSSHKeys = (config?: ConfigInterface<SSHKey[], AxiosError>) => {
 };
 
 const createSSHKey = async (name: string, publicKey: string): Promise<SSHKey> => {
-    const { data } = await http.post('/api/client/account/ssh-keys', { name, public_key: publicKey });
+    const { data } = await http.post('/api/client/account/ssh-keys', {
+        name,
+        public_key: publicKey,
+    });
 
     return Transformers.toSSHKey(data.attributes);
 };

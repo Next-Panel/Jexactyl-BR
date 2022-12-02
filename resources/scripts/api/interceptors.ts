@@ -11,7 +11,9 @@ export const setupInterceptors = (history: History) => {
                     (error.response?.data as Record<string, any>).errors?.[0].code === 'TwoFactorAuthRequiredException'
                 ) {
                     if (!window.location.pathname.startsWith('/account')) {
-                        history.replace('/account', { twoFactorRedirect: true });
+                        history.replace('/account', {
+                            twoFactorRedirect: true,
+                        });
                     }
                 }
             }

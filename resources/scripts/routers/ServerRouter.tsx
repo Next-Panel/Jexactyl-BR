@@ -121,7 +121,7 @@ export default () => {
                                 <Can action={'activity.*'}>
                                     <NavLink to={`${match.url}/activity`}>
                                         <div css={tw`flex items-center justify-between`}>
-                                        Atividades <Icon.Eye css={tw`ml-1`} size={18} />
+                                            Atividades <Icon.Eye css={tw`ml-1`} size={18} />
                                         </div>
                                     </NavLink>
                                 </Can>
@@ -137,7 +137,7 @@ export default () => {
                                 <Can action={'file.*'}>
                                     <NavLink to={`${match.url}/files`}>
                                         <div css={tw`flex items-center justify-between`}>
-                                        Arquivos <Icon.Folder css={tw`ml-1`} size={18} />
+                                            Arquivos <Icon.Folder css={tw`ml-1`} size={18} />
                                         </div>
                                     </NavLink>
                                 </Can>
@@ -145,7 +145,7 @@ export default () => {
                                     <Can action={'database.*'}>
                                         <NavLink to={`${match.url}/databases`}>
                                             <div css={tw`flex items-center justify-between`}>
-                                            Bancos de dados <Icon.Database css={tw`ml-1`} size={18} />
+                                                Bancos de dados <Icon.Database css={tw`ml-1`} size={18} />
                                             </div>
                                         </NavLink>
                                     </Can>
@@ -153,14 +153,14 @@ export default () => {
                                 <Can action={'schedule.*'}>
                                     <NavLink to={`${match.url}/schedules`}>
                                         <div css={tw`flex items-center justify-between`}>
-                                        Tarefas <Icon.Clock css={tw`ml-1`} size={18} />
+                                            Tarefas <Icon.Clock css={tw`ml-1`} size={18} />
                                         </div>
                                     </NavLink>
                                 </Can>
                                 <Can action={'user.*'}>
                                     <NavLink to={`${match.url}/users`}>
                                         <div css={tw`flex items-center justify-between`}>
-                                        Usuários <Icon.Users css={tw`ml-1`} size={18} />
+                                            Usuários <Icon.Users css={tw`ml-1`} size={18} />
                                         </div>
                                     </NavLink>
                                 </Can>
@@ -174,7 +174,7 @@ export default () => {
                                 <Can action={'allocation.*'}>
                                     <NavLink to={`${match.url}/network`}>
                                         <div css={tw`flex items-center justify-between`}>
-                                        Rede <Icon.Share2 css={tw`ml-1`} size={18} />
+                                            Rede <Icon.Share2 css={tw`ml-1`} size={18} />
                                         </div>
                                     </NavLink>
                                 </Can>
@@ -188,7 +188,7 @@ export default () => {
                                 <Can action={['settings.*', 'file.sftp']} matchAny>
                                     <NavLink to={`${match.url}/settings`}>
                                         <div css={tw`flex items-center justify-between`}>
-                                        Definições <Icon.Settings css={tw`ml-1`} size={18} />
+                                            Definições <Icon.Settings css={tw`ml-1`} size={18} />
                                         </div>
                                     </NavLink>
                                 </Can>

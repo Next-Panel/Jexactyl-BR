@@ -31,7 +31,10 @@ export default ({ scheduleId, onDeleted }: Props) => {
             .catch((error) => {
                 console.error(error);
 
-                addError({ key: 'schedules', message: httpErrorToHuman(error) });
+                addError({
+                    key: 'schedules',
+                    message: httpErrorToHuman(error),
+                });
                 setIsLoading(false);
                 setVisible(false);
             });
@@ -50,7 +53,7 @@ export default ({ scheduleId, onDeleted }: Props) => {
                 Todas as tarefas serão removidas e quaisquer processos em execução serão encerrados.
             </Dialog.Confirm>
             <Button.Danger css={tw`flex-1 sm:flex-none mr-4 border-transparent`} onClick={() => setVisible(true)}>
-            Excluir
+                Excluir
             </Button.Danger>
         </>
     );

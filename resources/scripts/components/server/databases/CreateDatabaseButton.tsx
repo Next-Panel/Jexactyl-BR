@@ -46,7 +46,10 @@ export default () => {
                 setVisible(false);
             })
             .catch((error) => {
-                addError({ key: 'database:create', message: httpErrorToHuman(error) });
+                addError({
+                    key: 'database:create',
+                    message: httpErrorToHuman(error),
+                });
                 setSubmitting(false);
             });
     };

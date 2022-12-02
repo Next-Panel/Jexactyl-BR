@@ -74,9 +74,9 @@ const MassActionsBar = () => {
                     onConfirmed={onClickConfirmDeletion}
                 >
                     <p className={'mb-2'}>
-                    Tem certeza de que deseja excluir&nbsp;
-                        <span className={'font-semibold text-gray-50'}>{selectedFiles.length} arquivos</span>? Isto é uma
-                        ação permanente e os arquivos não podem ser recuperados.
+                        Tem certeza de que deseja excluir&nbsp;
+                        <span className={'font-semibold text-gray-50'}>{selectedFiles.length} arquivos</span>? Isto é
+                        uma ação permanente e os arquivos não podem ser recuperados.
                     </p>
                     {selectedFiles.slice(0, 15).map((file) => (
                         <li key={file}>{file}</li>
@@ -99,7 +99,7 @@ const MassActionsBar = () => {
                                 <Button onClick={() => setShowMove(true)}>Mover</Button>
                                 <Button onClick={onClickCompress}>Arquivar</Button>
                                 <Button.Danger variant={Button.Variants.Secondary} onClick={() => setShowConfirm(true)}>
-                                Excluir
+                                    Excluir
                                 </Button.Danger>
                             </div>
                         </Fade>

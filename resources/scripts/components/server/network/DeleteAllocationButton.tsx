@@ -25,7 +25,10 @@ const DeleteAllocationButton = ({ allocation }: Props) => {
         clearFlashes();
 
         mutate((data) => data?.filter((a) => a.id !== allocation), false);
-        setServerFromState((s) => ({ ...s, allocations: s.allocations.filter((a) => a.id !== allocation) }));
+        setServerFromState((s) => ({
+            ...s,
+            allocations: s.allocations.filter((a) => a.id !== allocation),
+        }));
 
         deleteServerAllocation(uuid, allocation).catch((error) => {
             clearAndAddHttpError(error);

@@ -84,10 +84,10 @@ const NewDirectoryDialog = asDialog({
                     </Form>
                     <Dialog.Footer>
                         <Button.Text className={'w-full sm:w-auto'} onClick={close}>
-                        Cancelar
+                            Cancelar
                         </Button.Text>
                         <Button className={'w-full sm:w-auto'} onClick={submitForm}>
-                        Criar
+                            Criar
                         </Button>
                     </Dialog.Footer>
                 </>
@@ -103,7 +103,7 @@ export default ({ className }: WithClassname) => {
         <>
             <NewDirectoryDialog open={open} onClose={setOpen.bind(this, false)} />
             <Button.Text onClick={setOpen.bind(this, true)} className={className}>
-            Criar diretório
+                Criar diretório
             </Button.Text>
         </>
     );

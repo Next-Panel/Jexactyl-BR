@@ -105,7 +105,7 @@ const AllocationRow = ({ allocation }: Props) => {
                         </Can>
                         <Can action={'allocation.update'}>
                             <Button.Text size={Button.Sizes.Small} onClick={setPrimaryAllocation}>
-                            Fazer primário
+                                Fazer primário
                             </Button.Text>
                         </Can>
                     </>

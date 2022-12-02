@@ -38,9 +38,7 @@ export default () => {
             <h1 className={'j-left text-5xl'}>visão geral da conta</h1>
             <h3 className={'j-left text-2xl text-neutral-500'}>Visualizar e atualizar os detalhes da conta.</h3>
             {state?.twoFactorRedirect && (
-                <Alert type={'danger'}>
-                    Sua conta deve ter autenticação de dois fatores ativada para continuar.
-                </Alert>
+                <Alert type={'danger'}>Sua conta deve ter autenticação de dois fatores ativada para continuar.</Alert>
             )}
             <Container
                 className={'j-up'}

@@ -16,8 +16,8 @@ const ApiKeyModal = ({ apiKey }: Props) => {
         <>
             <h3 css={tw`mb-6 text-2xl`}>Sua Chave API</h3>
             <p css={tw`text-sm mb-6`}>
-                A chave API que solicitou é mostrada abaixo. Por favor, guarde-a 
-                em um local seguro, ela não será mostrada novamente.
+                A chave API que solicitou é mostrada abaixo. Por favor, guarde-a em um local seguro, ela não será
+                mostrada novamente.
             </p>
             <pre css={tw`text-sm bg-neutral-900 rounded py-2 px-4 font-mono`}>
                 <CopyOnClick text={apiKey}>

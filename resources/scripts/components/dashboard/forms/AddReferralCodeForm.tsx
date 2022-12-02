@@ -63,7 +63,12 @@ export default () => {
                     {({ isSubmitting, isValid }) => (
                         <React.Fragment>
                             <Form className={'m-0'}>
-                                <Field id={'code'} type={'text'} name={'code'} label={'Introduza o código de referência'} />
+                                <Field
+                                    id={'code'}
+                                    type={'text'}
+                                    name={'code'}
+                                    label={'Introduza o código de referência'}
+                                />
                                 <div className={'mt-6'}>
                                     <Field
                                         id={'confirm_password'}

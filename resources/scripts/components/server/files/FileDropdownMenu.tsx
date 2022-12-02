@@ -135,7 +135,12 @@ const FileDropdownMenu = ({ file }: { file: FileObject }) => {
                                 <ChmodFileModal
                                     visible
                                     appear
-                                    files={[{ file: file.name, mode: file.modeBits }]}
+                                    files={[
+                                        {
+                                            file: file.name,
+                                            mode: file.modeBits,
+                                        },
+                                    ]}
                                     onDismissed={() => setModal(null)}
                                 />
                             ) : (

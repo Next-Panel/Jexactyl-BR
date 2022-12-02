@@ -32,7 +32,11 @@ export default () => {
 
     const { data: servers, error } = useSWR<PaginatedResult<Server>>(
         ['/api/client/servers', showOnlyAdmin && rootAdmin, page],
-        () => getServers({ page, type: showOnlyAdmin && rootAdmin ? 'admin' : undefined })
+        () =>
+            getServers({
+                page,
+                type: showOnlyAdmin && rootAdmin ? 'admin' : undefined,
+            })
     );
 
     useEffect(() => {
@@ -56,15 +60,13 @@ export default () => {
 
     return (
         <PageContentBlock title={'Painel'} css={tw`mt-4 sm:mt-10`} showFlashKey={'dashboard' || 'store:create'}>
-             {width >= 1024 && (
-            <ResourceBar className={'my-10'} titles />
-            )}
+            {width >= 1024 && <ResourceBar className={'my-10'} titles />}
             {rootAdmin && (
                 <div css={tw`mb-10 flex justify-between items-center`}>
                     <div>
                         <h1 className={'j-left text-5xl'}>Seus Servidores</h1>
                         <h3 className={'j-left text-2xl mt-2 text-neutral-500'}>
-                        Selecione um servidor para visualizar, atualizar ou modificar.
+                            Selecione um servidor para visualizar, atualizar ou modificar.
                         </h3>
                     </div>
                     <Switch

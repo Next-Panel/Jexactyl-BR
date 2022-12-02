@@ -68,8 +68,8 @@ export default () => {
                 confirm={'Continuar'}
                 onConfirmed={() => purchase(resource)}
             >
-                Tem certeza de que deseja comprar este recurso ({resource})? Isso gastará os créditos da sua conta
-                e adicionará o recurso. Esta não é uma transação reversível.
+                Tem certeza de que deseja comprar este recurso ({resource})? Isso gastará os créditos da sua conta e
+                adicionará o recurso. Esta não é uma transação reversível.
             </Dialog.Confirm>
             <div className={'my-10'}>
                 <Link to={'/store'}>
@@ -153,13 +153,13 @@ export default () => {
                 <TitledGreyBox title={'Como usar os recursos'}>
                     <p className={'font-semibold'}>Adicionando a um servidor existente</p>
                     <p className={'text-xs text-gray-500'}>
-                        ISe você tiver um servidor que já está implantado, você pode adicionar recursos a ele indo para a
-                        guia editar.
+                        ISe você tiver um servidor que já está implantado, você pode adicionar recursos a ele indo para
+                        a guia editar.
                     </p>
                     <p className={'font-semibold mt-1'}>Adicionando a um novo servidor</p>
                     <p className={'text-xs text-gray-500'}>
-                        Você pode comprar recursos e adicioná-los a um novo servidor na página de criação do servidor, que você pode
-                        acessar através da loja.
+                        Você pode comprar recursos e adicioná-los a um novo servidor na página de criação do servidor,
+                        que você pode acessar através da loja.
                     </p>
                 </TitledGreyBox>
             </Container>

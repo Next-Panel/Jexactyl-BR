@@ -83,7 +83,13 @@ const RegisterContainer = ({ history }: RouteComponentProps) => {
             {({ isSubmitting, setSubmitting, submitForm }) => (
                 <LoginFormContainer title={'Criar Uma Conta'} css={tw`w-full flex`}>
                     <FlashMessageRender byKey={'auth:register'} css={tw`my-3`} />
-                    <Field type={'text'} label={'Nome de usuário'} name={'username'} css={tw`my-3`} disabled={isSubmitting} />
+                    <Field
+                        type={'text'}
+                        label={'Nome de usuário'}
+                        name={'username'}
+                        css={tw`my-3`}
+                        disabled={isSubmitting}
+                    />
                     <Field
                         type={'email'}
                         label={'Email Address'}
@@ -91,13 +97,7 @@ const RegisterContainer = ({ history }: RouteComponentProps) => {
                         css={tw`my-3`}
                         disabled={isSubmitting}
                     />
-                    <Field
-                        type={'password'}
-                        label={'Senha'}
-                        name={'password'}
-                        css={tw`my-3`}
-                        disabled={isSubmitting}
-                    />
+                    <Field type={'password'} label={'Senha'} name={'password'} css={tw`my-3`} disabled={isSubmitting} />
                     <Button type={'submit'} css={tw`my-6 w-full`} size={Button.Sizes.Large} disabled={isSubmitting}>
                         Registrar
                     </Button>

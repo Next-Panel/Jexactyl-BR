@@ -33,7 +33,11 @@ export default () => {
     const verify = () => {
         apiVerify().then((data) => {
             if (data.success)
-                addFlash({ type: 'info', key: 'dashboard', message: 'O e-mail de verificação foi reenviado.' });
+                addFlash({
+                    type: 'info',
+                    key: 'dashboard',
+                    message: 'O e-mail de verificação foi reenviado.',
+                });
         });
     };
 
@@ -45,11 +49,11 @@ export default () => {
                 </InformationBox>
             ) : (
                 <InformationBox icon={faExclamationCircle}>
-                  Atualmente, os ganhos de crédito estão <span className={'text-red-600'}>desativado.</span>
+                    Atualmente, os ganhos de crédito estão <span className={'text-red-600'}>desativado.</span>
                 </InformationBox>
             )}
             <InformationBox icon={faCoins}>
-            Você tem <span className={'text-green-600'}>{bal}</span> créditos disponíveis.
+                Você tem <span className={'text-green-600'}>{bal}</span> créditos disponíveis.
             </InformationBox>
             <InformationBox icon={faUserLock}>
                 {user.useTotp ? (
@@ -61,7 +65,7 @@ export default () => {
                         <span className={'text-yellow-600'}>Habilitar 2FA</span> para proteger sua conta.
                     </>
                 )}
-</InformationBox>
+            </InformationBox>
             {!user.verified ? (
                 <InformationBox icon={faTimesCircle} iconCss={'text-yellow-500'}>
                     <span onClick={verify} className={'cursor-pointer text-blue-400'}>
@@ -80,7 +84,9 @@ export default () => {
                                 />
                             </span>
                             {' - '}
-                            {formatDistanceToNowStrict(activity.timestamp, { addSuffix: true })}
+                            {formatDistanceToNowStrict(activity.timestamp, {
+                                addSuffix: true,
+                            })}
                         </>
                     ) : (
                         'Incapaz de obter os últimos registros de atividades.'

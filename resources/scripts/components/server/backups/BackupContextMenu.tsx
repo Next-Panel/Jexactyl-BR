@@ -140,7 +140,7 @@ export default ({ backup }: Props) => {
                             checked={truncate}
                             onChange={() => setTruncate((s) => !s)}
                         />
-                       Exclua todos os arquivos antes de restaurar o backup.
+                        Exclua todos os arquivos antes de restaurar o backup.
                     </label>
                 </p>
             </Dialog.Confirm>

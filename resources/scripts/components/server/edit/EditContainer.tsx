@@ -102,7 +102,9 @@ export default () => {
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
                         Altere a quantidade de CPU atribuída ao servidor.
                     </p>
-                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>O limite não pode ser inferior a 50%.</p>
+                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
+                        O limite não pode ser inferior a 50%.
+                    </p>
                 </TitledGreyBox>
                 <TitledGreyBox title={'Editar Limite de RAM do servidor'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     <Wrapper>
@@ -131,7 +133,9 @@ export default () => {
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
                         Altere a quantidade de RAM atribuída ao servidor.
                     </p>
-                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>O limite não pode ser menor que 1 GB.</p>
+                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
+                        O limite não pode ser menor que 1 GB.
+                    </p>
                 </TitledGreyBox>
                 <TitledGreyBox title={'Editar limite de armazenamento do servidor'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     <Wrapper>
@@ -160,7 +164,9 @@ export default () => {
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
                         Altere a quantidade de armazenamento atribuída ao servidor.
                     </p>
-                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>O limite não pode ser menor que 1 GB.</p>
+                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
+                        O limite não pode ser menor que 1 GB.
+                    </p>
                 </TitledGreyBox>
                 <TitledGreyBox title={'Editar Quantidade de portas do servidor'} css={tw`mt-8 sm:mt-0`}>
                     <Wrapper>
@@ -187,7 +193,7 @@ export default () => {
                         </Button.Danger>
                     </Wrapper>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                       Altere o limite das portas atribuídas ao servidor.
+                        Altere o limite das portas atribuídas ao servidor.
                     </p>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>O limite não pode ser menor que 1.</p>
                 </TitledGreyBox>

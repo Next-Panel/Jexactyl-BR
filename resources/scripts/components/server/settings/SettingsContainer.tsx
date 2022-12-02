@@ -20,7 +20,7 @@ export default () => {
             <FlashMessageRender byKey={'settings'} css={tw`mb-4`} />
             <h1 className={'j-left text-5xl'}>Settings</h1>
             <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>
-            Controle configurações importantes para o seu servidor.
+                Controle configurações importantes para o seu servidor.
             </h3>
             <div className={'md:flex'}>
                 <div className={'j-right w-full md:flex-1 md:mr-10'}>

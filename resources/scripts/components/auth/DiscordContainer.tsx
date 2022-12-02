@@ -16,7 +16,10 @@ const DiscordContainer = () => {
 
         discordLogin()
             .then((data) => {
-                if (!data) return clearAndAddHttpError({ error: 'A autenticação do Discord falhou. Por favor tente novamente.' });
+                if (!data)
+                    return clearAndAddHttpError({
+                        error: 'A autenticação do Discord falhou. Por favor tente novamente.',
+                    });
                 window.location.href = data;
             })
             .then(() => setLoading(false))

@@ -63,12 +63,15 @@ const PIDLimitModalFeature = () => {
                     </div>
                     <p css={tw`mt-4`}>Este servidor atingiu o limite máximo de processo ou memória.</p>
                     <p css={tw`mt-4`}>
-                        Aumentar <code css={tw`font-mono bg-neutral-900`}>container_pid_limit</code> nas configurações 
+                        Aumentar <code css={tw`font-mono bg-neutral-900`}>container_pid_limit</code> nas configurações
                         da Wings, <code css={tw`font-mono bg-neutral-900`}>config.yml</code>, Pode ajudar a resolver
-                       esse assunto.
+                        esse assunto.
                     </p>
                     <p css={tw`mt-4`}>
-                        <b>Nota: as Wings devem ser reiniciadas para as alterações do arquivo de configuração para entrar em vigor</b>
+                        <b>
+                            Nota: as Wings devem ser reiniciadas para as alterações do arquivo de configuração para
+                            entrar em vigor
+                        </b>
                     </p>
                     <div css={tw`mt-8 sm:flex items-center justify-end`}>
                         <Button onClick={() => setVisible(false)} css={tw`w-full sm:w-auto border-transparent`}>
@@ -83,8 +86,8 @@ const PIDLimitModalFeature = () => {
                         <h2 css={tw`text-2xl mb-4 text-neutral-100`}>Possível limite de recursos alcançado...</h2>
                     </div>
                     <p css={tw`mt-4`}>
-                        Este servidor está tentando usar mais recursos do que o alocado. Entre em contato com o administrador
-                        e dê a eles o erro abaixo.
+                        Este servidor está tentando usar mais recursos do que o alocado. Entre em contato com o
+                        administrador e dê a eles o erro abaixo.
                     </p>
                     <p css={tw`mt-4`}>
                         <code css={tw`font-mono bg-neutral-900`}>

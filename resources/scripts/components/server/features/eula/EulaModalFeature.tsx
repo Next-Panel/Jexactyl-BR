@@ -87,7 +87,7 @@ const EulaModalFeature = () => {
                     Cancelar
                 </Button>
                 <Button onClick={onAcceptEULA} css={tw`mt-4 sm:mt-0 sm:ml-4 w-full sm:w-auto`}>
-                   Eu aceito
+                    Eu aceito
                 </Button>
             </div>
         </Modal>

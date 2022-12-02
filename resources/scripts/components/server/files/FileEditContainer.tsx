@@ -74,7 +74,10 @@ export default () => {
             })
             .catch((error) => {
                 console.error(error);
-                addError({ message: httpErrorToHuman(error), key: 'files:view' });
+                addError({
+                    message: httpErrorToHuman(error),
+                    key: 'files:view',
+                });
             })
             .then(() => setLoading(false));
     };
@@ -94,11 +97,14 @@ export default () => {
             {hash.replace(/^#/, '').endsWith('.pteroignore') && (
                 <div css={tw`mb-4 p-4 border-l-4 bg-neutral-900 rounded border-cyan-400`}>
                     <p css={tw`text-neutral-300 text-sm`}>
-                        Você está editando um arquivo<code css={tw`font-mono bg-black rounded py-px px-1`}>.pteroignore</code>{' '}
-                      .Quaisquer arquivos ou diretórios listados aqui serão excluídos de backups. Wildcards são
-                        suportados usando um asterisco(<code css={tw`font-mono bg-black rounded py-px px-1`}>*</code>).
-                        Você pode negar uma regra anterior precendendo um ponto de exclamação (
-                        <code css={tw`font-mono bg-black rounded py-px px-1`}>!</code>).
+                        Você está editando um arquivo
+                        <code css={tw`font-mono bg-black rounded py-px px-1`}>.pteroignore</code> .Quaisquer arquivos ou
+                        diretórios listados aqui serão excluídos de backups. Wildcards são suportados usando um
+                        asterisco(
+                        <code css={tw`font-mono bg-black rounded py-px px-1`}>*</code>
+                        ). Você pode negar uma regra anterior precendendo um ponto de exclamação (
+                        <code css={tw`font-mono bg-black rounded py-px px-1`}>!</code>
+                        ).
                     </p>
                 </div>
             )}

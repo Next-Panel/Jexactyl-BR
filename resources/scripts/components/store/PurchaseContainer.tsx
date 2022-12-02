@@ -52,7 +52,9 @@ export default () => {
                 </Link>
             </div>
             <h1 className={'j-left text-5xl'}>Carteira do Usuário</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500'}>Compre créditos facilmente via Stripe ou PayPal.</h3>
+            <h3 className={'j-left text-2xl mt-2 text-neutral-500'}>
+                Compre créditos facilmente via Stripe ou PayPal.
+            </h3>
             <Container className={'j-up lg:grid lg:grid-cols-2 my-10'}>
                 <ContentBox title={'Carteira do Usuário'} showFlashes={'account:balance'} css={tw`sm:mt-0`}>
                     <h1 css={tw`text-7xl flex justify-center items-center`}>

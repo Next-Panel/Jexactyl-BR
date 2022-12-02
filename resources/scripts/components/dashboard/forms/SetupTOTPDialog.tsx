@@ -74,8 +74,8 @@ const ConfigureTwoFactorForm = ({ onTokens }: Props) => {
                 </p>
             </CopyOnClick>
             <p id={'totp-code-description'} className={'mt-6'}>
-                Digitalize o código QR acima usando a aplicação de autenticação em duas etapas à sua escolha. 
-                Em seguida, introduza o código de 6 dígitos gerado no campo abaixo.
+                Digitalize o código QR acima usando a aplicação de autenticação em duas etapas à sua escolha. Em
+                seguida, introduza o código de 6 dígitos gerado no campo abaixo.
             </p>
             <Input.Text
                 aria-labelledby={'totp-code-description'}
@@ -126,5 +126,5 @@ const ConfigureTwoFactorForm = ({ onTokens }: Props) => {
 export default asDialog({
     title: 'Activar a Verificação em Duas Etapas',
     description:
-        "Ajude a proteger a sua conta contra o acesso não autorizado. Ser-lhe-á pedido um código de verificação cada vez que entrar na sua conta.",
+        'Ajude a proteger a sua conta contra o acesso não autorizado. Ser-lhe-á pedido um código de verificação cada vez que entrar na sua conta.',
 })(ConfigureTwoFactorForm);

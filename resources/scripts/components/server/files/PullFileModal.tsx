@@ -121,7 +121,7 @@ export default ({ className }: WithClassname) => {
                                     Cancelar
                                 </Button.Text>
                                 <Button className={'w-full sm:w-auto'} onClick={submitForm}>
-                                Baixar Arquivo
+                                    Baixar Arquivo
                                 </Button>
                             </Dialog.Footer>
                         </Dialog>
@@ -129,7 +129,7 @@ export default ({ className }: WithClassname) => {
                 </Formik>
             </Portal>
             <Button.Text onClick={() => setVisible(true)} className={className}>
-            Baixar arquivo remoto
+                Baixar arquivo remoto
             </Button.Text>
         </>
     );

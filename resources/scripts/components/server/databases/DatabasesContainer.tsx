@@ -31,7 +31,10 @@ export default () => {
             .then((databases) => setDatabases(databases))
             .catch((error) => {
                 console.error(error);
-                addError({ key: 'databases', message: httpErrorToHuman(error) });
+                addError({
+                    key: 'databases',
+                    message: httpErrorToHuman(error),
+                });
             })
             .then(() => setLoading(false));
     }, []);

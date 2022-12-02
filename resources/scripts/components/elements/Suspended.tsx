@@ -116,10 +116,10 @@ export default () => {
                         {renewable ? (
                             <>
                                 <p css={tw`text-sm my-2`}>
-                                    Seu servidor foi suspenso por não ser renovado a tempo. Clique no
-                                    Renove o botão para reativar seu servidor. Se você quiser excluir
-                                    Seu servidor, os recursos serão adicionados automaticamente à sua conta para que você
-                                    pode implantar novamente um novo servidor facilmente.
+                                    Seu servidor foi suspenso por não ser renovado a tempo. Clique no Renove o botão
+                                    para reativar seu servidor. Se você quiser excluir Seu servidor, os recursos serão
+                                    adicionados automaticamente à sua conta para que você pode implantar novamente um
+                                    novo servidor facilmente.
                                 </p>
                                 <Button
                                     className={'mx-2 my-1'}
@@ -137,7 +137,12 @@ export default () => {
                                 </Button.Danger>
                             </>
                         ) : (
-                            <>Este servidor está suspenso e não pode ser acessado. acesse: <a  className='text-blue-600'   href="https://dash.seventyhost.net/">https://dash.seventyhost.net/</a></>
+                            <>
+                                Este servidor está suspenso e não pode ser acessado. acesse:{' '}
+                                <a className='text-blue-600' href='https://dash.seventyhost.net/'>
+                                    https://dash.seventyhost.net/
+                                </a>
+                            </>
                         )}
                     </div>
                 </div>

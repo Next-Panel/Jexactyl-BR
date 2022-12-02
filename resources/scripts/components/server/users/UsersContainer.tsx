@@ -51,7 +51,9 @@ export default () => {
         <ServerContentBlock title={'Users'}>
             <FlashMessageRender byKey={'users'} css={tw`mb-4`} />
             <h1 className={'j-left text-5xl'}>Sub-usuário</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>Adicione ou remova os usuários que podem gerenciar seu servidor.</h3>
+            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>
+                Adicione ou remova os usuários que podem gerenciar seu servidor.
+            </h3>
             {!subusers.length ? (
                 <p css={tw`text-center text-sm text-neutral-300`}>Parece que você não tem nenhum sub-usuário.</p>
             ) : (

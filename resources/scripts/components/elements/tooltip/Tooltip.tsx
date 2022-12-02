@@ -86,7 +86,12 @@ export default ({ children, ...props }: Props) => {
                         initial={{ opacity: 0, scale: 0.85 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ type: 'spring', damping: 20, stiffness: 300, duration: 0.075 }}
+                        transition={{
+                            type: 'spring',
+                            damping: 20,
+                            stiffness: 300,
+                            duration: 0.075,
+                        }}
                         {...getFloatingProps({
                             ref: floating,
                             className:

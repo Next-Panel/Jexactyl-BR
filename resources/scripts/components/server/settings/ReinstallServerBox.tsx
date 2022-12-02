@@ -27,7 +27,11 @@ export default () => {
             .catch((error) => {
                 console.error(error);
 
-                addFlash({ key: 'settings', type: 'danger', message: httpErrorToHuman(error) });
+                addFlash({
+                    key: 'settings',
+                    type: 'danger',
+                    message: httpErrorToHuman(error),
+                });
             })
             .then(() => setModalVisible(false));
     };
@@ -45,19 +49,19 @@ export default () => {
                 onClose={() => setModalVisible(false)}
                 onConfirmed={reinstall}
             >
-                Seu servidor será interrompido e alguns arquivos podem ser excluídos ou modificados durante esse processo, você tem certeza
-                Você deseja continuar?
+                Seu servidor será interrompido e alguns arquivos podem ser excluídos ou modificados durante esse
+                processo, você tem certeza Você deseja continuar?
             </Dialog.Confirm>
             <p css={tw`text-sm`}>
-            Reinstale para mudar a versão ou para resetar o servidor.&nbsp;
+                Reinstale para mudar a versão ou para resetar o servidor.&nbsp;
                 <strong css={tw`font-medium`}>
-                Alguns arquivos podem ser excluídos ou modificados durante esse processo, faça backup de seus dados antes
-                    de continuar.
+                    Alguns arquivos podem ser excluídos ou modificados durante esse processo, faça backup de seus dados
+                    antes de continuar.
                 </strong>
             </p>
             <div css={tw`mt-6 text-right`}>
                 <Button.Danger variant={Button.Variants.Secondary} onClick={() => setModalVisible(true)}>
-                Reinstalar o servidor
+                    Reinstalar o servidor
                 </Button.Danger>
             </div>
         </TitledGreyBox>

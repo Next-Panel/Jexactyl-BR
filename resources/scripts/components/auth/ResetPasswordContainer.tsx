@@ -30,7 +30,11 @@ export default ({ match, location }: RouteComponentProps<{ token: string }>) => 
 
     const submit = ({ password, passwordConfirmation }: Values, { setSubmitting }: FormikHelpers<Values>) => {
         clearFlashes();
-        performPasswordReset(email, { token: match.params.token, password, passwordConfirmation })
+        performPasswordReset(email, {
+            token: match.params.token,
+            password,
+            passwordConfirmation,
+        })
             .then(() => {
                 // @ts-expect-error this is valid
                 window.location = '/';
@@ -39,7 +43,11 @@ export default ({ match, location }: RouteComponentProps<{ token: string }>) => 
                 console.error(error);
 
                 setSubmitting(false);
-                addFlash({ type: 'danger', title: 'Error', message: httpErrorToHuman(error) });
+                addFlash({
+                    type: 'danger',
+                    title: 'Error',
+                    message: httpErrorToHuman(error),
+                });
             });
     };
 

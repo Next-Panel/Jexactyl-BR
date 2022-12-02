@@ -38,7 +38,11 @@ export default () => {
                 console.error(error);
 
                 setSubmitting(false);
-                addFlash({ type: 'danger', title: 'Error', message: httpErrorToHuman(error) });
+                addFlash({
+                    type: 'danger',
+                    title: 'Error',
+                    message: httpErrorToHuman(error),
+                });
             });
 
             return;
@@ -47,11 +51,19 @@ export default () => {
         requestPasswordResetEmail(email, token)
             .then((response) => {
                 resetForm();
-                addFlash({ type: 'success', title: 'Success', message: response });
+                addFlash({
+                    type: 'success',
+                    title: 'Success',
+                    message: response,
+                });
             })
             .catch((error) => {
                 console.error(error);
-                addFlash({ type: 'danger', title: 'Error', message: httpErrorToHuman(error) });
+                addFlash({
+                    type: 'danger',
+                    title: 'Error',
+                    message: httpErrorToHuman(error),
+                });
             })
             .then(() => {
                 setToken('');

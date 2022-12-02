@@ -19,7 +19,10 @@ const IconDescription = styled.p<{ $alarm?: boolean }>`
     ${(props) => (props.$alarm ? tw`text-white` : tw`text-neutral-400`)};
 `;
 
-const StatusIndicatorBox = styled(GreyRowBox)<{ $status: ServerPowerState | undefined; $bg: string }>`
+const StatusIndicatorBox = styled(GreyRowBox)<{
+    $status: ServerPowerState | undefined;
+    $bg: string;
+}>`
     ${tw`grid grid-cols-12 gap-4 relative`};
 
     ${({ $bg }) => `background-image: url("${$bg}");`}

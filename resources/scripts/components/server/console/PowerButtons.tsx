@@ -59,7 +59,7 @@ export default ({ className }: PowerButtonProps) => {
             </Can>
             <Can action={'control.restart'}>
                 <Button.Text className={'flex-1'} disabled={!status} onClick={onButtonClick.bind(this, 'restart')}>
-                Reiniciar
+                    Reiniciar
                 </Button.Text>
             </Can>
             <Can action={'control.stop'}>

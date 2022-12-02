@@ -182,7 +182,9 @@ export default () => {
                         </Link>
                     </div>
                     <h1 className={'j-left text-5xl'}>Detalhes Básicos</h1>
-                    <h3 className={'j-left text-2xl text-neutral-500'}>Defina os campos básicos para o novo servidor.</h3>
+                    <h3 className={'j-left text-2xl text-neutral-500'}>
+                        Defina os campos básicos para o novo servidor.
+                    </h3>
                     <StoreContainer className={'lg:grid lg:grid-cols-2 my-10 gap-4'}>
                         <TitledGreyBox title={'Nome do Servidor'} icon={faStickyNote} className={'mt-8 sm:mt-0'}>
                             <Field name={'name'} />
@@ -198,9 +200,15 @@ export default () => {
                         </TitledGreyBox>
                     </StoreContainer>
                     <h1 className={'j-left text-5xl'}>Limites de recursos</h1>
-                    <h3 className={'j-left text-2xl text-neutral-500'}>Defina limites específicos para CPU, RAM e muito mais.</h3>
+                    <h3 className={'j-left text-2xl text-neutral-500'}>
+                        Defina limites específicos para CPU, RAM e muito mais.
+                    </h3>
                     <StoreContainer className={'lg:grid lg:grid-cols-3 my-10 gap-4'}>
-                        <TitledGreyBox title={'Limite de CPU do servidor'} icon={faMicrochip} className={'mt-8 sm:mt-0'}>
+                        <TitledGreyBox
+                            title={'Limite de CPU do servidor'}
+                            icon={faMicrochip}
+                            className={'mt-8 sm:mt-0'}
+                        >
                             <Field name={'cpu'} />
                             <p className={'mt-1 text-xs'}>Atribua um limite para CPU utilizável.</p>
                             <p className={'mt-1 text-xs text-gray-400'}>{resources.cpu}% disponível</p>
@@ -213,7 +221,11 @@ export default () => {
                             <p className={'mt-1 text-xs'}>Atribuir um limite para RAM utilizável.</p>
                             <p className={'mt-1 text-xs text-gray-400'}>{resources.memory}MB disponível</p>
                         </TitledGreyBox>
-                        <TitledGreyBox title={'Limite de armazenamento do servidor'} icon={faHdd} className={'mt-8 sm:mt-0'}>
+                        <TitledGreyBox
+                            title={'Limite de armazenamento do servidor'}
+                            icon={faHdd}
+                            className={'mt-8 sm:mt-0'}
+                        >
                             <div className={'relative'}>
                                 <Field name={'disk'} />
                                 <p className={'absolute text-sm top-1.5 right-2 bg-gray-700 p-2 rounded-lg'}>MB</p>
@@ -265,7 +277,9 @@ export default () => {
                                     </option>
                                 ))}
                             </Select>
-                            <p className={'mt-1 text-xs text-gray-400'}>Selecione um nest a ser usado para o servidor.</p>
+                            <p className={'mt-1 text-xs text-gray-400'}>
+                                Selecione um nest a ser usado para o servidor.
+                            </p>
                         </TitledGreyBox>
                         <TitledGreyBox title={'Egg do Servidor'} icon={faEgg} className={'mt-8 sm:mt-0'}>
                             <Select name={'egg'} onChange={(e) => setEgg(parseInt(e.target.value))}>

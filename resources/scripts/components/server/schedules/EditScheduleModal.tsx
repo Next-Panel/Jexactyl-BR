@@ -68,7 +68,10 @@ const EditScheduleModal = ({ schedule }: Props) => {
                 console.error(error);
 
                 setSubmitting(false);
-                addError({ key: 'schedule:edit', message: httpErrorToHuman(error) });
+                addError({
+                    key: 'schedule:edit',
+                    message: httpErrorToHuman(error),
+                });
             });
     };
 
@@ -105,8 +108,9 @@ const EditScheduleModal = ({ schedule }: Props) => {
                         <Field name={'dayOfWeek'} label={'Dia da semana'} />
                     </div>
                     <p css={tw`text-neutral-400 text-xs mt-2`}>
-                    O sistema de programação suporta o uso da sintaxe de Cronjob ao definir quando as tarefas devem começar.
-                    Use os campos acima para especificar quando essas tarefas devem começar a ser executadas.
+                        O sistema de programação suporta o uso da sintaxe de Cronjob ao definir quando as tarefas devem
+                        começar. Use os campos acima para especificar quando essas tarefas devem começar a ser
+                        executadas.
                     </p>
                     <div css={tw`mt-6 bg-neutral-900 border border-neutral-800 shadow-inner p-4 rounded`}>
                         <Switch
@@ -125,7 +129,9 @@ const EditScheduleModal = ({ schedule }: Props) => {
                     <div css={tw`mt-6 bg-neutral-900 border border-neutral-800 shadow-inner p-4 rounded`}>
                         <FormikSwitch
                             name={'onlyWhenOnline'}
-                            description={'Execute apenas esta programação quando o servidor estiver em um estado em execução.'}
+                            description={
+                                'Execute apenas esta programação quando o servidor estiver em um estado em execução.'
+                            }
                             label={'Somente quando o servidor está online'}
                         />
                     </div>

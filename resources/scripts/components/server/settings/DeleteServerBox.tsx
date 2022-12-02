@@ -49,8 +49,8 @@ export default () => {
                     setWarn(false);
                 }}
             >
-                Seu servidor será excluído, com todos os arquivos sendo purgados e os recursos do servidor são retornados
-                para sua conta.Tem certeza que deseja continuar?
+                Seu servidor será excluído, com todos os arquivos sendo purgados e os recursos do servidor são
+                retornados para sua conta.Tem certeza que deseja continuar?
             </Dialog.Confirm>
             <form id={'delete-server-form'} onSubmit={submit}>
                 <Dialog
@@ -64,7 +64,7 @@ export default () => {
                     {name !== serverName && (
                         <>
                             <p className={'my-2 text-gray-400'}>
-                            Modelo <Code>{serverName}</Code> abaixo de.
+                                Modelo <Code>{serverName}</Code> abaixo de.
                             </p>
                             <Input type={'text'} value={name} onChange={(n) => setName(n.target.value)} />
                         </>
@@ -80,15 +80,15 @@ export default () => {
                 </Dialog>
             </form>
             <p className={'text-sm'}>
-            Excluir seu servidor desligará qualquer processo, retornará os recursos para sua conta e excluirá todos os
-                arquivos associados à instância - bem como backups, bancos de dados e configurações.{' '}
+                Excluir seu servidor desligará qualquer processo, retornará os recursos para sua conta e excluirá todos
+                os arquivos associados à instância - bem como backups, bancos de dados e configurações.{' '}
                 <strong className={'font-medium'}>
-                Todos os dados serão perdidos permanentemente se você continuar com esta ação.
+                    Todos os dados serão perdidos permanentemente se você continuar com esta ação.
                 </strong>
             </p>
             <div className={'mt-6 font-medium text-right'}>
                 <Button.Danger variant={Button.Variants.Secondary} onClick={() => setWarn(true)}>
-                Excluir servidor
+                    Excluir servidor
                 </Button.Danger>
             </div>
         </TitledGreyBox>

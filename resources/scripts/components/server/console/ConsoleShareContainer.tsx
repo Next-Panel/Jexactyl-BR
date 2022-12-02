@@ -32,7 +32,11 @@ export default () => {
                 });
             })
             .catch((error) => {
-                addFlash({ key: 'console:share', type: 'danger', message: httpErrorToHuman(error) });
+                addFlash({
+                    key: 'console:share',
+                    type: 'danger',
+                    message: httpErrorToHuman(error),
+                });
             });
     };
 

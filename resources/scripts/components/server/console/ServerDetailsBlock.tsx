@@ -28,7 +28,12 @@ const Bar = styled.div`
 `;
 
 export default ({ className }: { className?: string }) => {
-    const [stats, setStats] = useState<Stats>({ memory: 0, cpu: 0, disk: 0, uptime: 0 });
+    const [stats, setStats] = useState<Stats>({
+        memory: 0,
+        cpu: 0,
+        disk: 0,
+        uptime: 0,
+    });
 
     const status = ServerContext.useStoreState((state) => state.status.value);
     const instance = ServerContext.useStoreState((state) => state.socket.instance);
@@ -104,7 +109,11 @@ export default ({ className }: { className?: string }) => {
                 ) : limits.cpu === 0 ? (
                     <Bar style={{ width: '100%' }} css={tw`bg-neutral-900`} />
                 ) : (
-                    <Bar style={{ width: cpuUsed === undefined ? '100%' : `${cpuUsed}%` }} />
+                    <Bar
+                        style={{
+                            width: cpuUsed === undefined ? '100%' : `${cpuUsed}%`,
+                        }}
+                    />
                 )}
             </StatBlock>
             <StatBlock icon={faMemory} title={'Memória RAM'}>
@@ -118,7 +127,11 @@ export default ({ className }: { className?: string }) => {
                 ) : limits.memory === 0 ? (
                     <Bar style={{ width: '100%' }} css={tw`bg-neutral-900`} />
                 ) : (
-                    <Bar style={{ width: memoryUsed === undefined ? '100%' : `${memoryUsed}%` }} />
+                    <Bar
+                        style={{
+                            width: memoryUsed === undefined ? '100%' : `${memoryUsed}%`,
+                        }}
+                    />
                 )}
             </StatBlock>
             <StatBlock icon={faHdd} title={'Disco'}>
@@ -128,7 +141,11 @@ export default ({ className }: { className?: string }) => {
                 ) : limits.disk === 0 ? (
                     <Bar style={{ width: '100%' }} css={tw`bg-neutral-900`} />
                 ) : (
-                    <Bar style={{ width: diskUsed === undefined ? '100%' : `${diskUsed}%` }} />
+                    <Bar
+                        style={{
+                            width: diskUsed === undefined ? '100%' : `${diskUsed}%`,
+                        }}
+                    />
                 )}
             </StatBlock>
             <StatBlock icon={faScroll} title={'Salvar logs do console'}>

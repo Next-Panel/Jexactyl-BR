@@ -51,7 +51,8 @@ export default () => {
                 onConfirmed={() => doRenewal()}
             >
                 <SpinnerOverlay visible={loading} />
-                Você será cobrado {store.renewals.cost} créditos para adicionar {store.renewals.days} dias até sua próxima renovação é devida.
+                Você será cobrado {store.renewals.cost} créditos para adicionar {store.renewals.days} dias até sua
+                próxima renovação é devida.
             </Dialog.Confirm>
             em {renewal} dias{' '}
             <span className={'text-blue-500 text-sm cursor-pointer'} onClick={() => setOpen(true)}>

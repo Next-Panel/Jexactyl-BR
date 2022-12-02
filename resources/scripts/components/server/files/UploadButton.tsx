@@ -49,7 +49,9 @@ export default ({ className }: WithClassname) => {
         { capture: true }
     );
 
-    useEventListener('dragexit', () => (visible.value = false), { capture: true });
+    useEventListener('dragexit', () => (visible.value = false), {
+        capture: true,
+    });
 
     useEventListener('keydown', () => (visible.value = false));
 
@@ -73,7 +75,10 @@ export default ({ className }: WithClassname) => {
 
         const uploads = list.map((file) => {
             const controller = new AbortController();
-            pushFileUpload({ name: file.name, data: { abort: controller, loaded: 0, total: file.size } });
+            pushFileUpload({
+                name: file.name,
+                data: { abort: controller, loaded: 0, total: file.size },
+            });
 
             return () =>
                 getFileUploadUrl(uuid).then((url) =>

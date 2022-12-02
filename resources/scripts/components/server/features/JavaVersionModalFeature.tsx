@@ -31,7 +31,9 @@ const JavaVersionModalFeature = () => {
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const { instance } = ServerContext.useStoreState((state) => state.socket);
 
-    const { data, isValidating, mutate } = getServerStartup(uuid, null, { revalidateOnMount: false });
+    const { data, isValidating, mutate } = getServerStartup(uuid, null, {
+        revalidateOnMount: false,
+    });
 
     useEffect(() => {
         if (!visible) return;

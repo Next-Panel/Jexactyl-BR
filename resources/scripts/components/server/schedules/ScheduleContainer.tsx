@@ -31,7 +31,10 @@ export default () => {
         getServerSchedules(uuid)
             .then((schedules) => setSchedules(schedules))
             .catch((error) => {
-                addError({ message: httpErrorToHuman(error), key: 'schedules' });
+                addError({
+                    message: httpErrorToHuman(error),
+                    key: 'schedules',
+                });
                 console.error(error);
             })
             .then(() => setLoading(false));
@@ -70,7 +73,7 @@ export default () => {
                         <div css={tw`mt-8 flex justify-end`}>
                             <EditScheduleModal visible={visible} onModalDismissed={() => setVisible(false)} />
                             <Button type={'button'} onClick={() => setVisible(true)}>
-                            Criar programação
+                                Criar programação
                             </Button>
                         </div>
                     </Can>

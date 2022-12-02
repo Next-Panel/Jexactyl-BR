@@ -25,7 +25,7 @@ return [
     'between' => [
         'numeric' => 'O :attribute deve ser entre :min e :max.',
         'file' => 'O :attribute deve ser entre :min e :max kilobytes.',
-        'string' => 'The :attribute email must be between :min and :max characters.',
+        'string' => 'The :attribute must be between :min and :max characters.',
         'array' => 'O :attribute deve ter entre :min e :max items.',
     ],
     'boolean' => 'O :attribute campo deve ser verdadeiro ou falso.',
@@ -37,7 +37,7 @@ return [
     'digits_between' => 'O :attribute deve ser entre :min e :max digitos.',
     'dimensions' => 'O :attribute tem dimensões de imagem inválidas.',
     'distinct' => 'O :attribute campo tem um valor duplicado.',
-    'email' => 'O :attribute deve ser um endereço de e-mail válido.',
+    'email' => 'The :attribute must be a valid email address.',
     'exists' => 'The selected :attribute is invalid.',
     'file' => 'O :attribute deve ser um arquivo.',
     'filled' => 'The :attribute field is required.',
@@ -50,7 +50,7 @@ return [
     'max' => [
         'numeric' => 'O :attribute não pode ser maior do que :max.',
         'file' => 'O :attribute não pode ser maior do que :max kilobytes.',
-        'string' => 'O :attribute não pode ser maior do que :max characters.',
+        'string' => 'The :attribute may not be greater than :max characters.',
         'array' => 'The :attribute may not have more than :max items.',
     ],
     'mimes' => 'O :attribute deve ser um arquivo de tipo: :values.',

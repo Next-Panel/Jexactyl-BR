@@ -172,7 +172,7 @@ class User extends Model implements
     protected $attributes = [
         'external_id' => null,
         'root_admin' => false,
-        'language' => 'en',
+        'language' => 'pt',
         'use_totp' => false,
         'totp_secret' => null,
         'approved' => false,

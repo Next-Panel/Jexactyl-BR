@@ -7,7 +7,7 @@ return [
         'daemon_off_config_updated' => 'A configuração daemon <strong> foi atualizada </strong>, no entanto, houve um erro encontrado ao tentar atualizar automaticamente o arquivo de configuração no Daemon. Você precisará atualizar manualmente o arquivo de configuração (config.yml) para que o daemon aplique essas alterações.',
     ],
     'allocations' => [
-        'server_using' => 'Um servidor é atualmente atribuído a essa alocação. Uma alocação só pode ser excluída se nenhum servidor for atribuído no momento.',
+        'server_using' => 'Um servidor é atualmente atribuído a essa alocação. Uma alocação so pode ser excluída se nenhum servidor for atribuído no momento.',
         'too_many_ports' => 'Adicionar mais de 1000 portas em um único intervalo ao mesmo tempo não é suportado.',
         'invalid_mapping' => 'O mapeamento previsto para :port era inválido e não pôde ser processado.',
         'cidr_out_of_range' => 'CIDR a notação só permite máscaras entre /25 e /32.',
@@ -35,7 +35,7 @@ return [
     'subusers' => [
         'editing_self' => 'A edição de sua própria conta subusuário não é permitida.',
         'user_is_owner' => 'Você não pode adicionar o proprietário do servidor como subusário para este servidor.',
-        'subuser_exists' => 'Um usuário com esse endereço de e-mail já é designado como subusuário para este servidor.',
+        'subuser_exists' => 'Um usuario com esse endereço de e-mail ja e designado como subusuario para este servidor.',
     ],
     'databases' => [
         'delete_has_databases' => 'Não é possível excluir um servidor host de banco de dados que tenha bancos de dados ativos vinculados a ele.',

@@ -138,10 +138,7 @@ export default () => {
                             </>
                         ) : (
                             <>
-                                Este servidor está suspenso e não pode ser acessado. acesse:{' '}
-                                <a className='text-blue-600' href='https://dash.seventyhost.net/'>
-                                    https://dash.seventyhost.net/
-                                </a>
+                                Este servidor está suspenso e não pode ser acessado.
                             </>
                         )}
                     </div>

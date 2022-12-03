@@ -91,5 +91,5 @@ return [
     'enable' => 'Habilitado',
     'disable' => 'Desabilitado',
     'save' => 'Salvar',
-    'copyright' => 'Diamante Store 2022',
+    'copyright' => '&copy; 2015 - :year Pterodactyl Software',
 ];

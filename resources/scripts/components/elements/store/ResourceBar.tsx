@@ -42,7 +42,9 @@ export default ({ className, titles }: RowProps) => {
             <Tooltip content={props.description}>
                 <Wrapper>
                     {props.icon}
-                    <span className={'ml-2'}>{props.toHuman ? megabytesToHuman(props.amount) : props.amount}</span>
+                    <span className={'ml-2'}>
+                        {props.toHuman ? <span className={'sm'}>{megabytesToHuman(props.amount)}</span> : props.amount}
+                    </span>
                     {props.suffix}
                 </Wrapper>
             </Tooltip>

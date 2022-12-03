@@ -3,7 +3,7 @@ import { breakpoint } from '@/theme';
 import styled from 'styled-components/macro';
 
 export default styled.div`
-    ${tw`grid`};
+    ${tw`flex flex-wrap [@media(max-width:1024px)]:grid`};
 
     & > div {
         ${tw`w-full`};

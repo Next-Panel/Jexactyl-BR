@@ -10,7 +10,7 @@ use Symfony\Component\Console\Helper\ProgressBar;
 
 class UpgradeCommand extends Command
 {
-    protected const DEFAULT_URL = 'https://github.com/jexactyl/jexactyl/releases/%s/panel.tar.gz';
+    protected const DEFAULT_URL = 'https://github.com/ashu11-a/jexactyl_pt-br/releases/%s/panel.tar.gz';
 
     protected $signature = 'p:upgrade
         {--user= : The user that PHP runs under. All files will be owned by this user.}

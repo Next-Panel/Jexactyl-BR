@@ -137,9 +137,7 @@ export default () => {
                                 </Button.Danger>
                             </>
                         ) : (
-                            <>
-                                Este servidor está suspenso e não pode ser acessado.
-                            </>
+                            <>Este servidor está suspenso e não pode ser acessado.</>
                         )}
                     </div>
                 </div>

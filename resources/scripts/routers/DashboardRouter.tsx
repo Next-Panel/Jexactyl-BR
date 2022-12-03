@@ -60,11 +60,15 @@ export default () => {
                     </div>
                 </SubNavigation>
             ) : (
-                <SubNavigation className={'j-down lg:visible invisible'}>
-                    <div>
-                        <InformationContainer />
-                    </div>
-                </SubNavigation>
+                <>
+                    {width >= 1024 && (
+                        <SubNavigation className={'j-down lg:visible invisible'}>
+                            <div>
+                                <InformationContainer />
+                            </div>
+                        </SubNavigation>
+                    )}
+                </>
             )}
             <TransitionRouter>
                 <React.Suspense fallback={<Spinner centered />}>

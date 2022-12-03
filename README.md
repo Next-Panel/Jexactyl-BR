@@ -1,10 +1,10 @@
 [![Logo Image](https://cdn.discordapp.com/attachments/1012411945141424218/1012430446556090468/JexactylBannerBasic.jpg)](https://jexactyl.com)
 
-![Tests](https://img.shields.io/github/workflow/status/jexactyl/jexactyl/Build%20Panel)
+![Tests](https://img.shields.io/github/workflow/status/Ashu11-A/Jexactyl_PT-BR/Build)
 <a href="https://discord.gg/qttGR4Z5Pk">![Discord](https://img.shields.io/discord/922284031129825280)</a>
 ![Downloads - Total](https://img.shields.io/github/downloads/jexactyl/jexactyl/total)
 ![Downloads - Latest](https://img.shields.io/github/downloads/jexactyl/jexactyl/latest/total)
-![Version](https://img.shields.io/github/v/release/jexactyl/jexactyl)
+![Version](https://img.shields.io/github/v/release/Ashu11-A/Jexactyl_PT-BR)
 
 # Jexactyl
 Jexactyl é um painel de gerenciamento de jogos e sistema de faturamento rápido, avançado e personalizável em um só.

@@ -31,7 +31,7 @@ const Container = styled.div`
 
 export default forwardRef<HTMLFormElement, Props>(({ title, ...props }, ref) => {
     const logo_string = useStoreState((state) => state.settings.data?.logo);
-    const logo = logo_string === '' ? "/assets/svgs/pterodactyl.svg" : `${logo_string}`;
+    const logo = logo_string === '' ? '/assets/svgs/pterodactyl.svg' : `${logo_string}`;
 
     return (
         <Container>

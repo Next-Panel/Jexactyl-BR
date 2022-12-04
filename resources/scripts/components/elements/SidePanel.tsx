@@ -11,7 +11,7 @@ import SearchContainer from '@/components/dashboard/search/SearchContainer';
 
 export default () => {
     const logo_string = useStoreState((state) => state.settings.data?.logo);
-    const logo = logo_string === '' ? "https://avatars.githubusercontent.com/u/91636558" : `${logo_string}`;
+    const logo = logo_string === '' ? 'https://avatars.githubusercontent.com/u/91636558' : `${logo_string}`;
     const store = useStoreState((state) => state.storefront.data!.enabled);
     const rootAdmin = useStoreState((state) => state.user.data!.rootAdmin);
 

@@ -10,7 +10,8 @@ import Tooltip from '@/components/elements/tooltip/Tooltip';
 import SearchContainer from '@/components/dashboard/search/SearchContainer';
 
 export default () => {
-    const logo = useStoreState((state) => state.settings.data?.logo);
+    const logo_string = useStoreState((state) => state.settings.data?.logo);
+    const logo = logo_string === '' ? "https://avatars.githubusercontent.com/u/91636558" : `${logo_string}`;
     const store = useStoreState((state) => state.storefront.data!.enabled);
     const rootAdmin = useStoreState((state) => state.user.data!.rootAdmin);
 
@@ -45,7 +46,7 @@ export default () => {
         <PanelDiv>
             <ProgressBar />
             <Link to={'/'}>
-                <img className={'p-2'} src={logo ?? 'https://avatars.githubusercontent.com/u/91636558'} />
+                <img className={'p-2'} src={`${logo}`} />
             </Link>
             <div>
                 <div className={'navigation-link'}>

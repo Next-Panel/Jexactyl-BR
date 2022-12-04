@@ -10,7 +10,7 @@ class AppearanceFormRequest extends AdminFormRequest
     {
         return [
             'app:name' => 'required|string|max:191',
-            'app:logo' => 'required|string|max:191',
+            'app:logo' => 'string|nullable|max:191',
             'theme:user:background' => 'nullable|url',
             'theme:admin' => 'required|string|in:jexactyl,dark,light,blue,minecraft',
         ];

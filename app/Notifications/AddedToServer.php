@@ -35,9 +35,9 @@ class AddedToServer extends Notification implements ShouldQueue
     public function toMail(): MailMessage
     {
         return (new MailMessage())
-            ->greeting('Hello ' . $this->server->user . '!')
-            ->line('You have been added as a subuser for the following server, allowing you certain control over the server.')
-            ->line('Server Name: ' . $this->server->name)
-            ->action('Visit Server', url('/server/' . $this->server->uuidShort));
+            ->greeting('Olá ' . $this->server->user . '!')
+            ->line('Você foi adicionado como um subusuário para o seguinte servidor, permitindo certo controle sobre o servidor.')
+            ->line('Nome do Servidor: ' . $this->server->name)
+            ->action('Visite o site', url('/server/' . $this->server->uuidShort));
     }
 }

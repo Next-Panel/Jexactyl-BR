@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    Aplica&ccedil;&atilde;o API
+    Aplica&ccedil;&atilde;o de API
 @endsection
 
 @section('content-header')

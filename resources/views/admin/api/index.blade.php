@@ -1,14 +1,14 @@
 @extends('layouts.admin')
 
 @section('title')
-    Aplication API
+    Aplicação de API
 @endsection
 
 @section('content-header')
     <h1>Aplica&ccedil;&atilde;o API<small>Controlar credenciais de acesso para gerenciar este Painel atrav&eacute;s da API.</small></h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.index') }}">Administrador</a></li>
-        <li class="active">Aplica&ccedil;&atilde;o API</li>
+        <li class="active">Aplica&ccedil;&atilde;o de API</li>
     </ol>
 @endsection
 

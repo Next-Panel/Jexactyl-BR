@@ -14,8 +14,8 @@ class EmailSettingsCommand extends Command
 
     protected $signature = 'p:environment:mail
                             {--driver= : O driver de e-mail a ser usado.}
-                            {--email= : Endereço de e -mail que as mensagens do painel se originarão de.}
-                            {--from= : O nome e -mails do painel parecerão ser de.}
+                            {--email= : Endereço de e-mail que as mensagens do painel se originarão de.}
+                            {--from= : O nome e-mails do painel parecerão ser de.}
                             {--encryption=}
                             {--host=}
                             {--port=}

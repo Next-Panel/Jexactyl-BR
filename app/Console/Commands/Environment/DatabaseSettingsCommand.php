@@ -38,7 +38,7 @@ class DatabaseSettingsCommand extends Command
      */
     public function handle(): int
     {
-        $this->output->note('É altamente recomendável não usar "localhost" como seu host de database, pois temos visto problemas frequentes de conexão de soquete. Se você quiser usar uma conexão local, você deve estar usando "127.0.0.1".');
+        $this->output->note(' É altamente recomendável não usar "localhost" como seu host de database, pois temos visto problemas frequentes de conexão de soquete. Se você quiser usar uma conexão local, você deve estar usando "127.0.0.1".');
         $this->variables['DB_HOST'] = $this->option('host') ?? $this->ask(
             'Host do Database ',
             config('database.connections.mysql.host', '127.0.0.1')

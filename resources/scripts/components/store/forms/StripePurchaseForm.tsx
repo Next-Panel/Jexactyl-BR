@@ -62,6 +62,21 @@ export default () => {
                         <option key={'stripe:buy:1000'} value={1000}>
                             Comprar 1000 creditos
                         </option>
+                        <option key={'paypal:buy:2000'} value={2000}>
+                            Comprar 2000 creditos
+                        </option>
+                        <option key={'paypal:buy:4000'} value={4000}>
+                            Comprar 4000 creditos
+                        </option>
+                        <option key={'paypal:buy:6000'} value={6000}>
+                            Comprar 6000 creditos
+                        </option>
+                        <option key={'paypal:buy:8000'} value={8000}>
+                            Comprar 8000 creditos
+                        </option>
+                        <option key={'paypal:buy:10000'} value={10000}>
+                            Comprar 10000 creditos
+                        </option>
                     </Select>
                     <div css={tw`mt-6`}>
                         <Button type={'submit'} disabled={submitting}>

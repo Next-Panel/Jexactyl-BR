@@ -71,7 +71,7 @@
                     <span class="info-box-icon"><i class="fa fa-hdd-o"></i></span>
                     <div class="info-box-content" style="padding: 23px 10px 0;">
                         <span class="info-box-text">Uso total em disco</span>
-                        <span class="info-box-number">{{ $used['disk'] }} MB de {{ $available['disk'] }} MB </span>
+                        <span class="info-box-number">{{ $used['disk'] }} teste MB de {{ $available['disk'] }} MB </span>
                     </div>
                 </div>
             </div>

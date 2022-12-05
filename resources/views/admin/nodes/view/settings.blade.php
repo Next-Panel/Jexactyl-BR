@@ -132,7 +132,7 @@
                                 <label for="memory" class="control-label">Memoria Total</label>
                                 <div class="input-group">
                                     <input type="text" name="memory" class="form-control" data-multiplicator="true" value="{{ old('memory', $node->memory) }}"/>
-                                    <span class="input-group-addon">MB</span>
+                                    <span class="input-group-addon">MiB</span>
                                 </div>
                             </div>
                             <div class="form-group col-xs-6">
@@ -151,7 +151,7 @@
                                 <label for="disk" class="control-label">Espaço em disco</label>
                                 <div class="input-group">
                                     <input type="text" name="disk" class="form-control" data-multiplicator="true" value="{{ old('disk', $node->disk) }}"/>
-                                    <span class="input-group-addon">MB</span>
+                                    <span class="input-group-addon">MiB</span>
                                 </div>
                             </div>
                             <div class="form-group col-xs-6">
@@ -177,7 +177,7 @@
                         <label for="disk_overallocate" class="control-label">Tamanho máximo do arquivo de upload da Web</label>
                         <div class="input-group">
                             <input type="text" name="upload_size" class="form-control" value="{{ old('upload_size', $node->upload_size) }}"/>
-                            <span class="input-group-addon">MB</span>
+                            <span class="input-group-addon">MiB</span>
                         </div>
                         <p class="text-muted"><small>Insira o tamanho máximo de arquivos que podem ser carregados por meio do gerenciador de arquivos baseado na Web.</small></p>
                     </div>

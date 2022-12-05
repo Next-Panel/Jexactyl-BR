@@ -175,7 +175,7 @@ Novo servidor
 
                         <div class="input-group">
                             <input type="text" id="pMemory" name="memory" class="form-control" value="{{ old('memory') }}" />
-                            <span class="input-group-addon">MB</span>
+                            <span class="input-group-addon">MiB</span>
                         </div>
 
                         <p class="text-muted small">A quantidade máxima de memória permitida para este contêiner. Definindo isto para <code>0</code>permitirá uma memória ilimitada em um contêiner.</p>
@@ -186,7 +186,7 @@ Novo servidor
 
                         <div class="input-group">
                             <input type="text" id="pSwap" name="swap" class="form-control" value="{{ old('swap', 0) }}" />
-                            <span class="input-group-addon">MB</span>
+                            <span class="input-group-addon">MiB</span>
                         </div>
 
                         <p class="text-muted small">Definindo isto para <code>0</code> irá desativar o swap neste servidor. Definindo para <code>-1</code> permitirá um swap ilimitado.</p>
@@ -199,7 +199,7 @@ Novo servidor
 
                         <div class="input-group">
                             <input type="text" id="pDisk" name="disk" class="form-control" value="{{ old('disk') }}" />
-                            <span class="input-group-addon">MB</span>
+                            <span class="input-group-addon">MiB</span>
                         </div>
 
                         <p class="text-muted small">Este servidor não será permitido inicializar se estiver usando mais do que esta quantidade de espaço.

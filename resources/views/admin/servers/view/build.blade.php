@@ -45,7 +45,7 @@ Servidor — {{ $server->name }}: Detalhes do Build
                         <label for="memory" class="control-label">Memória alocada</label>
                         <div class="input-group">
                             <input type="text" name="memory" data-multiplicator="true" class="form-control" value="{{ old('memory', $server->memory) }}"/>
-                            <span class="input-group-addon">MB</span>
+                            <span class="input-group-addon">MiB</span>
                         </div>
                         <p class="text-muted small">A quantidade máxima de memória permitida para este contêiner.
                         Definindo isto como <code>0</code> permitirá uma memória ilimitada em um contêiner.</p>
@@ -54,7 +54,7 @@ Servidor — {{ $server->name }}: Detalhes do Build
                         <label for="swap" class="control-label">Swap alocado</label>
                         <div class="input-group">
                             <input type="text" name="swap" data-multiplicator="true" class="form-control" value="{{ old('swap', $server->swap) }}"/>
-                            <span class="input-group-addon">MB</span>
+                            <span class="input-group-addon">MiB</span>
                         </div>
                         <p class="text-muted small">Definindo isto como <code>0</code> irá desativar o swap neste servidor.
                         Definindo isto para <code>-1</code> permitirá swap ilimitado.</p>
@@ -63,7 +63,7 @@ Servidor — {{ $server->name }}: Detalhes do Build
                         <label for="cpu" class="control-label">Limite do espaço em disco</label>
                         <div class="input-group">
                             <input type="text" name="disk" class="form-control" value="{{ old('disk', $server->disk) }}"/>
-                            <span class="input-group-addon">MB</span>
+                            <span class="input-group-addon">MiB</span>
                         </div>
                         <p class="text-muted small">Este servidor não será permitido inicializar se estiver usando mais do que esta quantidade de espaço. Se um servidor ultrapassar este limite enquanto estiver em funcionamento, ele será parado com segurança e bloqueado até que haja espaço suficiente disponível.
                         Definir para <code>0</code> permitirá o uso ilimitado do disco.</p>

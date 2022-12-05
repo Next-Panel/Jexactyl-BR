@@ -10,7 +10,7 @@ class EmailSettingsCommand extends Command
 {
     use EnvironmentWriterTrait;
 
-    protected $description = 'Defina ou atualize a configuração de envio de e-mail para o Painel.';
+    protected $description = ' Defina ou atualize a configuração de envio de e-mail para o Painel.';
 
     protected $signature = 'p:environment:mail
                             {--driver= : O driver de e-mail a ser usado.}

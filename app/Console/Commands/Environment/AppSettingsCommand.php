@@ -35,12 +35,12 @@ class AppSettingsCommand extends Command
 
     protected $signature = 'p:environment:setup
                             {--new-salt : Se deve ou não gerar um novo salt para hashids.}
-                            {--author= : O email que os serviços criados nesta instância devem estar vinculados.}
+                            {--author= : O e-mail que os serviços criados nesta instância devem estar vinculados.}
                             {--url= : O URL em que este painel estará sendo executado.}
                             {--timezone= : O fuso horário a ser usado para os tempos do painel.}
                             {--cache= : O back-end do driver de cache a ser usado.}
                             {--session= : O back-end do driver da sessão para usar.}
-                            {--queue= : O back-end do driver da fila para usar.}
+                            {--queue= : O back-end do driver do Queue para usar.}
                             {--redis-host= : Host do redis  a ser usado para conexões.}
                             {--redis-pass= : Senha usada para conectar-se ao Redis.}
                             {--redis-port= : Porta para conectar-se ao Redis.}

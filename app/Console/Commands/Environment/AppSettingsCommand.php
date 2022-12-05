@@ -12,13 +12,13 @@ class AppSettingsCommand extends Command
     use EnvironmentWriterTrait;
 
     public const CACHE_DRIVERS = [
-        'redis' => 'Redis (recommended)',
+        'redis' => 'Redis (recomendado)',
         'memcached' => 'Memcached',
         'file' => 'Filesystem',
     ];
 
     public const SESSION_DRIVERS = [
-        'redis' => 'Redis (recommended)',
+        'redis' => 'Redis (recomendado)',
         'memcached' => 'Memcached',
         'database' => 'MySQL Database',
         'file' => 'Filesystem',
@@ -26,25 +26,25 @@ class AppSettingsCommand extends Command
     ];
 
     public const QUEUE_DRIVERS = [
-        'redis' => 'Redis (recommended)',
+        'redis' => 'Redis (recomendado)',
         'database' => 'MySQL Database',
         'sync' => 'Sync',
     ];
 
-    protected $description = 'Configure basic environment settings for the Panel.';
+    protected $description = 'Defina configurações básicas de ambiente para o painel.';
 
     protected $signature = 'p:environment:setup
-                            {--new-salt : Whether or not to generate a new salt for Hashids.}
-                            {--author= : The email that services created on this instance should be linked to.}
-                            {--url= : The URL that this Panel is running on.}
-                            {--timezone= : The timezone to use for Panel times.}
-                            {--cache= : The cache driver backend to use.}
-                            {--session= : The session driver backend to use.}
-                            {--queue= : The queue driver backend to use.}
-                            {--redis-host= : Redis host to use for connections.}
-                            {--redis-pass= : Password used to connect to redis.}
-                            {--redis-port= : Port to connect to redis over.}
-                            {--settings-ui= : Enable or disable the settings UI.}';
+                            {--new-salt : Se deve ou não gerar um novo salt para hashids.}
+                            {--author= : O email que os serviços criados nesta instância devem estar vinculados.}
+                            {--url= : O URL em que este painel estará sendo executado.}
+                            {--timezone= : O fuso horário a ser usado para os tempos do painel.}
+                            {--cache= : O back-end do driver de cache a ser usado.}
+                            {--session= : O back-end do driver da sessão para usar.}
+                            {--queue= : O back-end do driver da fila para usar.}
+                            {--redis-host= : Host do redis  a ser usado para conexões.}
+                            {--redis-pass= : Senha usada para conectar-se ao Redis.}
+                            {--redis-port= : Porta para conectar-se ao Redis.}
+                            {--settings-ui= : Ativar ou desativar as configurações UI.}';
 
     protected array $variables = [];
 
@@ -67,48 +67,48 @@ class AppSettingsCommand extends Command
             $this->variables['HASHIDS_SALT'] = str_random(20);
         }
 
-        $this->output->comment('Provide the email address that eggs exported by this Panel should be from. This should be a valid email address.');
+        $this->output->comment('Forneça o endereço de e-mail que será usado para exportar novos eggs. Este deve ser um endereço de e-mail válido.');
         $this->variables['APP_SERVICE_AUTHOR'] = $this->option('author') ?? $this->ask(
-            'Egg Author Email',
+            'Email do autor do Egg',
             config('pterodactyl.service.author', 'unknown@unknown.com')
         );
 
         if (!filter_var($this->variables['APP_SERVICE_AUTHOR'], FILTER_VALIDATE_EMAIL)) {
-            $this->output->error('The service author email provided is invalid.');
+            $this->output->error('O email do autor de serviço fornecido é inválido.');
 
             return 1;
         }
 
-        $this->output->comment('The application URL MUST begin with https:// or http:// depending on if you are using SSL or not. If you do not include the scheme your emails and other content will link to the wrong location.');
+        $this->output->comment('A URL do aplicativo(painel) DEVE começar com https:// ou http:// dependendo se você estiver usando SSL ou não. Se você não incluir o esquema, seus e-mails e outros conteúdos serão vinculados ao local errado.');
         $this->variables['APP_URL'] = $this->option('url') ?? $this->ask(
-            'Application URL',
+            'Aplicativo(painel) URL',
             config('app.url', 'https://example.com')
         );
 
-        $this->output->comment('The timezone should match one of PHP\'s supported timezones. If you are unsure, please reference https://php.net/manual/en/timezones.php.');
+        $this->output->comment('O fuso horário deve corresponder a um dos fusos horários suportados pelo PHP. Se você não tiver certeza, por favor consulte https://php.net/manual/en/timezones.php.');
         $this->variables['APP_TIMEZONE'] = $this->option('timezone') ?? $this->anticipate(
-            'Application Timezone',
+            'Aplicativo(painel) Timezone',
             DateTimeZone::listIdentifiers(),
             config('app.timezone')
         );
 
         $selected = config('cache.default', 'redis');
         $this->variables['CACHE_DRIVER'] = $this->option('cache') ?? $this->choice(
-            'Cache Driver',
+            ' Driver de Cache',
             self::CACHE_DRIVERS,
             array_key_exists($selected, self::CACHE_DRIVERS) ? $selected : null
         );
 
         $selected = config('session.driver', 'redis');
         $this->variables['SESSION_DRIVER'] = $this->option('session') ?? $this->choice(
-            'Session Driver',
+            'Driver de Sessão',
             self::SESSION_DRIVERS,
             array_key_exists($selected, self::SESSION_DRIVERS) ? $selected : null
         );
 
         $selected = config('queue.default', 'redis');
         $this->variables['QUEUE_CONNECTION'] = $this->option('queue') ?? $this->choice(
-            'Queue Driver',
+            'Driver de Queue',
             self::QUEUE_DRIVERS,
             array_key_exists($selected, self::QUEUE_DRIVERS) ? $selected : null
         );
@@ -116,7 +116,7 @@ class AppSettingsCommand extends Command
         if (!is_null($this->option('settings-ui'))) {
             $this->variables['APP_ENVIRONMENT_ONLY'] = $this->option('settings-ui') == 'true' ? 'false' : 'true';
         } else {
-            $this->variables['APP_ENVIRONMENT_ONLY'] = $this->confirm('Enable UI based settings editor?', true) ? 'false' : 'true';
+            $this->variables['APP_ENVIRONMENT_ONLY'] = $this->confirm('Habilitar o editor de configurações baseado na IU?', true) ? 'false' : 'true';
         }
 
         // Make sure session cookies are set as "secure" when using HTTPS
@@ -146,22 +146,22 @@ class AppSettingsCommand extends Command
             return;
         }
 
-        $this->output->note('You\'ve selected the Redis driver for one or more options, please provide valid connection information below. In most cases you can use the defaults provided unless you have modified your setup.');
+        $this->output->note('You\'ve selecionado o driver Redis para uma ou mais opções, por favor, forneça informações de conexão válidas abaixo. Na maioria dos casos, você pode usar os padrões fornecidos, a menos que tenha modificado sua configuração.');
         $this->variables['REDIS_HOST'] = $this->option('redis-host') ?? $this->ask(
-            'Redis Host',
+            'Host do Redis ',
             config('database.redis.default.host')
         );
 
         $askForRedisPassword = true;
         if (!empty(config('database.redis.default.password'))) {
             $this->variables['REDIS_PASSWORD'] = config('database.redis.default.password');
-            $askForRedisPassword = $this->confirm('It seems a password is already defined for Redis, would you like to change it?');
+            $askForRedisPassword = $this->confirm('Parece que uma senha já está definida para o Redis, você gostaria de alterá-la?');
         }
 
         if ($askForRedisPassword) {
-            $this->output->comment('By default a Redis server instance has no password as it is running locally and inaccessible to the outside world. If this is the case, simply hit enter without entering a value.');
+            $this->output->comment('Por padrão, uma instância do servidor Redis não tem senha, pois está sendo executada localmente e inacessível ao mundo exterior. Se este for o caso, basta pressionar enter sem inserir um valor.');
             $this->variables['REDIS_PASSWORD'] = $this->option('redis-pass') ?? $this->output->askHidden(
-                'Redis Password'
+                'Senha do Redis'
             );
         }
 
@@ -170,7 +170,7 @@ class AppSettingsCommand extends Command
         }
 
         $this->variables['REDIS_PORT'] = $this->option('redis-port') ?? $this->ask(
-            'Redis Port',
+            'Porta do Redis',
             config('database.redis.default.port')
         );
     }

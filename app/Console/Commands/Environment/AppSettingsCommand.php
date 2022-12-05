@@ -31,20 +31,20 @@ class AppSettingsCommand extends Command
         'sync' => 'Sync',
     ];
 
-    protected $description = 'Configure basic environment settings for the Panel.';
+    protected $description = 'Defina configurações básicas de ambiente para o painel.';
 
     protected $signature = 'p:environment:setup
-                            {--new-salt : Whether or not to generate a new salt for Hashids.}
-                            {--author= : The email that services created on this instance should be linked to.}
-                            {--url= : The URL that this Panel is running on.}
-                            {--timezone= : The timezone to use for Panel times.}
-                            {--cache= : The cache driver backend to use.}
-                            {--session= : The session driver backend to use.}
-                            {--queue= : The queue driver backend to use.}
-                            {--redis-host= : Redis host to use for connections.}
-                            {--redis-pass= : Password used to connect to redis.}
-                            {--redis-port= : Port to connect to redis over.}
-                            {--settings-ui= : Enable or disable the settings UI.}';
+                            {--new-salt : Se deve ou não gerar um novo salt para hashids.}
+                            {--author= : O email que os serviços criados nesta instância devem estar vinculados.}
+                            {--url= : O URL em que este painel estará sendo executado.}
+                            {--timezone= : O fuso horário a ser usado para os tempos do painel.}
+                            {--cache= : O back-end do driver de cache a ser usado.}
+                            {--session= : O back-end do driver da sessão para usar.}
+                            {--queue= : O back-end do driver da fila para usar.}
+                            {--redis-host= : Host do redis  a ser usado para conexões.}
+                            {--redis-pass= : Senha usada para conectar-se ao Redis.}
+                            {--redis-port= : Porta para conectar-se ao Redis.}
+                            {--settings-ui= : Ativar ou desativar as configurações UI.}';
 
     protected array $variables = [];
 

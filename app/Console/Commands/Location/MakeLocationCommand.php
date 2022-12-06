@@ -8,10 +8,10 @@ use Pterodactyl\Services\Locations\LocationCreationService;
 class MakeLocationCommand extends Command
 {
     protected $signature = 'p:location:make
-                            {--short= : The shortcode name of this location (ex. us1).}
-                            {--long= : A longer description of this location.}';
+                            {--short= : O nome do shortcode deste localização (ex. us1).}
+                            {--long= : Uma descrição mais longa deste localização.}';
 
-    protected $description = 'Creates a new location on the system via the CLI.';
+    protected $description = 'Cria um novo local no sistema por meio da CLI.';
 
     /**
      * Create a new command instance.

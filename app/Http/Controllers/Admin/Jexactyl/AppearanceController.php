@@ -49,7 +49,7 @@ class AppearanceController extends Controller
             $this->settings->set('settings::' . $key, $value);
         }
 
-        $this->alert->success('Jexactyl Appearance has been updated.')->flash();
+        $this->alert->success('A aparência de Jexactyl foi atualizada.')->flash();
 
         return redirect()->route('admin.jexactyl.appearance');
     }

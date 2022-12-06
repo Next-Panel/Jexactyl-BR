@@ -41,7 +41,7 @@ class ResourceController extends Controller
             ->setUserLevel(User::USER_LEVEL_ADMIN)
             ->handle($user, $request->normalize());
 
-        $this->alert->success('User resources have been updated.')->flash();
+        $this->alert->success('Os recursos do usuário foram atualizados.')->flash();
 
         return redirect()->route('admin.users.resources', $user->id);
     }

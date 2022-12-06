@@ -12,7 +12,7 @@ class NoAutoAllocationSpaceAvailableException extends DisplayException
     public function __construct()
     {
         parent::__construct(
-            'Cannot assign additional allocation: no more space available on node.'
+            'Não é possível atribuir alocação adicional: não há mais espaço disponível no node.'
         );
     }
 }

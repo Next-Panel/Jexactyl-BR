@@ -57,7 +57,7 @@ class AdvancedController extends Controller
         }
 
         $this->kernel->call('queue:restart');
-        $this->alert->success('Advanced settings have been updated successfully and the queue worker was restarted to apply these changes.')->flash();
+        $this->alert->success('As configurações avançadas foram atualizadas com sucesso e o trabalhador da Queue foi reiniciado para aplicar essas alterações.')->flash();
 
         return redirect()->route('admin.jexactyl.advanced');
     }

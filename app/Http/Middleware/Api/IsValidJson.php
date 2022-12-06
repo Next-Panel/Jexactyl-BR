@@ -20,7 +20,7 @@ class IsValidJson
             try {
                 json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
             } catch (JsonException $exception) {
-                throw new BadRequestHttpException('The JSON data passed in the request appears to be malformed: ' . $exception->getMessage());
+                throw new BadRequestHttpException('Os dados JSON passados ​​na solicitação parecem estar malformados: ' . $exception->getMessage());
             }
         }
 

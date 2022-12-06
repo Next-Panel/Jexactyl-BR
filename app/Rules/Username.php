@@ -30,8 +30,7 @@ class Username implements Rule
      */
     public function message(): string
     {
-        return 'O :attribute deve começar e terminar com caracteres alfanuméricos e
-                conter apenas letras, números, hífens, sublinhados e pontos.';
+        return 'O :attribute deve come&ccedil;ar e terminar com caracteres alfanum&eacute;ricos e conter apenas letras, n&uacute;meros, h&iacute;fens, sublinhados e pontos.';
     }
 
     /**

@@ -35,7 +35,7 @@ class BackupRemoteUploadController extends Controller
         // Get the size query parameter.
         $size = (int) $request->query('size');
         if (empty($size)) {
-            throw new BadRequestHttpException('A non-empty "size" query parameter must be provided.');
+            throw new BadRequestHttpException('Um parâmetro de consulta "Size"(tamanho) não vazio deve ser fornecido.');
         }
 
         /** @var \Pterodactyl\Models\Backup $backup */
@@ -44,13 +44,13 @@ class BackupRemoteUploadController extends Controller
         // Prevent backups that have already been completed from trying to
         // be uploaded again.
         if (!is_null($backup->completed_at)) {
-            throw new ConflictHttpException('This backup is already in a completed state.');
+            throw new ConflictHttpException('Este backup já está em um estado concluído.');
         }
 
         // Ensure we are using the S3 adapter.
         $adapter = $this->backupManager->adapter();
         if (!$adapter instanceof S3Filesystem) {
-            throw new BadRequestHttpException('The configured backup adapter is not an S3 compatible adapter.');
+            throw new BadRequestHttpException('O adaptador de backup configurado não é um adaptador compatível com S3.');
         }
 
         // The path where backup will be uploaded to

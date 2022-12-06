@@ -8,6 +8,6 @@ class DatabaseClientFeatureNotEnabledException extends PterodactylException
 {
     public function __construct()
     {
-        parent::__construct('Client database creation is not enabled in this Panel.');
+        parent::__construct('A criação do banco de dados do cliente não está habilitada neste painel.');
     }
 }

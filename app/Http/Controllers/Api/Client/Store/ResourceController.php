@@ -64,13 +64,13 @@ class ResourceController extends ClientApiController
         $amount = $this->settings->get('jexactyl::earn:amount', 0);
 
         if ($this->settings->get('jexactyl::earn:enabled') != 'true') {
-            throw new DisplayException('Credit earning is currently disabled.');
+            throw new DisplayException('A opção de crédito AFK está desativada no momento.');
         }
 
         try {
             $request->user()->update(['store_balance' => $request->user()->store_balance + $amount]);
         } catch (DisplayException $ex) {
-            throw new DisplayException('Unable to passively earn coins.');
+            throw new DisplayException('Incapaz de ganhar moedas AFK.');
         }
 
         return new JsonResponse([], Response::HTTP_NO_CONTENT);

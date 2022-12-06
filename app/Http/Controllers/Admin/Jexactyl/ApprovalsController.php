@@ -48,7 +48,7 @@ class ApprovalsController extends Controller
             $this->settings->set('jexactyl::approvals:' . $key, $value);
         }
 
-        $this->alert->success('Jexactyl Approval settings have been updated.')->flash();
+        $this->alert->success('As configurações de aprovação do Jexactyl foram atualizadas.')->flash();
 
         return redirect()->route('admin.jexactyl.approvals');
     }
@@ -60,7 +60,7 @@ class ApprovalsController extends Controller
     {
         User::query()->where('approved', false)->update(['approved' => true]);
 
-        $this->alert->success('All users have been approved successfully.')->flash();
+        $this->alert->success('Todos os usuários foram aprovados com sucesso.')->flash();
 
         return redirect()->route('admin.jexactyl.approvals');
     }
@@ -74,7 +74,7 @@ class ApprovalsController extends Controller
         $user->update(['approved' => true]);
         // This gives the user access to the frontend.
 
-        $this->alert->success($user->username . ' has been approved.')->flash();
+        $this->alert->success($user->username . ' Foi aprovado.')->flash();
 
         return redirect()->route('admin.jexactyl.approvals');
     }
@@ -89,7 +89,7 @@ class ApprovalsController extends Controller
         // While typically we should look for associated servers, there
         // shouldn't be any present - as the user has been waiting for approval.
 
-        $this->alert->success($user->username . ' has been denied.')->flash();
+        $this->alert->success($user->username . ' foi negado.')->flash();
 
         return redirect()->route('admin.jexactyl.approvals');
     }

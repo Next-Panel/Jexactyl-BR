@@ -36,7 +36,7 @@ class TwoFactorController extends ClientApiController
     public function index(Request $request): JsonResponse
     {
         if ($request->user()->use_totp) {
-            throw new BadRequestHttpException('A autenticação de dois fatores já está habilitada nesta conta.');
+            throw new BadRequestHttpException('A autenticação de Two-Factor já está habilitada nesta conta.');
         }
 
         return new JsonResponse([

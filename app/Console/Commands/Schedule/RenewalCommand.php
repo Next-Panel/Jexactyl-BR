@@ -17,7 +17,7 @@ class RenewalCommand extends Command
     /**
      * @var string
      */
-    protected $description = 'Process renewals for servers.';
+    protected $description = 'Renovações de processos para servidores.';
 
     /**
      * DeleteUserCommand constructor.
@@ -34,9 +34,9 @@ class RenewalCommand extends Command
      */
     public function handle(Server $server)
     {
-        $this->line('Executing daily renewal script.');
+        $this->line('Executando script de renovação diária.');
         $this->process($server);
-        $this->line('Renewals completed successfully.');
+        $this->line('Renovações concluídas com sucesso.');
     }
 
     /**
@@ -46,20 +46,20 @@ class RenewalCommand extends Command
     protected function process(Server $server)
     {
         $servers = $server->where('renewable', true)->get();
-        $this->line('Processing renewals for ' . $servers->count() . ' servers.');
+        $this->line('Processamento de renovações para ' . $servers->count() . ' servidores.');
 
         foreach ($servers as $svr) {
-            $this->line('Renewing server ' . $svr->name, false);
+            $this->line('Renovando servidor ' . $svr->name, false);
 
             $svr->update(['renewal' => $svr->renewal - 1]);
 
             if ($svr->renewal <= 0) {
-                $this->line('Suspending server ' . $svr->name, false);
+                $this->line('Suspensão do servidor ' . $svr->name, false);
                 $this->suspensionService->toggle($svr, 'suspend');
             }
 
             if ($svr->renewal <= -7) {
-                $this->line('Deleting server ' . $svr->name, false);
+                $this->line('Deletando servidor ' . $svr->name, false);
                 $this->deletionService->handle($svr);
             }
         }

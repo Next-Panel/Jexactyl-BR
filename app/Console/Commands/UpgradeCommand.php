@@ -13,13 +13,13 @@ class UpgradeCommand extends Command
     protected const DEFAULT_URL = 'https://github.com/ashu11-a/jexactyl_pt-br/releases/%s/panel.tar.gz';
 
     protected $signature = 'p:upgrade
-        {--user= : The user that PHP runs under. All files will be owned by this user.}
-        {--group= : The group that PHP runs under. All files will be owned by this group.}
-        {--url= : The specific archive to download.}
-        {--release= : A specific version to download from GitHub. Leave blank to use latest.}
-        {--skip-download : If set no archive will be downloaded.}';
+        {--user= : O usuário sob o qual o PHP é executado. Todos os arquivos serão propriedade deste usuário.}
+        {--group= : O grupo sob o qual o PHP é executado. Todos os arquivos serão de propriedade deste grupo.}
+        {--url= : O arquivo específico para download.}
+        {--release= : Uma versão específica para download do GitHub. Deixe em branco para usar o mais recente.}
+        {--skip-download : Se definido, nenhum arquivo será baixado.}';
 
-    protected $description = 'Downloads a new archive from Jexactyl\'s GitHub and executes the upgrade commands.';
+    protected $description = 'Baixa um novo arquivo do GitHub da Jexactyl PT BR e executa os comandos de atualização.';
 
     /**
      * Executes an upgrade command which will run through all of our standard
@@ -35,29 +35,29 @@ class UpgradeCommand extends Command
     {
         $skipDownload = $this->option('skip-download');
         if (!$skipDownload) {
-            $this->output->warning('This command does not verify the integrity of downloaded assets. Please ensure that you trust the download source before continuing. If you do not wish to download an archive, please indicate that using the --skip-download flag, or answering "no" to the question below.');
-            $this->output->comment('Download Source (set with --url=):');
+            $this->output->warning('Este comando não verifica a integridade dos ativos baixados. Certifique-se de que confia na fonte de download antes de continuar. Se você não deseja baixar um arquivo, indique isso usando o sinalizador --skip-download ou respondendo "no" à pergunta abaixo.');
+            $this->output->comment('Fonte de download (configurado com --url=):');
             $this->line($this->getUrl());
         }
 
         if (version_compare(PHP_VERSION, '8.0') < 0) {
-            $this->error('Cannot execute self-upgrade process. The minimum required PHP version required is 8.0, you have [' . PHP_VERSION . '].');
+            $this->error('Não é possível executar o processo de atualização automática. A versão mínima exigida do PHP é 8.0, você tem [' . PHP_VERSION . '].');
         }
 
         $user = 'www-data';
         $group = 'www-data';
         if ($this->input->isInteractive()) {
             if (!$skipDownload) {
-                $skipDownload = !$this->confirm('Would you like to download and unpack the archive files for the latest version?', true);
+                $skipDownload = !$this->confirm('Você gostaria de baixar e descompactar os arquivos compactados para a versão mais recente?', true);
             }
 
             if (is_null($this->option('user'))) {
                 $userDetails = posix_getpwuid(fileowner('public'));
                 $user = $userDetails['name'] ?? 'www-data';
 
-                if (!$this->confirm("Your webserver user has been detected as <fg=blue>[{$user}]:</> is this correct?", true)) {
+                if (!$this->confirm("O usuário do seu servidor web foi detectado como <fg=blue>[{$user}]:</> está correto?", true)) {
                     $user = $this->anticipate(
-                        'Please enter the name of the user running your webserver process. This varies from system to system, but is generally "www-data", "nginx", or "apache".',
+                        'Insira o nome do usuário que está executando o processo do servidor da web. Isso varia de sistema para sistema, mas geralmente é "www-data", "nginx" ou "apache".',
                         [
                             'www-data',
                             'nginx',
@@ -71,9 +71,9 @@ class UpgradeCommand extends Command
                 $groupDetails = posix_getgrgid(filegroup('public'));
                 $group = $groupDetails['name'] ?? 'www-data';
 
-                if (!$this->confirm("Your webserver group has been detected as <fg=blue>[{$group}]:</> is this correct?", true)) {
+                if (!$this->confirm("Seu grupo de servidores da web foi detectado como <fg=blue>[{$group}]:</> está correto?", true)) {
                     $group = $this->anticipate(
-                        'Please enter the name of the group running your webserver process. Normally this is the same as your user.',
+                        'Insira o nome do grupo que está executando o processo do seu servidor da web. Normalmente, este é o mesmo que o seu usuário.',
                         [
                             'www-data',
                             'nginx',
@@ -83,8 +83,8 @@ class UpgradeCommand extends Command
                 }
             }
 
-            if (!$this->confirm('Are you sure you want to run the upgrade process for your Panel?')) {
-                $this->warn('Upgrade process terminated by user.');
+            if (!$this->confirm('Tem certeza que deseja executar o processo de atualização do seu Painel?')) {
+                $this->warn('Processo de atualização encerrado pelo usuário.');
 
                 return;
             }
@@ -174,7 +174,7 @@ class UpgradeCommand extends Command
         });
 
         $this->newLine(2);
-        $this->info('Panel has been successfully upgraded. Please ensure you also update any Wings instances: https://pterodactyl.io/wings/1.0/upgrading.html');
+        $this->info('O painel foi atualizado com sucesso. Certifique-se de atualizar também todas as instâncias da Wings: https://pterodactyl.io/wings/1.0/upgrading.html');
     }
 
     protected function withProgress(ProgressBar $bar, Closure $callback)

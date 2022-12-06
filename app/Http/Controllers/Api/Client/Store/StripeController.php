@@ -43,7 +43,7 @@ class StripeController extends ClientApiController
                         'currency' => $currency,
                         'unit_amount' => str_replace('.', '', $cost),
                         'product_data' => [
-                            'name' => $amount . ' Credits | ' . $this->settings->get('settings::app:name'),
+                            'name' => $amount . ' Creditos | ' . $this->settings->get('settings::app:name'),
                         ],
                     ],
                 ],

@@ -30,7 +30,7 @@ class ResourceBelongsToServer
     {
         $params = $request->route()->parameters();
         if (is_null($params) || !$params['server'] instanceof Server) {
-            throw new InvalidArgumentException('This middleware cannot be used in a context that is missing a server in the parameters.');
+            throw new InvalidArgumentException('Este middleware não pode ser usado em um contexto em que falta um servidor nos parâmetros.');
         }
 
         /** @var \Pterodactyl\Models\Server $server */

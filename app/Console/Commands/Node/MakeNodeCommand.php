@@ -8,24 +8,24 @@ use Pterodactyl\Services\Nodes\NodeCreationService;
 class MakeNodeCommand extends Command
 {
     protected $signature = 'p:node:make
-                            {--name= : A name to identify the node.}
-                            {--description= : A description to identify the node.}
-                            {--locationId= : A valid locationId.}
-                            {--fqdn= : The domain name (e.g node.example.com) to be used for connecting to the daemon. An IP address may only be used if you are not using SSL for this node.}
-                            {--public= : Should the node be public or private? (public=1 / private=0).}
-                            {--scheme= : Which scheme should be used? (Enable SSL=https / Disable SSL=http).}
-                            {--proxy= : Is the daemon behind a proxy? (Yes=1 / No=0).}
-                            {--maintenance= : Should maintenance mode be enabled? (Enable Maintenance mode=1 / Disable Maintenance mode=0).}
-                            {--maxMemory= : Set the max memory amount.}
-                            {--overallocateMemory= : Enter the amount of ram to overallocate (% or -1 to overallocate the maximum).}
-                            {--maxDisk= : Set the max disk amount.}
-                            {--overallocateDisk= : Enter the amount of disk to overallocate (% or -1 to overallocate the maximum).}
-                            {--uploadSize= : Enter the maximum upload filesize.}
-                            {--daemonListeningPort= : Enter the wings listening port.}
-                            {--daemonSFTPPort= : Enter the wings SFTP listening port.}
-                            {--daemonBase= : Enter the base folder.}';
+                            {--name= : Um nome para identificar o node.}
+                            {--description= : Uma descrição para identificar o node.}
+                            {--locationId= : Um localização válido.}
+                            {--fqdn= : O nome de domínio (por exemplo, node.example.com) a ser usado para conectar ao daemon. Um endereço IP só pode ser usado se você não estiver usando SSL para este node.}
+                            {--public= : O nó deve ser publico ou privado? (public=1 / private=0).}
+                            {--scheme= : Qual esquema deve ser usado? (Enable SSL=https / Disable SSL=http).}
+                            {--proxy= : O daemon usa serviço CDN? (Yes=1 / No=0).}
+                            {--maintenance= : O modo de manutenção deve ser ativado? (Enable Maintenance mode=1 / Disable Maintenance mode=0).}
+                            {--maxMemory= : Definir a quantidade máxima de memória.}
+                            {--overallocateMemory= : Digite a quantidade de ram para superalocar (% or -1 para superalocar o máximo).}
+                            {--maxDisk= : Definir a quantidade máxima de disco.}
+                            {--overallocateDisk= : Insira a quantidade de disco para superalocar (% or -1 para superalocar o máximo).}
+                            {--uploadSize= : Insira o tamanho máximo do arquivo de upload.}
+                            {--daemonListeningPort= : Entre na porta de escuta das Wings.}
+                            {--daemonSFTPPort= : Entre na porta de escuta SFTP das Wings.}
+                            {--daemonBase= : Entre na pasta base.}';
 
-    protected $description = 'Creates a new node on the system via the CLI.';
+    protected $description = 'Cria um novo node no sistema por meio da CLI.';
 
     /**
      * MakeNodeCommand constructor.
@@ -42,28 +42,28 @@ class MakeNodeCommand extends Command
      */
     public function handle()
     {
-        $data['name'] = $this->option('name') ?? $this->ask('Enter a short identifier used to distinguish this node from others');
-        $data['description'] = $this->option('description') ?? $this->ask('Enter a description to identify the node');
-        $data['location_id'] = $this->option('locationId') ?? $this->ask('Enter a valid location id');
+        $data['name'] = $this->option('name') ?? $this->ask('Digite um identificador curto usado para distinguir este nó de outros');
+        $data['description'] = $this->option('description') ?? $this->ask('Digite uma descrição para identificar o node');
+        $data['location_id'] = $this->option('locationId') ?? $this->ask('Insira um ID de localização válido');
         $data['scheme'] = $this->option('scheme') ?? $this->anticipate(
-            'Please either enter https for SSL or http for a non-ssl connection',
+            'Digite https para SSL ou http para uma conexão não-ssl',
             ['https', 'http'],
             'https'
         );
-        $data['fqdn'] = $this->option('fqdn') ?? $this->ask('Enter a domain name (e.g node.example.com) to be used for connecting to the daemon. An IP address may only be used if you are not using SSL for this node');
-        $data['public'] = $this->option('public') ?? $this->confirm('Should this node be public? As a note, setting a node to private you will be denying the ability to auto-deploy to this node.', true);
-        $data['behind_proxy'] = $this->option('proxy') ?? $this->confirm('Is your FQDN behind a proxy?');
-        $data['maintenance_mode'] = $this->option('maintenance') ?? $this->confirm('Should maintenance mode be enabled?');
-        $data['memory'] = $this->option('maxMemory') ?? $this->ask('Enter the maximum amount of memory');
-        $data['memory_overallocate'] = $this->option('overallocateMemory') ?? $this->ask('Enter the amount of memory to over allocate by, -1 will disable checking and 0 will prevent creating new servers');
-        $data['disk'] = $this->option('maxDisk') ?? $this->ask('Enter the maximum amount of disk space');
-        $data['disk_overallocate'] = $this->option('overallocateDisk') ?? $this->ask('Enter the amount of memory to over allocate by, -1 will disable checking and 0 will prevent creating new server');
-        $data['upload_size'] = $this->option('uploadSize') ?? $this->ask('Enter the maximum filesize upload', '100');
-        $data['daemonListen'] = $this->option('daemonListeningPort') ?? $this->ask('Enter the wings listening port', '8080');
-        $data['daemonSFTP'] = $this->option('daemonSFTPPort') ?? $this->ask('Enter the wings SFTP listening port', '2022');
-        $data['daemonBase'] = $this->option('daemonBase') ?? $this->ask('Enter the base folder', '/var/lib/pterodactyl/volumes');
+        $data['fqdn'] = $this->option('fqdn') ?? $this->ask('Insira um nome de domínio (por exemplo, node.example.com) a ser usado para conectar-se ao daemon. Um endereço IP só pode ser usado se você não estiver usando SSL para este node');
+        $data['public'] = $this->option('public') ?? $this->confirm('Esse node deve ser public? Como observação, ao definir um node como private, você negará a capacidade de implantação automática para esse node.', true);
+        $data['behind_proxy'] = $this->option('proxy') ?? $this->confirm('O seu FQDN está usando serviço CDN?');
+        $data['maintenance_mode'] = $this->option('maintenance') ?? $this->confirm('O modo de manutenção deve ser ativado?');
+        $data['memory'] = $this->option('maxMemory') ?? $this->ask('Digite a quantidade máxima de memória');
+        $data['memory_overallocate'] = $this->option('overallocateMemory') ?? $this->ask('Digite a quantidade de memória para superalocar, -1 desativará a verificação e 0 impedirá a criação de novos servidores');
+        $data['disk'] = $this->option('maxDisk') ?? $this->ask('Digite a quantidade máxima de espaço em disco');
+        $data['disk_overallocate'] = $this->option('overallocateDisk') ?? $this->ask('Digite a quantidade de memória para superalocar, -1 desativará a verificação e 0 impedirá a criação de um novo servidor');
+        $data['upload_size'] = $this->option('uploadSize') ?? $this->ask('Insira o tamanho máximo de upload de arquivo', '100');
+        $data['daemonListen'] = $this->option('daemonListeningPort') ?? $this->ask('Entre na porta de escuta das Wings', '8080');
+        $data['daemonSFTP'] = $this->option('daemonSFTPPort') ?? $this->ask('Entre na porta de escuta SFTP das wings', '2022');
+        $data['daemonBase'] = $this->option('daemonBase') ?? $this->ask('Entre na pasta base', '/var/lib/pterodactyl/volumes');
 
         $node = $this->creationService->handle($data);
-        $this->line('Successfully created a new node on the location ' . $data['location_id'] . ' with the name ' . $data['name'] . ' and has an id of ' . $node->id . '.');
+        $this->line('Um novo node foi criado com sucesso na localização ' . $data['location_id'] . ' com o nome ' . $data['name'] . ' e tem um id de ' . $node->id . '.');
     }
 }

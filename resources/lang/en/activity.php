@@ -57,7 +57,7 @@ return [
             'restore-failed' => 'Falhou em completar a restauração do :name backup',
             'start' => 'Iniciei um novo backup :name',
             'complete' => 'Marcou que o :name backup foi completo',
-            'fail' => 'Marcouq que o :name backup falhou',
+            'fail' => 'Marcou que o :name backup falhou',
             'lock' => 'Trancou o :name backup',
             'unlock' => 'Destrancou o :name backup',
         ],

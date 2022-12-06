@@ -258,7 +258,7 @@ class ServersController extends Controller
 
         $mountServer->saveOrFail();
 
-        $this->alert->success('Mount was added successfully.')->flash();
+        $this->alert->success('A montagem foi adicionada com sucesso.')->flash();
 
         return redirect()->route('admin.servers.view.mounts', $server->id);
     }
@@ -270,7 +270,7 @@ class ServersController extends Controller
     {
         MountServer::where('mount_id', $mount->id)->where('server_id', $server->id)->delete();
 
-        $this->alert->success('Mount was removed successfully.')->flash();
+        $this->alert->success('A montagem foi removida com sucesso.')->flash();
 
         return redirect()->route('admin.servers.view.mounts', $server->id);
     }

@@ -8,7 +8,7 @@ use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
 class InfoCommand extends Command
 {
-    protected $description = 'Displays the application, database, and email configurations along with the panel version.';
+    protected $description = 'Exibe as configurações de aplicativo, banco de dados e e-mail junto com a versão do painel.';
 
     protected $signature = 'p:info';
 
@@ -25,7 +25,7 @@ class InfoCommand extends Command
      */
     public function handle()
     {
-        $this->output->title('Version Information');
+        $this->output->title('informação da Versão');
         $this->table([], [
             ['Panel Version', $this->config->get('app.version')],
             ['Latest Version', $this->versionService->getPanel()],
@@ -33,7 +33,7 @@ class InfoCommand extends Command
             ['Unique Identifier', $this->config->get('pterodactyl.service.author')],
         ], 'compact');
 
-        $this->output->title('Application Configuration');
+        $this->output->title('Configuração do aplicativo');
         $this->table([], [
             ['Environment', $this->formatText($this->config->get('app.env'), $this->config->get('app.env') === 'production' ?: 'bg=red')],
             ['Debug Mode', $this->formatText($this->config->get('app.debug') ? 'Yes' : 'No', !$this->config->get('app.debug') ?: 'bg=red')],
@@ -48,7 +48,7 @@ class InfoCommand extends Command
             ['Proxies', $this->config->get('trustedproxies.proxies')],
         ], 'compact');
 
-        $this->output->title('Database Configuration');
+        $this->output->title('Configuração do Database');
         $driver = $this->config->get('database.default');
         $this->table([], [
             ['Driver', $driver],
@@ -59,7 +59,7 @@ class InfoCommand extends Command
         ], 'compact');
 
         // TODO: Update this to handle other mail drivers
-        $this->output->title('Email Configuration');
+        $this->output->title('Configuração de e-mail');
         $this->table([], [
             ['Driver', $this->config->get('mail.default')],
             ['Host', $this->config->get('mail.mailers.smtp.host')],

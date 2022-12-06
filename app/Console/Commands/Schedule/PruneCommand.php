@@ -16,7 +16,7 @@ class PruneCommand extends Command
     /**
      * @var string
      */
-    protected $description = 'Delete all suspended servers.';
+    protected $description = 'Excluir todos os servidores suspensos.';
 
     /**
      * DeleteUserCommand constructor.
@@ -31,9 +31,9 @@ class PruneCommand extends Command
      */
     public function handle(Server $server)
     {
-        $this->line('Running server prune...');
+        $this->line('Poda de servidor em execução...');
         $this->process($server);
-        $this->line('Script completed successfully.');
+        $this->line('Roteiro concluído com sucesso.');
     }
 
     /**
@@ -43,13 +43,13 @@ class PruneCommand extends Command
     protected function process(Server $server)
     {
         $servers = $server->where('renewable', true)->get();
-        $this->line('Processing renewals for ' . $servers->count() . ' servers.');
+        $this->line('Processamento de renovações para ' . $servers->count() . ' servidores.');
 
         foreach ($servers as $s) {
-            $this->line('Processing server ' . $s->name . ', ID: ' . $s->id, false);
+            $this->line('Processando servidor ' . $s->name . ', ID: ' . $s->id, false);
 
             if ($s->isSuspended()) {
-                $this->line('Deleting server ' . $s->name, false);
+                $this->line('Excluindo servidor ' . $s->name, false);
                 $this->deletionService->withForce(true)->returnResources(true)->handle($s);
             }
         }

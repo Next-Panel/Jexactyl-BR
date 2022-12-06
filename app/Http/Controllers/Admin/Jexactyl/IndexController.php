@@ -83,7 +83,7 @@ class IndexController extends Controller
             $this->settings->set('jexactyl::' . $key, $value);
         }
 
-        $this->alert->success('Jexactyl Settings have been updated.')->flash();
+        $this->alert->success('As configurações do Jexactyl foram atualizadas.')->flash();
 
         return redirect()->route('admin.settings');
     }

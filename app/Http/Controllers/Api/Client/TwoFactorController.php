@@ -36,7 +36,7 @@ class TwoFactorController extends ClientApiController
     public function index(Request $request): JsonResponse
     {
         if ($request->user()->use_totp) {
-            throw new BadRequestHttpException('A autenticação de Two-Factor já está habilitada nesta conta.');
+            throw new BadRequestHttpException('Two-factor authentication is already enabled on this account.');
         }
 
         return new JsonResponse([
@@ -59,7 +59,7 @@ class TwoFactorController extends ClientApiController
 
         $data = $validator->validate();
         if (!password_verify($data['password'], $request->user()->password)) {
-            throw new BadRequestHttpException('A senha fornecida não é válida.');
+            throw new BadRequestHttpException('The password provided was not valid.');
         }
 
         $tokens = $this->toggleTwoFactorService->handle($request->user(), $data['code'], true);
@@ -83,7 +83,7 @@ class TwoFactorController extends ClientApiController
     public function delete(Request $request): JsonResponse
     {
         if (!password_verify($request->input('password') ?? '', $request->user()->password)) {
-            throw new BadRequestHttpException('A senha fornecida não é válida.');
+            throw new BadRequestHttpException('The password provided was not valid.');
         }
 
         /** @var \Pterodactyl\Models\User $user */

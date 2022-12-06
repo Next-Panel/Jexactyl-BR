@@ -70,11 +70,11 @@ class ServerController extends ClientApiController
         $user = $request->user();
 
         if (!$user->verified) {
-            throw new DisplayException('Server deployment is unavailable for unverified accounts.');
+            throw new DisplayException('A implantação do servidor não está disponível para contas não verificadas.');
         }
 
         if (Nest::find($request->input('nest'))->private) {
-            throw new DisplayException('This nest is private and cannot be deployed to.');
+            throw new DisplayException('Este nest é privado e não pode ser implantado.');
         }
 
         $server = $this->creationService->handle($request);

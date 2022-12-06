@@ -79,7 +79,7 @@ export default () => {
             initialValues={{ email: '' }}
             validationSchema={object().shape({
                 email: string()
-                    .email('Deve ser fornecido um endereço de correio E-Mail válido para continuar.')
+                    .email('Deve ser fornecido um endereço de E-Mail válido para continuar.')
                     .required('Deve ser fornecido um endereço de E-Mail válido para continuar.'),
             })}
         >

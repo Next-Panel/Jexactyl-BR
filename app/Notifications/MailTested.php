@@ -22,6 +22,6 @@ class MailTested extends Notification
         return (new MailMessage())
             ->subject('Mensagem de teste de jexactyl')
             ->greeting('Olá ' . $this->user->name . '!')
-            ->line('Este é um teste do sistema de correio Jexactyl.!');
+            ->line('Este é um teste do sistema de E-mail Jexactyl.!');
     }
 }

@@ -44,7 +44,7 @@ class AlertsController extends Controller
             $this->settings->set('jexactyl::' . $key, $value);
         }
 
-        $this->alert->success('Jexactyl Alert has been updated.')->flash();
+        $this->alert->success('Alerta Jexactyl foi atualizado.')->flash();
 
         return redirect()->route('admin.jexactyl.alerts');
     }
@@ -57,7 +57,7 @@ class AlertsController extends Controller
         $this->settings->forget('jexactyl::alert:type');
         $this->settings->forget('jexactyl::alert:message');
 
-        $this->alert->success('Jexactyl Alert has been removed.')->flash();
+        $this->alert->success('Alerta Jexactyl foi removido.')->flash();
 
         return redirect()->route('admin.jexactyl.alerts');
     }

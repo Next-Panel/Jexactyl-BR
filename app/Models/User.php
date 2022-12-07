@@ -2,8 +2,7 @@
 
 namespace Pterodactyl\Models;
 
-use Illuminate\Support\Facades\Facade;
-
+use Config\app;
 use Pterodactyl\Rules\Username;
 use Pterodactyl\Facades\Activity;
 use Illuminate\Support\Collection;

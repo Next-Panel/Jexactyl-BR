@@ -2,7 +2,6 @@
 
 namespace Pterodactyl\Models;
 
-use Config\app;
 use Pterodactyl\Rules\Username;
 use Pterodactyl\Facades\Activity;
 use Illuminate\Support\Collection;
@@ -173,7 +172,7 @@ class User extends Model implements
     protected $attributes = [
         'external_id' => null,
         'root_admin' => false,
-        'language' => 'APP_LOCALE',
+        'language' => 'en',
         'use_totp' => false,
         'totp_secret' => null,
         'approved' => false,

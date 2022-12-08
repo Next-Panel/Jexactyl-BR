@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'sign_in' => 'Sign In',
+    'sign_in' => 'Entrar',
     'go_to_login' => 'Vá para Login',
     'failed' => 'Nenhuma conta que corresponda a essas credenciais poderia ser encontrada.',
 

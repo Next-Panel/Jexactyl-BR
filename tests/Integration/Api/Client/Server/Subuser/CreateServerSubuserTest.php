@@ -152,7 +152,7 @@ class CreateServerSubuserTest extends ClientApiIntegrationTestCase
 
         $response->assertStatus(Response::HTTP_BAD_REQUEST);
         $response->assertJsonPath('errors.0.code', 'ServerSubuserExistsException');
-        $response->assertJsonPath('errors.0.detail', 'A user with that email address is already assigned as a subuser for this server.');
+        $response->assertJsonPath('errors.0.detail', 'Um usuário com esse endereço de e-mail já está atribuído como subusuário para este servidor.');
     }
 
     public function permissionsDataProvider(): array

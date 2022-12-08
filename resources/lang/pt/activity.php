@@ -23,7 +23,7 @@ return [
     'user' => [
         'account' => [
             'email-changed' => 'E-mail alterado de :old para :new',
-            'password-changed' => 'Changed password',
+            'password-changed' => 'senha alterada',
         ],
         'api-key' => [
             'create' => 'Criada nova API key :identifier',
@@ -55,7 +55,7 @@ return [
             'restore' => 'Restaurou o backup :name (deleted files: :truncate)',
             'restore-complete' => 'Restauração concluída do :name backup',
             'restore-failed' => 'Falhou em completar a restauração do :name backup',
-            'start' => 'Iniciei um novo backup :name',
+            'start' => 'Iniciou um novo backup :name',
             'complete' => 'Marcou que o :name backup foi completo',
             'fail' => 'Marcou que o :name backup falhou',
             'lock' => 'Trancou o :name backup',

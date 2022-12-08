@@ -92,7 +92,7 @@ class ApiKeyControllerTest extends ClientApiIntegrationTestCase
                 'allowed_ips' => $ips,
             ])
             ->assertUnprocessable()
-            ->assertJsonPath('errors.0.detail', 'The allowed ips may not have more than 50 items.');
+            ->assertJsonPath('errors.0.detail', 'O allowed ips não pode ter mais do que 50 itens.');
     }
 
     /**
@@ -134,7 +134,7 @@ class ApiKeyControllerTest extends ClientApiIntegrationTestCase
         ])
             ->assertUnprocessable()
             ->assertJsonPath('errors.0.meta.rule', 'required')
-            ->assertJsonPath('errors.0.detail', 'The description field is required.');
+            ->assertJsonPath('errors.0.detail', 'O campo description é obrigatório.');
 
         $this->postJson('/api/client/account/api-keys', [
             'description' => str_repeat('a', 501),

@@ -67,7 +67,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
 
         $response->assertStatus(Response::HTTP_BAD_REQUEST);
         $response->assertJsonPath('errors.0.code', 'InvalidPasswordProvidedException');
-        $response->assertJsonPath('errors.0.detail', 'The password provided was invalid for this account.');
+        $response->assertJsonPath('errors.0.detail', 'A senha fornecida é inválida para esta conta.');
     }
 
     /**
@@ -140,7 +140,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
 
         $response->assertStatus(Response::HTTP_BAD_REQUEST);
         $response->assertJsonPath('errors.0.code', 'InvalidPasswordProvidedException');
-        $response->assertJsonPath('errors.0.detail', 'The password provided was invalid for this account.');
+        $response->assertJsonPath('errors.0.detail', 'A senha fornecida é inválida para esta conta.');
     }
 
     /**

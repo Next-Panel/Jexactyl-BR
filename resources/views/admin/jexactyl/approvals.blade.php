@@ -72,7 +72,7 @@ Aprovações de usuários
                         <tbody>
                             <tr>
                                 <th>ID do usuário</th>
-                                <th>Email</th>
+                                <th>E-mail</th>
                                 <th>Nome do usuário</th>
                                 <th>Registrado</th>
                                 <th></th>

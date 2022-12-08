@@ -56,7 +56,7 @@ export default () => {
                 <React.Fragment>
                     <SpinnerOverlay size={'large'} visible={isSubmitting} />
                     <Form css={tw`m-0`}>
-                        <Field id={'current_email'} type={'email'} name={'email'} label={'Email'} />
+                        <Field id={'current_email'} type={'email'} name={'email'} label={'E-mail'} />
                         <div css={tw`mt-6`}>
                             <Field
                                 id={'confirm_password'}
@@ -66,7 +66,7 @@ export default () => {
                             />
                         </div>
                         <div css={tw`mt-6`}>
-                            <Button disabled={isSubmitting || !isValid}>Atualizar Email</Button>
+                            <Button disabled={isSubmitting || !isValid}>Atualizar E-mail</Button>
                         </div>
                     </Form>
                 </React.Fragment>

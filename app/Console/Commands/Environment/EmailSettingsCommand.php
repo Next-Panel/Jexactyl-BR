@@ -47,7 +47,7 @@ class EmailSettingsCommand extends Command
                 'mail' => 'PHP\'s Função de e-mail interno',
                 'mailgun' => 'E-mail da Mailgun Transacional',
                 'mandrill' => 'E-mail de transação de mandril',
-                'postmark' => 'Email transacional do carimbo postal(PostMark)',
+                'postmark' => 'E-mail transacional do carimbo postal(PostMark)',
             ],
             $this->config->get('mail.default', 'smtp')
         );

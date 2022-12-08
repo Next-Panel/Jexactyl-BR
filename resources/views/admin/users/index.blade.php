@@ -35,7 +35,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Email</th>
+                            <th>E-mail</th>
                             <th>Nome do Cliente</th>
                             <th>Usu&aacute;rio</th>
                             <th class="text-center">Duas Etapas</th>

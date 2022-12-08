@@ -36,7 +36,7 @@ class AccountCreated extends Notification implements ShouldQueue
             ->greeting('Olá ' . $this->user->name . '!')
             ->line('Você está recebendo este e-mail porque uma conta foi criada para você em ' . config('app.name') . '.')
             ->line('Usuário: ' . $this->user->username)
-            ->line('Email: ' . $this->user->email);
+            ->line('E-mail: ' . $this->user->email);
 
         if (!is_null($this->token)) {
             return $message->action('Configure sua conta', url('/auth/password/reset/' . $this->token . '?email=' . urlencode($this->user->email)));

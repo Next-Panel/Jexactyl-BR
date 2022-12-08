@@ -80,7 +80,7 @@ const LoginContainer = ({ history }: RouteComponentProps) => {
         >
             {({ isSubmitting, setSubmitting, submitForm }) => (
                 <LoginFormContainer title={'Logar no Painel ' + name} css={tw`w-full flex`}>
-                    <Field light type={'text'} label={'Usuário ou Email'} name={'username'} disabled={isSubmitting} />
+                    <Field light type={'text'} label={'Usuário ou E-mail'} name={'username'} disabled={isSubmitting} />
                     <div css={tw`mt-6`}>
                         <Field light type={'password'} label={'Senha'} name={'password'} disabled={isSubmitting} />
                     </div>
@@ -118,7 +118,7 @@ const LoginContainer = ({ history }: RouteComponentProps) => {
                                 to={'/auth/register'}
                                 css={tw`text-xs text-neutral-500 tracking-wide no-underline uppercase hover:text-neutral-600`}
                             >
-                                Registrar com Email
+                                Registrar com E-mail
                             </Link>
                         )}
                         {discord && (

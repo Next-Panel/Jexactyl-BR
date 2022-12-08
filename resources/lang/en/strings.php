@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'email' => 'Email',
-    'email_address' => 'Endereço Email',
-    'user_identifier' => 'Usuario ou Email',
+    'email' => 'E-mail',
+    'email_address' => 'Endereço de E-mail',
+    'user_identifier' => 'Usuario ou E-mail',
     'password' => 'Senha',
     'new_password' => 'Nova Senha',
     'confirm_password' => 'Confirmar nova Senha',

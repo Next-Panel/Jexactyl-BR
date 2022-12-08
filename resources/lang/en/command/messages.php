@@ -16,7 +16,7 @@ return [
         'no_users_found' => 'Não foram encontrados usuários para o termo de pesquisa fornecido.',
         'multiple_found' => 'Várias contas foram encontradas para o usuário fornecido, incapaz de excluir um usuário por causa do --no-interaction flag.',
         'ask_admin' => 'Este usuário é um administrador?',
-        'ask_email' => 'Endereço eletrônico',
+        'ask_email' => 'Endereço de E-mail',
         'ask_username' => 'Nome de Usuario',
         'ask_name_first' => 'Primeiro Nome',
         'ask_name_last' => 'Ultimo Nome',

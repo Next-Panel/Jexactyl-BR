@@ -129,7 +129,7 @@ const EditSubuserModal = ({ subuser }: Props) => {
                     <div css={tw`mt-6`}>
                         <Field
                             name={'email'}
-                            label={'Email do usuário'}
+                            label={'E-mail do usuário'}
                             description={
                                 'Digite o endereço de email do usuário que você deseja convidar como sub-usuário deste servidor.'
                             }

@@ -87,7 +87,7 @@ export default () => {
                 <LoginFormContainer title={'Pedir redefinição de senha'} css={tw`w-full flex`}>
                     <Field
                         light
-                        label={'Email'}
+                        label={'E-mail'}
                         description={
                             'Introduza o endereço de e-mail da sua conta para receber instruções sobre como redefinir a sua senha.'
                         }

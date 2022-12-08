@@ -92,7 +92,7 @@ const RegisterContainer = ({ history }: RouteComponentProps) => {
                     />
                     <Field
                         type={'email'}
-                        label={'Email Address'}
+                        label={'E-mail Address'}
                         name={'email'}
                         css={tw`my-3`}
                         disabled={isSubmitting}

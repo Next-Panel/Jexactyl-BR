@@ -47,7 +47,7 @@ export default () => {
                 <ContentBox title={'Utualizar Usuário'} showFlashes={'account:username'}>
                     <UpdateUsernameForm />
                 </ContentBox>
-                <ContentBox title={'Atualizar Endereço de Email'} showFlashes={'account:email'}>
+                <ContentBox title={'Atualizar Endereço de E-mail'} showFlashes={'account:email'}>
                     <UpdateEmailAddressForm />
                 </ContentBox>
                 {referrals && (

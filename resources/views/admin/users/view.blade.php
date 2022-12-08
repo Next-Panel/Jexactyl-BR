@@ -25,7 +25,7 @@
                     </div>
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="email" class="control-label">Endereço de Email</label>
+                            <label for="email" class="control-label">Endereço de E-mail</label>
                             <div>
                                 <input type="email" name="email" value="{{ $user->email }}" class="form-control form-autocomplete-stop">
                             </div>

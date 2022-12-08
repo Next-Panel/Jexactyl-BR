@@ -69,7 +69,7 @@ class AppSettingsCommand extends Command
 
         $this->output->comment('Forneça o endereço de e-mail que será usado para exportar novos eggs . Este deve ser um endereço de e-mail válido.');
         $this->variables['APP_SERVICE_AUTHOR'] = $this->option('author') ?? $this->ask(
-            'Email do autor do Egg',
+            'E-mail do autor do Egg',
             config('pterodactyl.service.author', 'unknown@unknown.com')
         );
 

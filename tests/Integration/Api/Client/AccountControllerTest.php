@@ -86,7 +86,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonPath('errors.0.meta.rule', 'required');
-        $response->assertJsonPath('errors.0.detail', 'The email field is required.');
+        $response->assertJsonPath('errors.0.detail', 'O campo email é obrigatório.');
 
         $response = $this->actingAs($user)->putJson('/api/client/account/email', [
             'email' => 'invalid',
@@ -95,7 +95,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonPath('errors.0.meta.rule', 'email');
-        $response->assertJsonPath('errors.0.detail', 'The email must be a valid email address.');
+        $response->assertJsonPath('errors.0.detail', 'O email deve ser um endereço de e-mail válido.');
     }
 
     /**
@@ -183,6 +183,6 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonPath('errors.0.meta.rule', 'confirmed');
-        $response->assertJsonPath('errors.0.detail', 'The password confirmation does not match.');
+        $response->assertJsonPath('errors.0.detail', 'A confirmação password não corresponde.');
     }
 }

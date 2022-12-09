@@ -1,9 +1,9 @@
-# Security Policy
+# Política de segurança
 
-## Supported Versions
-The following versions of Jexactyl are receiving active support and maintenance. Any security vulnerabilities discovered must be reproducible in supported versions.
+## Versões suportadas
+As seguintes versões do Jexactyl estão recebendo suporte e manutenção ativos.  Quaisquer vulnerabilidades de segurança descobertas devem ser reproduzíveis em versões com suporte.
 
-| Panel   | Supported          |
+| Panel   | Suportado          |
 |---------|--------------------|
 | 3.5.x   | :white_check_mark: |
 | 3.4.x   | :white_check_mark: |
@@ -13,10 +13,10 @@ The following versions of Jexactyl are receiving active support and maintenance.
 | 3.0.x   | :white_check_mark: |
 | < 3.0.x | :x: |
 
-## Reporting a Vulnerability
+## Relatando uma Vulnerabilidade
 
-Please reach out directly to any project team member on Discord when reporting a security vulnerability, or you can email `contact@heyim.cam`.
+Entre em contato diretamente com qualquer membro da equipe do projeto no Discord ao relatar uma vulnerabilidade de segurança ou envie um e-mail para `contact@heyim.cam`.
 
-We make every effort to respond as soon as possible, although it may take a day or two for us to sync internally and determine the severity of the report and its impact. Please, _do not_ use a public facing channel or GitHub issues to report sensitive security issues.
+ Fazemos todos os esforços para responder o mais rápido possível, embora possa levar um ou dois dias para sincronizarmos internamente e determinarmos a gravidade do relatório e seu impacto.  Por favor, _não_ use um canal voltado ao público ou problemas do GitHub para relatar problemas de segurança confidenciais.
 
-As part of our process, we will create a security advisory for the affected versions and disclose it publicly, usually two to four weeks after a releasing a version that addresses it.
+ Como parte de nosso processo, criaremos um aviso de segurança para as versões afetadas e o divulgaremos publicamente, geralmente de duas a quatro semanas após o lançamento de uma versão que o resolva.

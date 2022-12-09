@@ -77,7 +77,7 @@ export default () => {
                             />
                         </div>
                         <Button type={'submit'}>
-                            Search <Icon.Search size={18} className={'ml-1'} />
+                            Pesquisar <Icon.Search size={18} className={'ml-1'} />
                         </Button>
                     </div>
                 </Form>

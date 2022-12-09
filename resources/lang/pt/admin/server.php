@@ -18,7 +18,7 @@ return [
     'alerts' => [
         'startup_changed' => 'A configuração de inicialização para este servidor foi atualizada. Se este servidor\'s ninho ou egg foi alterado uma reinstalação vai ocorrer agora.',
         'server_deleted' => 'O servidor foi excluído com sucesso do sistema.',
-        'server_created' => 'O servidor foi criado com sucesso no painel. Por favor, permita que o daemon alguns minutos instale completamente este servidor.',
+        'server_created' => 'O servidor foi criado com sucesso no painel. Por favor, permita que o daemon se instale e em alguns minutos inicie este servidor.',
         'build_updated' => 'Os detalhes da compilação deste servidor foram atualizados. Algumas alterações podem exigir um reiniciar para fazer efeito.',
         'suspension_toggled' => 'O status de suspensão do servidor foi alterado para :status.',
         'rebuild_on_boot' => 'Este servidor foi marcado como exigindo uma reconstrução do Contêiner Docker. Isso acontecerá na próxima vez que o servidor for iniciado.',

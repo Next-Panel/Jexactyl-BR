@@ -42,14 +42,14 @@ export default () => {
     };
 
     const doDownload = (id: number) => {
-        console.log('Installing plugin with ID ' + id);
+        console.log('Instalando o plugin com ID ' + id);
         installPlugin(uuid, id)
             .then(() => setOpen(false))
             .then(() =>
                 addFlash({
                     key: 'server:plugins',
                     type: 'success',
-                    message: 'Plugin installed successfully.',
+                    message: 'Plugin instalado com sucesso.',
                 })
             )
             .catch((error) => clearAndAddHttpError(error));
@@ -58,8 +58,8 @@ export default () => {
     return (
         <ServerContentBlock title={'Plugins'}>
             <FlashMessageRender byKey={'server:plugins'} />
-            <h1 className={'j-left text-5xl'}>Plugin Installer</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>Search and download Spigot plugins.</h3>
+            <h1 className={'j-left text-5xl'}>Instalador de Plugins</h1>
+            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>Pesquisar e baixar plugins Spigot.</h3>
             <Formik
                 onSubmit={submit}
                 initialValues={{ query: '' }}
@@ -72,7 +72,7 @@ export default () => {
                         <div className={'col-span-11 mr-4'}>
                             <Field
                                 name={'query'}
-                                placeholder={'Type to search...'}
+                                placeholder={'Digite para pesquisar...'}
                                 className={'p-3 text-sm w-full bg-gray-800 rounded'}
                             />
                         </div>
@@ -85,19 +85,19 @@ export default () => {
             <Dialog.Confirm
                 open={open}
                 onClose={() => setOpen(false)}
-                title={'Plugin Installation'}
+                title={'Instalar Plugin'}
                 onConfirmed={() => doDownload(pluginId)}
             >
-                Are you sure you wish to download this plugin?
+                Você tem certeza de que deseja baixar este plugin?
             </Dialog.Confirm>
             {!data ? null : (
                 <>
                     {!data.plugins ? (
-                        <p className={'j-up text-gray-400 text-center'}>Waiting for a search query to be provided...</p>
+                        <p className={'j-up text-gray-400 text-center'}>Aguardando uma consulta de pesquisa...</p>
                     ) : (
                         <>
                             {data.plugins.length < 1 ? (
-                                <p>Couldn&apos;t find any plugins.</p>
+                                <p>Não foi encontrado nenhum plugin.</p>
                             ) : (
                                 <div className={'j-up lg:grid lg:grid-cols-3 p-2'}>
                                     {data.plugins.map((plugin, key) => (

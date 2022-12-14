@@ -7,7 +7,6 @@ import Spinner from '@/components/elements/Spinner';
 import useLocationHash from '@/plugins/useLocationHash';
 import { useActivityLogs } from '@/api/server/activity';
 import { ActivityLogFilters } from '@/api/account/activity';
-import FlashMessageRender from '@/components/FlashMessageRender';
 import { styles as btnStyles } from '@/components/elements/button/index';
 import ServerContentBlock from '@/components/elements/ServerContentBlock';
 import PaginationFooter from '@/components/elements/table/PaginationFooter';
@@ -38,10 +37,11 @@ export default () => {
     }, [error]);
 
     return (
-        <ServerContentBlock title={'Activity Log'}>
-            <FlashMessageRender byKey={'server:activity'} />
-            <h1 className={'j-left text-5xl'}>Atividade do servidor</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>Ver atividade neste servidor.</h3>
+        <ServerContentBlock
+            title={'Atividade do servidor'}
+            description={'Ver atividade neste servidor.'}
+            showFlashKey={'server:activity'}
+        >
             {(filters.filters?.event || filters.filters?.ip) && (
                 <div className={'flex justify-end mb-2'}>
                     <Link

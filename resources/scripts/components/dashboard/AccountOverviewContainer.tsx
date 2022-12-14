@@ -34,9 +34,7 @@ export default () => {
     const referrals = useStoreState((state) => state.storefront.data!.referrals.enabled);
 
     return (
-        <PageContentBlock title={'visão geral da conta'}>
-            <h1 className={'j-left text-5xl'}>visão geral da conta</h1>
-            <h3 className={'j-left text-2xl text-neutral-500'}>Visualizar e atualizar os detalhes da conta.</h3>
+        <PageContentBlock title={'Visão geral da conta'} description={'Visualizar e atualizar detalhes da conta.'}>
             {state?.twoFactorRedirect && (
                 <Alert type={'danger'}>Sua conta deve ter autenticação de dois fatores ativada para continuar.</Alert>
             )}

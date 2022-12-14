@@ -80,10 +80,12 @@ export default () => {
     };
 
     return (
-        <ServerContentBlock title={'File Manager'} showFlashKey={'files'}>
-            <h1 className={'j-left text-5xl'}>Gerenciador de arquivos</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>Crie, edite e visualize arquivos.</h3>
-            <Input onChange={searchFiles} className={'mb-4 j-up'} placeholder={'Pesquise arquivos e pastas...'} />
+        <ServerContentBlock
+            title={'Gerenciador de arquivos'}
+            description={'Crie, edite e visualize arquivos.'}
+            showFlashKey={'files'}
+        >
+            <Input onChange={searchFiles} className={'mb-4 j-up'} placeholder={'Search for files and folders...'} />
             <div css={tw`flex flex-wrap-reverse md:flex-nowrap justify-center mb-4`}>
                 <ErrorBoundary>
                     <div className={'j-right'}>

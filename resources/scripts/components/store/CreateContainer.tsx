@@ -1,6 +1,5 @@
 import * as Icon from 'react-feather';
 import { Form, Formik } from 'formik';
-import { Link } from 'react-router-dom';
 import useFlash from '@/plugins/useFlash';
 import { useStoreState } from 'easy-peasy';
 import { number, object, string } from 'yup';
@@ -133,7 +132,7 @@ export default () => {
     }
 
     return (
-        <PageContentBlock title={'Criar um servidor'} showFlashKey={'store:create'}>
+        <PageContentBlock title={'Criar Servidor'} showFlashKey={'store:create'}>
             <Formik
                 onSubmit={submit}
                 initialValues={{
@@ -167,23 +166,9 @@ export default () => {
                 })}
             >
                 <Form>
-                    <div className={'my-10'}>
-                        <Link to={'/store'}>
-                            <Button.Text className={'w-full lg:w-1/6 m-2'}>
-                                <Icon.ArrowLeft className={'mr-1'} />
-                                Voltar à Loja
-                            </Button.Text>
-                        </Link>
-                        <Link to={'/store/resources'}>
-                            <Button className={'w-full lg:w-1/6 m-2'}>
-                                <Icon.ShoppingCart className={'mr-2'} />
-                                Precisa de mais recursos?
-                            </Button>
-                        </Link>
-                    </div>
-                    <h1 className={'j-left text-5xl'}>Detalhes Básicos</h1>
+                    <h1 className={'j-left text-5xl'}>Detalhes básicos</h1>
                     <h3 className={'j-left text-2xl text-neutral-500'}>
-                        Defina os campos básicos para o novo servidor.
+                        Defina os campos básicos para seu novo servidor.
                     </h3>
                     <StoreContainer className={'lg:grid lg:grid-cols-2 my-10 gap-4'}>
                         <TitledGreyBox title={'Nome do Servidor'} icon={faStickyNote} className={'mt-8 sm:mt-0'}>

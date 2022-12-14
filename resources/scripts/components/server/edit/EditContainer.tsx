@@ -9,7 +9,6 @@ import editServer from '@/api/server/editServer';
 import { Dialog } from '@/components/elements/dialog';
 import { Button } from '@/components/elements/button/index';
 import TitledGreyBox from '@/components/elements/TitledGreyBox';
-import FlashMessageRender from '@/components/FlashMessageRender';
 import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
 import ServerContentBlock from '@/components/elements/ServerContentBlock';
 
@@ -58,7 +57,11 @@ export default () => {
     };
 
     return (
-        <ServerContentBlock title={'Editar servidor'}>
+        <ServerContentBlock
+            title={'Editar Servidor'}
+            description={'Adicione ou remova recursos de seu servidor.'}
+            showFlashKey={'server:edit'}
+        >
             <SpinnerOverlay size={'large'} visible={submitting} />
             <Dialog.Confirm
                 open={submitting}
@@ -69,11 +72,6 @@ export default () => {
                 Isso removerá os recursos da sua conta e os adicionará ao seu servidor. Você tem certeza que quer
                 Prosseguir?
             </Dialog.Confirm>
-            <FlashMessageRender byKey={'server:edit'} css={tw`mb-4`} />
-            <h1 className={'j-left text-5xl'}>Edit Resources</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>
-                Adicione e remova os recursos do seu servidor.
-            </h3>
             <Container css={tw`lg:grid lg:grid-cols-3 gap-4 my-10`}>
                 <TitledGreyBox title={'Editar limite de CPU do servidor'} css={tw`mt-8 sm:mt-0`}>
                     <Wrapper>

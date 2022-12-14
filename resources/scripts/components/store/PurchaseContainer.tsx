@@ -1,12 +1,9 @@
 import tw from 'twin.macro';
 import { breakpoint } from '@/theme';
-import { Link } from 'react-router-dom';
-import { ArrowLeft } from 'react-feather';
 import styled from 'styled-components/macro';
 import { useStoreState } from '@/state/hooks';
 import React, { useEffect, useState } from 'react';
 import Spinner from '@/components/elements/Spinner';
-import { Button } from '@/components/elements/button';
 import ContentBox from '@/components/elements/ContentBox';
 import { getResources, Resources } from '@/api/store/getResources';
 import PageContentBlock from '@/components/elements/PageContentBlock';
@@ -42,19 +39,10 @@ export default () => {
     if (!resources) return <Spinner size={'large'} centered />;
 
     return (
-        <PageContentBlock title={'Carteira do Usuário'}>
-            <div className={'my-10'}>
-                <Link to={'/store'}>
-                    <Button.Text className={'w-full lg:w-1/6 m-2'}>
-                        <ArrowLeft className={'mr-1'} />
-                        Voltar à loja
-                    </Button.Text>
-                </Link>
-            </div>
-            <h1 className={'j-left text-5xl'}>Carteira do Usuário</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500'}>
-                Compre créditos facilmente via Stripe ou PayPal.
-            </h3>
+        <PageContentBlock
+            title={'Saldo da conta'}
+            description={'Compre créditos facilmente através do Stripe ou PayPal.'}
+        >
             <Container className={'j-up lg:grid lg:grid-cols-2 my-10'}>
                 <ContentBox title={'Carteira do Usuário'} showFlashes={'account:balance'} css={tw`sm:mt-0`}>
                     <h1 css={tw`text-7xl flex justify-center items-center`}>

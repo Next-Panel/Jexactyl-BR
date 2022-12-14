@@ -6,7 +6,6 @@ import { useFlashKey } from '@/plugins/useFlash';
 import { useSSHKeys } from '@/api/account/ssh-keys';
 import ContentBox from '@/components/elements/ContentBox';
 import GreyRowBox from '@/components/elements/GreyRowBox';
-import FlashMessageRender from '@/components/FlashMessageRender';
 import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
 import PageContentBlock from '@/components/elements/PageContentBlock';
 import CreateSSHKeyForm from '@/components/dashboard/forms/CreateSSHKeyForm';
@@ -25,12 +24,11 @@ export default () => {
     }, [error]);
 
     return (
-        <PageContentBlock title={'Conta SSH'}>
-            <h1 className={'j-left text-5xl'}>Chave SSH</h1>
-            <h3 className={'j-left text-2xl text-neutral-500'}>
-                Crie chaves SSH para se conectar aos seus servidores.
-            </h3>
-            <FlashMessageRender byKey={'account'} />
+        <PageContentBlock
+            title={'Chaves SSH'}
+            description={'Crie chaves SSH para se conectar aos seus servidores.'}
+            showFlashKey={'account'}
+        >
             <div className={'j-up md:flex flex-nowrap my-10'}>
                 <ContentBox title={'Adicionar Chave SSH'} css={tw`flex-none w-full md:w-1/2`}>
                     <CreateSSHKeyForm />

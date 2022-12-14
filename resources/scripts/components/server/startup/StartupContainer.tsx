@@ -83,11 +83,11 @@ const StartupContainer = () => {
             <ServerError title={'Oops!'} message={httpErrorToHuman(error)} onRetry={() => mutate()} />
         )
     ) : (
-        <ServerContentBlock title={'Configurações de inicialização'} showFlashKey={'startup:image'}>
-            <h1 className={'j-left text-5xl'}>Propriedades</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>
-                Ajuste fino das variáveis para seu servidor durante a inicialização.
-            </h3>
+        <ServerContentBlock
+            title={'Configurações da inicialização'}
+            description={'Ajuste fino das variáveis para seu servidor durante a inicialização.'}
+            showFlashKey={'startup:image'}
+        >
             <div className={'md:flex j-up'}>
                 <TitledGreyBox title={'Comando de inicialização'} css={tw`flex-1`}>
                     <div css={tw`px-1 py-2`}>

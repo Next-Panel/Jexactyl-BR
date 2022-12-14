@@ -59,7 +59,7 @@ export default () => {
     }, [error]);
 
     return (
-        <PageContentBlock title={'Painel'} css={tw`mt-4 sm:mt-10`} showFlashKey={'dashboard' || 'store:create'}>
+        <PageContentBlock title={'Painel'} css={tw`mt-4 sm:mt-10`} showFlashKey={'dashboard'}>
             {width >= 1024 && <ResourceBar className={'my-10'} titles />}
             {rootAdmin && (
                 <div css={tw`mb-10 flex justify-between items-center`}>

@@ -7,11 +7,10 @@ import React, { useEffect, useState } from 'react';
 import { Dialog } from '@/components/elements/dialog';
 import { Button } from '@/components/elements/button';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
+import installPlugin from '@/api/server/plugins/installPlugin';
 import TitledGreyBox from '@/components/elements/TitledGreyBox';
-import FlashMessageRender from '@/components/FlashMessageRender';
 import getPlugins, { Plugin } from '@/api/server/plugins/getPlugins';
 import ServerContentBlock from '@/components/elements/ServerContentBlock';
-import installPlugin from '@/api/server/plugins/installPlugin';
 
 interface Values {
     query: string;
@@ -56,10 +55,11 @@ export default () => {
     };
 
     return (
-        <ServerContentBlock title={'Plugins'}>
-            <FlashMessageRender byKey={'server:plugins'} />
-            <h1 className={'j-left text-5xl'}>Instalador de Plugins</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>Pesquisar e baixar plugins Spigot.</h3>
+        <ServerContentBlock
+            title={'Plugins'}
+            description={'Pesquisar e baixar plugins Spigot.'}
+            showFlashKey={'server:plugins'}
+        >
             <Formik
                 onSubmit={submit}
                 initialValues={{ query: '' }}

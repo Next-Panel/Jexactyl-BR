@@ -8,7 +8,6 @@ import Spinner from '@/components/elements/Spinner';
 import GreyRowBox from '@/components/elements/GreyRowBox';
 import { Button } from '@/components/elements/button/index';
 import { useHistory, useRouteMatch } from 'react-router-dom';
-import FlashMessageRender from '@/components/FlashMessageRender';
 import ScheduleRow from '@/components/server/schedules/ScheduleRow';
 import ServerContentBlock from '@/components/elements/ServerContentBlock';
 import getServerSchedules from '@/api/server/schedules/getServerSchedules';
@@ -41,10 +40,11 @@ export default () => {
     }, []);
 
     return (
-        <ServerContentBlock title={'Schedules'}>
-            <FlashMessageRender byKey={'schedules'} css={tw`mb-4`} />
-            <h1 className={'j-left text-5xl'}>Programações</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>Gerencie funções para seu servidor.</h3>
+        <ServerContentBlock
+            title={'Programações'}
+            description={'Gerencie as funções programadas para seu servidor.'}
+            showFlashKey={'schedules'}
+        >
             {!schedules.length && loading ? (
                 <Spinner size={'large'} centered />
             ) : (

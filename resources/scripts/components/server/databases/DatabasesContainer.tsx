@@ -7,7 +7,6 @@ import { ServerContext } from '@/state/server';
 import React, { useEffect, useState } from 'react';
 import Spinner from '@/components/elements/Spinner';
 import { useDeepMemoize } from '@/plugins/useDeepMemoize';
-import FlashMessageRender from '@/components/FlashMessageRender';
 import DatabaseRow from '@/components/server/databases/DatabaseRow';
 import ServerContentBlock from '@/components/elements/ServerContentBlock';
 import getServerDatabases from '@/api/server/databases/getServerDatabases';
@@ -40,10 +39,11 @@ export default () => {
     }, []);
 
     return (
-        <ServerContentBlock title={'Databases'}>
-            <FlashMessageRender byKey={'databases'} css={tw`mb-4`} />
-            <h1 className={'j-left text-5xl'}>Bancos de dados</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>Crie bancos de dados para o seu game.</h3>
+        <ServerContentBlock
+            title={'Bancos de dados'}
+            description={'Crie bancos de dados para o seu game.'}
+            showFlashKey={'databases'}
+        >
             {!databases.length && loading ? (
                 <Spinner size={'large'} centered />
             ) : (

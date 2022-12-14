@@ -34,14 +34,14 @@ class ServerRenewalService
         $cost = $this->settings->get('jexactyl::renewal:cost', 200);
 
         if ($user->store_balance < $cost) {
-            throw new DisplayException('You do not have enough credits to renew your server.');
+            throw new DisplayException('Você não possui créditos suficientes para renovar seu servidor.');
         }
 
         try {
             $user->update(['store_balance' => $user->store_balance - $cost]);
             $server->update(['renewal' => $server->renewal + $this->settings->get('jexactyl::renewal:default', 7)]);
         } catch (DisplayException $ex) {
-            throw new DisplayException('An unexpected error occured while trying to renew your server.');
+            throw new DisplayException('Ocorreu um erro inesperado ao tentar renovar seu servidor.');
         }
 
         if ($server->status == 'suspended' && $server->renewal >= 0) {

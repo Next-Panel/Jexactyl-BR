@@ -34,7 +34,7 @@ class ResourcePurchaseService
             ->first();
 
         if ($balance < $cost) {
-            throw new DisplayException('You do not have enough credits.');
+            throw new DisplayException('Você não possui créditos suficientes.');
         }
 
         $user->update([

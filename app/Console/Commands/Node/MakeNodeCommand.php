@@ -12,7 +12,7 @@ class MakeNodeCommand extends Command
                             {--description= : Uma descrição para identificar o node.}
                             {--locationId= : Um localização válido.}
                             {--fqdn= : O nome de domínio (por exemplo, node.example.com) a ser usado para conectar ao daemon. Um endereço IP só pode ser usado se você não estiver usando SSL para este node.}
-                            {--public= : O nó deve ser publico ou privado? (public=1 / private=0).}
+                            {--public= : O node deve ser publico ou privado? (public=1 / private=0).}
                             {--scheme= : Qual esquema deve ser usado? (Enable SSL=https / Disable SSL=http).}
                             {--proxy= : O daemon usa serviço CDN? (Yes=1 / No=0).}
                             {--maintenance= : O modo de manutenção deve ser ativado? (Enable Maintenance mode=1 / Disable Maintenance mode=0).}
@@ -42,7 +42,7 @@ class MakeNodeCommand extends Command
      */
     public function handle()
     {
-        $data['name'] = $this->option('name') ?? $this->ask('Digite um identificador curto usado para distinguir este nó de outros');
+        $data['name'] = $this->option('name') ?? $this->ask('Digite um identificador curto usado para distinguir este node de outros');
         $data['description'] = $this->option('description') ?? $this->ask('Digite uma descrição para identificar o node');
         $data['location_id'] = $this->option('locationId') ?? $this->ask('Insira um ID de localização válido');
         $data['scheme'] = $this->option('scheme') ?? $this->anticipate(

@@ -85,13 +85,13 @@ Novo servidor
                     </div>
 
                     <div class="form-group col-sm-4">
-                        <label for="pAllocation">Default Allocation</label>
+                        <label for="pAllocation">A alocação padrão</label>
                         <select id="pAllocation" name="allocation_id" class="form-control"></select>
                         <p class="small text-muted no-margin">A principal alocação que será atribuída a este servidor.</p>
                     </div>
 
                     <div class="form-group col-sm-4">
-                        <label for="pAllocationAdditional">Additional Allocation(s)</label>
+                        <label for="pAllocationAdditional">Alocação adicional(is)</label>
                         <select id="pAllocationAdditional" name="allocation_additional[]" class="form-control" multiple></select>
                         <p class="small text-muted no-margin">Alocações adicionais a serem atribuídas a este servidor na criação.</p>
                     </div>
@@ -284,7 +284,7 @@ Novo servidor
                     <div class="form-group col-xs-12">
                         <label for="pDefaultContainer">Imagem do Docker</label>
                         <select id="pDefaultContainer" name="image" class="form-control"></select>
-                        <input id="pDefaultContainerCustom" name="custom_image" value="{{ old('custom_image') }}" class="form-control" placeholder="Or enter a custom image..." style="margin-top:1rem"/>
+                        <input id="pDefaultContainerCustom" name="custom_image" value="{{ old('custom_image') }}" class="form-control" placeholder="Ou insira uma imagem personalizada..." style="margin-top:1rem"/>
                         <p class="small text-muted no-margin">Esta é a imagem padrão do Docker que será usada para executar este servidor.
                         Selecione uma imagem do campo acima, ou digite uma imagem personalizada no campo de texto acima.</p>
                     </div>

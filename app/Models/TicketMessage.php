@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $id
  * @property User $user
  * @property int $user_id
+ * @property int $client_id
  * @property Ticket $ticket
  * @property int $ticket_id
  * @property string $content
@@ -47,8 +48,18 @@ class TicketMessage extends Model
     protected $fillable = [
         'user_id',
         'ticket_id',
-        'content'
+        'content',
+        'client_id',
     ];
+
+     /**
+     * Gets the client who made the ticket.
+     */
+    public function client(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'client_id');
+    }
+
 
 
     /**

@@ -318,7 +318,7 @@ Novo servidor
 
                 <div class="box-footer">
                     {!! csrf_field() !!}
-                    <input type="submit" class="btn btn-success pull-right" value="Create Server" />
+                    <input type="submit" class="btn btn-success pull-right" value="Criar Servidor" />
                 </div>
             </div>
         </div>

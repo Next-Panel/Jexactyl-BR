@@ -26,7 +26,7 @@ Construído em [Pterodactyl](https://pterodactyl.io), este software é projetado
 
 ## Previews
 ![image](https://cdn.discordapp.com/attachments/846152743789395980/1053010570212806678/image.png)
-![image](https://user-images.githubusercontent.com/72230943/201116688-b53d721e-c30f-424e-8a53-025f313ec98f.png)
+![image](https://cdn.discordapp.com/attachments/846152743789395980/1053011182111428718/image.png)
 ![image](https://user-images.githubusercontent.com/72230943/201116840-92c00c15-5717-4121-83cd-69397f9bacba.png)
 ![image](https://user-images.githubusercontent.com/72230943/201116914-8b1c8867-c462-4b25-ae47-803b2e4ea39c.png)
 ![image](https://user-images.githubusercontent.com/72230943/201116959-a626e6fc-18a9-4c06-869e-2f13b37b8457.png)

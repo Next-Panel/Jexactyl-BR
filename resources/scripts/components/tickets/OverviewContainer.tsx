@@ -15,13 +15,13 @@ export default () => {
 
     return (
         <PageContentBlock
-            title={'Support Tickets'}
-            description={'Create or reply to a support ticket.'}
+            title={'Tickets de suporte'}
+            description={'Criar ou responder a um ticket de suporte.'}
             showFlashKey={'tickets'}
         >
             <NewTicketDialog open={visible} onClose={() => setVisible(false)} />
             {!tickets ? (
-                <p className={'text-gray-400 text-center my-4'}>There are no tickets available.</p>
+                <p className={'text-gray-400 text-center my-4'}>Não há tickets disponíveis.</p>
             ) : (
                 <>
                     {tickets.map((ticket) => (
@@ -32,7 +32,7 @@ export default () => {
                 </>
             )}
             <div className={'w-full flex lg:justify-end lg:items-end'}>
-                <Button onClick={() => setVisible(true)}>Create New Ticket</Button>
+                <Button onClick={() => setVisible(true)}>Criar Novo Ticket</Button>
             </div>
         </PageContentBlock>
     );

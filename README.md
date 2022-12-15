@@ -30,7 +30,7 @@ Construído em [Pterodactyl](https://pterodactyl.io), este software é projetado
 ![image](https://user-images.githubusercontent.com/72230943/201116840-92c00c15-5717-4121-83cd-69397f9bacba.png)
 ![image](https://user-images.githubusercontent.com/72230943/201116914-8b1c8867-c462-4b25-ae47-803b2e4ea39c.png)
 ![image](https://cdn.discordapp.com/attachments/846152743789395980/1053011522328199248/image.png)
-![image](https://user-images.githubusercontent.com/72230943/201117028-3db8aa2e-b14b-4679-9f2c-c5afb208767c.png)
+![image](https://user-images.githubusercontent.com/30575805/207936353-cad5228e-5948-4b5c-8b4d-f1fc5021f806.png)
 
 
 ## Licensing

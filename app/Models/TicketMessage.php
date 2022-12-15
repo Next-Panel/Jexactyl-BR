@@ -47,6 +47,8 @@ class TicketMessage extends Model
     protected $fillable = [
         'user_id',
         'ticket_id',
+        'title',
+        'status',
         'content',
     ];
 

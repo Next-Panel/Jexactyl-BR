@@ -32,6 +32,12 @@ Construído em [Pterodactyl](https://pterodactyl.io), este software é projetado
 ![image](https://user-images.githubusercontent.com/30575805/207936544-7ee143cd-e0e6-4076-929a-cfc97054b33e.png)
 ![image](https://user-images.githubusercontent.com/30575805/207936353-cad5228e-5948-4b5c-8b4d-f1fc5021f806.png)
 
+## Temas do Administrador
+![tema Padrão](.github/imagens/temapadrao.png)
+![tema Minecraft](.github/imagens/temaminecraft.png)
+![tema Claro](.github/imagens/temaclaro.png)
+![tema Escuro](.github/imagens/temaescuro.png)
+![tema Azul](.github/imagens/temaazul.png)
 
 ## Licensing
 Some Javascript and CSS used within the panel are licensed under a `MIT` or `Apache 2.0` license. Please check their

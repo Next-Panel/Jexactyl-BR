@@ -124,7 +124,7 @@ const LoginContainer = ({ history }: RouteComponentProps) => {
                         {discord && (
                             <Link
                                 to={'/auth/discord'}
-                                css={tw`text-xs ml-6 text-neutral-500 tracking-wide no-underline uppercase hover:text-neutral-600`}
+                                css={tw`text-xs text-neutral-500 tracking-wide no-underline uppercase hover:text-neutral-600`}
                             >
                                 Logar com Discord
                             </Link>

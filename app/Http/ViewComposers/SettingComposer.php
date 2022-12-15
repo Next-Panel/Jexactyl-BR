@@ -24,7 +24,7 @@ class SettingComposer extends Composer
 
         $view->with('siteConfiguration', [
             'name' => config('app.name') ?? 'Jexactyl',
-            'locale' => config('app.locale') ?? 'en',
+            'locale' => config('app.locale') ?? 'pt',
             'logo' => config('app.logo'),
             'background' => config('theme.user.background'),
 

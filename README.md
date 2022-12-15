@@ -39,6 +39,10 @@ Construído em [Pterodactyl](https://pterodactyl.io), este software é projetado
 ![tema Escuro](.github/imagens/temaescuro.png)
 ![tema Azul](.github/imagens/temaazul.png)
 
+### Isenção de responsabilidade
+* A Jexactyl Brasil não é de forma alguma afiliada ao [Jexactyl](https://jexactyl.com),somos um grupo de pessoas que decidirão trazer esse belo painel para a nossa língua (Portugues).
+* De forma alguma a Jexactyl Brasil é afiliada de alguma forma ao [Pterodactyl®](https://pterdoactyl.io) ou ao [Jexactyl](https://jexactyl.com).
+
 ## Licensing
 Some Javascript and CSS used within the panel are licensed under a `MIT` or `Apache 2.0` license. Please check their
 respective header files for more information.

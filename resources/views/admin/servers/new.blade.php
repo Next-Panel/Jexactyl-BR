@@ -26,7 +26,7 @@ Novo servidor
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="pName">Nome do servidor</label>
-                            <input type="text" class="form-control" id="pName" name="name" value="{{ old('name') }}" placeholder="Server Name">
+                            <input type="text" class="form-control" id="pName" name="name" value="{{ old('name') }}" placeholder="Nome do Servidor">
                             <p class="small text-muted no-margin">Limites de caracteres: <code>a-z A-Z 0-9 _ - .</code> e <code>[Espaço]</code>.</p>
                         </div>
 

@@ -1,4 +1,4 @@
-[![Logo Image](https://cdn.discordapp.com/attachments/1012411945141424218/1012430446556090468/JexactylBannerBasic.jpg)](https://jexactyl.com)
+[![Logo Image](https://cdn.discordapp.com/attachments/1012411945141424218/1012430446556090468/JexactylBannerBasic.jpg)](https://jexactylbrasil.ml)
 
 ![Tests](https://img.shields.io/github/workflow/status/Ashu11-A/Jexactyl_PT-BR/Build)
 <a href="https://discord.gg/qttGR4Z5Pk">![Discord](https://img.shields.io/discord/922284031129825280)</a>

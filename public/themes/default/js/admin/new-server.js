@@ -19,27 +19,27 @@
 // SOFTWARE.
 $(document).ready(function() {
     $('#pNestId').select2({
-        placeholder: 'Select a Nest',
+        placeholder: 'Selecione um Nest',
     }).change();
 
     $('#pEggId').select2({
-        placeholder: 'Select a Nest Egg',
+        placeholder: 'Selecione um Nest de Eggs',
     });
 
     $('#pPackId').select2({
-        placeholder: 'Select a Service Pack',
+        placeholder: 'Selecione um Pacote de Serviços',
     });
 
     $('#pNodeId').select2({
-        placeholder: 'Select a Node',
+        placeholder: 'Selecione um Node',
     }).change();
 
     $('#pAllocation').select2({
-        placeholder: 'Select a Default Allocation',
+        placeholder: 'Selecione uma alocação padrão',
     });
 
     $('#pAllocationAdditional').select2({
-        placeholder: 'Select Additional Allocations',
+        placeholder: 'Selecionar alocações adicionais',
     });
 });
 
@@ -59,7 +59,7 @@ $('#pNodeId').on('change', function () {
         if (v.id == currentNode) {
             $('#pAllocation').html('').select2({
                 data: v.allocations,
-                placeholder: 'Select a Default Allocation',
+                placeholder: 'Selecione uma alocação padrão',
             });
 
             updateAdditionalAllocations();
@@ -93,13 +93,13 @@ $('#pEggId').on('change', function (event) {
     }
 
     if (!_.get(objectChain, 'startup', false)) {
-        $('#pStartup').val(_.get(parentChain, 'startup', 'ERROR: Startup Not Defined!'));
+        $('#pStartup').val(_.get(parentChain, 'startup', 'ERRO: Inicialização não definida!'));
     } else {
         $('#pStartup').val(_.get(objectChain, 'startup'));
     }
 
     $('#pPackId').html('').select2({
-        data: [{ id: 0, text: 'No Service Pack' }].concat(
+        data: [{ id: 0, text: 'Sem Pacote de Serviços' }].concat(
             $.map(_.get(objectChain, 'packs', []), function (item, i) {
                 return {
                     id: item.id,
@@ -154,7 +154,7 @@ function updateAdditionalAllocations() {
 
             $('#pAllocationAdditional').html('').select2({
                 data: allocations,
-                placeholder: 'Select Additional Allocations',
+                placeholder: 'Selecionar alocações adicionais',
             });
         }
     });

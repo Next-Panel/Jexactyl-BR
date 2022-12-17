@@ -8,8 +8,8 @@
  */
 return [
     'auth' => [
-        'fail' => 'Login com falha',
-        'success' => 'Logado',
+        'fail' => 'falhou ao carregar',
+        'success' => 'Logado a',
         'password-reset' => 'Redefinição de senha',
         'reset-password' => 'Redefinição de senha solicitada',
         'checkpoint' => 'Autenticação de dois fatores solicitada',

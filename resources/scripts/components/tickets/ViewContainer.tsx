@@ -117,7 +117,7 @@ export default () => {
                 </>
             )}
             <div className={'flex justify-center items-center mt-6'}>
-                <Button onClick={() => setVisible(true)}>Create Message</Button>
+                <Button onClick={() => setVisible(true)}>Criar Mensagem</Button>
             </div>
         </PageContentBlock>
     );

@@ -52,10 +52,10 @@ export default () => {
             <NewMessageDialog open={visible} onClose={() => setVisible(false)} />
             <div className={'mt-6 grid grid-cols-1 sm:grid-cols-2 lg:w-1/4 gap-4'}>
                 <Button.Text className={'w-full'} onClick={doRedirect}>
-                    View All Tickets
+                Ver Todos os Tickets
                 </Button.Text>
                 <Button.Danger className={'w-full'} onClick={doDeletion}>
-                    Delete Ticket
+                Excluir Ticket
                 </Button.Danger>
             </div>
             <Alert
@@ -72,7 +72,7 @@ export default () => {
                 }
                 className={'my-4 w-full'}
             >
-                This ticket is marked as&nbsp;<p className={'font-bold'}>{ticket.status ?? 'unknown'}</p>.
+               Este ticket está marcado como&nbsp;<p className={'font-bold'}>{ticket.status ?? 'unknown'}</p>.
             </Alert>
             <TitledGreyBox title={ticket.title}>
                 {ticket.content}
@@ -83,7 +83,7 @@ export default () => {
                 )}
             </TitledGreyBox>
             {!messages ? (
-                <p className={'text-gray-400 text-center'}>No one has replied to this ticket yet.</p>
+                <p className={'text-gray-400 text-center'}>Ainda ninguém respondeu a este ticket.</p>
             ) : (
                 <>
                     {messages.map((message) => (
@@ -98,7 +98,7 @@ export default () => {
                                         </div>
                                     ) : (
                                         <TitledGreyBox
-                                            title={`Response from ${message.userEmail}`}
+                                            title={`Resposta de ${message.userEmail}`}
                                             key={message.id}
                                             className={'mt-4'}
                                         >

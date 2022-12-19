@@ -36,11 +36,11 @@ Listar Tickets
                                 <td><code title="{{ $ticket->title }}">{{ $ticket->title }}</code></td>
                                 <td>{{ $ticket->created_at->diffForHumans() }}</td>
                                 <td class="text-center">
-                                    @if($ticket->status == 'pending')
+                                    @if($ticket->status == 'pendente')
                                         <span class="label bg-black">Pendente</span>
-                                    @elseif($ticket->status == 'in-progress')
+                                    @elseif($ticket->status == 'em-andamento')
                                         <span class="label label-warning">Em Progresso</span>
-                                    @elseif($ticket->status == 'unresolved')
+                                    @elseif($ticket->status == 'não-resolvido')
                                         <span class="label label-danger">Não Resolvido</span>
                                     @else
                                         <span class="label label-success">Resolvido</span>

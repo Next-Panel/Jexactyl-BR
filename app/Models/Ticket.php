@@ -32,10 +32,10 @@ class Ticket extends Model
      */
     public const RESOURCE_NAME = 'ticket';
 
-    public const STATUS_PENDING = 'pending';
-    public const STATUS_RESOLVED = 'resolved';
-    public const STATUS_UNRESOLVED = 'unresolved';
-    public const STATUS_IN_PROGRESS = 'in_progress';
+    public const STATUS_PENDING = 'pendente';
+    public const STATUS_RESOLVED = 'resolvido';
+    public const STATUS_UNRESOLVED = 'não-resolvido';
+    public const STATUS_IN_PROGRESS = 'em-andamento';
 
     /**
      * The table associated with the model.

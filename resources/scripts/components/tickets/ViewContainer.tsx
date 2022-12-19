@@ -48,14 +48,14 @@ export default () => {
     if (!ticket) return <Spinner centered />;
 
     return (
-        <PageContentBlock title={'View Ticket'} showFlashKey={'tickets'}>
+        <PageContentBlock title={'Veja os tickets'} showFlashKey={'tickets'}>
             <NewMessageDialog open={visible} onClose={() => setVisible(false)} />
             <div className={'mt-6 grid grid-cols-1 sm:grid-cols-2 lg:w-1/4 gap-4'}>
                 <Button.Text className={'w-full'} onClick={doRedirect}>
-                Ver Todos os Tickets
+                    Ver Todos os Tickets
                 </Button.Text>
                 <Button.Danger className={'w-full'} onClick={doDeletion}>
-                Excluir Ticket
+                    Excluir Ticket
                 </Button.Danger>
             </div>
             <Alert
@@ -72,7 +72,7 @@ export default () => {
                 }
                 className={'my-4 w-full'}
             >
-               Este ticket está marcado como&nbsp;<p className={'font-bold'}>{ticket.status ?? 'unknown'}</p>.
+                Este ticket está marcado como&nbsp;<p className={'font-bold'}>{ticket.status ?? 'unknown'}</p>.
             </Alert>
             <TitledGreyBox title={ticket.title}>
                 {ticket.content}

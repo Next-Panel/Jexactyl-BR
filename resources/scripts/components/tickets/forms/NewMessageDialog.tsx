@@ -38,7 +38,7 @@ export default ({ open, onClose }: DialogProps) => {
                 addFlash({
                     key: 'tickets',
                     type: 'success',
-                    message: 'Your message has been sent successfully.',
+                    message: 'Sua mensagem foi enviada com sucesso.',
                 });
             })
             .catch((error) => {
@@ -52,8 +52,8 @@ export default ({ open, onClose }: DialogProps) => {
         <Dialog
             open={open}
             onClose={onClose}
-            title={'Add a message'}
-            description={'This message will be visible to both you and the administrators on this Panel.'}
+            title={'Adicionar uma mensagem'}
+            description={'Esta mensagem será visível tanto para você quanto para os administradores deste Painel.'}
             preventExternalClose
         >
             <Formik
@@ -67,16 +67,16 @@ export default ({ open, onClose }: DialogProps) => {
                     <Form className={'mt-6'}>
                         <SpinnerOverlay visible={isSubmitting} />
                         <FormikFieldWrapper
-                            label={'Description'}
+                            label={'Descrição'}
                             name={'description'}
                             description={
-                                'Provide additional information, images and other content in order to help us fix your issue faster.'
+                                'Forneça informações adicionais, imagens e outros conteúdos a fim de nos ajudar a resolver seu problema mais rapidamente.'
                             }
                         >
                             <Field name={'description'} as={CustomTextarea} />
                         </FormikFieldWrapper>
                         <div className={'flex justify-end mt-6'}>
-                            <Button type={'submit'}>Send</Button>
+                            <Button type={'submit'}>Enviar</Button>
                         </div>
                     </Form>
                 )}

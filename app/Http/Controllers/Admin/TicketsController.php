@@ -9,7 +9,6 @@ use Pterodactyl\Http\Controllers\Controller;
 
 class TicketsController extends Controller
 {
-
     public function __construct(protected Factory $view)
     {
     }

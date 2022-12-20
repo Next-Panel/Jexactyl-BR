@@ -8,7 +8,7 @@
 
 # Jexactyl
 Jexactyl é um painel de gerenciamento de jogos e sistema de faturamento rápido, avançado e personalizável em um só.
-Construído em [Pterodactyl](https://pterodactyl.io), este software é projetado a partir do zero com segurança e estabilidade em primeiro lugar
+Construído em [Pterodactyl](https://pterodactyl.io), este software é projetado a partir do zero com segurança e estabilidade em primeiro lugar.
 
 ## Por que usar Jexactyl?
 * Métodos avançados de autenticação e passos de segurança.

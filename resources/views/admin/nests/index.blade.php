@@ -15,13 +15,6 @@
 @section('content')
 <div class="row">
     <div class="col-xs-12">
-        <div class="alert alert-danger">
-            Os eggs são uma característica poderosa do Painel Pterodactyl que permite extrema flexibilidade e configuração. Por favor, note que, embora poderoso, modificar um egg erroneamente pode muito facilmente bloquear seus servidores e causar mais problemas. Por favor, evite editar nossos eggs padrão – aqueles fornecidos por <code>support@pterodactyl.io</code> – a menos que você tenha certeza absoluta do que está fazendo.
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-xs-12">
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">Nest Configurados</h3>

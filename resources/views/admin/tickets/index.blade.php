@@ -8,7 +8,7 @@ Listar Tickets
     <h1>Tickets<small>Veja todos os tickets do sistema.</small></h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.index') }}">Admin</a></li>
-        <li class="active">Ticekts</li>
+        <li class="active">Tickets</li>
     </ol>
 @endsection
 
@@ -31,7 +31,7 @@ Listar Tickets
                         </tr>
                         @foreach ($tickets as $ticket)
                             <tr data-ticket="{{ $ticket->id }}">
-                                <td><a href="{{ route('admin.tickets.index', $ticket->id) }}">{{ $ticket->id }}</a></td>
+                                <td><a href="{{ route('admin.tickets.view', $ticket->id) }}">{{ $ticket->id }}</a></td>
                                 <td><a href="{{ route('admin.users.view', $ticket->client_id) }}">{{ $ticket->user->email }}</a></td>
                                 <td><code title="{{ $ticket->title }}">{{ $ticket->title }}</code></td>
                                 <td>{{ $ticket->created_at->diffForHumans() }}</td>

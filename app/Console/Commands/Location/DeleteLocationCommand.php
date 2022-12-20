@@ -11,7 +11,7 @@ class DeleteLocationCommand extends Command
 {
     protected $description = 'Exclui uma localização do Painel.';
 
-    protected $signature = 'p:location:delete {--short= : O código curto do local a ser excluído.}';
+    protected $signature = 'p:location:delete {--short= : O Nome Simples do local a ser excluído.}';
 
     protected Collection $locations;
 

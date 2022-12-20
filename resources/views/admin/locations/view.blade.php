@@ -23,7 +23,7 @@
             <form action="{{ route('admin.locations.view', $location->id) }}" method="POST">
                 <div class="box-body">
                     <div class="form-group">
-                        <label for="pShort" class="form-label">Código curto</label>
+                        <label for="pShort" class="form-label">Nome Simples</label>
                         <input type="text" id="pShort" name="short" class="form-control" value="{{ $location->short }}" />
                     </div>
                     <div class="form-group">

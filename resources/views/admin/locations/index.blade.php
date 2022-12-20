@@ -27,7 +27,7 @@
                     <tbody>
                         <tr>
                             <th>ID</th>
-                            <th>Código curto</th>
+                            <th>Nome Simples</th>
                             <th>Descrição</th>
                             <th class="text-center">Nodes</th>
                             <th class="text-center">Servidores</th>
@@ -58,7 +58,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="pShortModal" class="form-label">Código curto</label>
+                            <label for="pShortModal" class="form-label">Nome Simples</label>
                             <input type="text" name="short" id="pShortModal" class="form-control" />
                             <p class="text-muted small">Um identificador curto usado para distinguir esse local de outros. Deve ter entre 1 e 60 caracteres, por exemplo, <code>br.painel.loc</code>.</p>
                         </div>

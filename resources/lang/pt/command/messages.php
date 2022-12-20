@@ -2,8 +2,8 @@
 
 return [
     'location' => [
-        'no_location_found' => 'Não foi possível localizar um registro que corresponde ao código curto fornecido.',
-        'ask_short' => 'Código curto de localização',
+        'no_location_found' => 'Não foi possível localizar um registro que corresponde ao Nome Simples fornecido.',
+        'ask_short' => 'Nome Simples de localização',
         'ask_long' => 'Descrição da localização',
         'created' => 'Criou com sucesso um novo local (:name) com uma ID de :id.',
         'deleted' => 'Excluiu com sucesso o local solicitado.',

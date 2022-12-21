@@ -13,7 +13,7 @@ class TicketStatusRequest extends AdminFormRequest
     public function rules(): array
     {
         return [
-            'status' => 'required|in:resolved,unresolved,pending,in-progress',
+            'status' => 'required|in:resolvido,não-resolvido,pendente,em-andamento',
         ];
     }
 }

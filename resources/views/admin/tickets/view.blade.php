@@ -17,11 +17,11 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="alert
-            @if($ticket->status == 'pending')
+            @if($ticket->status == 'pendente')
                 alert-warning
-            @elseif($ticket->status == 'in-progress')
+            @elseif($ticket->status == 'em-andamento')
                 bg-primary
-            @elseif($ticket->status == 'unresolved')
+            @elseif($ticket->status == 'não-resolvido')
                 alert-danger
             @else
                 alert-success

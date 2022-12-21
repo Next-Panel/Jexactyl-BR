@@ -1,15 +1,15 @@
 @extends('layouts.admin')
 
 @section('title')
-    View ticket {{ $ticket->id }}
+    Ver Ticket {{ $ticket->id }}
 @endsection
 
 @section('content-header')
-    <h1>Ticket #{{ $ticket->id }}<small>Reply or change the status of this ticket.</small></h1>
+    <h1>Ticket #{{ $ticket->id }}<small>Responder ou alterar o status deste ticket.</small></h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.index') }}">Admin</a></li>
         <li><a href="{{ route('admin.tickets.index') }}">Tickets</a></li>
-        <li class="active">View Ticket {{ $ticket->id }}</li>
+        <li class="active">Ver Ticket {{ $ticket->id }}</li>
     </ol>
 @endsection
 
@@ -27,7 +27,7 @@
                 alert-success
             @endif
         ">
-            This ticket is currently marked as <code>{{ $ticket->status }}</code>
+            Este ticket está atualmente marcado como <code>{{ $ticket->status }}</code>
         </div>
     </div>
 </div>
@@ -38,16 +38,16 @@
                     <form id="deleteform" action="{{ route('admin.tickets.delete', $ticket->id) }}" method="POST">
                         <div class="pull-left">
                             {!! csrf_field() !!}
-                            <button class="btn btn-danger">Delete Ticket</button>
+                            <button class="btn btn-danger">Excluir Ticket</button>
                         </div>
                     </form>
                     <form id="statusform" action="{{ route('admin.tickets.status', $ticket->id) }}" method="POST">
                         {!! csrf_field() !!}
                         <div class="pull-right">
-                            <button id="unresolvedButton" class="btn btn-danger" name="status" value="unresolved">Mark as Unresolved</button>
-                            <button id="pendingButton" class="btn btn-warning" style="margin-left: 8px;" name="status" value="pending">Mark as Pending</button>
-                            <button id="resolvedButton" class="btn btn-success" style="margin-left: 8px;" name="status" value="resolved">Mark as Resolved</button>
-                            <button id="inProgressButton" class="btn btn-info" style="margin-left: 8px;" name="status" value="in-progress">Mark as In Progress</button>
+                            <button id="unresolvedButton" class="btn btn-danger" name="status" value="unresolved">Marcar como Não Resolvido</button>
+                            <button id="pendingButton" class="btn btn-warning" style="margin-left: 8px;" name="status" value="pending">Marcar como Pendente</button>
+                            <button id="resolvedButton" class="btn btn-success" style="margin-left: 8px;" name="status" value="resolved">Marcar como Resolvido</button>
+                            <button id="inProgressButton" class="btn btn-info" style="margin-left: 8px;" name="status" value="in-progress">Marcar como Em Andamento</button>
                         </div>
                     </form>
                  </div>
@@ -55,11 +55,11 @@
                     <table class="table table-hover">
                         <tbody>
                             <tr>
-                                <th>Author</th>
-                                <th>Content</th>
+                                <th>Autor</th>
+                                <th>Conteúdo</th>
                                 <th></th>
                                 <th></th>
-                                <th>Message Sent</th>
+                                <th>Mensagem Enviada</th>
                             </tr>
                             @foreach ($messages as $message)
                                 <tr>
@@ -84,20 +84,20 @@
         <div class="col-xs-12">
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Send a Message</h3>
+                    <h3 class="box-title">Enviar uma mensagem</h3>
                     <form id="messageform" action="{{ route('admin.tickets.message', $ticket->id) }}" method="POST">
                         <div class="box-body">
                             <div class="row">
                                 <div class="form-group col-md-12">
                                     <div>
                                         <input type="text" class="form-control" name="content" />
-                                        <p class="text-muted"><small>Send a message to the ticket which can be viewed by the client.</small></p>
+                                        <p class="text-muted"><small>Enviar uma mensagem para o ticket que poderá ser vista pelo cliente.</small></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         {!! csrf_field() !!}
-                        <button type="submit" name="_method" value="POST" class="btn btn-default pull-right">Send Message</button>
+                        <button type="submit" name="_method" value="POST" class="btn btn-default pull-right">Enviar Mensagem</button>
                     </form>
                 </div>
             </div>

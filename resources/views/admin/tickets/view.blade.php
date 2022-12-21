@@ -44,10 +44,10 @@
                     <form id="statusform" action="{{ route('admin.tickets.status', $ticket->id) }}" method="POST">
                         {!! csrf_field() !!}
                         <div class="pull-right">
-                            <button id="unresolvedButton" class="btn btn-danger" name="status" value="unresolved">Marcar como Não Resolvido</button>
-                            <button id="pendingButton" class="btn btn-warning" style="margin-left: 8px;" name="status" value="pending">Marcar como Pendente</button>
-                            <button id="resolvedButton" class="btn btn-success" style="margin-left: 8px;" name="status" value="resolved">Marcar como Resolvido</button>
-                            <button id="inProgressButton" class="btn btn-info" style="margin-left: 8px;" name="status" value="in-progress">Marcar como Em Andamento</button>
+                            <button id="unresolvedButton" class="btn btn-danger" name="status" value="não-resolvido">Marcar como Não Resolvido</button>
+                            <button id="pendingButton" class="btn btn-warning" style="margin-left: 8px;" name="status" value="pendente">Marcar como Pendente</button>
+                            <button id="resolvedButton" class="btn btn-success" style="margin-left: 8px;" name="status" value="resolvido">Marcar como Resolvido</button>
+                            <button id="inProgressButton" class="btn btn-info" style="margin-left: 8px;" name="status" value="em-progresso">Marcar como Em Andamento</button>
                         </div>
                     </form>
                  </div>

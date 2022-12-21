@@ -60,13 +60,13 @@ export default () => {
             </div>
             <Alert
                 type={
-                    ticket.status === 'pendente'
+                    ticket.status === 'pending'
                         ? 'info'
-                        : ticket.status === 'em-andamento'
+                        : ticket.status === 'in-progress'
                         ? 'info'
-                        : ticket.status === 'não-resolvido'
+                        : ticket.status === 'unresolved'
                         ? 'danger'
-                        : ticket.status === 'resolvido'
+                        : ticket.status === 'resolved'
                         ? 'success'
                         : 'warning'
                 }

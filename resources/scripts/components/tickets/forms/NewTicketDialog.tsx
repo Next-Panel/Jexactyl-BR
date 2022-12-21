@@ -47,8 +47,9 @@ export default ({ open, onClose }: DialogProps) => {
             open={open}
             onClose={onClose}
             title={'Criar um novo ticket'}
-            description={'Este ticket será registrado sob sua conta e acessível a todos os administradores do Painel.'}
-            preventExternalClose
+            description={
+                'Este ticket será registrado sob sua conta e acessível a todos os administradores do Painel.'
+            }
         >
             <Formik
                 onSubmit={submit}

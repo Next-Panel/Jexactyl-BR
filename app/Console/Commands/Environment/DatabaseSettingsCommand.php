@@ -2,7 +2,6 @@
 
 namespace Pterodactyl\Console\Commands\Environment;
 
-use PDOException;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Database\DatabaseManager;
@@ -72,9 +71,9 @@ class DatabaseSettingsCommand extends Command
 
         try {
             $this->testMySQLConnection();
-        } catch (PDOException $exception) {
-            $this->output->error(sprintf('Não é possível conectar-se ao servidor MySQL usando as credenciais fornecidas. O erro retornado foi "%s".', $exception->getMessage()));
-            $this->output->error('Suas credenciais de conexão NÃO foram salvas. Você precisará fornecer informações de conexão válidas antes de prosseguir.');
+        } catch (\PDOException $exception) {
+            $this->output->error(sprintf('Incapaz de conectar-se ao servidor MySQL usando as credenciais fornecidas. O erro retornado foi "%s".', $exception->getMessage()));
+            $this->output->error('Suas credenciais de conexão NÃO foram salvas. Você precisará fornecer informações válidas de conexão antes de prosseguir.');
 
             if ($this->confirm('Voltar e tentar novamente?')) {
                 $this->database->disconnect('_pterodactyl_command_test');

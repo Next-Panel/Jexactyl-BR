@@ -3,7 +3,6 @@
 namespace Pterodactyl\Http\Controllers\Admin;
 
 use Exception;
-use PDOException;
 use Illuminate\View\View;
 use Pterodactyl\Models\DatabaseHost;
 use Illuminate\Http\RedirectResponse;
@@ -69,8 +68,8 @@ class DatabaseController extends Controller
     {
         try {
             $host = $this->creationService->handle($request->normalize());
-        } catch (Exception $exception) {
-            if ($exception instanceof PDOException || $exception->getPrevious() instanceof PDOException) {
+        } catch (\Exception $exception) {
+            if ($exception instanceof \PDOException || $exception->getPrevious() instanceof \PDOException) {
                 $this->alert->danger(
                     sprintf('Ocorreu um erro ao tentar conectar-se ao host ou ao executar uma consulta: "%s"', $exception->getMessage())
                 )->flash();
@@ -97,11 +96,11 @@ class DatabaseController extends Controller
 
         try {
             $this->updateService->handle($host->id, $request->normalize());
-            $this->alert->success('O host do database foi atualizado com sucesso.')->flash();
-        } catch (Exception $exception) {
+            $this->alert->success('O banco de dados hospedeiro foi atualizado com sucesso.')->flash();
+        } catch (\Exception $exception) {
             // Catch any SQL related exceptions and display them back to the user, otherwise just
             // throw the exception like normal and move on with it.
-            if ($exception instanceof PDOException || $exception->getPrevious() instanceof PDOException) {
+            if ($exception instanceof \PDOException || $exception->getPrevious() instanceof \PDOException) {
                 $this->alert->danger(
                     sprintf('Ocorreu um erro ao tentar conectar-se ao host ou ao executar uma consulta: "%s"', $exception->getMessage())
                 )->flash();

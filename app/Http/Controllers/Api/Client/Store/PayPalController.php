@@ -2,7 +2,6 @@
 
 namespace Pterodactyl\Http\Controllers\Api\Client\Store;
 
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
@@ -79,8 +78,8 @@ class PayPalController extends ClientApiController
             $response = $client->execute($order);
 
             return new JsonResponse($response->result->links[1]->href, 200, [], null, true);
-        } catch (Exception $ex) {
-            throw new DisplayException('Não foi possível processar o pedido.');
+        } catch (\Exception $ex) {
+            throw new DisplayException('Incapaz de processar a ordem.');
         }
     }
 

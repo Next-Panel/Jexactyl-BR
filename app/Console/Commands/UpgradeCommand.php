@@ -2,7 +2,6 @@
 
 namespace Pterodactyl\Console\Commands;
 
-use Closure;
 use Illuminate\Console\Command;
 use Pterodactyl\Console\Kernel;
 use Symfony\Component\Process\Process;
@@ -177,7 +176,7 @@ class UpgradeCommand extends Command
         $this->info('O painel foi atualizado com sucesso. Certifique-se de atualizar também todas as instâncias da Wings: https://pterodactyl.io/wings/1.0/upgrading.html');
     }
 
-    protected function withProgress(ProgressBar $bar, Closure $callback)
+    protected function withProgress(ProgressBar $bar, \Closure $callback)
     {
         $bar->clear();
         $callback();

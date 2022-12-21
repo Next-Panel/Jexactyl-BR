@@ -47,7 +47,7 @@
                             <button id="unresolvedButton" class="btn btn-danger" name="status" value="não-resolvido">Marcar como Não Resolvido</button>
                             <button id="pendingButton" class="btn btn-warning" style="margin-left: 8px;" name="status" value="pendente">Marcar como Pendente</button>
                             <button id="resolvedButton" class="btn btn-success" style="margin-left: 8px;" name="status" value="resolvido">Marcar como Resolvido</button>
-                            <button id="inProgressButton" class="btn btn-info" style="margin-left: 8px;" name="status" value="em-progresso">Marcar como Em Andamento</button>
+                            <button id="inProgressButton" class="btn btn-info" style="margin-left: 8px;" name="status" value="em-andamento">Marcar como Em Andamento</button>
                         </div>
                     </form>
                  </div>

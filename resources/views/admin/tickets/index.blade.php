@@ -43,8 +43,8 @@ Listar Tickets
                                 <td class="text-center">
                                     @if($ticket->status == 'pendente')
                                         <span class="label bg-black">Pendente</span>
-                                    @elseif($ticket->status == 'em-progresso')
-                                        <span class="label label-warning">Em Progresso</span>
+                                    @elseif($ticket->status == 'em-andamento')
+                                        <span class="label label-warning">Em Andamento</span>
                                     @elseif($ticket->status == 'não-resolvido')
                                         <span class="label label-danger">Não Resolvido</span>
                                     @else

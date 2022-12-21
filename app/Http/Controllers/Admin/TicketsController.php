@@ -47,7 +47,7 @@ class TicketsController extends Controller
         TicketMessage::create([
             'user_id' => 0,
             'ticket_id' => $id,
-            'content' => 'Ticket status has been set to ' . $request->input('status'),
+            'content' => 'Status do Ticket foi definido para ' . $request->input('status'),
         ]);
 
         return redirect()->route('admin.tickets.view', $id);
@@ -75,7 +75,7 @@ class TicketsController extends Controller
         Ticket::findOrFail($id)->delete();
         TicketMessage::where('ticket_id', $id)->delete();
 
-        $this->alert->success('Ticket ' . $id . ' has been deleted.')->flash();
+        $this->alert->success('Ticket ' . $id . ' foi excluído.')->flash();
 
         return redirect()->route('admin.tickets.index');
     }

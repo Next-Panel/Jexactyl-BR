@@ -32,7 +32,7 @@ class TestResponse extends IlluminateTestResponse
             }
         }
 
-        PHPUnit::assertSame($actual, $status, "Expected status code {$status} but received {$actual}.");
+        PHPUnit::assertSame($actual, $status, "Código de status esperado era {$status} porém recebeu {$actual}.");
 
         return $this;
     }

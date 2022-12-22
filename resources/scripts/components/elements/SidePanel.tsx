@@ -12,6 +12,7 @@ import SearchContainer from '@/components/dashboard/search/SearchContainer';
 export default () => {
     const logo_string = useStoreState((state) => state.settings.data?.logo);
     const logo = logo_string === '' ? 'https://avatars.githubusercontent.com/u/91636558' : `${logo_string}`;
+    const tickets = useStoreState((state) => state.settings.data!.tickets);
     const store = useStoreState((state) => state.storefront.data!.enabled);
     const rootAdmin = useStoreState((state) => state.user.data!.rootAdmin);
 
@@ -77,13 +78,15 @@ export default () => {
                         </Tooltip>
                     </NavLink>
                 )}
-                <NavLink to={'/tickets'} className={'navigation-link'}>
-                    <Tooltip placement={'bottom'} content={'Tickets'}>
-                        <div className={'bg-gray-700 rounded-lg p-2 my-8'}>
-                            <Icon.HelpCircle size={32} />
-                        </div>
-                    </Tooltip>
-                </NavLink>
+                {tickets && (
+                    <NavLink to={'/tickets'} className={'navigation-link'}>
+                        <Tooltip placement={'bottom'} content={'Tickets'}>
+                            <div className={'bg-gray-700 rounded-lg p-2 my-8'}>
+                                <Icon.HelpCircle size={32} />
+                            </div>
+                        </Tooltip>
+                    </NavLink>
+                )}
                 {rootAdmin && (
                     <a href={'/admin'} className={'navigation-link'}>
                         <Tooltip placement={'bottom'} content={'Administrador'}>

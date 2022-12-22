@@ -5,7 +5,7 @@
 @endsection
 
 @section('content-header')
-    <h1>Ticket #{{ $ticket->id }}<small>Responder ou alterar o status deste ticket.</small></h1>
+    <h1>Ticket #{{ $ticket->id }}<small>{{ $ticket->title }}</small></h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.index') }}">Admin</a></li>
         <li><a href="{{ route('admin.tickets.index') }}">Tickets</a></li>

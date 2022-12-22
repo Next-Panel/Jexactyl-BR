@@ -18,30 +18,30 @@ Listar Tickets
         <form action="{{ route('admin.tickets.index') }}" method="POST">
             <div class="box @if($enabled == 'true') box-success @else box-danger @endif">
                 <div class="box-header with-border">
-                    <i class="fa fa-ticket"></i> <h3 class="box-title">Ticket System <small>Toggle whether tickets can be used.</small></h3>
+                    <i class="fa fa-ticket"></i> <h3 class="box-title">Sistema de Tickets <small>Alternar se os tickets podem ser usados.</small></h3>
                 </div>
                 <div class="box-body">
                     <div class="row">
                         <div class="form-group col-md-4">
-                            <label class="control-label">Allow ticket creation?</label>
+                            <label class="control-label">Permitir a criação de tickets?</label>
                             <div>
                                 <select name="enabled" class="form-control">
-                                    <option @if ($enabled == 'false') selected @endif value="false">Disabled</option>
-                                    <option @if ($enabled == 'true') selected @endif value="true">Enabled</option>
+                                    <option @if ($enabled == 'false') selected @endif value="false">Desabilitar</option>
+                                    <option @if ($enabled == 'true') selected @endif value="true">Habilitar</option>
                                 </select>
-                                <p class="text-muted"><small>Determines whether people can create tickets via the client UI.</small></p>
+                                <p class="text-muted"><small>Determina se as pessoas podem criar tickets através da interface de usuário do cliente.</small></p>
                             </div>
                         </div>
                         <div class="form-group col-md-4">
-                                <label class="control-label">Maximum ticket amount</label>
+                                <label class="control-label">Valor máximo de tickets</label>
                                 <div>
                                     <input type="text" class="form-control" name="max" value="{{ $max }}" />
-                                    <p class="text-muted"><small>Set the maximum amount of tickets a user can create.</small></p>
+                                    <p class="text-muted"><small>Defina a quantidade máxima de tickets que um usuário pode criar.</small></p>
                                 </div>
                             </div>
                     </div>
                     {!! csrf_field() !!}
-                    <button type="submit" name="_method" value="POST" class="btn btn-default pull-right">Save Changes</button>
+                    <button type="submit" name="_method" value="POST" class="btn btn-default pull-right">Salvar Mudanças</button>
                 </div>
             </div>
         </form>

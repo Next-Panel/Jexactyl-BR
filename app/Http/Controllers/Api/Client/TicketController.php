@@ -63,7 +63,7 @@ class TicketController extends ClientApiController
         $total = Ticket::where('client_id', $user)->count();
 
         if ($this->settings->get('jexactyl::tickets:max') <= $total) {
-            throw new DisplayException('You already have ' . $total . ' tickets open.');
+            throw new DisplayException('Você já tem ' . $total . ' tickets abertos.');
         }
 
         $model = Ticket::create([

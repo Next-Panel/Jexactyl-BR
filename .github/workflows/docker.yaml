@@ -26,7 +26,7 @@ jobs:
         id: docker_meta
         uses: docker/metadata-action@v4
         with:
-          images: ghcr.io/ashu11-a/jexactyl_pt-br
+          images: ghcr.io/Jexactyl-Brasil/Jexactyl-Brasil
           flavor: |
             latest=false
           tags: |

@@ -54,7 +54,7 @@ const PageContentBlock: React.FC<PageContentBlockProps> = ({
                     <p css={tw`text-neutral-500 sm:float-right`}>
                         <a href={'https://jexactyl.com'}> Site </a>
                         &bull;
-                        <a href={'https://github.com/ashu11-a/jexactyl_pt-br'}> GitHub </a>
+                        <a href={'https://github.com/Jexactyl-Brasil/Jexactyl-Brasil'}> GitHub </a>
                     </p>
                 </ContentContainer>
             </div>

@@ -3,7 +3,7 @@
 [![Discord](https://img.shields.io/discord/922284031129825280)](https://discord.gg/qttGR4Z5Pk)
 ![Downloads - Total](https://img.shields.io/github/downloads/jexactyl/jexactyl/total)
 ![Downloads - Latest](https://img.shields.io/github/downloads/jexactyl/jexactyl/latest/total)
-![Version](https://img.shields.io/github/v/release/Ashu11-A/Jexactyl_PT-BR)
+![Version](https://img.shields.io/github/v/release/Jexactyl-Brasil/Jexactyl-Brasil)
 
 <h1 align="center">Jexactyl</h1>
 <h5 align="center">

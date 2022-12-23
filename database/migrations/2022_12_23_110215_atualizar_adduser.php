@@ -11,16 +11,7 @@ class AddUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->increments('id');
-            $table->char('uuid', 36)->unique();
-            $table->string('email')->unique();
-            $table->text('password');
-            $table->string('remember_token')->nullable();
             $table->char('language', 5)->default('pt');
-            $table->tinyInteger('root_admin')->unsigned()->default(0);
-            $table->tinyInteger('use_totp')->unsigned();
-            $table->char('totp_secret', 16)->nullable();
-            $table->timestamps();
         });
     }
 
@@ -31,16 +22,7 @@ class AddUsers extends Migration
     {
         {
             Schema::table('users', function (Blueprint $table) {
-                $table->increments('id');
-                $table->char('uuid', 36)->unique();
-                $table->string('email')->unique();
-                $table->text('password');
-                $table->string('remember_token')->nullable();
                 $table->char('language', 5)->default('en');
-                $table->tinyInteger('root_admin')->unsigned()->default(0);
-                $table->tinyInteger('use_totp')->unsigned();
-                $table->char('totp_secret', 16)->nullable();
-                $table->timestamps();
             });
         }
     }

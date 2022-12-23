@@ -15,7 +15,7 @@
 
 ## Instalação
 Vá até nossa [Documentação](https://docs.jexactylbrasil.ml/) para começar com a auto-hospedagem deste software.
-Se você precisar de ajuda em algum momento durante o processo de instalação, por favor nos informe sobre [Discord](https://discord.gg/qttGR4Z5Pk).
+Se você precisar de ajuda em algum momento durante o processo de instalação, por favor nos informe sobre [Discord](https://discord.gg/68k7wDGjYc).
 
 ## Por que usar Jexactyl?
 * Sistema de faturamento que suporta [Stripe](https://stripe.com) e [PayPal](https://paypal.com) pronto para o uso.

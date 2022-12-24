@@ -9,7 +9,7 @@
 return [
     'auth' => [
         'fail' => 'falhou ao carregar',
-        'success' => 'Logado a',
+        'success' => 'Logado a:',
         'password-reset' => 'Redefinição de senha',
         'reset-password' => 'Redefinição de senha solicitada',
         'checkpoint' => 'Autenticação de dois fatores solicitada',

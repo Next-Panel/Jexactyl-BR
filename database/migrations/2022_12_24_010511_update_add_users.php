@@ -8,12 +8,13 @@ return new class () extends Migration
 {
     /**
      * Run the migrations.
-     * Atualiza o o en pra pt
+     *
      * @return void
      */
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('language');
             $table->char('language', 5)->default('pt');
         });
     }
@@ -28,6 +29,32 @@ return new class () extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('language');
+            $table->char('language', 5)->default('en');
+        });
+    }
+};
+
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('language');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('users', function (Blueprint $table) {
             $table->char('language', 5)->default('en');
         });
     }

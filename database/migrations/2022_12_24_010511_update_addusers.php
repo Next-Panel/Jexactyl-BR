@@ -7,7 +7,7 @@ use Illuminate\Database\Migrations\Migration;
 return new class () extends Migration {
     /**
      * Run the migrations.
-     * Atualiza o o en pra pt
+     * 
      * @return void
      */
     public function up()

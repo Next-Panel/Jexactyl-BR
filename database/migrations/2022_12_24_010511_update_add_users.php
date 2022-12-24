@@ -32,4 +32,4 @@ return new class () extends Migration
             $table->char('language', 5)->default('en');
         });
     }
-}
+};

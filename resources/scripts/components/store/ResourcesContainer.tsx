@@ -87,7 +87,7 @@ export default () => {
                     description={'Compre CPU para melhorar os tempos de carregamento e o desempenho do servidor.'}
                 />
                 <PurchaseBox
-                    type={'Memória'}
+                    type={'Memory'}
                     amount={1}
                     suffix={'GB'}
                     cost={costs.memory}
@@ -97,7 +97,7 @@ export default () => {
                     description={'Compre RAM para melhorar o desempenho geral do servidor.'}
                 />
                 <PurchaseBox
-                    type={'Disco'}
+                    type={'Disk'}
                     amount={1}
                     suffix={'GB'}
                     cost={costs.disk}
@@ -118,7 +118,7 @@ export default () => {
             </Container>
             <Container className={'j-up lg:grid lg:grid-cols-4 my-10 gap-8'}>
                 <PurchaseBox
-                    type={'Portas'}
+                    type={'Ports'}
                     amount={1}
                     cost={costs.ports}
                     setOpen={setOpen}

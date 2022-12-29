@@ -104,7 +104,7 @@ export default () => {
                                     )}
                                 </h3>
                                 <p css={tw`mt-1 text-sm text-neutral-200`}>
-                                    Last run at:&nbsp;
+                                    Última executação foi a:&nbsp;
                                     {schedule.lastRunAt ? (
                                         format(schedule.lastRunAt, "MMM do 'at' h:mma")
                                     ) : (

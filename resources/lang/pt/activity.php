@@ -41,7 +41,7 @@ return [
     'server' => [
         'reinstall' => 'Servidor reinstalado',
         'console' => [
-            'command' => 'Excutado ":command" no servidor',
+            'command' => 'Executado ":command" no servidor',
         ],
         'power' => [
             'start' => 'Iniciado o servidor',

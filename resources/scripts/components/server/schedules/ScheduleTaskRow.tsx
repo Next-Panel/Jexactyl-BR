@@ -50,10 +50,7 @@ export default ({ schedule, task }: Props) => {
             .catch((error) => {
                 console.error(error);
                 setIsLoading(false);
-                addError({
-                    message: httpErrorToHuman(error),
-                    key: 'schedules',
-                });
+                addError({ message: httpErrorToHuman(error), key: 'schedules' });
             });
     };
 

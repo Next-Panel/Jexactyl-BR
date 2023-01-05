@@ -100,10 +100,7 @@ const TaskDetailsModal = ({ schedule, task }: Props) => {
                 .catch((error) => {
                     console.error(error);
                     setSubmitting(false);
-                    addError({
-                        message: httpErrorToHuman(error),
-                        key: 'schedule:task',
-                    });
+                    addError({ message: httpErrorToHuman(error), key: 'schedule:task' });
                 });
         }
     };

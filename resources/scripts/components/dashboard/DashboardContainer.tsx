@@ -64,7 +64,9 @@ export default () => {
             {rootAdmin && (
                 <div css={tw`mb-10 flex justify-between items-center`}>
                     <div>
-                        <h1 className={'j-left text-5xl'}>Seus Servidores</h1>
+                        <h1 className={'j-left text-5xl'}>
+                            {showOnlyAdmin ? "Mostrando os servidores dos outros" : 'Mostrando seus servidores'}
+                        </h1>
                         <h3 className={'j-left text-2xl mt-2 text-neutral-500'}>
                             Selecione um servidor para visualizar, atualizar ou modificar.
                         </h3>

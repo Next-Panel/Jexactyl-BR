@@ -86,7 +86,7 @@ export default () => {
     }, [instance, connected]);
 
     return (
-        <ServerContentBlock title={'Analytics'} description={'Veja as estatísticas do seu servidor.'}>
+        <ServerContentBlock title={'Analíticos'} description={'Veja as estatísticas do seu servidor.'}>
             {status === ('offline' || null) ? (
                 <p className={'text-center text-gray-400'}>Seu servidor está offline.</p>
             ) : (

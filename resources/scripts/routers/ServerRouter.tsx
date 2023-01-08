@@ -123,7 +123,7 @@ export default () => {
                                 {status !== ('offline' || null) && (
                                     <NavLink to={`${match.url}/analytics`} exact>
                                         <div css={tw`flex items-center justify-between`}>
-                                            Analytics <Icon.BarChart css={tw`ml-1`} size={18} />
+                                            Analíticos <Icon.BarChart css={tw`ml-1`} size={18} />
                                         </div>
                                     </NavLink>
                                 )}

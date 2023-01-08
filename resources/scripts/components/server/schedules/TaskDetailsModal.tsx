@@ -83,7 +83,8 @@ const TaskDetailsModal = ({ schedule, task }: Props) => {
         if (backupLimit === 0 && values.action === 'backup') {
             setSubmitting(false);
             addError({
-                message: "Uma tarefa de backup não pode ser criada quando o limite de backup do servidor é definido como 0.",
+                message:
+                    'Uma tarefa de backup não pode ser criada quando o limite de backup do servidor é definido como 0.',
                 key: 'schedule:task',
             });
         } else {

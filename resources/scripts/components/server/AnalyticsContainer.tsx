@@ -86,9 +86,9 @@ export default () => {
     }, [instance, connected]);
 
     return (
-        <ServerContentBlock title={'Analytics'} description={'View statistics for your server.'}>
+        <ServerContentBlock title={'Analytics'} description={'Veja as estatísticas do seu servidor.'}>
             {status === ('offline' || null) ? (
-                <p className={'text-center text-gray-400'}>Your server is offline.</p>
+                <p className={'text-center text-gray-400'}>Seu servidor está offline.</p>
             ) : (
                 <div className={'grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-2'}>
                     <div className={'col-span-2 grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-4'}>
@@ -96,36 +96,42 @@ export default () => {
                     </div>
                     <div>
                         <ContentBox>
-                            <UsageBox progress={cpuUsed} title={'CPU Usage'} content={`${cpuUsed.toFixed(2)}% used`} />
+                            <UsageBox
+                                progress={cpuUsed}
+                                title={'Uso da CPU'}
+                                content={`${cpuUsed.toFixed(2)}% utilizado`}
+                            />
                             <UsageBox
                                 progress={memoryUsed}
-                                title={'Memory Usage'}
-                                content={`${memoryUsed.toFixed(2)}% used`}
+                                title={'Uso da memória'}
+                                content={`${memoryUsed.toFixed(2)}% utilizado`}
                             />
                             <UsageBox
                                 progress={diskUsed}
-                                title={'Disk Usage'}
-                                content={`${diskUsed.toFixed(2)}% used`}
+                                title={'Uso do disco'}
+                                content={`${diskUsed.toFixed(2)}% utilizado`}
                             />
                         </ContentBox>
-                        <TitledGreyBox title={'Performance Metrics'} className={'rounded mt-4'}>
+                        <TitledGreyBox title={'Métricas de Desempenho'} className={'rounded mt-4'}>
                             <Alert type={'warning'}>
                                 <div>
-                                    Your RAM usage is very high.
-                                    <p className={'text-sm text-gray-400'}>Consider adding more RAM to your server.</p>
+                                    Seu consumo de RAM é muito alto.
+                                    <p className={'text-sm text-gray-400'}>
+                                        Considere adicionar mais RAM ao seu servidor.
+                                    </p>
                                 </div>
                             </Alert>
                             <Alert type={'success'} className={'mt-2'}>
                                 <div>
-                                    Your CPU usage has decreased.
-                                    <p className={'text-sm text-gray-400'}>Down 46% on average in the last 24h</p>
+                                    Seu consumo de CPU diminuiu.
+                                    <p className={'text-sm text-gray-400'}>Desceu 46%, em média, nas últimas 24h</p>
                                 </div>
                             </Alert>
                             <Alert type={'info'} className={'mt-2'}>
                                 <div>
-                                    3 plugins require updating.
+                                    3 plugins requerem atualização.
                                     <p className={'text-sm text-gray-400'}>
-                                        Click <span className={'text-blue-400'}>here</span> to update.
+                                        Clique <span className={'text-blue-400'}>aqui</span> para atualizar.
                                     </p>
                                 </div>
                             </Alert>

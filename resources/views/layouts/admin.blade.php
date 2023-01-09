@@ -32,12 +32,12 @@
             <!-- Sistema Antigo de cores ------------------------------------------------------------------------------------------------------->
 
             <!-- Novo Sistema de Cores ---------------------------------------------------------------------------------------------------->
-            <link rel="stylesheet" href="/themes/{{ config('theme.admin', 'default') }}/vendor/select2/select2.min.css">
-            <link rel="stylesheet" href="/themes/{{ config('theme.admin', 'default') }}/vendor/bootstrap/bootstrap.min.css">
-            <link rel="stylesheet" href="/themes/{{ config('theme.admin', 'default') }}/vendor/adminlte/admin.min.css">
-            <link rel="stylesheet" href="/themes/{{ config('theme.admin', 'default') }}/vendor/adminlte/colors/skin-blue.min.css">
-            <link rel="stylesheet" href="/themes/{{ config('theme.admin', 'default') }}/vendor/sweetalert/sweetalert.min.css">
-            <link rel="stylesheet" href="/themes/{{ config('theme.admin', 'default') }}/vendor/animate/animate.min.css">
+            <link rel="stylesheet" href="/themes/{{ config('theme.admin', 'jexactyl') }}/vendor/select2/select2.min.css">
+            <link rel="stylesheet" href="/themes/{{ config('theme.admin', 'jexactyl') }}/vendor/bootstrap/bootstrap.min.css">
+            <link rel="stylesheet" href="/themes/{{ config('theme.admin', 'jexactyl') }}/vendor/adminlte/admin.min.css">
+            <link rel="stylesheet" href="/themes/{{ config('theme.admin', 'jexactyl') }}/vendor/adminlte/colors/skin-blue.min.css">
+            <link rel="stylesheet" href="/themes/{{ config('theme.admin', 'jexactyl') }}/vendor/sweetalert/sweetalert.min.css">
+            <link rel="stylesheet" href="/themes/{{ config('theme.admin', 'jexactyl') }}/vendor/animate/animate.min.css">
             <link rel="stylesheet" href="/themes/{{ config('theme.admin', 'jexactyl') }}/css/{{ config('theme.admin', 'jexactyl') }}.css">
             <!-- Novo Sistema de Cores ---------------------------------------------------------------------------------------------------->
 

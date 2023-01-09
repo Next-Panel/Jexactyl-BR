@@ -76,7 +76,7 @@
                             </li>
                             <li class="{{ ! starts_with(Route::currentRouteName(), 'admin.tickets') ?: 'active' }}">
                                 <a href="{{ route('admin.tickets.index')}}">
-                                    <i data-feather="help-circle" style="margin-left: 12px;"></i>
+                                    <i class="fa fa-ticket" style="margin-left: 12px;"></i>
                                     <span style="margin-left: 4px; font-size: 18px;">Tickets</span>
                                 </a>
                             </li>

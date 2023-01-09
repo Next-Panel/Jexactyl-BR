@@ -26,33 +26,21 @@ body {
     color: #cad1d8;
 }
 
-/* TEXTO SIDEBAR */
-.sidebar-menu>li>a>span {
-    display: none
-}
-
-/* BOTAO ABRIR E FECHAR SIDEBAR */
-.skin-blue .main-header .navbar {
-    background-color: none;
-    display: none;
-}
-
-
 .skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side {
-    background-color: #181f27;
+    background-color: #000;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,.12), 0 2px 4px 0 rgba(0,0,0,.08);
 }
 
 .skin-blue .main-header .logo {
-    background-color: hsl(210, 23%, 18%);
+    background-color: #000;
     color: #9aa5b1;
 }
 
-.skin-blue .main-header .navbar .sidebar-toggle {
+.main-header .sidebar-toggle {
     color: #9aa5b1;
 }
 
-.skin-blue .main-header .navbar .nav>li>a {
+.skin-blue .main-header .nav>li>a {
     color: #9aa5b1;
 }
 
@@ -61,9 +49,13 @@ body {
     background: #0e111582;
 }
 
+.skin-blue .main-header .navbar {
+    background-color: transparent;
+}
 
-.skin-blue .main-header .navbar .sidebar-toggle:hover {
-    background-color: #1c252e;
+.main-header .sidebar-toggle:hover {
+    background-color: #fffdfd;
+    
 }
 
 .skin-blue .main-header .logo:hover {
@@ -78,7 +70,7 @@ body {
 }
 
 .skin-blue .sidebar-menu>li.active>a {
-    border-left-color: #099aa5;
+    border-left-color: #00a65a;
 }
 
 .text-gray {
@@ -98,7 +90,7 @@ body {
 }
 
 .content-wrapper {
-    background-color: hsl(211, 22%, 21%);
+    background-color: #111;
 }
 
 .btn-success {
@@ -123,13 +115,12 @@ body {
 
 .box {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,.12), 0 2px 4px 0 rgba(0,0,0,.08) !important;
-    background: hsl(210, 24%, 16%);
+    background: #222;
     border-top: 3px solid #1f2933;
 }
 
 .box-header {
     color: #cad1d8;
-    background: hsl(210, 23%, 18%);
 }
 
 .box-header.with-border {
@@ -142,7 +133,7 @@ body {
 
 .box-footer {
     border-top: 1px solid hsl(210, 23%, 18%);
-    background-color: #1f2933;
+    background-color: #222;
 }
 
 .content-header>.breadcrumb>li>a {
@@ -174,7 +165,7 @@ a {
 }
 
 .nav-tabs-custom {
-    background: hsl(210, 24%, 16%);
+    background: #222;
 }
 
 .nav-tabs-custom>.nav-tabs>li.active {
@@ -197,7 +188,7 @@ a {
 
 input.form-control {
     padding: .75rem;
-    background-color: hsl(210, 23%, 18%);
+    background-color: #111;
     border-width: 1px;
     border-color: hsl(209, 20%, 25%);
     border-radius: .25rem;
@@ -209,7 +200,7 @@ input.form-control {
 
 textarea.form-control {
     padding: .75rem;
-    background-color: hsl(210, 23%, 18%);
+    background-color: #111;
     border-width: 1px;
     border-color: hsl(209, 20%, 25%);
     border-radius: .25rem;
@@ -221,7 +212,7 @@ textarea.form-control {
 
 .input-group .input-group-addon {
     border-color: #606d7b;
-    background-color: #515f6cbb;
+    background-color: #111;
     color: #cad1d8;
 }
 
@@ -230,7 +221,7 @@ textarea.form-control {
 }
 
 .select2-container--default .select2-selection--single {
-    background-color: #515f6cbb;
+    background-color: #111;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
@@ -238,7 +229,7 @@ textarea.form-control {
 }
 
 .select2-container--default .select2-selection--multiple {
-    background-color: #515f6cbb;
+    background-color: #111;
 }
 
 .select2-container--default .select2-selection--multiple {
@@ -247,7 +238,7 @@ textarea.form-control {
 }
 
 code {
-    background-color: #515f6cbb;
+    background-color: #444;
     color: #c3c3c3;
     border: 1px solid rgba(0, 0, 0, .25);
 }
@@ -288,7 +279,7 @@ code {
 }
 
 .nav-tabs-custom>.nav-tabs>li.active>a, .nav-tabs-custom>.nav-tabs>li.active:hover>a {
-    background-color: hsl(210, 23%, 18%);
+    background-color: #333;
 }
 
 .select2-container--default .select2-results__option[aria-selected=true], .select2-container--default .select2-results__option[aria-selected=true]:hover {
@@ -296,12 +287,12 @@ code {
 }
 
 .select2-dropdown {
-    background-color: #515f6cbb;
+    background-color: #111;
     border: 1px solid #606d7b;
 }
 .select2-container--default.select2-container--focus .select2-selection--multiple, .select2-container--default .select2-search--dropdown .select2-search__field {
     border-color: #d2d6de !important;
-    background-color: #515f6cbb;
+    background-color: #111;
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {

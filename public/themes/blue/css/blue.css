@@ -26,6 +26,17 @@ body {
     color: #cad1d8;
 }
 
+/* TEXTO SIDEBAR */
+.sidebar-menu>li>a>span {
+    display: none
+}
+
+/* BOTAO ABRIR E FECHAR SIDEBAR */
+.skin-blue .main-header .navbar {
+    background-color: none;
+    display: none;
+}
+
 .skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side {
     background-color: #202b4a;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,.12), 0 2px 4px 0 rgba(0,0,0,.08);
@@ -47,10 +58,6 @@ body {
 .skin-blue .sidebar-menu>li.header {
     color: #797979;
     background: #0e111582;
-}
-
-.skin-blue .main-header .navbar {
-    background-color: #202b4a;
 }
 
 .skin-blue .main-header .navbar .sidebar-toggle:hover {

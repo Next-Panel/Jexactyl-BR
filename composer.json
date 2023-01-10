@@ -18,7 +18,7 @@
         "laravel/framework": "^9.34.0",
         "laravel/helpers": "~1.5.0",
         "laravel/sanctum": "~2.15.1",
-        "laravel/tinker": "~2.7.2",
+        "laravel/tinker": "~2.8.0",
         "laravel/ui": "~3.4.6",
         "lcobucci/jwt": "~4.3.0",
         "league/flysystem-aws-s3-v3": "~3.5.0",

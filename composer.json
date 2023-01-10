@@ -20,7 +20,7 @@
         "laravel/sanctum": "~2.15.1",
         "laravel/tinker": "~2.7.2",
         "laravel/ui": "~3.4.6",
-        "lcobucci/jwt": "~4.2.1",
+        "lcobucci/jwt": "~4.3.0",
         "league/flysystem-aws-s3-v3": "~3.5.0",
         "league/flysystem-memory": "~3.3.0",
         "matriphe/iso-639": "~1.2",

@@ -26,7 +26,7 @@
         "matriphe/iso-639": "~1.2",
         "paypal/paypal-checkout-sdk": "^1.0",
         "phpseclib/phpseclib": "~3.0",
-        "pragmarx/google2fa": "~5.0.0",
+        "pragmarx/google2fa": "~8.0.1",
         "predis/predis": "~2.0.2",
         "prologue/alerts": "~1.0.0",
         "psr/cache": "~3.0.0",

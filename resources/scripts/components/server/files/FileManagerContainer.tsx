@@ -85,7 +85,7 @@ export default () => {
             description={'Crie, edite e visualize arquivos.'}
             showFlashKey={'files'}
         >
-            <Input onChange={searchFiles} className={'mb-4 j-up'} placeholder={'Search for files and folders...'} />
+            <Input onChange={searchFiles} className={'mb-4 j-up'} placeholder={'Buscar arquivos e pastas...'} />
             <div css={tw`flex flex-wrap-reverse md:flex-nowrap justify-center mb-4`}>
                 <ErrorBoundary>
                     <div className={'j-right'}>

@@ -1,1 +1,22 @@
-/* Isto foi criado apenas para existir e permitir com que o css não de erro. */
+/* 
+ *
+ *
+ *  Isto foi criado para selar e permitir com que o css não de erro. versão 1.0 por Jexactyl-Brasil
+ *
+ *
+ */
+
+/* Remove TEXTO DA EMPRESA */
+a>span {
+    display: none;
+}
+/* Remove TEXTO SIDEBAR */
+.sidebar-menu>li>a>span {
+    display: none
+}
+
+/* Remove BOTAO ABRIR E FECHAR SIDEBAR */
+.skin-blue .main-header .navbar {
+    background-color: none;
+    display: none;
+}

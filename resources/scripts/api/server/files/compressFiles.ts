@@ -9,7 +9,7 @@ export default async (uuid: string, directory: string, files: string[]): Promise
         {
             timeout: 60000,
             timeoutErrorMessage:
-                'It looks like this archive is taking a long time to generate. It will appear once completed.',
+                'Parece que este arquivo está demorando muito para ser gerado. Ele aparecerá de uma vez concluído.',
         }
     );
 

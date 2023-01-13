@@ -63,9 +63,9 @@
                             <div class="form-group col-md-4">
                                 <label class="control-label">Tipo de Barra lateral</label>
                                 <div>
-                                    <select name="theme:admin" class="form-control">
-                                        <option @if ($sidebar == 'sidejx') selected @endif value="sidejx">Barra Sem Texto(Padrão)</option>
-                                        <option @if ($sidebar == 'sidebr') selected @endif value="sidebr">Barra Com texto(Nova)</option>
+                                    <select name="sidebar:tema" class="form-control">
+                                        <option @if ($tema == 'sidejx') selected @endif value="sidejx">Barra Sem Texto(Padrão)</option>
+                                        <option @if ($tema == 'sidebr') selected @endif value="sidebr">Barra Com texto(Nova)</option>
                                     </select>
                                     <p class="text-muted"><small>Determina a barra lateral o painel irá usar.</small></p>
                                 </div>

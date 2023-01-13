@@ -26,7 +26,9 @@ export default ({ username, email, password, recaptchaData }: RegisterData): Pro
             )
             .then((response) => {
                 if (!(response.data instanceof Object)) {
-                    return reject(new Error('Não foi possível registrar a conta. Entre em contato com um administrador.'));
+                    return reject(
+                        new Error('Não foi possível registrar a conta. Entre em contato com um administrador.')
+                    );
                 }
 
                 return resolve({

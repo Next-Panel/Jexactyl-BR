@@ -55,7 +55,6 @@
                                         <option @if ($admin == 'dark') selected @endif value="dark">Tema Escuro</option>
                                         <option @if ($admin == 'light') selected @endif value="light">Tema Claro</option>
                                         <option @if ($admin == 'blue') selected @endif value="blue">Tema Azul</option>
-                                        <option @if ($admin == 'beta') selected @endif value="beta">Tema Beta</option>
                                         <option @if ($admin == 'minecraft') selected @endif value="minecraft">Tema do Minecraft&#8482; </option>
                                     </select>
                                     <p class="text-muted"><small>Determina o tema para a interface do usuário Admin do Jexactyl.</small></p>

@@ -13,7 +13,7 @@ class AppearanceFormRequest extends AdminFormRequest
             'app:logo' => 'string|nullable|max:191',
             'theme:user:background' => 'nullable|url',
             'theme:admin' => 'required|string|in:jexactyl,dark,light,blue,minecraft',
-            'sidebar:admin' => 'required|string|in:sidejx,sidebr',
+            'sidebar:tema' => 'required|string|in:sidejx,sidebr',
         ];
     }
 }

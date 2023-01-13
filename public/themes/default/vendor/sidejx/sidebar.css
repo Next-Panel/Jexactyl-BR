@@ -1,18 +1,43 @@
 /* 
  *
  *
- *  Isto foi criado para selar e permitir com que o css não de erro. versão 1.0 por Jexactyl-Brasil
+ *  Isto foi criado para selar e permitir com que o css não de erro. versão 1.5 por Jexactyl-Brasil
  *
  *
  */
-/* Reduz o tamanho da barra para 80px(padrão jex) */
+
+/* Retorna modulo (padrão jex) */
+.sidebar-menu>li {
+    background: rgba(16, 0, 22, 0.35); /* COR BARRA LATERAL NAO SELECIONADO*/
+    border-radius: 0px;
+    margin-top: 4px;
+    position: relative;
+    padding: 0.1rem 10px 0.1rem 0.188rem;
+}
+
+/* Reduz o tamanho da barra para 90px(padrão jex) */
+.main-sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: 10px; /* TOPO DA SIDEBAR*/
+    min-height: 100%;
+    width: 90px; /* TAMANHO DA AREA DA SIDEBAR */
+    z-index: 810;
+    -webkit-transition: -webkit-transform .3s ease-in-out, width .3s ease-in-out;
+    -moz-transition: -moz-transform .3s ease-in-out, width .3s ease-in-out;
+    -o-transition: -o-transform .3s ease-in-out, width .3s ease-in-out;
+    transition: transform .3s ease-in-out, width .3s ease-in-out
+}
+
+/* Reduz o tamanho da barra para 90px(padrão jex) */
 .content-wrapper,
 .main-footer {
     -webkit-transition: -webkit-transform .3s ease-in-out, margin .3s ease-in-out;
     -moz-transition: -moz-transform .3s ease-in-out, margin .3s ease-in-out;
     -o-transition: -o-transform .3s ease-in-out, margin .3s ease-in-out;
     transition: transform .3s ease-in-out, margin .3s ease-in-out;
-    margin-left: 80px;
+    margin-left: 90px;
     z-index: 820
 }
 

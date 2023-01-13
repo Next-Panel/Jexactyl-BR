@@ -62,6 +62,16 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
+                                <label class="control-label">Tipo de Barra lateral</label>
+                                <div>
+                                    <select name="theme:admin" class="form-control">
+                                        <option @if ($sidebar == 'sidejx') selected @endif value="sidejx">Barra Sem Texto(Padrão)</option>
+                                        <option @if ($sidebar == 'sidebr') selected @endif value="sidebr">Barra Com texto</option>
+                                    </select>
+                                    <p class="text-muted"><small>Determina a barra lateral o painel irá usar.</small></p>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
                                 <label class="control-label">Plano de fundo da aréa do Cliente</label>
                                 <div>
                                     <input type="text" class="form-control" name="theme:user:background" value="{{ old('theme:user:background', config('theme.user.background')) }}" />

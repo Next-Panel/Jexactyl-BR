@@ -7,7 +7,7 @@ export default async (uuid: string, directory: string, file: string): Promise<vo
         {
             timeout: 300000,
             timeoutErrorMessage:
-                'It looks like this archive is taking a long time to be unarchived. Once completed the unarchived files will appear.',
+                'Parece que este arquivo está demorando muito para ser desarquivado. Depois de concluído, os arquivos desarquivados aparecerão.',
         }
     );
 };

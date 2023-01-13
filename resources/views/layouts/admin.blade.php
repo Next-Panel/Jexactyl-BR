@@ -24,6 +24,7 @@
             {!! Theme::css('vendor/bootstrap/bootstrap.min.css?t={cache-version}') !!}
             {!! Theme::css('vendor/adminlte/admin.min.css?t={cache-version}') !!}
             <!-- Habilita o sistema Sidebar da Jexactyl-Brasil -->
+            {!! Theme::css('vendor/sideb/sidebar.css?t={cache-version}')
             <link rel="stylesheet" href="/themes/default/vendor/{{ config('sidebar.tema', 'sidejx') }}/sidebar.css">
             {!! Theme::css('vendor/adminlte/colors/skin-blue.min.css?t={cache-version}') !!}
             {!! Theme::css('vendor/sweetalert/sweetalert.min.css?t={cache-version}') !!}

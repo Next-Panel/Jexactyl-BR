@@ -15,6 +15,10 @@
     padding: 0.1rem 10px 0.1rem 0.188rem;
 }
 
+.content-header>h1 { /* Titulo e sub titulo da area principal */
+    margin-left: 0px; /* DA ESPAÇO PRO BOTÃO */
+}
+
 /* Reduz o tamanho da barra para 90px(padrão jex) */
 .main-sidebar {
     position: absolute;

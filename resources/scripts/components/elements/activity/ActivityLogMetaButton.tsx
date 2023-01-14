@@ -17,11 +17,11 @@ export default ({ meta }: { meta: Record<string, unknown> }) => {
                     {JSON.stringify(meta, null, 2)}
                 </pre>
                 <Dialog.Footer>
-                    <Button.Text onClick={() => setOpen(false)}>Close</Button.Text>
+                    <Button.Text onClick={() => setOpen(false)}>Fechar</Button.Text>
                 </Dialog.Footer>
             </Dialog>
             <button
-                aria-describedby={'View additional event metadata'}
+                aria-describedby={'Exibir metadados de eventos adicionais'}
                 className={
                     'p-2 transition-colors duration-100 text-gray-400 group-hover:text-gray-300 group-hover:hover:text-gray-50'
                 }

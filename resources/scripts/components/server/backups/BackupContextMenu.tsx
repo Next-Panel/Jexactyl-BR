@@ -122,8 +122,8 @@ export default ({ backup }: Props) => {
             <Dialog.Confirm
                 open={modal === 'restore'}
                 onClose={() => setModal('')}
-                confirm={'Restore'}
-                title={`Restore "${backup.name}"`}
+                confirm={'Restaurar'}
+                title={`Restaurar "${backup.name}"`}
                 onConfirmed={() => doRestorationAction()}
             >
                 <p>

@@ -26,7 +26,7 @@ const ApiKeyModal = ({ apiKey }: Props) => {
             </pre>
             <div css={tw`flex justify-end mt-6`}>
                 <Button type={'button'} onClick={() => dismiss()}>
-                    Close
+                    Fechar
                 </Button>
             </div>
         </>

@@ -107,7 +107,7 @@ export default () => {
             showFlashKey={'referrals'}
         >
             <Container className={'j-up lg:grid lg:grid-cols-3 my-10'}>
-                <ContentBox title={'Your Referral Codes'} css={tw`sm:mt-0`}>
+                <ContentBox title={'Seus códigos de indicação'} css={tw`sm:mt-0`}>
                     <Dialog.Confirm
                         title={'Excluir Código de Indicação'}
                         confirm={'Excluir código'}
@@ -148,7 +148,7 @@ export default () => {
                         Criar
                     </Button>
                 </ContentBox>
-                <ContentBox title={'Available Perks'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                <ContentBox title={'Vantagens Disponíveis'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     <h1 css={tw`text-xl`}>
                         Você receberá <span className={'text-green-500'}>{reward}</span> créditos para cada usuário que
                         você indicar para este Painel.
@@ -173,7 +173,7 @@ export default () => {
                                     </p>
                                     <p css={tw`text-2xs text-neutral-300 uppercase`}>
                                         Usado em:&nbsp;
-                                        {act.createdAt ? format(act.createdAt, 'MMM do, yyyy HH:mm') : 'Never'}
+                                        {act.createdAt ? format(act.createdAt, 'MMM do, yyyy HH:mm') : 'Nunca'}
                                     </p>
                                     <p css={tw`text-2xs text-neutral-300 uppercase`}>
                                         Código utilizado:&nbsp;{act.code}

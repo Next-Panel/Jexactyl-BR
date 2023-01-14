@@ -66,7 +66,7 @@ export default ({ backup, className }: Props) => {
                             <span
                                 css={tw`bg-red-500 py-px px-2 rounded-full text-white text-xs uppercase border border-red-600 mr-2`}
                             >
-                                Failed
+                                Falhou
                             </span>
                         )}
                         <p css={tw`break-words truncate`}>{backup.name}</p>

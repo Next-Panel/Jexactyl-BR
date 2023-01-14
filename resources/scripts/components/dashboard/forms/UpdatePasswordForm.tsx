@@ -17,11 +17,11 @@ interface Values {
 }
 
 const schema = Yup.object().shape({
-    current: Yup.string().min(1).required('You must provide your current password.'),
+    current: Yup.string().min(1).required('Você deve fornecer sua senha atual.'),
     password: Yup.string().min(8).required(),
     confirmPassword: Yup.string().test(
         'password',
-        'Password confirmation does not match the password you entered.',
+        'A confirmação da senha não corresponde à senha que você digitou.',
         function (value) {
             return value === this.parent.password;
         }

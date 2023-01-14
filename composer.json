@@ -21,7 +21,7 @@
         "laravel/tinker": "~2.8.0",
         "laravel/ui": "~3.4.6",
         "lcobucci/jwt": "~4.3.0",
-        "league/flysystem-aws-s3-v3": "~3.5.0",
+        "league/flysystem-aws-s3-v3": "~3.12.1",
         "league/flysystem-memory": "~3.3.0",
         "matriphe/iso-639": "~1.2",
         "paypal/paypal-checkout-sdk": "^1.0",

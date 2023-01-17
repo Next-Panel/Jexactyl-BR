@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8d39d92958fec4ffce47381e3339aefa",
+    "content-hash": "7227b7f6984a0762e8dac8bc600bea04",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -3736,16 +3736,16 @@
         },
         {
             "name": "predis/predis",
-            "version": "v2.0.3",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/predis/predis.git",
-                "reference": "ff59f745815150c65ed388f7d64e7660fe961771"
+                "reference": "fbf270156f529a9920551c6f499c52a11ca4a1c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/predis/predis/zipball/ff59f745815150c65ed388f7d64e7660fe961771",
-                "reference": "ff59f745815150c65ed388f7d64e7660fe961771",
+                "url": "https://api.github.com/repos/predis/predis/zipball/fbf270156f529a9920551c6f499c52a11ca4a1c3",
+                "reference": "fbf270156f529a9920551c6f499c52a11ca4a1c3",
                 "shasum": ""
             },
             "require": {
@@ -3795,7 +3795,7 @@
             ],
             "support": {
                 "issues": "https://github.com/predis/predis/issues",
-                "source": "https://github.com/predis/predis/tree/v2.0.3"
+                "source": "https://github.com/predis/predis/tree/v2.1.0"
             },
             "funding": [
                 {
@@ -3803,7 +3803,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-10-11T16:52:29+00:00"
+            "time": "2023-01-16T23:33:05+00:00"
         },
         {
             "name": "prologue/alerts",

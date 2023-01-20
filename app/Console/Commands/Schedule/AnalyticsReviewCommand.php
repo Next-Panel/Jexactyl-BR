@@ -16,7 +16,7 @@ class AnalyticsReviewCommand extends Command
     /**
      * @var string
      */
-    protected $description = 'Reviews server analytics and creates messages for servers.';
+    protected $description = 'Faz a análise dos servidores e cria mensagens para os servidores.';
 
     /**
      * AnalyticsReviewCommand constructor.

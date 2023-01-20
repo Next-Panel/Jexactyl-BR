@@ -62,7 +62,7 @@ export default () => {
                         {coupons && (
                             <NavLink to={'/account/coupons'}>
                                 <div className={'flex items-center justify-between'}>
-                                Cupons <Icon.DollarSign className={'ml-1'} size={18} />
+                                    Cupons <Icon.DollarSign className={'ml-1'} size={18} />
                                 </div>
                             </NavLink>
                         )}

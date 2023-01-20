@@ -22,12 +22,12 @@ const PIDLimitModalFeature = () => {
         if (!connected || !instance || status === 'running') return;
 
         const errors = [
-            'pthread_create failed',
-            'failed to create thread',
-            'unable to create thread',
-            'unable to create native thread',
-            'unable to create new native thread',
-            'exception in thread "craft async scheduler management thread"',
+            'pthread_create falhou',
+            'falhou na criação do thread',
+            'incapaz de criar o thread',
+            'incapaz de criar thread nativo',
+            'incapaz de criar novos thread nativos',
+            'exceção na thread "craft async scheduler management thread"',
         ];
 
         const listener = (line: string) => {
@@ -59,7 +59,7 @@ const PIDLimitModalFeature = () => {
                 <>
                     <div css={tw`mt-4 sm:flex items-center`}>
                         <Icon.AlertTriangle css={tw`pr-4`} color={'orange'} size={'4x'} />
-                        <h2 css={tw`text-2xl mb-4 text-neutral-100 `}>Memory or process limit reached...</h2>
+                        <h2 css={tw`text-2xl mb-4 text-neutral-100 `}>Limite de memória ou de processo atingido...</h2>
                     </div>
                     <p css={tw`mt-4`}>Este servidor atingiu o limite máximo de processo ou memória.</p>
                     <p css={tw`mt-4`}>

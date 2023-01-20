@@ -13,6 +13,6 @@ class PermissionRepository extends EloquentRepository implements PermissionRepos
      */
     public function model(): string
     {
-        throw new \Exception('This functionality is not implemented.');
+        throw new \Exception('Esta funcionalidade não está implementada.');
     }
 }

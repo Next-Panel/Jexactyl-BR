@@ -122,7 +122,7 @@ export default () => {
                         </ContentBox>
                         <TitledGreyBox title={'Performance Metrics'} className={'rounded mt-4'}>
                             {!messages ? (
-                                <p className={'text-gray-400 text-center'}>No metrics are currently available.</p>
+                                <p className={'text-gray-400 text-center'}>Atualmente não há métricas disponíveis.</p>
                             ) : (
                                 <>
                                     {messages.slice(0, 2).map((message) => (

@@ -31,7 +31,7 @@ class RegisterController extends AbstractLoginController
         $prefix = 'jexactyl::registration:';
 
         if ($this->settings->get($prefix . 'enabled') != 'true') {
-            throw new DisplayException('Unable to register user.');
+            throw new DisplayException('Incapaz de registrar o usuário.');
         }
 
         if ($this->settings->get($prefix . 'verification') != 'true') {

@@ -60,17 +60,17 @@ class ServerController extends ClientApiController
         $user = $request->user();
 
         if ($user->id != $server->owner_id) {
-            throw new DisplayException('You are not authorized to perform this action.');
+            throw new DisplayException('Você não está autorizado a realizar esta ação.');
         }
 
         if ($this->settings->get('jexactyl::renewal:deletion') != 'true') {
-            throw new DisplayException('This feature has been locked by administrators.');
+            throw new DisplayException('Este recurso foi bloqueado pelos administradores.');
         }
 
         try {
             $this->deletionService->returnResources(true)->handle($server);
         } catch (DisplayException $ex) {
-            throw new DisplayException('Unable to delete the server from the system.');
+            throw new DisplayException('Incapaz de excluir o servidor do sistema.');
         }
 
         return new JsonResponse([], Response::HTTP_NO_CONTENT);

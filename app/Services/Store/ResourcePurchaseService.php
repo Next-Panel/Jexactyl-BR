@@ -54,7 +54,7 @@ class ResourcePurchaseService
             'cpu' => 50,
             'disk', 'memory' => 1024,
             'slots', 'ports', 'backups', 'databases' => 1,
-            default => throw new DisplayException('Unable to parse resource type')
+            default => throw new DisplayException('Incapaz de analisar o tipo de recurso')
         };
     }
 

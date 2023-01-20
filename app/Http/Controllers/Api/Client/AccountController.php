@@ -116,13 +116,13 @@ class AccountController extends ClientApiController
         $code = $request->input('code');
         $coupon = Coupon::query()->where('code', $code)->first();
         if (!$coupon) {
-            throw new DisplayException('Invalid coupon code specified.');
+            throw new DisplayException('Código de cupom inválido especificado.');
         }
         if ($coupon->getAttribute('expired')) {
-            throw new DisplayException('This coupon has expired.');
+            throw new DisplayException('Este cupom expirou.');
         }
         if ($coupon->getAttribute('uses') < 1) {
-            throw new DisplayException('This coupon has no uses left.');
+            throw new DisplayException('Este cupom não tem mais uso.');
         }
         $balance = $request->user()->store_balance;
         $request->user()->update(['store_balance' => $balance + $coupon->cr_amount]);

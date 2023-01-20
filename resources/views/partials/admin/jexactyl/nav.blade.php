@@ -38,7 +38,7 @@
                         <a href="{{ route('admin.jexactyl.alerts') }}">Alertas</a>
                     </li>
                     <li @if($activeTab === 'coupons') class="active" @endif>
-                        <a href="{{ route('admin.jexactyl.coupons') }}">Coupons</a>
+                        <a href="{{ route('admin.jexactyl.coupons') }}">Cupons</a>
                     </li>
                 </ul>
             </div>

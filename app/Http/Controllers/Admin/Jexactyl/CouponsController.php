@@ -39,7 +39,7 @@ class CouponsController extends Controller
             $this->settings->set('jexactyl::coupons:' . $key, $value);
         }
 
-        $this->alert->success('The coupons system has been successfully updated.')->flash();
+        $this->alert->success('O sistema de cupons foi atualizado com sucesso.')->flash();
 
         return redirect()->route('admin.jexactyl.coupons');
     }
@@ -59,7 +59,7 @@ class CouponsController extends Controller
         }
 
         if (Coupon::query()->where(['code' => $request->input('code')])->exists()) {
-            throw new DisplayException('You cannot create a coupon with an already existing code.');
+            throw new DisplayException('Você não pode criar um cupom com um código já existente.');
         }
 
         Coupon::query()->insert([
@@ -70,7 +70,7 @@ class CouponsController extends Controller
             'cr_amount' => $request->input('credits'),
         ]);
 
-        $this->alert->success('Successfully created a coupon.')->flash();
+        $this->alert->success('Criou com sucesso um cupom.')->flash();
 
         return redirect()->route('admin.jexactyl.coupons');
     }

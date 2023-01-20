@@ -16,7 +16,9 @@ const Checkbox = ({ name, value, className, ...props }: Props & InputProps) => (
     <Field name={name}>
         {({ field, form }: FieldProps) => {
             if (!Array.isArray(field.value)) {
-                console.error('Tentativa de montar uma caixa de seleção usando um valor de campo que não é uma matriz.');
+                console.error(
+                    'Tentativa de montar uma caixa de seleção usando um valor de campo que não é uma matriz.'
+                );
 
                 return null;
             }

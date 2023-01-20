@@ -28,7 +28,7 @@ class ServerEditService
         $resource = $request->input('resource');
 
         if ($user->id != $server->owner_id) {
-            throw new DisplayException('You do not own this server, therefore you cannot make changes.');
+            throw new DisplayException('Você não é dono deste servidor, portanto não pode fazer mudanças.');
         }
 
         $this->verify($request, $server, $user);
@@ -53,17 +53,17 @@ class ServerEditService
 
         // Check if the amount requested goes over defined limits.
         if (($amount + $this->toServer($resource, $server)) > $limit) {
-            throw new DisplayException('You cannot add this resource because an administrator has set a maximum limit.');
+            throw new DisplayException('Você não pode adicionar este recurso porque um administrador estabeleceu um limite máximo.');
         }
 
         // Verify baseline limits. We don't want servers with -4% CPU.
         if ($this->toServer($resource, $server) <= $this->toMin($resource) && $amount < 0) {
-            throw new DisplayException('You cannot go below this amount.');
+            throw new DisplayException('Você não pode ir abaixo deste valor.');
         }
 
         // Verify that the user has the resource in their account.
         if ($this->toUser($resource, $user) < $amount) {
-            throw new DisplayException('You do not have the resources available to make this change.');
+            throw new DisplayException('Você não tem os recursos disponíveis para fazer esta mudança.');
         }
     }
 
@@ -79,7 +79,7 @@ class ServerEditService
              'allocation_limit' => 1,
              'disk', 'memory' => 1024,
              'backup_limit', 'database_limit' => 0,
-             default => throw new DisplayException('Unable to parse resource type')
+             default => throw new DisplayException('Incapaz de analisar o tipo de recurso')
          };
      }
 
@@ -98,7 +98,7 @@ class ServerEditService
              'backup_limit' => $user->store_backups,
              'allocation_limit' => $user->store_ports,
              'database_limit' => $user->store_databases,
-             default => throw new DisplayException('Unable to parse resource type')
+             default => throw new DisplayException('Incapaz de analisar o tipo de recurso')
          };
      }
 
@@ -117,7 +117,7 @@ class ServerEditService
             'backup_limit' => $server->backup_limit,
             'database_limit' => $server->database_limit,
             'allocation_limit' => $server->allocation_limit,
-            default => throw new DisplayException('Unable to parse resource type')
+            default => throw new DisplayException('Incapaz de analisar o tipo de recurso')
         };
     }
 }

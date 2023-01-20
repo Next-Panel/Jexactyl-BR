@@ -39,7 +39,7 @@ export default () => {
             <h1 className={'j-left text-5xl'}>Cupons</h1>
             <h3 className={'j-left text-2xl mt-2 text-neutral-500'}>Resgatar cupons dados a você.</h3>
             <FlashMessageRender byKey={'coupons'} className={'mt-2'} />
-            <ContentBox title={'Redeem'} className={'w-1/4 mt-6'}>
+            <ContentBox title={'Resgatar'} className={'w-1/4 mt-6'}>
                 <Formik initialValues={{ code: '' }} onSubmit={submit} validationSchema={schema}>
                     {({ isSubmitting, isValid }) => (
                         <Fragment>

@@ -123,7 +123,7 @@ class ActivityLog extends Model
     public function prunable()
     {
         if (is_null(config('activity.prune_days'))) {
-            throw new \LogicException('Cannot prune activity logs: no "prune_days" configuration value is set.');
+            throw new \LogicException('Não é possível remover os logs de atividades: nenhum valor de configuração "prune_days" foi definido.');
         }
 
         return static::where('timestamp', '<=', Carbon::now()->subDays(config('activity.prune_days')));

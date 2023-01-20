@@ -101,8 +101,8 @@
                             </div>
                         </div>
                         {{ csrf_field() }}
-                        <button type="button" id="saveButton" class="btn btn-default pull-right" style="margin-top: 10px; margin-left: 8px;">Save</button>
-                        <button type="button" id="testButton" class="btn btn-default pull-right" style="margin-top: 10px;">Test</button>
+                        <button type="button" id="saveButton" class="btn btn-default pull-right" style="margin-top: 10px; margin-left: 8px;">Salvar</button>
+                        <button type="button" id="testButton" class="btn btn-default pull-right" style="margin-top: 10px;">Testar</button>
                     </form>
                 @endif
             </div>
@@ -137,8 +137,8 @@
         function testSettings() {
             swal({
                 type: 'info',
-                title: 'Test Mail Settings',
-                text: 'Click "Test" to begin the test.',
+                title: 'Configurações do e-mail de teste',
+                text: 'Clique em "Testar" para iniciar o teste.',
                 showCancelButton: true,
                 confirmButtonText: 'Test',
                 closeOnConfirm: false,
@@ -152,8 +152,8 @@
                     showErrorDialog(jqXHR, 'test');
                 }).done(function () {
                     swal({
-                        title: 'Success',
-                        text: 'The test message was sent successfully.',
+                        title: 'Sucesso',
+                        text: 'A mensagem de teste foi enviada com sucesso.',
                         type: 'success'
                     });
                 });
@@ -180,8 +180,8 @@
             }
 
             swal({
-                title: 'Whoops!',
-                text: 'An error occurred while attempting to ' + verb + ' mail settings: ' + errorText,
+                title: 'Ops!',
+                text: 'Ocorreu um erro durante a tentativa de ' + verb + ' configurações de e-mail: ' + errorText,
                 type: 'error'
             });
         }
@@ -191,8 +191,8 @@
             $('#saveButton').on('click', function () {
                 saveSettings().done(function () {
                     swal({
-                        title: 'Success',
-                        text: 'Mail settings have been updated successfully and the queue worker was restarted to apply these changes.',
+                        title: 'Sucesso',
+                        text: 'As configurações do e-mail foram atualizadas com sucesso e o trabalhador da fila foi reiniciado para aplicar estas mudanças.',
                         type: 'success'
                     });
                 });

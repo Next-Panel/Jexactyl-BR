@@ -27,7 +27,7 @@ return [
         'notices' => [
             'variable_deleted' => 'A variável ":variable" foi excluído e não estará mais disponível para servidores uma vez reconstruídos.',
             'variable_updated' => 'A variável ":variable" foi atualizado. Você precisará reconstruir quaisquer servidores usando essa variável para aplicar alterações.',
-            'variable_created' => 'Nova variável foi criada com sucesso e atribuída a este ovo.',
+            'variable_created' => 'Nova variável foi criada com sucesso e atribuída a este Egg.',
         ],
     ],
 ];

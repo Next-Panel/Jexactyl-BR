@@ -61,10 +61,14 @@ Aprovações de usuários
             <div class="box box-success">
                 <div class="box-header with-border">
                     <i class="fa fa-list"></i>
-                    <h3 class="box-title">Solicitações de aprovação <small>Permitir ou negar pedidos para criar contas.</small></h3>
-                    <form id="massapproveform" action="{{ route('admin.jexactyl.approvals.all') }}" method="POST">
+                    <h3 class="box-title">Solicitações de aprovação <small>Permitir ou negar pedidos de criação de contas.</small></h3>
+                    <form id="massdenyform" action="{{ route('admin.jexactyl.approvals.all', 'deny') }}" method="POST">
                         {!! csrf_field() !!}
-                        <button id="approvalAllBtn" class="btn btn-success pull-right">Aprovar todos</button>
+                        <button id="denyAllBtn" class="btn btn-danger pull-right">Recusar tudo</button>
+                    </form>
+                    <form id="massapproveform" action="{{ route('admin.jexactyl.approvals.all', 'approve') }}" method="POST">
+                        {!! csrf_field() !!}
+                        <button id="approveAllBtn" class="btn btn-success pull-right">Aprovar tudo</button>
                     </form>
                  </div>
                 <div class="box-body table-responsive no-padding">
@@ -153,7 +157,7 @@ Aprovações de usuários
         });
     });
 
-    $('#approvalAllBtn').click(function (event) {
+    $('#approveAllBtn').click(function (event) {
         event.preventDefault();
         swal({
             title: 'Aprovar todos os usuários?',
@@ -164,6 +168,20 @@ Aprovações de usuários
             closeOnConfirm: false
         }, function () {
             $('#massapproveform').submit()
+        });
+    });
+
+    $('#denyAllBtn').click(function (event) {
+        event.preventDefault();
+        swal({
+            title: 'Recusar todos os usuários?',
+            text: 'Isto negará a aprovação de todos os usuários.',
+            showCancelButton: true,
+            confirmButtonText: 'Recusar tudo',
+            confirmButtonColor: 'red',
+            closeOnConfirm: false
+        }, function () {
+            $('#massdenyform').submit()
         });
     });
     </script>

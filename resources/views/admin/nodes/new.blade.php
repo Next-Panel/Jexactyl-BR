@@ -74,7 +74,7 @@
                     <div class="form-group">
                         <label for="pFQDN" class="form-label">FQDN</label>
                         <input type="text" name="fqdn" id="pFQDN" class="form-control" value="{{ old('fqdn') }}"/>
-                        <p class="text-muted small">Insira o nome de domínio (por exemplo<code>, node.example.com</code>) a ser usado para se conectar ao daemon. Um endereço IP pode ser usado <em>somente</em> se você não estiver usando SSL para esse node.</p>
+                        <p class="text-muted small">Insira o nome de domínio (por exemplo,<code> node.example.com</code>) a ser usado para se conectar ao daemon. Um endereço IP pode ser usado <em>somente</em> se você não estiver usando SSL para esse node.</p>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Comunicar por SSL</label>

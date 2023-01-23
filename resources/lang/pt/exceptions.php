@@ -16,13 +16,13 @@ return [
     'nest' => [
         'delete_has_servers' => 'Um Nest com servidores ativos conectados a ele não pode ser excluído do Painel.',
         'egg' => [
-            'delete_has_servers' => 'Um egg com servidores ativos conectados a ele não pode ser excluído do Painel.',
-            'invalid_copy_id' => 'O egg selecionado para copiar um script de qualquer um não existe ou está copiando um script em si.',
+            'delete_has_servers' => 'Um Egg com servidores ativos conectados a ele não pode ser excluído do Painel.',
+            'invalid_copy_id' => 'O Egg selecionado para copiar um script de qualquer um não existe ou está copiando um script em si.',
             'must_be_child' => 'A diretiva "Copiar configurações a partir" para este Egg deve ser uma opção child (apropriada) para o Nest selecionado.',
-            'has_children' => 'Este egg é pai de um ou mais eggs. Por favor, exclua esses eggs antes de excluir este egg.',
+            'has_children' => 'Este Egg é pai de um ou mais Eggs. Por favor, exclua esses Eggs antes de excluir este Egg.',
         ],
         'variables' => [
-            'env_not_unique' => 'A variável ambiente :name deve ser único para este egg.',
+            'env_not_unique' => 'A variável ambiente :name deve ser único para este Egg.',
             'reserved_name' => 'A variável ambiente :name é protegido e não pode ser atribuído a uma variável.',
             'bad_validation_rule' => 'A regra de validação ":rule" não é uma regra válida para este aplicativo.',
         ],

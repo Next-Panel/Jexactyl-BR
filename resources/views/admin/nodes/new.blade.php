@@ -5,7 +5,7 @@
 @endsection
 
 @section('content-header')
-    <h1>Novo Node<small>Criar um novo nó local ou remoto para os servidores a serem instalados.</small></h1>
+    <h1>Novo Node<small>Criar um novo Node local ou remoto para os servidores a serem instalados.</small></h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.index') }}">Administrador</a></li>
         <li><a href="{{ route('admin.nodes') }}">Nodes</a></li>
@@ -52,7 +52,7 @@
                                 <label for="pPublicFalse"> Privado </label>
                             </div>
                         </div>
-                        <p class="text-muted small">Ao definir um nó como<code>privado</code>, você estará negando a capacidade de implantar automaticamente nesse node.
+                        <p class="text-muted small">Ao definir um Node como<code>privado</code>, você estará negando a capacidade de implantar automaticamente nesse node.
                     </div>
                     <div class="form-group">
                         <label class="form-label">Implantável via Loja do Jexactyl</label>
@@ -138,7 +138,7 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <p class="text-muted small">Insira a quantidade total de memória disponível para novos servidores. Se você quiser permitir a superalocação de memória, insira a porcentagem que deseja permitir. Para desativar a verificação de superalocação, insira <code>-1</code> no campo. Digitar <code>0</code> impedirá a criação de novos servidores se colocar o nó acima do limite.</p>
+                            <p class="text-muted small">Insira a quantidade total de memória disponível para novos servidores. Se você quiser permitir a superalocação de memória, insira a porcentagem que deseja permitir. Para desativar a verificação de superalocação, insira <code>-1</code> no campo. Digitar <code>0</code> evitará a criação de novos servidores se ultrapassar o limite do Node.</p>
                         </div>
                     </div>
                     <div class="row">
@@ -157,7 +157,7 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <p class="text-muted small">Insira a quantidade total de espaço em disco disponível para novos servidores. Se você quiser permitir a superalocação de espaço em disco, insira a porcentagem que deseja permitir. Para desativar a verificação de superalocação, insira <code>-1</code> no campo. Digitar <code>0</code> impedirá a criação de novos servidores se colocar o nó acima do limite.</p>
+                            <p class="text-muted small">Insira a quantidade total de espaço em disco disponível para novos servidores. Se você quiser permitir a superalocação de espaço em disco, insira a porcentagem que deseja permitir. Para desativar a verificação de superalocação, insira <code>-1</code> no campo. Digitar <code>0</code> evitará a criação de novos servidores se ultrapassar o limite do Node.</p>
                         </div>
                     </div>
                     <div class="row">

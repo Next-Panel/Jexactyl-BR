@@ -15,7 +15,7 @@ class BulkPowerActionCommand extends Command
     protected $signature = 'p:server:bulk-power
                             {action : A ação a realizar (start, stop, restart, kill)}
                             {--servers= : Uma lista separada por vírgulas de servidores.}
-                            {--nodes= : Uma lista separada por vírgulas de nós.}';
+                            {--nodes= : Uma lista separada por vírgulas de Nodes.}';
 
     protected $description = 'Execute o gerenciamento de energia em massa em grandes agrupamentos de servidores ou nodes de uma só vez.';
 

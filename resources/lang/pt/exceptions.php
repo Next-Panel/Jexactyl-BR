@@ -18,7 +18,7 @@ return [
         'egg' => [
             'delete_has_servers' => 'Um Egg com servidores ativos conectados a ele não pode ser excluído do Painel.',
             'invalid_copy_id' => 'O Egg selecionado para copiar um script de qualquer um não existe ou está copiando um script em si.',
-            'must_be_child' => 'A diretiva "Copiar configurações a partir" para este Egg deve ser uma opção child (apropriada) para o Nest selecionado.',
+            'must_be_child' => 'A diretiva "Copiar configurações a partir" para este Egg deve ser uma opção Child(Propriada)  para o Nest selecionado.',
             'has_children' => 'Este Egg é pai de um ou mais Eggs. Por favor, exclua esses Eggs antes de excluir este Egg.',
         ],
         'variables' => [

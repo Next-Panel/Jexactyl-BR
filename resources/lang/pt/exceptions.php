@@ -44,13 +44,13 @@ return [
         'chain_interval_too_long' => 'O tempo máximo de intervalo para uma tarefa acorrentada é de 15 minutos.',
     ],
     'locations' => [
-        'has_nodes' => 'Não é possível excluir um local que tenha nódulos ativos ligados a ele.',
+        'has_nodes' => 'Não é possível excluir uma localização que tenha Nodes ativos e anexados a ela.',
     ],
     'users' => [
         'node_revocation_failed' => 'Falhou em revogar chaves em <a href=":link">Node #:node</a>. :error',
     ],
     'deployment' => [
-        'no_viable_nodes' => 'Não foram encontrados nódulos que satisfaçam os requisitos especificados para implantação automática.',
+        'no_viable_nodes' => 'Não foi possível encontrar Nodes que atendessem os requisitos especificados para a implantação automática.',
         'no_viable_allocations' => 'Não foram encontradas alocações que satisfaçam os requisitos para implantação automática.',
     ],
     'api' => [

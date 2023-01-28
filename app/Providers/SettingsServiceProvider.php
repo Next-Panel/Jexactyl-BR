@@ -21,6 +21,7 @@ class SettingsServiceProvider extends ServiceProvider
         'app:name',
         'app:locale',
         'theme:admin',
+        'sidebar:tema',
         'recaptcha:enabled',
         'recaptcha:secret_key',
         'recaptcha:website_key',

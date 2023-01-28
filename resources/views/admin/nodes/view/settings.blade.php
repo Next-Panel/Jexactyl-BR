@@ -115,7 +115,7 @@
                                 <label for="pMaintenanceTrue"> Ativado</label>
                             </div>
                         </div>
-                        <p class="text-muted small">Se o nó estiver marcado como 'Em Manutenção', os usuários não poderão acessar os servidores que estão nesse node.</p>
+                        <p class="text-muted small">Se o Node estiver marcado como 'Em Manutenção', os usuários não poderão acessar os servidores que estão nesse node.</p>
                     </div>
                 </div>
             </div>

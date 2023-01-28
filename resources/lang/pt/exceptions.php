@@ -16,13 +16,13 @@ return [
     'nest' => [
         'delete_has_servers' => 'Um Nest com servidores ativos conectados a ele não pode ser excluído do Painel.',
         'egg' => [
-            'delete_has_servers' => 'Um egg com servidores ativos conectados a ele não pode ser excluído do Painel.',
-            'invalid_copy_id' => 'O egg selecionado para copiar um script de qualquer um não existe ou está copiando um script em si.',
-            'must_be_child' => 'A diretiva "Copiar configurações a partir" para este egg deve ser uma opção infantil para o Ninho selecionado.',
-            'has_children' => 'Este egg é pai de um ou mais eggs. Por favor, exclua esses eggs antes de excluir este egg.',
+            'delete_has_servers' => 'Um Egg com servidores ativos conectados a ele não pode ser excluído do Painel.',
+            'invalid_copy_id' => 'O Egg selecionado para copiar o script não existe, ou está copiando o próprio script.',
+            'must_be_child' => 'A diretiva "Copiar configurações a partir" para este Egg deve ser uma opção Child(Propriada)  para o Nest selecionado.',
+            'has_children' => 'Este Egg é pai de um ou mais Eggs. Por favor, exclua esses Eggs antes de excluir este Egg.',
         ],
         'variables' => [
-            'env_not_unique' => 'A variável ambiente :name deve ser único para este egg.',
+            'env_not_unique' => 'A variável ambiente :name deve ser único para este Egg.',
             'reserved_name' => 'A variável ambiente :name é protegido e não pode ser atribuído a uma variável.',
             'bad_validation_rule' => 'A regra de validação ":rule" não é uma regra válida para este aplicativo.',
         ],
@@ -33,9 +33,9 @@ return [
         ],
     ],
     'subusers' => [
-        'editing_self' => 'A edição de sua própria conta subusuário não é permitida.',
-        'user_is_owner' => 'Você não pode adicionar o proprietário do servidor como subusário para este servidor.',
-        'subuser_exists' => 'Um usuário com esse endereço de e-mail já está atribuído como subusuário para este servidor.',
+        'editing_self' => 'Editar sua própria conta de subusuário não é permitido.',
+        'user_is_owner' => 'Você não pode adicionar o proprietário do servidor como um subusuário para este servidor.',
+        'subuser_exists' => 'O usuário com esse endereço de e-mail já está atribuído como subusuário desse servidor.',
     ],
     'databases' => [
         'delete_has_databases' => 'Não é possível excluir um servidor host de banco de dados que tenha bancos de dados ativos vinculados a ele.',
@@ -44,13 +44,13 @@ return [
         'chain_interval_too_long' => 'O tempo máximo de intervalo para uma tarefa acorrentada é de 15 minutos.',
     ],
     'locations' => [
-        'has_nodes' => 'Não é possível excluir um local que tenha nódulos ativos ligados a ele.',
+        'has_nodes' => 'Não é possível excluir uma localização que tenha Nodes ativos e anexados a ela.',
     ],
     'users' => [
         'node_revocation_failed' => 'Falhou em revogar chaves em <a href=":link">Node #:node</a>. :error',
     ],
     'deployment' => [
-        'no_viable_nodes' => 'Não foram encontrados nódulos que satisfaçam os requisitos especificados para implantação automática.',
+        'no_viable_nodes' => 'Não foi possível encontrar Nodes que atendessem os requisitos especificados para a implantação automática.',
         'no_viable_allocations' => 'Não foram encontradas alocações que satisfaçam os requisitos para implantação automática.',
     ],
     'api' => [

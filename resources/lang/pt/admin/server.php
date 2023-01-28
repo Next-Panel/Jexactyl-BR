@@ -13,10 +13,10 @@ return [
         'marked_as_failed' => 'Este servidor foi marcado como tendo falhado em uma instalação anterior. O status atual não pode ser alternado neste estado.',
         'bad_variable' => 'Houve um erro de validação com a variável :name.',
         'daemon_exception' => 'Houve uma exceção ao tentar se comunicar com o daemon resultando em um código de resposta HTTP/: Esta exceção foi registrada. (request id: :request_id)',
-        'default_allocation_not_found' => 'A alocação padrão solicitada não foi encontrada neste servidor\'s Alocações.',
+        'default_allocation_not_found' => 'A alocação padrão solicitada não foi encontrada nas alocações deste servidor.',
     ],
     'alerts' => [
-        'startup_changed' => 'A configuração de inicialização para este servidor foi atualizada. Se este servidor\'s ninho ou egg foi alterado uma reinstalação vai ocorrer agora.',
+        'startup_changed' => 'A configuração de inicialização para este servidor foi atualizada. Se o Nests ou o Egg deste servidor for alterado, uma reinstalação estará ocorrendo agora.',
         'server_deleted' => 'O servidor foi excluído com sucesso do sistema.',
         'server_created' => 'O servidor foi criado com sucesso no painel. Por favor, permita que o daemon se instale e em alguns minutos inicie este servidor.',
         'build_updated' => 'Os detalhes da compilação deste servidor foram atualizados. Algumas alterações podem exigir um reiniciar para fazer efeito.',

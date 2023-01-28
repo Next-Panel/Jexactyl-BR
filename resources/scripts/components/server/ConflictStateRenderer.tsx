@@ -12,7 +12,7 @@ export default () => {
         (state) => state.server.data?.isNodeUnderMaintenance || false
     );
 
-    return status === 'installing' || status === 'install_failed' ? (
+    return status === 'installing' || status === 'install_failed' || status === 'reinstall_failed' ? (
         <ScreenBlock
             title={'Instalador em execução'}
             image={ServerInstallSvg}
@@ -36,8 +36,8 @@ export default () => {
             image={ServerRestoreSvg}
             message={
                 isTransferring
-                    ? 'Seu servidor está sendo transferido para um novo Node, verifique novamente mais tarde.'
-                    : 'Seu servidor está sendo restaurado de um backup, verifique em alguns minutos.'
+                    ? 'Seu servidor está sendo transferido para um novo Node, por favor, verifique de novo mais tarde.'
+                    : 'Seu servidor está sendo restaurado a partir de um backup, por favor, verifique novamente em alguns minutos.'
             }
         />
     );

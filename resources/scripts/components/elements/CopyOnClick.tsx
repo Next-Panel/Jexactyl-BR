@@ -52,7 +52,7 @@ const CopyOnClick = ({ text, showInNotification = true, children }: CopyOnClickP
                                 <p>
                                     {showInNotification
                                         ? `Copiado "${String(text)}" para a Área de Transferência.`
-                                        : 'Texto copiado para  Área de Transferência.'}
+                                        : 'Texto copiado para Área de Transferência.'}
                                 </p>
                             </div>
                         </div>

@@ -49,7 +49,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>SNome do servidor</td>
+                                <td>Nome do servidor</td>
                                 <td>{{ $server->name }}</td>
                             </tr>
                             <tr>

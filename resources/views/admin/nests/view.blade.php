@@ -58,7 +58,7 @@
                     <label class="control-label">Nest ID</label>
                     <div>
                         <input type="text" readonly class="form-control" value="{{ $nest->id }}" />
-                        <p class="text-muted small">Uma identificação única utilizada para a identificação deste ninho internamente e através do API.</p>
+                        <p class="text-muted small">Uma identificação única utilizada para a identificação deste Nest internamente e através do API.</p>
                     </div>
                 </div>
                 <div class="form-group">

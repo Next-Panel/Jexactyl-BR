@@ -16,7 +16,7 @@
         "hashids/hashids": "~4.1.0",
         "laracasts/utilities": "~3.2.1",
         "laravel/framework": "^9.34.0",
-        "laravel/helpers": "~1.5.0",
+        "laravel/helpers": "~1.6.0",
         "laravel/sanctum": "~2.15.1",
         "laravel/tinker": "~2.8.0",
         "laravel/ui": "~4.2.0",

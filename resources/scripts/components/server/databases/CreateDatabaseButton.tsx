@@ -18,12 +18,12 @@ interface Values {
 
 const schema = object().shape({
     databaseName: string()
-        .required('Um nome de banco de dados deve ser fornecido.')
-        .min(3, 'O nome do banco de dados deve ter pelo menos 3 caracteres.')
-        .max(48, 'O nome do banco de dados não deve exceder 48 caracteres.')
+        .required('Um nome de Database deve ser fornecido.')
+        .min(3, 'O nome do Database deve ter pelo menos 3 caracteres.')
+        .max(48, 'O nome do Database não deve exceder 48 caracteres.')
         .matches(
             /^[\w\-.]{3,48}$/,
-            'O nome do banco de dados deve conter apenas caracteres alfanuméricos, sublinhados, traços e/ou períodos.'
+            'O nome do Database deve conter apenas caracteres alfanuméricos, sublinhados, traços e/ou períodos.'
         ),
     connectionsFrom: string().matches(/^[\w\-/.%:]+$/, 'Um endereço de host válido deve ser fornecido.'),
 });
@@ -72,14 +72,14 @@ export default () => {
                         }}
                     >
                         <FlashMessageRender byKey={'database:create'} css={tw`mb-6`} />
-                        <h2 css={tw`text-2xl mb-6`}>Criar novo banco de dados</h2>
+                        <h2 css={tw`text-2xl mb-6`}>Criar novo Database</h2>
                         <Form css={tw`m-0`}>
                             <Field
                                 type={'string'}
                                 id={'database_name'}
                                 name={'databaseName'}
-                                label={'Nome do banco de dados'}
-                                description={'Um nome descritivo para sua instância de banco de dados.'}
+                                label={'Nome do Database'}
+                                description={'Um nome descritivo para sua instância de Database.'}
                             />
                             <div css={tw`mt-6`}>
                                 <Field
@@ -102,14 +102,14 @@ export default () => {
                                     Cancelar
                                 </Button>
                                 <Button css={tw`w-full mt-4 sm:w-auto sm:mt-0`} type={'submit'}>
-                                    Criar banco de dados
+                                    Criar Database
                                 </Button>
                             </div>
                         </Form>
                     </Modal>
                 )}
             </Formik>
-            <Button onClick={() => setVisible(true)}>Novo banco de dados</Button>
+            <Button onClick={() => setVisible(true)}>Novo Database</Button>
         </>
     );
 };

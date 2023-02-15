@@ -84,7 +84,7 @@
                             <li class="{{ ! starts_with(Route::currentRouteName(), 'admin.databases') ?: 'active' }}">
                                 <a href="{{ route('admin.databases') }}">
                                     <i data-feather="database" style="margin-left: 12px;"></i>
-                                    <span style="margin-left: 4px; font-weight: bold; font-size: 18px;">Banco de Dados</span>
+                                    <span style="margin-left: 4px; font-weight: bold; font-size: 18px;">Database</span>
                                 </a>
                             </li>
                             <li class="{{ ! starts_with(Route::currentRouteName(), 'admin.locations') ?: 'active' }}">

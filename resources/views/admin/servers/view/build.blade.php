@@ -105,7 +105,7 @@ Servidor — {{ $server->name }}: Detalhes do Build
                         <div class="box-body">
                             <div class="row">
                                 <div class="form-group col-xs-6">
-                                    <label for="database_limit" class="control-label">Limite de banco de dados</label>
+                                    <label for="database_limit" class="control-label">Limite de Database</label>
                                     <div>
                                         <input type="text" name="database_limit" class="form-control" value="{{ old('database_limit', $server->database_limit) }}"/>
                                     </div>

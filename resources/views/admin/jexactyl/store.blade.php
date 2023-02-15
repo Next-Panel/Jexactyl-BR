@@ -147,10 +147,10 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="control-label">Custo por 1 Banco de Dados do servidor</label>
+                                <label class="control-label">Custo por 1 Database do servidor</label>
                                 <div>
                                     <input type="text" class="form-control" name="store:cost:database" value="{{ $database }}" />
-                                    <p class="text-muted"><small>Utilizado para calcular o custo total de um Banco de Dados.</small></p>
+                                    <p class="text-muted"><small>Utilizado para calcular o custo total de um Database.</small></p>
                                 </div>
                             </div>
                         </div>
@@ -213,11 +213,11 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="control-label">Limite de Banco de Dados</label>
+                                <label class="control-label">Limite de Database</label>
                                 <div>
                                     <div class="input-group">
                                         <input type="text" class="form-control" name="store:limit:database" value="{{ $limit_database }}" />
-                                        <span class="input-group-addon">banco de dados</span>
+                                        <span class="input-group-addon">Database</span>
                                     </div>
                                     <p class="text-muted"><small>A quantidade máxima de bancos de dados com os quais um servidor pode ser implantado. </small></p>
                                 </div>

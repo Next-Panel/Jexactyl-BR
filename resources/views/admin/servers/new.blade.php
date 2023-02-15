@@ -110,7 +110,7 @@ Novo servidor
 
                 <div class="box-body row">
                     <div class="form-group col-xs-6">
-                        <label for="pDatabaseLimit" class="control-label">Limite do banco de dados</label>
+                        <label for="pDatabaseLimit" class="control-label">Limite do Database</label>
                         <div>
                             <input type="text" id="pDatabaseLimit" name="database_limit" class="form-control" value="{{ old('database_limit', 0) }}"/>
                         </div>

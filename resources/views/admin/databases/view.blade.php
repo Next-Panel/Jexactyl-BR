@@ -48,7 +48,7 @@
                                 </optgroup>
                             @endforeach
                         </select>
-                        <p class="text-muted small">Esta configuração não faz nada além do padrão para este host de banco de dados ao adicionar um banco de dados a um servidor no Node selecionado.</p>
+                        <p class="text-muted small">Esta configuração não faz nada além do padrão para este host de Database ao adicionar um Database a um servidor no Node selecionado.</p>
                     </div>
                 </div>
             </div>
@@ -70,7 +70,7 @@
                         <p class="text-muted small">A senha para a conta definida. Deixe em branco para continuar usando a senha atribuída.</p>
                     </div>
                     <hr />
-                    <p class="text-danger small text-left">A conta definida para esse host de banco de dados <strong>deve</strong> ter a permissão com <code>OPÇÃO DE CONCESSÃO</code>. Se a conta definida não tiver essa permissão, as solicitações para criar bancos de dados <em>falharão</em>. <strong>Não use os mesmos detalhes da conta para o MySQL que você definiu para este painel</strong></p>
+                    <p class="text-danger small text-left">A conta definida para esse host de Database <strong>deve</strong> ter a permissão com <code>OPÇÃO DE CONCESSÃO</code>. Se a conta definida não tiver essa permissão, as solicitações para criar bancos de dados <em>falharão</em>. <strong>Não use os mesmos detalhes da conta para o MySQL que você definiu para este painel</strong></p>
                 </div>
                 <div class="box-footer">
                     {!! csrf_field() !!}

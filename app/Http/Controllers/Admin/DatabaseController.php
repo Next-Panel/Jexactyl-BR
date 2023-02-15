@@ -96,7 +96,7 @@ class DatabaseController extends Controller
 
         try {
             $this->updateService->handle($host->id, $request->normalize());
-            $this->alert->success('O banco de dados hospedeiro foi atualizado com sucesso.')->flash();
+            $this->alert->success('O Database hospedeiro foi atualizado com sucesso.')->flash();
         } catch (\Exception $exception) {
             // Catch any SQL related exceptions and display them back to the user, otherwise just
             // throw the exception like normal and move on with it.

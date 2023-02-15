@@ -5,7 +5,7 @@
 @endsection
 
 @section('content-header')
-    <h1>Host de Banco de Dados<small>Hospedagem de database nos quais os servidores podem ter bancos de dados criados.</small></h1>
+    <h1>Host de Database<small>Hospedagem de database nos quais os servidores podem ter bancos de dados criados.</small></h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.index') }}">Administrador</a></li>
         <li class="active">Lista dos Database</li>
@@ -107,11 +107,11 @@
                                 </optgroup>
                             @endforeach
                         </select>
-                        <p class="text-muted small">Esta configuração não faz nada além do padrão para este host de banco de dados ao adicionar um banco de dados a um servidor no Node selecionado.</p>
+                        <p class="text-muted small">Esta configuração não faz nada além do padrão para este host de Database ao adicionar um Database a um servidor no Node selecionado.</p>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <p class="text-danger small text-left">A conta definida para esse host de banco de dados <strong>deve</strong> ter a permissão com <code>OPÇÃO DE CONCESSÃO</code>. Se a conta definida não tiver essa permissão, as solicitações para criar bancos de dados <em>falharão</em>. <strong>Não use os mesmos detalhes da conta para o MySQL que você definiu para este painel.</strong></p>
+                    <p class="text-danger small text-left">A conta definida para esse host de Database <strong>deve</strong> ter a permissão com <code>OPÇÃO DE CONCESSÃO</code>. Se a conta definida não tiver essa permissão, as solicitações para criar bancos de dados <em>falharão</em>. <strong>Não use os mesmos detalhes da conta para o MySQL que você definiu para este painel.</strong></p>
                     {!! csrf_field() !!}
                     <button type="button" class="btn btn-default btn-sm pull-left" data-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-success btn-sm">Criar</button>

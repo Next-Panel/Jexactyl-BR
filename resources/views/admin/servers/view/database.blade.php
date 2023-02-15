@@ -19,7 +19,7 @@ Servidor — {{ $server->name }}: Bancos de dados
 <div class="row">
     <div class="col-sm-7">
         <div class="alert alert-info">
-        As senhas do banco de dados podem ser visualizadas quando <a href="/server/{{ $server->uuidShort }}/databases">visitando este servidor</a> no front-end.
+        As senhas do Database podem ser visualizadas quando <a href="/server/{{ $server->uuidShort }}/databases">visitando este servidor</a> no front-end.
         </div>
         <div class="box box-primary">
             <div class="box-header with-border">
@@ -28,7 +28,7 @@ Servidor — {{ $server->name }}: Bancos de dados
             <div class="box-body table-responsible no-padding">
                 <table class="table table-hover">
                     <tr>
-                        <th>Banco de dados</th>
+                        <th>Database</th>
                         <th>Nome de usuário</th>
                         <th>Conexões de</th>
                         <th>Host</th>
@@ -59,18 +59,18 @@ Servidor — {{ $server->name }}: Bancos de dados
     <div class="col-sm-5">
         <div class="box box-success">
             <div class="box-header with-border">
-                <h3 class="box-title">Criar um novo banco de dados</h3>
+                <h3 class="box-title">Criar um novo Database</h3>
             </div>
             <form action="{{ route('admin.servers.view.database', $server->id) }}" method="POST">
                 <div class="box-body">
                     <div class="form-group">
-                        <label for="pDatabaseHostId" class="control-label">Host do banco de dados</label>
+                        <label for="pDatabaseHostId" class="control-label">Host do Database</label>
                         <select id="pDatabaseHostId" name="database_host_id" class="form-control">
                             @foreach($hosts as $host)
                                 <option value="{{ $host->id }}">{{ $host->name }}</option>
                             @endforeach
                         </select>
-                        <p class="text-muted small">Selecione o servidor de banco de dados host no qual este banco de dados deve ser criado.</p>
+                        <p class="text-muted small">Selecione o servidor de Database host no qual este Database deve ser criado.</p>
                     </div>
                     <div class="form-group">
                         <label for="pDatabaseName" class="control-label">Base de dados</label>
@@ -87,12 +87,12 @@ Servidor — {{ $server->name }}: Bancos de dados
                     <div class="form-group">
                         <label for="pmax_connections" class="control-label">Conexões simultâneas</label>
                         <input id="pmax_connections" type="text" name="max_connections" class="form-control"/>
-                        <p class="text-muted small">Isto deve refletir o número máximo de conexões simultâneas deste usuário com o banco de dados. Deixar vazio para ilimitado.</p>
+                        <p class="text-muted small">Isto deve refletir o número máximo de conexões simultâneas deste usuário com o Database. Deixar vazio para ilimitado.</p>
                     </div>
                 </div>
                 <div class="box-footer">
                     {!! csrf_field() !!}
-                    <p class="text-muted small no-margin">Um nome de usuário e uma senha para este banco de dados serão gerados aleatoriamente após o envio do formulário.</p>
+                    <p class="text-muted small no-margin">Um nome de usuário e uma senha para este Database serão gerados aleatoriamente após o envio do formulário.</p>
                     <input type="submit" class="btn btn-sm btn-success pull-right" value="Create Database" />
                 </div>
             </form>
@@ -111,7 +111,7 @@ Servidor — {{ $server->name }}: Bancos de dados
         swal({
             title: '',
             type: 'warning',
-            text: 'Você tem certeza de que deseja excluir este banco de dados? Não há como voltar atrás, todos os dados serão imediatamente removidos.',
+            text: 'Você tem certeza de que deseja excluir este Database? Não há como voltar atrás, todos os dados serão imediatamente removidos.',
             showCancelButton: true,
             confirmButtonText: 'Excluir',
             confirmButtonColor: '#d9534f',
@@ -148,7 +148,7 @@ Servidor — {{ $server->name }}: Bancos de dados
             swal({
                 type: 'success',
                 title: '',
-                text: 'A senha para este banco de dados foi redefinida.',
+                text: 'A senha para este Database foi redefinida.',
             });
         }).fail(function(jqXHR, textStatus, errorThrown) {
             console.error(jqXHR);

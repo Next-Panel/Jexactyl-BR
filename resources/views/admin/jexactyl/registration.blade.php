@@ -138,7 +138,7 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="control-label">Quantidade de Banco de Dados</label>
+                                <label class="control-label">Quantidade de Database</label>
                                 <div>
                                     <input type="text" class="form-control" name="registration:database" value="{{ $database }}" />
                                     <p class="text-muted"><small>A quantidade de bancos de dados de servidor que deve ser entregue a um usuário no momento do registro.</small></p>

@@ -8,7 +8,7 @@ use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
 class InfoCommand extends Command
 {
-    protected $description = 'Exibe as configurações de aplicativo, banco de dados e e-mail junto com a versão do painel.';
+    protected $description = 'Exibe as configurações de aplicativo, Database e e-mail junto com a versão do painel.';
 
     protected $signature = 'p:info';
 

@@ -38,7 +38,7 @@ return [
         'subuser_exists' => 'O usuário com esse endereço de e-mail já está atribuído como subusuário desse servidor.',
     ],
     'databases' => [
-        'delete_has_databases' => 'Não é possível excluir um servidor host de banco de dados que tenha bancos de dados ativos vinculados a ele.',
+        'delete_has_databases' => 'Não é possível excluir um servidor host de Database que tenha bancos de dados ativos vinculados a ele.',
     ],
     'tasks' => [
         'chain_interval_too_long' => 'O tempo máximo de intervalo para uma tarefa acorrentada é de 15 minutos.',

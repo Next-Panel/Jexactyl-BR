@@ -100,7 +100,7 @@ export default ({ className, titles }: RowProps) => {
             />
             <ResourceBox
                 title={'Databases'}
-                description={'A quantidade de slots de banco de dados que você pode adicionar aos seus servidores.'}
+                description={'A quantidade de slots de Database que você pode adicionar aos seus servidores.'}
                 icon={<Icon.Database />}
                 amount={resources.databases}
             />

@@ -142,7 +142,7 @@ export default () => {
                     setOpen={setOpen}
                     icon={<Icon.Database />}
                     setResource={setResource}
-                    description={'Compre um banco de dados para obter e definir dados.'}
+                    description={'Compre um Database para obter e definir dados.'}
                 />
                 <TitledGreyBox title={'Como usar os recursos'}>
                     <p className={'font-semibold'}>Adicionando a um servidor existente</p>

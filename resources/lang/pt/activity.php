@@ -62,9 +62,9 @@ return [
             'unlock' => 'Destrancou o :name backup',
         ],
         'database' => [
-            'create' => 'Criou novo banco de dados :name',
-            'rotate-password' => 'Senha girada para banco de dados :name',
-            'delete' => 'Banco de dados excluído :name',
+            'create' => 'Criou novo Database :name',
+            'rotate-password' => 'Senha girada para Database :name',
+            'delete' => 'Database excluído :name',
         ],
         'file' => [
             'compress_one' => 'Comprimido :directory:file',

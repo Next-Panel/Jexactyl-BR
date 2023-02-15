@@ -39,8 +39,8 @@ export default ({ database, className }: Props) => {
 
     const schema = object().shape({
         confirm: string()
-            .required('O nome do banco de dados deve ser fornecido.')
-            .oneOf([database.name.split('_', 2)[1], database.name], 'O nome do banco de dados deve ser fornecido.'),
+            .required('O nome do Database deve ser fornecido.')
+            .oneOf([database.name.split('_', 2)[1], database.name], 'O nome do Database deve ser fornecido.'),
     });
 
     const submit = (values: { confirm: string }, { setSubmitting }: FormikHelpers<{ confirm: string }>) => {
@@ -74,7 +74,7 @@ export default ({ database, className }: Props) => {
                         }}
                     >
                         <FlashMessageRender byKey={'database:delete'} css={tw`mb-6`} />
-                        <h2 css={tw`text-2xl mb-6`}>Confirme a exclusão do banco de dados</h2>
+                        <h2 css={tw`text-2xl mb-6`}>Confirme a exclusão do Database</h2>
                         <p css={tw`text-sm`}>
                             A exclusão de um Database é uma ação permanente, não pode ser desfeita. Isso vai
                             excluir permanentemente o Database: <strong>{database.name}</strong> e todos os dados associados.
@@ -84,8 +84,8 @@ export default ({ database, className }: Props) => {
                                 type={'text'}
                                 id={'confirm_name'}
                                 name={'confirm'}
-                                label={'Confirme o nome do banco de dados'}
-                                description={'Digite o nome do banco de dados para confirmar a exclusão.'}
+                                label={'Confirme o nome do Database'}
+                                description={'Digite o nome do Database para confirmar a exclusão.'}
                             />
                             <div css={tw`mt-6 text-right`}>
                                 <Button
@@ -97,7 +97,7 @@ export default ({ database, className }: Props) => {
                                     Cancelar
                                 </Button>
                                 <Button type={'submit'} color={'red'} disabled={!isValid}>
-                                    Excluir banco de dados
+                                    Excluir Database
                                 </Button>
                             </div>
                         </Form>
@@ -106,7 +106,7 @@ export default ({ database, className }: Props) => {
             </Formik>
             <Modal visible={connectionVisible} onDismissed={() => setConnectionVisible(false)}>
                 <FlashMessageRender byKey={'database-connection-modal'} css={tw`mb-6`} />
-                <h3 css={tw`mb-6 text-2xl`}>Detalhes da conexão do banco de dados</h3>
+                <h3 css={tw`mb-6 text-2xl`}>Detalhes da conexão do Database</h3>
                 <div>
                     <Label>Endpoint</Label>
                     <CopyOnClick text={database.connectionString}>

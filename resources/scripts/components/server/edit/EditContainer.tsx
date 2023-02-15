@@ -223,7 +223,7 @@ export default () => {
                         Altere o limite de backups atribuídos ao servidor.
                     </p>
                 </TitledGreyBox>
-                <TitledGreyBox title={'Editar limite de banco de dados do servidor'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                <TitledGreyBox title={'Editar limite de Database do servidor'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     <Wrapper>
                         <Icon.Database size={40} />
                         <Button.Success

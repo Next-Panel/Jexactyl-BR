@@ -25,7 +25,7 @@ $output = new ConsoleOutput();
 
 $prefix = 'database.connections.' . config('database.default');
 if (!Str::contains(config("$prefix.database"), 'test')) {
-    $output->writeln(PHP_EOL . '<error>Não é possível executar o processo de teste em um banco de dados sem teste.</error>');
+    $output->writeln(PHP_EOL . '<error>Não é possível executar o processo de teste em um Database sem teste.</error>');
     $output->writeln(PHP_EOL . '<error>Ambiente está atualmente apontado para: "' . config("$prefix.database") . '".</error>');
     exit(1);
 }
@@ -35,11 +35,11 @@ if (!Str::contains(config("$prefix.database"), 'test')) {
  * running the tests.
  */
 if (!env('SKIP_MIGRATIONS')) {
-    $output->writeln(PHP_EOL . '<info>Atualizando banco de dados para testes de integração...</info>');
+    $output->writeln(PHP_EOL . '<info>Atualizando Database para testes de integração...</info>');
     $kernel->call('migrate:fresh');
 
-    $output->writeln('<info>Semeando banco de dados para testes de integração...</info>' . PHP_EOL);
+    $output->writeln('<info>Semeando Database para testes de integração...</info>' . PHP_EOL);
     $kernel->call('db:seed');
 } else {
-    $output->writeln(PHP_EOL . '<comment>Ignorando migrações de banco de dados...</comment>' . PHP_EOL);
+    $output->writeln(PHP_EOL . '<comment>Ignorando migrações de Database...</comment>' . PHP_EOL);
 }

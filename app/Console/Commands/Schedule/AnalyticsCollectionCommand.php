@@ -56,7 +56,7 @@ class AnalyticsCollectionCommand extends Command
                     'disk' => ($usage['disk_bytes'] / 1024) / $server->disk / 10,
                 ]);
 
-                $this->line($server->id . ' as análises foram salvas no banco de dados');
+                $this->line($server->id . ' as análises foram salvas no Database');
             } catch (\Exception $ex) {
                 $this->error($server->id . ' não conseguiu escrever as estatísticas: ' . $ex->getMessage());
             }

@@ -13,7 +13,7 @@ class ProcessRunnableCommand extends Command
 {
     protected $signature = 'p:schedule:process';
 
-    protected $description = 'Processar cronogramas no banco de dados e determinar quais estão prontos para execução.';
+    protected $description = 'Processar cronogramas no Database e determinar quais estão prontos para execução.';
 
     /**
      * Handle command execution.

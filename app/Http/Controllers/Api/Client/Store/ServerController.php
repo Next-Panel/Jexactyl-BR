@@ -2,9 +2,9 @@
 
 namespace Pterodactyl\Http\Controllers\Api\Client\Store;
 
+use Illuminate\Http\Request;
 use Pterodactyl\Models\Nest;
 use Pterodactyl\Models\Node;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Pterodactyl\Exceptions\DisplayException;
 use Pterodactyl\Services\Store\StoreCreationService;

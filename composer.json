@@ -30,7 +30,7 @@
         "predis/predis": "~2.1.1",
         "prologue/alerts": "~1.0.0",
         "psr/cache": "~3.0.0",
-        "s1lentium/iptools": "~1.1.1",
+        "s1lentium/iptools": "~1.2.0",
         "spatie/laravel-fractal": "~6.0.2",
         "spatie/laravel-query-builder": "~5.1.1",
         "staudenmeir/belongs-to-through": "~2.12.1",

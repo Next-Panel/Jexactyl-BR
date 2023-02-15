@@ -91,13 +91,7 @@ const RegisterContainer = ({ history }: RouteComponentProps) => {
                         css={tw`my-3`}
                         disabled={isSubmitting}
                     />
-                    <Field
-                        type={'password'}
-                        label={'Senha'}
-                        name={'password'}
-                        css={tw`my-3`}
-                        disabled={isSubmitting}
-                    />
+                    <Field type={'password'} label={'Senha'} name={'password'} css={tw`my-3`} disabled={isSubmitting} />
                     <Button type={'submit'} css={tw`my-6 w-full`} size={Button.Sizes.Large} disabled={isSubmitting}>
                         Registrar
                     </Button>

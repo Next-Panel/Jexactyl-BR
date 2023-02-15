@@ -36,9 +36,7 @@ export default () => {
     return (
         <PageContentBlock title={'Visão geral da conta'} description={'Visualizar e atualizar detalhes da conta.'}>
             {state?.twoFactorRedirect && (
-                <Alert type={'danger'}>
-                        Sua conta deve ter autenticação de dois fatores ativada para continuar.
-                </Alert>
+                <Alert type={'danger'}>Sua conta deve ter autenticação de dois fatores ativada para continuar.</Alert>
             )}
             <Container
                 className={'j-up'}

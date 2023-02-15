@@ -147,8 +147,8 @@ export default () => {
                 <TitledGreyBox title={'Como usar os recursos'}>
                     <p className={'font-semibold'}>Adicionando a um servidor existente</p>
                     <p className={'text-xs text-gray-500'}>
-                        Se você tiver um servidor que já está implantado, você pode adicionar recursos a ele indo para
-                        a guia editar.
+                        Se você tiver um servidor que já está implantado, você pode adicionar recursos a ele indo para a
+                        guia editar.
                     </p>
                     <p className={'font-semibold mt-1'}>Adicionando a um novo servidor</p>
                     <p className={'text-xs text-gray-500'}>

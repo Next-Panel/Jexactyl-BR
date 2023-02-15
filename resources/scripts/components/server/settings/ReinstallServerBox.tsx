@@ -53,7 +53,8 @@ export default () => {
                 processo, você tem certeza Você deseja continuar?
             </Dialog.Confirm>
             <p css={tw`text-sm`}>
-                A reinstalação de seu servidor irá pará-lo e, em seguida, executar novamente o script de instalação que inicialmente o definiu acima.&nbsp;
+                A reinstalação de seu servidor irá pará-lo e, em seguida, executar novamente o script de instalação que
+                inicialmente o definiu acima.&nbsp;
                 <strong css={tw`font-medium`}>
                     Alguns arquivos podem ser excluídos ou modificados durante esse processo, faça backup de seus dados
                     antes de continuar.

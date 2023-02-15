@@ -53,9 +53,7 @@ export default () => {
             if (reconnectErrors.find((v) => error.toLowerCase().indexOf(v) >= 0)) {
                 updateToken(uuid, socket);
             } else {
-                setError(
-                    'Houve um erro validando as credenciais fornecidas para o WebSocket. Atualize a página.'
-                );
+                setError('Houve um erro validando as credenciais fornecidas para o WebSocket. Atualize a página.');
             }
         });
 

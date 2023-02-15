@@ -36,7 +36,7 @@ export default () => {
                 addFlash({
                     type: 'info',
                     key: 'dashboard',
-                    message: 'O e-mail de verificação foi reenviado.',
+                    message: 'O E-mail de verificação foi reenviado.',
                 });
         });
     };

@@ -2,13 +2,13 @@
 @include('partials/admin.jexactyl.nav', ['activeTab' => 'mail'])
 
 @section('title')
-    Jexactyl e-mail
+    Jexactyl E-mail
 
 @endsection
 
 @section('content-header')
-    <h1>Ajustes do e-mail
-<small>Configurar como o Jexactyl deve lidar com o envio de e-mails.</small></h1>
+    <h1>Ajustes do E-mail
+<small>Configurar como o Jexactyl deve lidar com o envio de E-mails.</small></h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.index') }}">Admin</a></li>
         <li class="active">Definições</li>
@@ -21,15 +21,15 @@
         <div class="col-xs-12">
             <div class="box box-info">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Configurações de e-mail</h3>
+                    <h3 class="box-title">Configurações de E-mail</h3>
                 </div>
                 @if($disabled)
                     <div class="box-body">
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="alert alert-info no-margin-bottom">
-                                Esta interface é limitada às instâncias que utilizam SMTP como o driver de e-mail
-. Por favor, use <code>php artisan p:environment:mail</code> para atualizar suas configurações de e-mail, ou defina <code>MAIL_DRIVER=smtp</code> em seu arquivo de ambiente.
+                                Esta interface é limitada às instâncias que utilizam SMTP como o driver de E-mail
+. Por favor, use <code>php artisan p:environment:mail</code> para atualizar suas configurações de E-mail, ou defina <code>MAIL_DRIVER=smtp</code> em seu arquivo de ambiente.
                                 </div>
                             </div>
                         </div>
@@ -42,14 +42,14 @@
                                     <label class="control-label">Hospedagem SMTP</label>
                                     <div>
                                         <input required type="text" class="form-control" name="mail:mailers:smtp:host" value="{{ old('mail:mailers:smtp:host', config('mail.mailers.smtp.host')) }}" />
-                                        <p class="text-muted small">Digite o endereço do servidor SMTP pelo qual o e-mail deve ser enviado.</p>
+                                        <p class="text-muted small">Digite o endereço do servidor SMTP pelo qual o E-mail deve ser enviado.</p>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label class="control-label">Porta SMTP</label>
                                     <div>
                                         <input required type="number" class="form-control" name="mail:mailers:smtp:port" value="{{ old('mail:mailers:smtp:port', config('mail.mailers.smtp.port')) }}" />
-                                        <p class="text-muted small">Digite a porta do servidor SMTP pela qual o e-mail deve ser enviado.</p>
+                                        <p class="text-muted small">Digite a porta do servidor SMTP pela qual o E-mail deve ser enviado.</p>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-4">
@@ -63,7 +63,7 @@
                                             <option value="tls" @if($encryption === 'tls') selected @endif>Transport Layer Security (TLS)</option>
                                             <option value="ssl" @if($encryption === 'ssl') selected @endif>Secure Sockets Layer (SSL)</option>
                                         </select>
-                                        <p class="text-muted small">Selecione o tipo de criptografia a ser usada ao enviar o e-mail
+                                        <p class="text-muted small">Selecione o tipo de criptografia a ser usada ao enviar o E-mail
 .</p>
                                     </div>
                                 </div>
@@ -88,14 +88,14 @@
                                     <label class="control-label">E-mail enviado de</label>
                                     <div>
                                         <input required type="email" class="form-control" name="mail:from:address" value="{{ old('mail:from:address', config('mail.from.address')) }}" />
-                                        <p class="text-muted small">Digite um endereço de e-mail de onde todos os e-mails enviados serão originados.</p>
+                                        <p class="text-muted small">Digite um endereço de E-mail de onde todos os E-mails enviados serão originados.</p>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="control-label">E-mail a partir do nome <span class="field-optional"></span></label>
                                     <div>
                                         <input type="text" class="form-control" name="mail:from:name" value="{{ old('mail:from:name', config('mail.from.name')) }}" />
-                                        <p class="text-muted small">O nome de onde devem ser enviados os e-mails.</p>
+                                        <p class="text-muted small">O nome de onde devem ser enviados os E-mails.</p>
                                     </div>
                                 </div>
                             </div>
@@ -137,7 +137,7 @@
         function testSettings() {
             swal({
                 type: 'info',
-                title: 'Configurações do e-mail de teste',
+                title: 'Configurações do E-mail de teste',
                 text: 'Clique em "Testar" para iniciar o teste.',
                 showCancelButton: true,
                 confirmButtonText: 'Test',
@@ -181,7 +181,7 @@
 
             swal({
                 title: 'Ops!',
-                text: 'Ocorreu um erro durante a tentativa de ' + verb + ' configurações de e-mail: ' + errorText,
+                text: 'Ocorreu um erro durante a tentativa de ' + verb + ' configurações de E-mail: ' + errorText,
                 type: 'error'
             });
         }
@@ -192,7 +192,7 @@
                 saveSettings().done(function () {
                     swal({
                         title: 'Sucesso',
-                        text: 'As configurações do e-mail foram atualizadas com sucesso e o trabalhador da fila foi reiniciado para aplicar estas mudanças.',
+                        text: 'As configurações do E-mail foram atualizadas com sucesso e o trabalhador da fila foi reiniciado para aplicar estas mudanças.',
                         type: 'success'
                     });
                 });

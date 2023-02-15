@@ -39,7 +39,7 @@ Servidor — {{ $server->name }}: Detalhes
                         <select name="owner_id" class="form-control" id="pUserId">
                             <option value="{{ $server->owner_id }}" selected>{{ $server->user->email }}</option>
                         </select>
-                        <p class="text-muted small">Você pode mudar o dono deste servidor mudando este campo para um e-mail que corresponda a outro usuário deste sistema. Se você fizer isso, um novo daemon security token será gerado automaticamente.</p>
+                        <p class="text-muted small">Você pode mudar o dono deste servidor mudando este campo para um E-mail que corresponda a outro usuário deste sistema. Se você fizer isso, um novo daemon security token será gerado automaticamente.</p>
                     </div>
                     <div class="form-group">
                         <label for="description" class="control-label">Descrição do servidor</label>

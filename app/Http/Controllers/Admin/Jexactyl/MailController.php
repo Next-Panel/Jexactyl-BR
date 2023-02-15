@@ -52,7 +52,7 @@ class MailController extends Controller
     public function update(MailFormRequest $request): Response
     {
         if ($this->config->get('mail.default') !== 'smtp') {
-            throw new DisplayException('Este recurso só está disponível se SMTP for o driver de e-mail selecionado para o Painel.');
+            throw new DisplayException('Este recurso só está disponível se SMTP for o driver de E-mail selecionado para o Painel.');
         }
 
         $values = $request->normalize();

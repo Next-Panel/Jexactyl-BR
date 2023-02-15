@@ -8,7 +8,7 @@ use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
 class InfoCommand extends Command
 {
-    protected $description = 'Exibe as configurações de aplicativo, Database e e-mail junto com a versão do painel.';
+    protected $description = 'Exibe as configurações de aplicativo, Database e E-mail junto com a versão do painel.';
 
     protected $signature = 'p:info';
 
@@ -59,7 +59,7 @@ class InfoCommand extends Command
         ], 'compact');
 
         // TODO: Update this to handle other mail drivers
-        $this->output->title('Configuração de e-mail');
+        $this->output->title('Configuração de E-mail');
         $this->table([], [
             ['Driver', $this->config->get('mail.default')],
             ['Host', $this->config->get('mail.mailers.smtp.host')],

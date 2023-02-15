@@ -9,7 +9,7 @@ class DisableTwoFactorCommand extends Command
 {
     protected $description = 'Desative a autenticação de dois fatores para um usuário específico no Painel.';
 
-    protected $signature = 'p:user:disable2fa {--email= : O e-mail do usuário para o qual desabilitar o 2-Factor.}';
+    protected $signature = 'p:user:disable2fa {--email= : O E-mail do usuário para o qual desabilitar o 2-Factor.}';
 
     /**
      * DisableTwoFactorCommand constructor.

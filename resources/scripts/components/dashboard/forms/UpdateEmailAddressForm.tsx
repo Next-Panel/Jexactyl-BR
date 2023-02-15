@@ -33,7 +33,7 @@ export default () => {
                 addFlash({
                     type: 'success',
                     key: 'account:email',
-                    message: 'O seu e-mail principal foi atualizado.',
+                    message: 'O seu E-mail principal foi atualizado.',
                 })
             )
             .catch((error) =>

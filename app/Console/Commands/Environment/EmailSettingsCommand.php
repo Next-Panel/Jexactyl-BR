@@ -10,12 +10,12 @@ class EmailSettingsCommand extends Command
 {
     use EnvironmentWriterTrait;
 
-    protected $description = ' Defina ou atualize a configuração de envio de e-mail para o Painel.';
+    protected $description = ' Defina ou atualize a configuração de envio de E-mail para o Painel.';
 
     protected $signature = 'p:environment:mail
-                            {--driver= : O driver de e-mail a ser usado.}
-                            {--email= : Endereço de e-mail que as mensagens do painel se originarão de.}
-                            {--from= : O nome e-mails do painel parecerão ser de.}
+                            {--driver= : O driver de E-mail a ser usado.}
+                            {--email= : Endereço de E-mail que as mensagens do painel se originarão de.}
+                            {--from= : O nome E-mails do painel parecerão ser de.}
                             {--encryption=}
                             {--host=}
                             {--port=}
@@ -44,7 +44,7 @@ class EmailSettingsCommand extends Command
             trans('command/messages.environment.mail.ask_driver'),
             [
                 'smtp' => ' Servidor SMTP',
-                'mail' => 'PHP\'s Função de e-mail interno',
+                'mail' => 'PHP\'s Função de E-mail interno',
                 'mailgun' => 'E-mail da Mailgun Transacional',
                 'mandrill' => 'E-mail de transação de mandril',
                 'postmark' => 'E-mail transacional do carimbo postal(PostMark)',

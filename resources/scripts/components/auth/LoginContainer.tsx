@@ -74,7 +74,7 @@ const LoginContainer = ({ history }: RouteComponentProps) => {
             onSubmit={onSubmit}
             initialValues={{ username: '', password: '' }}
             validationSchema={object().shape({
-                username: string().required('Deve ser fornecido um nome de usuário ou e-mail.'),
+                username: string().required('Deve ser fornecido um nome de usuário ou E-mail.'),
                 password: string().required('Por favor introduza a senha da sua conta.'),
             })}
         >

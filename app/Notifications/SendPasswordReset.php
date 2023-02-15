@@ -33,7 +33,7 @@ class SendPasswordReset extends Notification implements ShouldQueue
     {
         return (new MailMessage())
             ->subject('Redefinir senha')
-            ->line('Você está recebendo este e-mail porque recebemos uma solicitação de redefinição de senha para sua conta.')
+            ->line('Você está recebendo este E-mail porque recebemos uma solicitação de redefinição de senha para sua conta.')
             ->action('Redefinir senha', url('/auth/password/reset/' . $this->token . '?email=' . urlencode($notifiable->email)))
             ->line('Se você não solicitou uma redefinição de senha, nenhuma outra ação é necessária.');
     }

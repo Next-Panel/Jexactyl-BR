@@ -33,7 +33,7 @@ Novo servidor
                         <div class="form-group">
                             <label for="pUserId">Dono do servidor</label>
                             <select id="pUserId" name="owner_id" class="form-control" style="padding-left:0;"></select>
-                            <p class="small text-muted no-margin">Endereço de e-mail do Dono do Servidor.</p>
+                            <p class="small text-muted no-margin">Endereço de E-mail do Dono do Servidor.</p>
                         </div>
                     </div>
 

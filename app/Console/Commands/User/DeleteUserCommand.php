@@ -24,7 +24,7 @@ class DeleteUserCommand extends Command
     public function handle(): int
     {
         $search = $this->option('user') ?? $this->ask(trans('command/messages.user.search_users'));
-        Assert::notEmpty($search, 'O termo de pesquisa deve ser um endereço de e-mail, obtido: %s.');
+        Assert::notEmpty($search, 'O termo de pesquisa deve ser um endereço de E-mail, obtido: %s.');
 
         $results = User::query()
             ->where('id', 'LIKE', "$search%")

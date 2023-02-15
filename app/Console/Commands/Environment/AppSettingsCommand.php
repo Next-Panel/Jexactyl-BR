@@ -66,7 +66,7 @@ class AppSettingsCommand extends Command
             $this->variables['HASHIDS_SALT'] = str_random(20);
         }
 
-        $this->output->comment('Forneça o endereço de e-mail que será usado para exportar novos eggs . Este deve ser um endereço de e-mail válido.');
+        $this->output->comment('Forneça o endereço de E-mail que será usado para exportar novos eggs . Este deve ser um endereço de E-mail válido.');
         $this->variables['APP_SERVICE_AUTHOR'] = $this->option('author') ?? $this->ask(
             'E-mail do autor do Egg',
             config('pterodactyl.service.author', 'unknown@unknown.com')
@@ -78,7 +78,7 @@ class AppSettingsCommand extends Command
             return 1;
         }
 
-        $this->output->comment('A URL do aplicativo(painel) DEVE começar com https:// ou http:// dependendo se você estiver usando SSL ou não. Se você não incluir o esquema, seus e-mails e outros conteúdos serão vinculados ao local errado.');
+        $this->output->comment('A URL do aplicativo(painel) DEVE começar com https:// ou http:// dependendo se você estiver usando SSL ou não. Se você não incluir o esquema, seus E-mails e outros conteúdos serão vinculados ao local errado.');
         $this->variables['APP_URL'] = $this->option('url') ?? $this->ask(
             'Aplicativo(painel) URL',
             config('app.url', 'https://example.com')

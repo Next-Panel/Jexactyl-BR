@@ -21,7 +21,7 @@
                 <div class="box
                 @if($enabled == 'true') box-success @else box-danger @endif">
                     <div class="box-header with-border">
-                        <i class="fa fa-at"></i> <h3 class="box-title">Registro via e-mail <small>As configurações para registros e logins por e-mail.</small></h3>
+                        <i class="fa fa-at"></i> <h3 class="box-title">Registro via E-mail <small>As configurações para registros e logins por E-mail.</small></h3>
                     </div>
                     <div class="box-body">
                         <div class="row">
@@ -32,7 +32,7 @@
                                         <option @if ($enabled == 'false') selected @endif value="false">Desabilitado</option>
                                         <option @if ($enabled == 'true') selected @endif value="true">Habilitado</option>
                                     </select>
-                                    <p class="text-muted"><small>Determina se as pessoas podem registrar contas utilizando e-mails.</small></p>
+                                    <p class="text-muted"><small>Determina se as pessoas podem registrar contas utilizando E-mails.</small></p>
                                 </div>
                             </div>
                         </div>
@@ -77,7 +77,7 @@
                 </div>
                 <div class="box box-info">
                     <div class="box-header with-border">
-                        <h3 class="box-title"><i class="fa fa-envelope"></i> Verificação de e-mail <small>Ative isto para permitir a verificação por e-mail.</small></h3>
+                        <h3 class="box-title"><i class="fa fa-envelope"></i> Verificação de E-mail <small>Ative isto para permitir a verificação por E-mail.</small></h3>
                     </div>
                     <div class="box-body row">
                         <div class="form-group col-md-4">

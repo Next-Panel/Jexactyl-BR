@@ -28,7 +28,7 @@
                                 <label class="control-label">Nome do Painel</label>
                                 <div>
                                     <input type="text" class="form-control" name="app:name" value="{{ old('app:name', config('app.name')) }}" />
-                                    <p class="text-muted"><small>Este é o nome que é usado em todo o painel e em e-mails enviados aos clientes.</small></p>
+                                    <p class="text-muted"><small>Este é o nome que é usado em todo o painel e em E-mails enviados aos clientes.</small></p>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">

@@ -98,8 +98,8 @@ const EditSubuserModal = ({ subuser }: Props) => {
             validationSchema={object().shape({
                 email: string()
                     .max(191, 'Os endereços de email não devem exceder 191 caracteres.')
-                    .email('Um endereço de e-mail válido deve ser fornecido.')
-                    .required('Um endereço de e-mail válido deve ser fornecido.'),
+                    .email('Um endereço de E-mail válido deve ser fornecido.')
+                    .required('Um endereço de E-mail válido deve ser fornecido.'),
                 permissions: array().of(string()),
             })}
         >

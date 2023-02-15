@@ -37,7 +37,7 @@ return [
     'digits_between' => 'O :attribute deve ser entre :min e :max digitos.',
     'dimensions' => 'O :attribute tem dimensões de imagem inválidas.',
     'distinct' => 'O :attribute campo tem um valor duplicado.',
-    'email' => 'O :attribute deve ser um endereço de e-mail válido.',
+    'email' => 'O :attribute deve ser um endereço de E-mail válido.',
     'exists' => 'O :attribute selecionado é inválido.',
     'file' => 'O :attribute deve ser um arquivo.',
     'filled' => 'O campo :attribute é obrigatório.',
@@ -91,7 +91,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | The following language lines are used to swap attribute place-holders
-    | with something more reader friendly such as E-Mail Address instead
+    | with something more reader friendly such as E-mail Address instead
     | of "email". This simply helps us make messages a little cleaner.
     |
     */

@@ -2,8 +2,8 @@
 
 return [
     'email' => [
-        'title' => 'Atualize seu e-mail',
-        'updated' => 'Seu endereço de e-mail foi atualizado.',
+        'title' => 'Atualize seu E-mail',
+        'updated' => 'Seu endereço de E-mail foi atualizado.',
     ],
     'password' => [
         'title' => 'Altere sua senha',

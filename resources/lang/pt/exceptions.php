@@ -35,7 +35,7 @@ return [
     'subusers' => [
         'editing_self' => 'Editar sua própria conta de subusuário não é permitido.',
         'user_is_owner' => 'Você não pode adicionar o proprietário do servidor como um subusuário para este servidor.',
-        'subuser_exists' => 'O usuário com esse endereço de e-mail já está atribuído como subusuário desse servidor.',
+        'subuser_exists' => 'O usuário com esse endereço de E-mail já está atribuído como subusuário desse servidor.',
     ],
     'databases' => [
         'delete_has_databases' => 'Não é possível excluir um servidor host de Database que tenha bancos de dados ativos vinculados a ele.',

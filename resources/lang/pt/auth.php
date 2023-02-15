@@ -7,7 +7,7 @@ return [
 
     'forgot_password' => [
         'label' => 'Esqueceu a senha?',
-        'label_help' => 'Digite o endereço de e-mail da sua conta para receber instruções sobre a redefinição de sua senha.',
+        'label_help' => 'Digite o endereço de E-mail da sua conta para receber instruções sobre a redefinição de sua senha.',
         'button' => 'Recuperar conta',
     ],
 

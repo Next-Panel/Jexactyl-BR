@@ -79,8 +79,8 @@ export default () => {
             initialValues={{ email: '' }}
             validationSchema={object().shape({
                 email: string()
-                    .email('Deve ser fornecido um endereço de E-Mail válido para continuar.')
-                    .required('Deve ser fornecido um endereço de E-Mail válido para continuar.'),
+                    .email('Deve ser fornecido um endereço de E-mail válido para continuar.')
+                    .required('Deve ser fornecido um endereço de E-mail válido para continuar.'),
             })}
         >
             {({ isSubmitting, setSubmitting, submitForm }) => (
@@ -89,7 +89,7 @@ export default () => {
                         light
                         label={'E-mail'}
                         description={
-                            'Introduza o endereço de e-mail da sua conta para receber instruções sobre como redefinir a sua senha.'
+                            'Introduza o endereço de E-mail da sua conta para receber instruções sobre como redefinir a sua senha.'
                         }
                         name={'email'}
                         type={'email'}

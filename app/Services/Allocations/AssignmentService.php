@@ -1,16 +1,16 @@
 <?php
 
-namespace Jexactyl\Services\Allocations;
+namespace Pterodactyl\Services\Allocations;
 
 use IPTools\Network;
-use Jexactyl\Models\Node;
-use Jexactyl\Exceptions\DisplayException;
+use Pterodactyl\Models\Node;
 use Illuminate\Database\ConnectionInterface;
-use Jexactyl\Contracts\Repository\AllocationRepositoryInterface;
-use Jexactyl\Exceptions\Service\Allocation\CidrOutOfRangeException;
-use Jexactyl\Exceptions\Service\Allocation\PortOutOfRangeException;
-use Jexactyl\Exceptions\Service\Allocation\InvalidPortMappingException;
-use Jexactyl\Exceptions\Service\Allocation\TooManyPortsInRangeException;
+use Pterodactyl\Exceptions\DisplayException;
+use Pterodactyl\Contracts\Repository\AllocationRepositoryInterface;
+use Pterodactyl\Exceptions\Service\Allocation\CidrOutOfRangeException;
+use Pterodactyl\Exceptions\Service\Allocation\PortOutOfRangeException;
+use Pterodactyl\Exceptions\Service\Allocation\InvalidPortMappingException;
+use Pterodactyl\Exceptions\Service\Allocation\TooManyPortsInRangeException;
 
 class AssignmentService
 {
@@ -31,11 +31,11 @@ class AssignmentService
     /**
      * Insert allocations into the database and link them to a specific node.
      *
-     * @throws \Jexactyl\Exceptions\DisplayException
-     * @throws \Jexactyl\Exceptions\Service\Allocation\CidrOutOfRangeException
-     * @throws \Jexactyl\Exceptions\Service\Allocation\InvalidPortMappingException
-     * @throws \Jexactyl\Exceptions\Service\Allocation\PortOutOfRangeException
-     * @throws \Jexactyl\Exceptions\Service\Allocation\TooManyPortsInRangeException
+     * @throws \Pterodactyl\Exceptions\DisplayException
+     * @throws \Pterodactyl\Exceptions\Service\Allocation\CidrOutOfRangeException
+     * @throws \Pterodactyl\Exceptions\Service\Allocation\InvalidPortMappingException
+     * @throws \Pterodactyl\Exceptions\Service\Allocation\PortOutOfRangeException
+     * @throws \Pterodactyl\Exceptions\Service\Allocation\TooManyPortsInRangeException
      */
     public function handle(Node $node, array $data): void
     {
@@ -55,7 +55,7 @@ class AssignmentService
             $parsed = Network::parse($underlying);
         } catch (\Exception $exception) {
             /* @noinspection PhpUndefinedVariableInspection */
-            throw new DisplayException("Could not parse provided allocation IP address ({$underlying}): {$exception->getMessage()}", $exception);
+            throw new DisplayException("Não foi possível analisar a alocação de endereço IP ({$underlying}): {$exception->getMessage()}", $exception);
         }
 
         $this->connection->beginTransaction();

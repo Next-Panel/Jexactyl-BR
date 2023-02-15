@@ -1,10 +1,10 @@
 <?php
 
-namespace Jexactyl\Console\Commands\Schedule;
+namespace Pterodactyl\Console\Commands\Schedule;
 
-use Jexactyl\Models\Server;
+use Pterodactyl\Models\Server;
 use Illuminate\Console\Command;
-use Jexactyl\Services\Analytics\AnalyticsReviewService;
+use Pterodactyl\Services\Analytics\AnalyticsReviewService;
 
 class AnalyticsReviewCommand extends Command
 {
@@ -16,7 +16,7 @@ class AnalyticsReviewCommand extends Command
     /**
      * @var string
      */
-    protected $description = 'Reviews server analytics and creates messages for servers.';
+    protected $description = 'Faz a análise dos servidores e cria mensagens para os servidores.';
 
     /**
      * AnalyticsReviewCommand constructor.

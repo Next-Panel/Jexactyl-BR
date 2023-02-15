@@ -1,24 +1,24 @@
 <?php
 
-namespace Jexactyl\Console\Commands\Environment;
+namespace Pterodactyl\Console\Commands\Environment;
 
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Database\DatabaseManager;
-use Jexactyl\Traits\Commands\EnvironmentWriterTrait;
+use Pterodactyl\Traits\Commands\EnvironmentWriterTrait;
 
 class DatabaseSettingsCommand extends Command
 {
     use EnvironmentWriterTrait;
 
-    protected $description = 'Configure database settings for the Panel.';
+    protected $description = 'Defina as configurações do database para o painel.';
 
     protected $signature = 'p:environment:database
-                            {--host= : The connection address for the MySQL server.}
-                            {--port= : The connection port for the MySQL server.}
-                            {--database= : The database to use.}
-                            {--username= : Username to use when connecting.}
-                            {--password= : Password to use for this database.}';
+                            {--host= : O endereço de conexão para o servidor MySQL.}
+                            {--port= : A porta de conexão para o servidor MySQL.}
+                            {--database= : O database a ser usado.}
+                            {--username= : Nome de usuário para usar ao conectar.}
+                            {--password= : Senha a ser usada para este database.}';
 
     protected array $variables = [];
 
@@ -33,50 +33,50 @@ class DatabaseSettingsCommand extends Command
     /**
      * Handle command execution.
      *
-     * @throws \Jexactyl\Exceptions\JexactylException
+     * @throws \Pterodactyl\Exceptions\PterodactylException
      */
     public function handle(): int
     {
-        $this->output->note('It is highly recommended to not use "localhost" as your database host as we have seen frequent socket connection issues. If you want to use a local connection you should be using "127.0.0.1".');
+        $this->output->note(' É altamente recomendável não usar "localhost" como seu host de database, pois temos visto problemas frequentes de conexão de soquete. Se você quiser usar uma conexão local, você deve estar usando "127.0.0.1".');
         $this->variables['DB_HOST'] = $this->option('host') ?? $this->ask(
-            'Database Host',
+            'Host do Database ',
             config('database.connections.mysql.host', '127.0.0.1')
         );
 
         $this->variables['DB_PORT'] = $this->option('port') ?? $this->ask(
-            'Database Port',
+            'Porta do Database ',
             config('database.connections.mysql.port', 3306)
         );
 
         $this->variables['DB_DATABASE'] = $this->option('database') ?? $this->ask(
-            'Database Name',
+            'Nome do Database ',
             config('database.connections.mysql.database', 'panel')
         );
 
-        $this->output->note('Using the "root" account for MySQL connections is not only highly frowned upon, it is also not allowed by this application. You\'ll need to have created a MySQL user for this software.');
+        $this->output->note('Usar a conta "root" para conexões MySQL não é apenas altamente desaprovado, mas também não é permitido por este aplicativo. Você precisa ter criado um usuário MySQL para este software.');
         $this->variables['DB_USERNAME'] = $this->option('username') ?? $this->ask(
-            'Database Username',
-            config('database.connections.mysql.username', 'Jexactyl')
+            'Usuário do Database',
+            config('database.connections.mysql.username', 'pterodactyl')
         );
 
         $askForMySQLPassword = true;
         if (!empty(config('database.connections.mysql.password')) && $this->input->isInteractive()) {
             $this->variables['DB_PASSWORD'] = config('database.connections.mysql.password');
-            $askForMySQLPassword = $this->confirm('It appears you already have a MySQL connection password defined, would you like to change it?');
+            $askForMySQLPassword = $this->confirm('Parece que você já tem uma senha de conexão MySQL definida, você gostaria de alterá-la?');
         }
 
         if ($askForMySQLPassword) {
-            $this->variables['DB_PASSWORD'] = $this->option('password') ?? $this->secret('Database Password');
+            $this->variables['DB_PASSWORD'] = $this->option('password') ?? $this->secret(' Senha do Database');
         }
 
         try {
             $this->testMySQLConnection();
         } catch (\PDOException $exception) {
-            $this->output->error(sprintf('Unable to connect to the MySQL server using the provided credentials. The error returned was "%s".', $exception->getMessage()));
-            $this->output->error('Your connection credentials have NOT been saved. You will need to provide valid connection information before proceeding.');
+            $this->output->error(sprintf('Incapaz de conectar-se ao servidor MySQL usando as credenciais fornecidas. O erro retornado foi "%s".', $exception->getMessage()));
+            $this->output->error('Suas credenciais de conexão NÃO foram salvas. Você precisará fornecer informações válidas de conexão antes de prosseguir.');
 
-            if ($this->confirm('Go back and try again?')) {
-                $this->database->disconnect('_Jexactyl_command_test');
+            if ($this->confirm('Voltar e tentar novamente?')) {
+                $this->database->disconnect('_pterodactyl_command_test');
 
                 return $this->handle();
             }
@@ -96,7 +96,7 @@ class DatabaseSettingsCommand extends Command
      */
     private function testMySQLConnection()
     {
-        config()->set('database.connections._Jexactyl_command_test', [
+        config()->set('database.connections._pterodactyl_command_test', [
             'driver' => 'mysql',
             'host' => $this->variables['DB_HOST'],
             'port' => $this->variables['DB_PORT'],
@@ -108,6 +108,6 @@ class DatabaseSettingsCommand extends Command
             'strict' => true,
         ]);
 
-        $this->database->connection('_Jexactyl_command_test')->getPdo();
+        $this->database->connection('_pterodactyl_command_test')->getPdo();
     }
 }

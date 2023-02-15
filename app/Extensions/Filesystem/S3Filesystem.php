@@ -1,6 +1,6 @@
 <?php
 
-namespace Jexactyl\Extensions\Filesystem;
+namespace Pterodactyl\Extensions\Filesystem;
 
 use Aws\S3\S3ClientInterface;
 use League\Flysystem\AwsS3V3\AwsS3V3Adapter;

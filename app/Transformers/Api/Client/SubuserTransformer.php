@@ -1,8 +1,8 @@
 <?php
 
-namespace Jexactyl\Transformers\Api\Client;
+namespace Pterodactyl\Transformers\Api\Client;
 
-use Jexactyl\Models\Subuser;
+use Pterodactyl\Models\Subuser;
 
 class SubuserTransformer extends BaseClientTransformer
 {
@@ -17,7 +17,7 @@ class SubuserTransformer extends BaseClientTransformer
     /**
      * Transforms a subuser into a model that can be shown to a front-end user.
      *
-     * @throws \Jexactyl\Exceptions\Transformer\InvalidTransformerLevelException
+     * @throws \Pterodactyl\Exceptions\Transformer\InvalidTransformerLevelException
      */
     public function transform(Subuser $model): array
     {

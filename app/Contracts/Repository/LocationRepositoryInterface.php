@@ -1,8 +1,8 @@
 <?php
 
-namespace Jexactyl\Contracts\Repository;
+namespace Pterodactyl\Contracts\Repository;
 
-use Jexactyl\Models\Location;
+use Pterodactyl\Models\Location;
 use Illuminate\Support\Collection;
 
 interface LocationRepositoryInterface extends RepositoryInterface
@@ -20,14 +20,14 @@ interface LocationRepositoryInterface extends RepositoryInterface
     /**
      * Return all the nodes and their respective count of servers for a location.
      *
-     * @throws \Jexactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function getWithNodes(int $id): Location;
 
     /**
      * Return a location and the count of nodes in that location.
      *
-     * @throws \Jexactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function getWithNodeCount(int $id): Location;
 }

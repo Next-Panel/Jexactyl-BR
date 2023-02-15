@@ -1,9 +1,9 @@
 <?php
 
-namespace Jexactyl\Http\Requests\Api\Client\Servers\Network;
+namespace Pterodactyl\Http\Requests\Api\Client\Servers\Network;
 
-use Jexactyl\Models\Permission;
-use Jexactyl\Http\Requests\Api\Client\ClientApiRequest;
+use Pterodactyl\Models\Permission;
+use Pterodactyl\Http\Requests\Api\Client\ClientApiRequest;
 
 class GetNetworkRequest extends ClientApiRequest
 {

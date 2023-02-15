@@ -1,19 +1,19 @@
 <?php
 
-namespace Jexactyl\Http\Controllers\Api\Client\Store;
+namespace Pterodactyl\Http\Controllers\Api\Client\Store;
 
-use Jexactyl\Models\Nest;
-use Jexactyl\Models\Node;
+use Pterodactyl\Models\Nest;
+use Pterodactyl\Models\Node;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Jexactyl\Exceptions\DisplayException;
-use Jexactyl\Services\Store\StoreCreationService;
-use Jexactyl\Transformers\Api\Client\Store\EggTransformer;
-use Jexactyl\Transformers\Api\Client\Store\NestTransformer;
-use Jexactyl\Transformers\Api\Client\Store\NodeTransformer;
-use Jexactyl\Http\Controllers\Api\Client\ClientApiController;
-use Jexactyl\Http\Requests\Api\Client\Store\CreateServerRequest;
-use Jexactyl\Exceptions\Service\Deployment\NoViableNodeException;
+use Pterodactyl\Exceptions\DisplayException;
+use Pterodactyl\Services\Store\StoreCreationService;
+use Pterodactyl\Transformers\Api\Client\Store\EggTransformer;
+use Pterodactyl\Transformers\Api\Client\Store\NestTransformer;
+use Pterodactyl\Transformers\Api\Client\Store\NodeTransformer;
+use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
+use Pterodactyl\Http\Requests\Api\Client\Store\CreateServerRequest;
+use Pterodactyl\Exceptions\Service\Deployment\NoViableNodeException;
 
 class ServerController extends ClientApiController
 {
@@ -71,15 +71,15 @@ class ServerController extends ClientApiController
         $fee = Node::find($request->input('node'))->deploy_fee;
 
         if (!$user->verified) {
-            throw new DisplayException('Server deployment is unavailable for unverified accounts.');
+            throw new DisplayException('A implementação do servidor não está disponível para contas não verificadas.');
         }
 
         if (Nest::find($request->input('nest'))->private) {
-            throw new DisplayException('This nest is private and cannot be deployed to.');
+            throw new DisplayException('Este Nest é privado e não pode ser implantado para.');
         }
 
         if ($user->store_slots < 1) {
-            throw new DisplayException('You do not have enough server slots in order to deploy a server.');
+            throw new DisplayException('Você não tem slots de servidor suficientes para implantar um servidor.');
         }
 
         $server = $this->creationService->handle($request);

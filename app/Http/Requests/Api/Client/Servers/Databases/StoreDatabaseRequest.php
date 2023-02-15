@@ -1,16 +1,16 @@
 <?php
 
-namespace Jexactyl\Http\Requests\Api\Client\Servers\Databases;
+namespace Pterodactyl\Http\Requests\Api\Client\Servers\Databases;
 
-use Jexactyl\Models\Server;
 use Webmozart\Assert\Assert;
-use Jexactyl\Models\Database;
+use Pterodactyl\Models\Server;
 use Illuminate\Validation\Rule;
-use Jexactyl\Models\Permission;
+use Pterodactyl\Models\Database;
+use Pterodactyl\Models\Permission;
 use Illuminate\Database\Query\Builder;
-use Jexactyl\Contracts\Http\ClientPermissionsRequest;
-use Jexactyl\Http\Requests\Api\Client\ClientApiRequest;
-use Jexactyl\Services\Databases\DatabaseManagementService;
+use Pterodactyl\Contracts\Http\ClientPermissionsRequest;
+use Pterodactyl\Http\Requests\Api\Client\ClientApiRequest;
+use Pterodactyl\Services\Databases\DatabaseManagementService;
 
 class StoreDatabaseRequest extends ClientApiRequest implements ClientPermissionsRequest
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Jexactyl\Services\Analytics;
+namespace Pterodactyl\Services\Analytics;
 
-use Jexactyl\Models\Server;
-use Jexactyl\Models\AnalyticsData;
-use Jexactyl\Models\AnalyticsMessage;
+use Pterodactyl\Models\Server;
+use Pterodactyl\Models\AnalyticsData;
+use Pterodactyl\Models\AnalyticsMessage;
 
 class AnalyticsReviewService
 {

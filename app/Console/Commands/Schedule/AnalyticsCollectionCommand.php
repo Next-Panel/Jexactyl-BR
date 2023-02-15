@@ -1,11 +1,11 @@
 <?php
 
-namespace Jexactyl\Console\Commands\Schedule;
+namespace Pterodactyl\Console\Commands\Schedule;
 
-use Jexactyl\Models\Server;
+use Pterodactyl\Models\Server;
 use Illuminate\Console\Command;
-use Jexactyl\Models\AnalyticsData;
-use Jexactyl\Repositories\Wings\DaemonServerRepository;
+use Pterodactyl\Models\AnalyticsData;
+use Pterodactyl\Repositories\Wings\DaemonServerRepository;
 
 class AnalyticsCollectionCommand extends Command
 {
@@ -17,7 +17,7 @@ class AnalyticsCollectionCommand extends Command
     /**
      * @var string
      */
-    protected $description = 'Collect analytics on server performance.';
+    protected $description = 'Coletar análises sobre o desempenho do servidor.';
 
     /**
      * AnalyticsCollectionCommand constructor.
@@ -33,18 +33,18 @@ class AnalyticsCollectionCommand extends Command
     public function handle()
     {
         foreach (Server::all() as $server) {
-            $this->line($server->id . ' is being processed');
+            $this->line($server->id . ' está sendo processado');
 
             $stats = $this->repository->setServer($server)->getDetails();
             $usage = $stats['utilization'];
 
             if ($stats['state'] === 'offline') {
-                $this->line($server->id . ' is offline, skipping');
+                $this->line($server->id . ' está offline, pulando');
                 continue;
             }
 
             if (AnalyticsData::where('server_id', $server->id)->count() >= 12) {
-                $this->line($server->id . ' exceeds 12 entries, deleting oldest');
+                $this->line($server->id . ' excede 12 entradas, eliminando as mais antigas');
                 AnalyticsData::where('server_id', $server->id)->orderBy('id', 'asc')->first()->delete();
             }
 
@@ -56,9 +56,9 @@ class AnalyticsCollectionCommand extends Command
                     'disk' => ($usage['disk_bytes'] / 1024) / $server->disk / 10,
                 ]);
 
-                $this->line($server->id . ' analytics have been saved to database');
+                $this->line($server->id . ' as análises foram salvas no banco de dados');
             } catch (\Exception $ex) {
-                $this->error($server->id . ' failed to write stats: ' . $ex->getMessage());
+                $this->error($server->id . ' não conseguiu escrever as estatísticas: ' . $ex->getMessage());
             }
         }
     }

@@ -1,9 +1,9 @@
 <?php
 
-namespace Jexactyl\Transformers\Api\Client\Analytics;
+namespace Pterodactyl\Transformers\Api\Client\Analytics;
 
-use Jexactyl\Models\AnalyticsMessage;
-use Jexactyl\Transformers\Api\Client\BaseClientTransformer;
+use Pterodactyl\Models\AnalyticsMessage;
+use Pterodactyl\Transformers\Api\Client\BaseClientTransformer;
 
 class MessageTransformer extends BaseClientTransformer
 {

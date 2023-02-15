@@ -1,6 +1,6 @@
 <?php
 
-namespace Jexactyl\Models;
+namespace Pterodactyl\Models;
 
 class EggMount extends Model
 {

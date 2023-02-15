@@ -1,8 +1,8 @@
 <?php
 
-namespace Jexactyl\Http\Middleware\Api\Client;
+namespace Pterodactyl\Http\Middleware\Api\Client;
 
-use Jexactyl\Models\Server;
+use Pterodactyl\Models\Server;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 
 class SubstituteClientBindings extends SubstituteBindings
@@ -19,7 +19,7 @@ class SubstituteClientBindings extends SubstituteBindings
         });
 
         $this->router->bind('user', function ($value, $route) {
-            /** @var \Jexactyl\Models\Subuser $match */
+            /** @var \Pterodactyl\Models\Subuser $match */
             $match = $route->parameter('server')
                 ->subusers()
                 ->whereRelation('user', 'uuid', '=', $value)

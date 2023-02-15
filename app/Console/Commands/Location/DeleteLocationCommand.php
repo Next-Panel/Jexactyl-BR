@@ -1,17 +1,17 @@
 <?php
 
-namespace Jexactyl\Console\Commands\Location;
+namespace Pterodactyl\Console\Commands\Location;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
-use Jexactyl\Services\Locations\LocationDeletionService;
-use Jexactyl\Contracts\Repository\LocationRepositoryInterface;
+use Pterodactyl\Services\Locations\LocationDeletionService;
+use Pterodactyl\Contracts\Repository\LocationRepositoryInterface;
 
 class DeleteLocationCommand extends Command
 {
-    protected $description = 'Deletes a location from the Panel.';
+    protected $description = 'Exclui uma localização do Painel.';
 
-    protected $signature = 'p:location:delete {--short= : The short code of the location to delete.}';
+    protected $signature = 'p:location:delete {--short= : O Nome Simples do local a ser excluído.}';
 
     protected Collection $locations;
 
@@ -28,8 +28,8 @@ class DeleteLocationCommand extends Command
     /**
      * Respond to the command request.
      *
-     * @throws \Jexactyl\Exceptions\Repository\RecordNotFoundException
-     * @throws \Jexactyl\Exceptions\Service\Location\HasActiveNodesException
+     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Pterodactyl\Exceptions\Service\Location\HasActiveNodesException
      */
     public function handle()
     {

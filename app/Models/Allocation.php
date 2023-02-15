@@ -1,11 +1,11 @@
 <?php
 
-namespace Jexactyl\Models;
+namespace Pterodactyl\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Jexactyl\Models\Allocation.
+ * Pterodactyl\Models\Allocation.
  *
  * @property int $id
  * @property int $node_id
@@ -18,8 +18,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Carbon\Carbon|null $updated_at
  * @property string $alias
  * @property bool $has_alias
- * @property \Jexactyl\Models\Server|null $server
- * @property \Jexactyl\Models\Node $node
+ * @property \Pterodactyl\Models\Server|null $server
+ * @property \Pterodactyl\Models\Node $node
  * @property string $hashid
  *
  * @method static \Database\Factories\AllocationFactory factory(...$parameters)

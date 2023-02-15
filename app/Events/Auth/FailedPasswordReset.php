@@ -1,8 +1,8 @@
 <?php
 
-namespace Jexactyl\Events\Auth;
+namespace Pterodactyl\Events\Auth;
 
-use Jexactyl\Events\Event;
+use Pterodactyl\Events\Event;
 use Illuminate\Queue\SerializesModels;
 
 class FailedPasswordReset extends Event

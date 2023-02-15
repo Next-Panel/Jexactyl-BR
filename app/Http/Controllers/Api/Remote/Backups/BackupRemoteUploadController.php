@@ -1,14 +1,14 @@
 <?php
 
-namespace Jexactyl\Http\Controllers\Api\Remote\Backups;
+namespace Pterodactyl\Http\Controllers\Api\Remote\Backups;
 
 use Carbon\CarbonImmutable;
-use Jexactyl\Models\Backup;
 use Illuminate\Http\Request;
+use Pterodactyl\Models\Backup;
 use Illuminate\Http\JsonResponse;
-use Jexactyl\Http\Controllers\Controller;
-use Jexactyl\Extensions\Backups\BackupManager;
-use Jexactyl\Extensions\Filesystem\S3Filesystem;
+use Pterodactyl\Http\Controllers\Controller;
+use Pterodactyl\Extensions\Backups\BackupManager;
+use Pterodactyl\Extensions\Filesystem\S3Filesystem;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
@@ -35,22 +35,22 @@ class BackupRemoteUploadController extends Controller
         // Get the size query parameter.
         $size = (int) $request->query('size');
         if (empty($size)) {
-            throw new BadRequestHttpException('A non-empty "size" query parameter must be provided.');
+            throw new BadRequestHttpException('Um parâmetro de consulta "Size"(tamanho) não vazio deve ser fornecido.');
         }
 
-        /** @var \Jexactyl\Models\Backup $backup */
+        /** @var \Pterodactyl\Models\Backup $backup */
         $backup = Backup::query()->where('uuid', $backup)->firstOrFail();
 
         // Prevent backups that have already been completed from trying to
         // be uploaded again.
         if (!is_null($backup->completed_at)) {
-            throw new ConflictHttpException('This backup is already in a completed state.');
+            throw new ConflictHttpException('Este backup já está em um estado concluído.');
         }
 
         // Ensure we are using the S3 adapter.
         $adapter = $this->backupManager->adapter();
         if (!$adapter instanceof S3Filesystem) {
-            throw new BadRequestHttpException('The configured backup adapter is not an S3 compatible adapter.');
+            throw new BadRequestHttpException('O adaptador de backup configurado não é um adaptador compatível com S3.');
         }
 
         // The path where backup will be uploaded to

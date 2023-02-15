@@ -1,8 +1,8 @@
 <?php
 
-namespace Jexactyl\Traits\Commands;
+namespace Pterodactyl\Traits\Commands;
 
-use Jexactyl\Exceptions\JexactylException;
+use Pterodactyl\Exceptions\PterodactylException;
 
 trait EnvironmentWriterTrait
 {
@@ -23,13 +23,13 @@ trait EnvironmentWriterTrait
     /**
      * Update the .env file for the application using the passed in values.
      *
-     * @throws \Jexactyl\Exceptions\JexactylException
+     * @throws \Pterodactyl\Exceptions\PterodactylException
      */
     public function writeToEnvironment(array $values = []): void
     {
         $path = base_path('.env');
         if (!file_exists($path)) {
-            throw new JexactylException('Cannot locate .env file, was this software installed correctly?');
+            throw new PterodactylException('Não é possível localizar o arquivo .env, este software foi instalado corretamente?');
         }
 
         $saveContents = file_get_contents($path);

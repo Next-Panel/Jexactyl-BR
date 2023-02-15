@@ -1,6 +1,6 @@
 <?php
 
-namespace Jexactyl\Exceptions;
+namespace Pterodactyl\Exceptions;
 
 use Exception;
 use Illuminate\Http\Request;
@@ -12,7 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
-class DisplayException extends JexactylException implements HttpExceptionInterface
+class DisplayException extends PterodactylException implements HttpExceptionInterface
 {
     public const LEVEL_DEBUG = 'debug';
     public const LEVEL_INFO = 'info';

@@ -1,11 +1,11 @@
 <?php
 
-namespace Jexactyl\Repositories\Eloquent;
+namespace Pterodactyl\Repositories\Eloquent;
 
-use Jexactyl\Models\Task;
+use Pterodactyl\Models\Task;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Jexactyl\Contracts\Repository\TaskRepositoryInterface;
-use Jexactyl\Exceptions\Repository\RecordNotFoundException;
+use Pterodactyl\Contracts\Repository\TaskRepositoryInterface;
+use Pterodactyl\Exceptions\Repository\RecordNotFoundException;
 
 class TaskRepository extends EloquentRepository implements TaskRepositoryInterface
 {
@@ -20,7 +20,7 @@ class TaskRepository extends EloquentRepository implements TaskRepositoryInterfa
     /**
      * Get a task and the server relationship for that task.
      *
-     * @throws \Jexactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function getTaskForJobProcess(int $id): Task
     {

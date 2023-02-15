@@ -1,14 +1,14 @@
 <?php
 
-namespace Jexactyl\Http\Controllers\Api\Client;
+namespace Pterodactyl\Http\Controllers\Api\Client;
 
-use Jexactyl\Models\Ticket;
+use Pterodactyl\Models\Ticket;
 use Illuminate\Http\JsonResponse;
-use Jexactyl\Models\TicketMessage;
-use Jexactyl\Exceptions\DisplayException;
-use Jexactyl\Http\Requests\Api\Client\ClientApiRequest;
-use Jexactyl\Transformers\Api\Client\Tickets\TicketTransformer;
-use Jexactyl\Transformers\Api\Client\Tickets\TicketMessageTransformer;
+use Pterodactyl\Models\TicketMessage;
+use Pterodactyl\Exceptions\DisplayException;
+use Pterodactyl\Http\Requests\Api\Client\ClientApiRequest;
+use Pterodactyl\Transformers\Api\Client\Tickets\TicketTransformer;
+use Pterodactyl\Transformers\Api\Client\Tickets\TicketMessageTransformer;
 
 class TicketController extends ClientApiController
 {
@@ -63,7 +63,7 @@ class TicketController extends ClientApiController
         $total = Ticket::where('client_id', $user)->count();
 
         if ($this->settings->get('jexactyl::tickets:max') <= $total) {
-            throw new DisplayException('You already have ' . $total . ' tickets open.');
+            throw new DisplayException('Você já tem ' . $total . ' tickets abertos.');
         }
 
         $model = Ticket::create([

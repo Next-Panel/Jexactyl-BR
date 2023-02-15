@@ -1,23 +1,23 @@
 <?php
 
-namespace Jexactyl\Console\Commands\Server;
+namespace Pterodactyl\Console\Commands\Server;
 
-use Jexactyl\Models\Server;
+use Pterodactyl\Models\Server;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Validation\Factory as ValidatorFactory;
-use Jexactyl\Repositories\Wings\DaemonPowerRepository;
-use Jexactyl\Exceptions\Http\Connection\DaemonConnectionException;
+use Pterodactyl\Repositories\Wings\DaemonPowerRepository;
+use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
 
 class BulkPowerActionCommand extends Command
 {
     protected $signature = 'p:server:bulk-power
-                            {action : The action to perform (start, stop, restart, kill)}
-                            {--servers= : A comma separated list of servers.}
-                            {--nodes= : A comma separated list of nodes.}';
+                            {action : A ação a realizar (start, stop, restart, kill)}
+                            {--servers= : Uma lista separada por vírgulas de servidores.}
+                            {--nodes= : Uma lista separada por vírgulas de Nodes.}';
 
-    protected $description = 'Perform bulk power management on large groupings of servers or nodes at once.';
+    protected $description = 'Execute o gerenciamento de energia em massa em grandes agrupamentos de servidores ou nodes de uma só vez.';
 
     /**
      * BulkPowerActionCommand constructor.

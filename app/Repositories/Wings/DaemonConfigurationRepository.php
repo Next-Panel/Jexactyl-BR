@@ -1,18 +1,18 @@
 <?php
 
-namespace Jexactyl\Repositories\Wings;
+namespace Pterodactyl\Repositories\Wings;
 
-use Jexactyl\Models\Node;
+use Pterodactyl\Models\Node;
 use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\TransferException;
-use Jexactyl\Exceptions\Http\Connection\DaemonConnectionException;
+use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
 
 class DaemonConfigurationRepository extends DaemonRepository
 {
     /**
      * Returns system information from the wings instance.
      *
-     * @throws \Jexactyl\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function getSystemInformation(?int $version = null): array
     {
@@ -30,7 +30,7 @@ class DaemonConfigurationRepository extends DaemonRepository
      * this instance using a passed-in model. This allows us to change plenty of information
      * in the model, and still use the old, pre-update model to actually make the HTTP request.
      *
-     * @throws \Jexactyl\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function update(Node $node): ResponseInterface
     {

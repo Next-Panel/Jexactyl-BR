@@ -1,8 +1,8 @@
 <?php
 
-namespace Jexactyl\Http\Requests\Admin\Tickets;
+namespace Pterodactyl\Http\Requests\Admin\Tickets;
 
-use Jexactyl\Http\Requests\Admin\AdminFormRequest;
+use Pterodactyl\Http\Requests\Admin\AdminFormRequest;
 
 class TicketStatusRequest extends AdminFormRequest
 {
@@ -13,7 +13,7 @@ class TicketStatusRequest extends AdminFormRequest
     public function rules(): array
     {
         return [
-            'status' => 'required|in:resolved,unresolved,pending,in-progress',
+            'status' => 'required|in:resolvido,não-resolvido,pendente,em-andamento',
         ];
     }
 }

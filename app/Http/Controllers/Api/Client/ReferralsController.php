@@ -1,15 +1,15 @@
 <?php
 
-namespace Jexactyl\Http\Controllers\Api\Client;
+namespace Pterodactyl\Http\Controllers\Api\Client;
 
-use Jexactyl\Models\User;
+use Pterodactyl\Models\User;
 use Illuminate\Http\JsonResponse;
-use Jexactyl\Models\ReferralUses;
-use Jexactyl\Exceptions\DisplayException;
-use Jexactyl\Services\Referrals\UseReferralService;
-use Jexactyl\Http\Requests\Api\Client\ClientApiRequest;
-use Jexactyl\Transformers\Api\Client\Referrals\ReferralCodeTransformer;
-use Jexactyl\Transformers\Api\Client\Referrals\ReferralActivityTransformer;
+use Pterodactyl\Models\ReferralUses;
+use Pterodactyl\Exceptions\DisplayException;
+use Pterodactyl\Services\Referrals\UseReferralService;
+use Pterodactyl\Http\Requests\Api\Client\ClientApiRequest;
+use Pterodactyl\Transformers\Api\Client\Referrals\ReferralCodeTransformer;
+use Pterodactyl\Transformers\Api\Client\Referrals\ReferralActivityTransformer;
 
 class ReferralsController extends ClientApiController
 {
@@ -48,7 +48,7 @@ class ReferralsController extends ClientApiController
     public function use(ClientApiRequest $request): JsonResponse
     {
         if ($request->user()->referral_code) {
-            throw new DisplayException('You have already used a referral code.');
+            throw new DisplayException('Você já usou um código de referência.');
         }
 
         $this->useService->handle($request);
@@ -64,7 +64,7 @@ class ReferralsController extends ClientApiController
     public function store(ClientApiRequest $request): array
     {
         if ($request->user()->referralCodes->count() >= 5) {
-            throw new DisplayException('You cannot have more than 5 referral codes.');
+            throw new DisplayException('Você não pode ter mais de 5 códigos de referência.');
         }
 
         $code = $request->user()->referralCodes()->create([
@@ -82,7 +82,7 @@ class ReferralsController extends ClientApiController
      */
     public function delete(ClientApiRequest $request, string $code): JsonResponse
     {
-        /** @var \Jexactyl\Models\ReferralCode $code */
+        /** @var \Pterodactyl\Models\ReferralCode $code */
         $referralCode = $request->user()->referralCodes()
             ->where('code', $code)
             ->firstOrFail();

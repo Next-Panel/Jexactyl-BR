@@ -1,19 +1,19 @@
 <?php
 
-namespace Jexactyl\Http\Controllers\Admin\Jexactyl;
+namespace Pterodactyl\Http\Controllers\Admin\Jexactyl;
 
 use Carbon\Carbon;
 use Illuminate\View\View;
-use Jexactyl\Models\Coupon;
+use Pterodactyl\Models\Coupon;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
-use Jexactyl\Exceptions\DisplayException;
-use Jexactyl\Http\Controllers\Controller;
-use Jexactyl\Exceptions\Model\DataValidationException;
-use Jexactyl\Exceptions\Repository\RecordNotFoundException;
-use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
-use Jexactyl\Http\Requests\Admin\Jexactyl\Coupons\IndexFormRequest;
-use Jexactyl\Http\Requests\Admin\Jexactyl\Coupons\StoreFormRequest;
+use Pterodactyl\Exceptions\DisplayException;
+use Pterodactyl\Http\Controllers\Controller;
+use Pterodactyl\Exceptions\Model\DataValidationException;
+use Pterodactyl\Exceptions\Repository\RecordNotFoundException;
+use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Pterodactyl\Http\Requests\Admin\Jexactyl\Coupons\IndexFormRequest;
+use Pterodactyl\Http\Requests\Admin\Jexactyl\Coupons\StoreFormRequest;
 
 class CouponsController extends Controller
 {
@@ -39,7 +39,7 @@ class CouponsController extends Controller
             $this->settings->set('jexactyl::coupons:' . $key, $value);
         }
 
-        $this->alert->success('The coupons system has been successfully updated.')->flash();
+        $this->alert->success('O sistema de cupons foi atualizado com sucesso.')->flash();
 
         return redirect()->route('admin.jexactyl.coupons');
     }
@@ -59,7 +59,7 @@ class CouponsController extends Controller
         }
 
         if (Coupon::query()->where(['code' => $request->input('code')])->exists()) {
-            throw new DisplayException('You cannot create a coupon with an already existing code.');
+            throw new DisplayException('Você não pode criar um cupom com um código já existente.');
         }
 
         Coupon::query()->insert([
@@ -70,7 +70,7 @@ class CouponsController extends Controller
             'cr_amount' => $request->input('credits'),
         ]);
 
-        $this->alert->success('Successfully created a coupon.')->flash();
+        $this->alert->success('Criou com sucesso um cupom.')->flash();
 
         return redirect()->route('admin.jexactyl.coupons');
     }

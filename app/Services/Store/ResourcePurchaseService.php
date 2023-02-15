@@ -1,11 +1,11 @@
 <?php
 
-namespace Jexactyl\Services\Store;
+namespace Pterodactyl\Services\Store;
 
 use Illuminate\Support\Facades\DB;
-use Jexactyl\Exceptions\DisplayException;
-use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
-use Jexactyl\Http\Requests\Api\Client\Store\PurchaseResourceRequest;
+use Pterodactyl\Exceptions\DisplayException;
+use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Pterodactyl\Http\Requests\Api\Client\Store\PurchaseResourceRequest;
 
 class ResourcePurchaseService
 {
@@ -34,7 +34,7 @@ class ResourcePurchaseService
             ->first();
 
         if ($balance < $cost) {
-            throw new DisplayException('You do not have enough credits.');
+            throw new DisplayException('Você não possui créditos suficientes.');
         }
 
         $user->update([
@@ -54,7 +54,7 @@ class ResourcePurchaseService
             'cpu' => 50,
             'disk', 'memory' => 1024,
             'slots', 'ports', 'backups', 'databases' => 1,
-            default => throw new DisplayException('Unable to parse resource type')
+            default => throw new DisplayException('Incapaz de analisar o tipo de recurso')
         };
     }
 

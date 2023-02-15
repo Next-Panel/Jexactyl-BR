@@ -1,13 +1,13 @@
 <?php
 
-namespace Jexactyl\Exceptions\Service\Database;
+namespace Pterodactyl\Exceptions\Service\Database;
 
-use Jexactyl\Exceptions\JexactylException;
+use Pterodactyl\Exceptions\PterodactylException;
 
-class DatabaseClientFeatureNotEnabledException extends JexactylException
+class DatabaseClientFeatureNotEnabledException extends PterodactylException
 {
     public function __construct()
     {
-        parent::__construct('Client database creation is not enabled in this Panel.');
+        parent::__construct('A criação do banco de dados do cliente não está habilitada neste painel.');
     }
 }

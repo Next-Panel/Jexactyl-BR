@@ -1,32 +1,32 @@
 <?php
 
-namespace Jexactyl\Console\Commands\Node;
+namespace Pterodactyl\Console\Commands\Node;
 
-use Jexactyl\Models\Node;
+use Pterodactyl\Models\Node;
 use Illuminate\Console\Command;
 
 class NodeConfigurationCommand extends Command
 {
     protected $signature = 'p:node:configuration
-                            {node : The ID or UUID of the node to return the configuration for.}
-                            {--format=yaml : The output format. Options are "yaml" and "json".}';
+                            {node : O ID ou UUID do node para retornar a configuração.}
+                            {--format=yaml : O formato de saída. As opções são "yaml" e "json".}';
 
-    protected $description = 'Displays the configuration for the specified node.';
+    protected $description = 'Exibe a configuração para o node especificado.';
 
     public function handle(): int
     {
         $column = ctype_digit((string) $this->argument('node')) ? 'id' : 'uuid';
 
-        /** @var \Jexactyl\Models\Node $node */
+        /** @var \Pterodactyl\Models\Node $node */
         $node = Node::query()->where($column, $this->argument('node'))->firstOr(function () {
-            $this->error('The selected node does not exist.');
+            $this->error('O node selecionado não existe.');
 
             exit(1);
         });
 
         $format = $this->option('format');
         if (!in_array($format, ['yaml', 'yml', 'json'])) {
-            $this->error('Invalid format specified. Valid options are "yaml" and "json".');
+            $this->error('Formato inválido especificado. As opções válidas são "yaml" e "json".');
 
             return 1;
         }

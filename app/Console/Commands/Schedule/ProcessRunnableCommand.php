@@ -1,19 +1,19 @@
 <?php
 
-namespace Jexactyl\Console\Commands\Schedule;
+namespace Pterodactyl\Console\Commands\Schedule;
 
 use Exception;
-use Jexactyl\Models\Schedule;
 use Illuminate\Console\Command;
+use Pterodactyl\Models\Schedule;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Builder;
-use Jexactyl\Services\Schedules\ProcessScheduleService;
+use Pterodactyl\Services\Schedules\ProcessScheduleService;
 
 class ProcessRunnableCommand extends Command
 {
     protected $signature = 'p:schedule:process';
 
-    protected $description = 'Process schedules in the database and determine which are ready to run.';
+    protected $description = 'Processar cronogramas no banco de dados e determinar quais estão prontos para execução.';
 
     /**
      * Handle command execution.
@@ -29,7 +29,7 @@ class ProcessRunnableCommand extends Command
             ->get();
 
         if ($schedules->count() < 1) {
-            $this->line('There are no scheduled tasks for servers that need to be run.');
+            $this->line('Não há tarefas agendadas para servidores que precisam ser executadas.');
 
             return 0;
         }
@@ -52,7 +52,7 @@ class ProcessRunnableCommand extends Command
      * never throw an exception out, otherwise you'll end up killing the entire run group causing
      * any other schedules to not process correctly.
      *
-     * @see https://github.com/Jexactyl/panel/issues/2609
+     * @see https://github.com/pterodactyl/panel/issues/2609
      */
     protected function processSchedule(Schedule $schedule)
     {

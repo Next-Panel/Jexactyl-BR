@@ -1,12 +1,12 @@
 <?php
 
-namespace Jexactyl\Services\Nodes;
+namespace Pterodactyl\Services\Nodes;
 
-use Jexactyl\Models\Node;
+use Pterodactyl\Models\Node;
 use Illuminate\Contracts\Translation\Translator;
-use Jexactyl\Contracts\Repository\NodeRepositoryInterface;
-use Jexactyl\Exceptions\Service\HasActiveServersException;
-use Jexactyl\Contracts\Repository\ServerRepositoryInterface;
+use Pterodactyl\Contracts\Repository\NodeRepositoryInterface;
+use Pterodactyl\Exceptions\Service\HasActiveServersException;
+use Pterodactyl\Contracts\Repository\ServerRepositoryInterface;
 
 class NodeDeletionService
 {
@@ -23,7 +23,7 @@ class NodeDeletionService
     /**
      * Delete a node from the panel if no servers are attached to it.
      *
-     * @throws \Jexactyl\Exceptions\Service\HasActiveServersException
+     * @throws \Pterodactyl\Exceptions\Service\HasActiveServersException
      */
     public function handle(int|Node $node): int
     {

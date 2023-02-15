@@ -1,8 +1,8 @@
 <?php
 
-namespace Jexactyl\Repositories\Eloquent;
+namespace Pterodactyl\Repositories\Eloquent;
 
-use Jexactyl\Contracts\Repository\PermissionRepositoryInterface;
+use Pterodactyl\Contracts\Repository\PermissionRepositoryInterface;
 
 class PermissionRepository extends EloquentRepository implements PermissionRepositoryInterface
 {
@@ -13,6 +13,6 @@ class PermissionRepository extends EloquentRepository implements PermissionRepos
      */
     public function model(): string
     {
-        throw new \Exception('This functionality is not implemented.');
+        throw new \Exception('Esta funcionalidade não está implementada.');
     }
 }

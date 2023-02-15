@@ -1,13 +1,13 @@
 <?php
 
-namespace Jexactyl\Services\Referrals;
+namespace Pterodactyl\Services\Referrals;
 
-use Jexactyl\Models\User;
-use Jexactyl\Models\ReferralCode;
-use Jexactyl\Models\ReferralUses;
-use Jexactyl\Exceptions\DisplayException;
-use Jexactyl\Http\Requests\Api\Client\ClientApiRequest;
-use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Pterodactyl\Models\User;
+use Pterodactyl\Models\ReferralCode;
+use Pterodactyl\Models\ReferralUses;
+use Pterodactyl\Exceptions\DisplayException;
+use Pterodactyl\Http\Requests\Api\Client\ClientApiRequest;
+use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
 
 class UseReferralService
 {

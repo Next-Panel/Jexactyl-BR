@@ -1,15 +1,15 @@
 <?php
 
-namespace Jexactyl\Console\Commands\User;
+namespace Pterodactyl\Console\Commands\User;
 
 use Illuminate\Console\Command;
-use Jexactyl\Contracts\Repository\UserRepositoryInterface;
+use Pterodactyl\Contracts\Repository\UserRepositoryInterface;
 
 class DisableTwoFactorCommand extends Command
 {
-    protected $description = 'Disable two-factor authentication for a specific user in the Panel.';
+    protected $description = 'Desative a autenticação de dois fatores para um usuário específico no Painel.';
 
-    protected $signature = 'p:user:disable2fa {--email= : The email of the user to disable 2-Factor for.}';
+    protected $signature = 'p:user:disable2fa {--email= : O e-mail do usuário para o qual desabilitar o 2-Factor.}';
 
     /**
      * DisableTwoFactorCommand constructor.
@@ -22,8 +22,8 @@ class DisableTwoFactorCommand extends Command
     /**
      * Handle command execution process.
      *
-     * @throws \Jexactyl\Exceptions\Model\DataValidationException
-     * @throws \Jexactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function handle()
     {

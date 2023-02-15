@@ -1,21 +1,21 @@
 <?php
 
-namespace Jexactyl\Http\Controllers\Admin;
+namespace Pterodactyl\Http\Controllers\Admin;
 
 use Exception;
 use Illuminate\View\View;
-use Jexactyl\Models\DatabaseHost;
+use Pterodactyl\Models\DatabaseHost;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
-use Jexactyl\Http\Controllers\Controller;
 use Illuminate\View\Factory as ViewFactory;
-use Jexactyl\Services\Databases\Hosts\HostUpdateService;
-use Jexactyl\Http\Requests\Admin\DatabaseHostFormRequest;
-use Jexactyl\Services\Databases\Hosts\HostCreationService;
-use Jexactyl\Services\Databases\Hosts\HostDeletionService;
-use Jexactyl\Contracts\Repository\DatabaseRepositoryInterface;
-use Jexactyl\Contracts\Repository\LocationRepositoryInterface;
-use Jexactyl\Contracts\Repository\DatabaseHostRepositoryInterface;
+use Pterodactyl\Http\Controllers\Controller;
+use Pterodactyl\Services\Databases\Hosts\HostUpdateService;
+use Pterodactyl\Http\Requests\Admin\DatabaseHostFormRequest;
+use Pterodactyl\Services\Databases\Hosts\HostCreationService;
+use Pterodactyl\Services\Databases\Hosts\HostDeletionService;
+use Pterodactyl\Contracts\Repository\DatabaseRepositoryInterface;
+use Pterodactyl\Contracts\Repository\LocationRepositoryInterface;
+use Pterodactyl\Contracts\Repository\DatabaseHostRepositoryInterface;
 
 class DatabaseController extends Controller
 {
@@ -48,7 +48,7 @@ class DatabaseController extends Controller
     /**
      * Display database host to user.
      *
-     * @throws \Jexactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function view(int $host): View
     {
@@ -71,7 +71,7 @@ class DatabaseController extends Controller
         } catch (\Exception $exception) {
             if ($exception instanceof \PDOException || $exception->getPrevious() instanceof \PDOException) {
                 $this->alert->danger(
-                    sprintf('There was an error while trying to connect to the host or while executing a query: "%s"', $exception->getMessage())
+                    sprintf('Ocorreu um erro ao tentar conectar-se ao host ou ao executar uma consulta: "%s"', $exception->getMessage())
                 )->flash();
 
                 return redirect()->route('admin.databases')->withInput($request->validated());
@@ -80,7 +80,7 @@ class DatabaseController extends Controller
             }
         }
 
-        $this->alert->success('Successfully created a new database host on the system.')->flash();
+        $this->alert->success('Um nova host de database foi criado com sucesso no sistema.')->flash();
 
         return redirect()->route('admin.databases.view', $host->id);
     }
@@ -96,13 +96,13 @@ class DatabaseController extends Controller
 
         try {
             $this->updateService->handle($host->id, $request->normalize());
-            $this->alert->success('Database host was updated successfully.')->flash();
+            $this->alert->success('O banco de dados hospedeiro foi atualizado com sucesso.')->flash();
         } catch (\Exception $exception) {
             // Catch any SQL related exceptions and display them back to the user, otherwise just
             // throw the exception like normal and move on with it.
             if ($exception instanceof \PDOException || $exception->getPrevious() instanceof \PDOException) {
                 $this->alert->danger(
-                    sprintf('There was an error while trying to connect to the host or while executing a query: "%s"', $exception->getMessage())
+                    sprintf('Ocorreu um erro ao tentar conectar-se ao host ou ao executar uma consulta: "%s"', $exception->getMessage())
                 )->flash();
 
                 return $redirect->withInput($request->normalize());
@@ -117,12 +117,12 @@ class DatabaseController extends Controller
     /**
      * Handle request to delete a database host.
      *
-     * @throws \Jexactyl\Exceptions\Service\HasActiveServersException
+     * @throws \Pterodactyl\Exceptions\Service\HasActiveServersException
      */
     public function delete(int $host): RedirectResponse
     {
         $this->deletionService->handle($host);
-        $this->alert->success('The requested database host has been deleted from the system.')->flash();
+        $this->alert->success('O host do database solicitado foi excluído do sistema.')->flash();
 
         return redirect()->route('admin.databases');
     }

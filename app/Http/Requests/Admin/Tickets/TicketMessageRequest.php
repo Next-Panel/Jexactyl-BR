@@ -1,8 +1,8 @@
 <?php
 
-namespace Jexactyl\Http\Requests\Admin\Tickets;
+namespace Pterodactyl\Http\Requests\Admin\Tickets;
 
-use Jexactyl\Http\Requests\Admin\AdminFormRequest;
+use Pterodactyl\Http\Requests\Admin\AdminFormRequest;
 
 class TicketMessageRequest extends AdminFormRequest
 {

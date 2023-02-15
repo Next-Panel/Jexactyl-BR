@@ -1,9 +1,9 @@
 <?php
 
-namespace Jexactyl\Providers;
+namespace Pterodactyl\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Jexactyl\Extensions\Backups\BackupManager;
+use Pterodactyl\Extensions\Backups\BackupManager;
 use Illuminate\Contracts\Support\DeferrableProvider;
 
 class BackupsServiceProvider extends ServiceProvider implements DeferrableProvider

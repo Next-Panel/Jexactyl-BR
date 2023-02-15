@@ -1,6 +1,6 @@
 <?php
 
-namespace Jexactyl\Http\Requests\Admin;
+namespace Pterodactyl\Http\Requests\Admin;
 
 class BaseFormRequest extends AdminFormRequest
 {

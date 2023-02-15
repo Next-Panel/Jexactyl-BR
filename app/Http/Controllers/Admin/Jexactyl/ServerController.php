@@ -1,13 +1,13 @@
 <?php
 
-namespace Jexactyl\Http\Controllers\Admin\Jexactyl;
+namespace Pterodactyl\Http\Controllers\Admin\Jexactyl;
 
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
-use Jexactyl\Http\Controllers\Controller;
-use Jexactyl\Http\Requests\Admin\Jexactyl\ServerFormRequest;
-use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Pterodactyl\Http\Controllers\Controller;
+use Pterodactyl\Http\Requests\Admin\Jexactyl\ServerFormRequest;
+use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
 
 class ServerController extends Controller
 {
@@ -39,8 +39,8 @@ class ServerController extends Controller
     /**
      * Handle settings update.
      *
-     * @throws \Jexactyl\Exceptions\Model\DataValidationException
-     * @throws \Jexactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function update(ServerFormRequest $request): RedirectResponse
     {
@@ -48,7 +48,7 @@ class ServerController extends Controller
             $this->settings->set('jexactyl::renewal:' . $key, $value);
         }
 
-        $this->alert->success('Jexactyl Server settings has been updated.')->flash();
+        $this->alert->success('As configurações do Jexactyl Servidor foram atualizadas.')->flash();
 
         return redirect()->route('admin.jexactyl.server');
     }

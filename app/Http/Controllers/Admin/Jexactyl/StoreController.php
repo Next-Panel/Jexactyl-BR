@@ -1,15 +1,15 @@
 <?php
 
-namespace Jexactyl\Http\Controllers\Admin\Jexactyl;
+namespace Pterodactyl\Http\Controllers\Admin\Jexactyl;
 
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
-use Jexactyl\Http\Controllers\Controller;
-use Jexactyl\Exceptions\Model\DataValidationException;
-use Jexactyl\Exceptions\Repository\RecordNotFoundException;
-use Jexactyl\Http\Requests\Admin\Jexactyl\StoreFormRequest;
-use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Pterodactyl\Http\Controllers\Controller;
+use Pterodactyl\Exceptions\Model\DataValidationException;
+use Pterodactyl\Exceptions\Repository\RecordNotFoundException;
+use Pterodactyl\Http\Requests\Admin\Jexactyl\StoreFormRequest;
+use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
 
 class StoreController extends Controller
 {
@@ -38,7 +38,7 @@ class StoreController extends Controller
             'enabled' => $this->settings->get($prefix . 'enabled', false),
             'paypal_enabled' => $this->settings->get($prefix . 'paypal:enabled', false),
             'stripe_enabled' => $this->settings->get($prefix . 'stripe:enabled', false),
-            'selected_currency' => $this->settings->get($prefix . 'currency', 'USD'),
+            'selected_currency' => $this->settings->get($prefix . 'currency', 'BRL'),
             'currencies' => $currencies,
 
             'earn_enabled' => $this->settings->get('jexactyl::earn:enabled', false),
@@ -73,7 +73,7 @@ class StoreController extends Controller
             $this->settings->set('jexactyl::' . $key, $value);
         }
 
-        $this->alert->success('If you have enabled a payment gateway, please remember to configure them. <a href="https://docs.jexactyl.com">Documentation</a>')->flash();
+        $this->alert->success('Se você tiver ativado um gateway de pagamento, lembre-se de configurá-los. <a href="https://docs.jexactylbrasil.ml">Documentação</a>')->flash();
 
         return redirect()->route('admin.jexactyl.store');
     }

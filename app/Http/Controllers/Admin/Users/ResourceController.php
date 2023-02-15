@@ -1,16 +1,16 @@
 <?php
 
-namespace Jexactyl\Http\Controllers\Admin\Users;
+namespace Pterodactyl\Http\Controllers\Admin\Users;
 
 use Illuminate\View\View;
-use Jexactyl\Models\User;
+use Pterodactyl\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
-use Jexactyl\Http\Controllers\Controller;
-use Jexactyl\Services\Users\UserUpdateService;
-use Jexactyl\Exceptions\Model\DataValidationException;
-use Jexactyl\Exceptions\Repository\RecordNotFoundException;
-use Jexactyl\Http\Requests\Admin\Users\ResourceFormRequest;
+use Pterodactyl\Http\Controllers\Controller;
+use Pterodactyl\Services\Users\UserUpdateService;
+use Pterodactyl\Exceptions\Model\DataValidationException;
+use Pterodactyl\Exceptions\Repository\RecordNotFoundException;
+use Pterodactyl\Http\Requests\Admin\Users\ResourceFormRequest;
 
 class ResourceController extends Controller
 {
@@ -41,7 +41,7 @@ class ResourceController extends Controller
             ->setUserLevel(User::USER_LEVEL_ADMIN)
             ->handle($user, $request->normalize());
 
-        $this->alert->success('User resources have been updated.')->flash();
+        $this->alert->success('Os recursos do usuário foram atualizados.')->flash();
 
         return redirect()->route('admin.users.resources', $user->id);
     }

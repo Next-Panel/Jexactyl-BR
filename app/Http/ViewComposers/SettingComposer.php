@@ -1,9 +1,9 @@
 <?php
 
-namespace Jexactyl\Http\ViewComposers;
+namespace Pterodactyl\Http\ViewComposers;
 
 use Illuminate\View\View;
-use Jexactyl\Services\Helpers\AssetHashService;
+use Pterodactyl\Services\Helpers\AssetHashService;
 
 class SettingComposer extends Composer
 {
@@ -24,7 +24,7 @@ class SettingComposer extends Composer
 
         $view->with('siteConfiguration', [
             'name' => config('app.name') ?? 'Jexactyl',
-            'locale' => config('app.locale') ?? 'en',
+            'locale' => config('app.locale') ?? 'pt',
             'logo' => config('app.logo'),
             'background' => config('theme.user.background'),
 

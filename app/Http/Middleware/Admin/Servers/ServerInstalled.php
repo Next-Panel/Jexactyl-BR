@@ -1,10 +1,10 @@
 <?php
 
-namespace Jexactyl\Http\Middleware\Admin\Servers;
+namespace Pterodactyl\Http\Middleware\Admin\Servers;
 
-use Jexactyl\Models\Server;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Pterodactyl\Models\Server;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -15,7 +15,7 @@ class ServerInstalled
      */
     public function handle(Request $request, \Closure $next): mixed
     {
-        /** @var \Jexactyl\Models\Server|null $server */
+        /** @var \Pterodactyl\Models\Server|null $server */
         $server = $request->route()->parameter('server');
 
         if (!$server instanceof Server) {

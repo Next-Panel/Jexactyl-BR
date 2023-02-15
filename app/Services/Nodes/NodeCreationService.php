@@ -1,12 +1,12 @@
 <?php
 
-namespace Jexactyl\Services\Nodes;
+namespace Pterodactyl\Services\Nodes;
 
 use Ramsey\Uuid\Uuid;
-use Jexactyl\Models\Node;
 use Illuminate\Support\Str;
+use Pterodactyl\Models\Node;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Jexactyl\Contracts\Repository\NodeRepositoryInterface;
+use Pterodactyl\Contracts\Repository\NodeRepositoryInterface;
 
 class NodeCreationService
 {
@@ -20,7 +20,7 @@ class NodeCreationService
     /**
      * Create a new node on the panel.
      *
-     * @throws \Jexactyl\Exceptions\Model\DataValidationException
+     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
      */
     public function handle(array $data): Node
     {

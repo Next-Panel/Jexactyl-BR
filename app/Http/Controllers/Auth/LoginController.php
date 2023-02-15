@@ -1,13 +1,13 @@
 <?php
 
-namespace Jexactyl\Http\Controllers\Auth;
+namespace Pterodactyl\Http\Controllers\Auth;
 
-use Jexactyl\Models\User;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Jexactyl\Facades\Activity;
+use Pterodactyl\Models\User;
 use Illuminate\Http\JsonResponse;
+use Pterodactyl\Facades\Activity;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -35,7 +35,7 @@ class LoginController extends AbstractLoginController
     /**
      * Handle a login request to the application.
      *
-     * @throws \Jexactyl\Exceptions\DisplayException
+     * @throws \Pterodactyl\Exceptions\DisplayException
      * @throws \Illuminate\Validation\ValidationException
      */
     public function login(Request $request): JsonResponse
@@ -48,7 +48,7 @@ class LoginController extends AbstractLoginController
         try {
             $username = $request->input('user');
 
-            /** @var \Jexactyl\Models\User $user */
+            /** @var \Pterodactyl\Models\User $user */
             $user = User::query()->where($this->getField($username), $username)->firstOrFail();
         } catch (ModelNotFoundException) {
             $this->sendFailedLoginResponse($request);

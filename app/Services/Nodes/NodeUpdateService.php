@@ -1,16 +1,16 @@
 <?php
 
-namespace Jexactyl\Services\Nodes;
+namespace Pterodactyl\Services\Nodes;
 
-use Jexactyl\Models\Node;
 use Illuminate\Support\Str;
+use Pterodactyl\Models\Node;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Jexactyl\Repositories\Eloquent\NodeRepository;
-use Jexactyl\Repositories\Wings\DaemonConfigurationRepository;
-use Jexactyl\Exceptions\Http\Connection\DaemonConnectionException;
-use Jexactyl\Exceptions\Service\Node\ConfigurationNotPersistedException;
+use Pterodactyl\Repositories\Eloquent\NodeRepository;
+use Pterodactyl\Repositories\Wings\DaemonConfigurationRepository;
+use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
+use Pterodactyl\Exceptions\Service\Node\ConfigurationNotPersistedException;
 
 class NodeUpdateService
 {
@@ -38,7 +38,7 @@ class NodeUpdateService
         }
 
         [$updated, $exception] = $this->connection->transaction(function () use ($data, $node) {
-            /** @var \Jexactyl\Models\Node $updated */
+            /** @var \Pterodactyl\Models\Node $updated */
             $updated = $this->repository->withFreshModel()->update($node->id, $data, true, true);
 
             try {
@@ -50,7 +50,7 @@ class NodeUpdateService
                 // This makes more sense anyways, because only the Panel uses the FQDN for connecting, the
                 // node doesn't actually care about this.
                 //
-                // @see https://github.com/Jexactyl/panel/issues/1931
+                // @see https://github.com/pterodactyl/panel/issues/1931
                 $node->fqdn = $updated->fqdn;
 
                 $this->configurationRepository->setNode($node)->update($updated);
@@ -64,7 +64,7 @@ class NodeUpdateService
                 // This avoids issues with proxies such as Cloudflare which will see Wings as offline and then
                 // inject their own response pages, causing this logic to get fucked up.
                 //
-                // @see https://github.com/Jexactyl/panel/issues/2712
+                // @see https://github.com/pterodactyl/panel/issues/2712
                 return [$updated, true];
             }
 

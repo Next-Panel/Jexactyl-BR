@@ -1,12 +1,12 @@
 <?php
 
-namespace Jexactyl\Http\Controllers\Admin\Nodes;
+namespace Pterodactyl\Http\Controllers\Admin\Nodes;
 
 use Illuminate\View\View;
-use Jexactyl\Models\Node;
 use Illuminate\Http\Request;
+use Pterodactyl\Models\Node;
 use Spatie\QueryBuilder\QueryBuilder;
-use Jexactyl\Http\Controllers\Controller;
+use Pterodactyl\Http\Controllers\Controller;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 
 class NodeController extends Controller

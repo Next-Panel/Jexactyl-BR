@@ -1,18 +1,18 @@
 <?php
 
-namespace Jexactyl\Services\Store;
+namespace Pterodactyl\Services\Store;
 
-use Jexactyl\Models\Egg;
-use Jexactyl\Models\Nest;
-use Jexactyl\Models\Node;
-use Jexactyl\Models\Server;
-use Jexactyl\Models\Allocation;
-use Jexactyl\Models\EggVariable;
-use Jexactyl\Exceptions\DisplayException;
-use Jexactyl\Services\Servers\ServerCreationService;
-use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
-use Jexactyl\Http\Requests\Api\Client\Store\CreateServerRequest;
-use Jexactyl\Exceptions\Service\Deployment\NoViableAllocationException;
+use Pterodactyl\Models\Egg;
+use Pterodactyl\Models\Nest;
+use Pterodactyl\Models\Node;
+use Pterodactyl\Models\Server;
+use Pterodactyl\Models\Allocation;
+use Pterodactyl\Models\EggVariable;
+use Pterodactyl\Exceptions\DisplayException;
+use Pterodactyl\Services\Servers\ServerCreationService;
+use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Pterodactyl\Http\Requests\Api\Client\Store\CreateServerRequest;
+use Pterodactyl\Exceptions\Service\Deployment\NoViableAllocationException;
 
 class StoreCreationService
 {

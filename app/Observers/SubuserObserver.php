@@ -1,11 +1,11 @@
 <?php
 
-namespace Jexactyl\Observers;
+namespace Pterodactyl\Observers;
 
-use Jexactyl\Events;
-use Jexactyl\Models\Subuser;
-use Jexactyl\Notifications\AddedToServer;
-use Jexactyl\Notifications\RemovedFromServer;
+use Pterodactyl\Events;
+use Pterodactyl\Models\Subuser;
+use Pterodactyl\Notifications\AddedToServer;
+use Pterodactyl\Notifications\RemovedFromServer;
 
 class SubuserObserver
 {

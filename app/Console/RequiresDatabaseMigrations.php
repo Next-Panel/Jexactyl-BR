@@ -1,6 +1,6 @@
 <?php
 
-namespace Jexactyl\Console;
+namespace Pterodactyl\Console;
 
 /**
  * @mixin \Illuminate\Console\Command
@@ -38,18 +38,18 @@ trait RequiresDatabaseMigrations
         $this->getOutput()->writeln('<options=bold>
 | @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ |
 |                                                                              |
-|               Your database has not been properly migrated!                  |
+|               Seu banco de dados não foi devidamente migrado!                  |
 |                                                                              |
 | @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ |</>
 
-You must run the following command to finish migrating your database:
+Você deve executar o seguinte comando para finalizar a migração de seu banco de dados:
 
   <fg=green;options=bold>php artisan migrate --step --force</>
 
-You will not be able to use Jexactyl Panel as expected without fixing your
-database state by running the command above.
+  Você não poderá usar o Painel do Jexactyl como esperado sem fixar seu
+  de banco de dados, executando o comando acima.
 ');
 
-        $this->getOutput()->error('You must correct the error above before continuing.');
+        $this->getOutput()->error('Você deve corrigir o erro acima antes de continuar.');
     }
 }

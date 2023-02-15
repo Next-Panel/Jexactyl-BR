@@ -1,9 +1,9 @@
 <?php
 
-namespace Jexactyl\Facades;
+namespace Pterodactyl\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Jexactyl\Services\Activity\ActivityLogTargetableService;
+use Pterodactyl\Services\Activity\ActivityLogTargetableService;
 
 class LogTarget extends Facade
 {

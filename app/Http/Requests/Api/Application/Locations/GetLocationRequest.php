@@ -1,6 +1,6 @@
 <?php
 
-namespace Jexactyl\Http\Requests\Api\Application\Locations;
+namespace Pterodactyl\Http\Requests\Api\Application\Locations;
 
 class GetLocationRequest extends GetLocationsRequest
 {

@@ -1,15 +1,15 @@
 <?php
 
-namespace Jexactyl\Providers;
+namespace Pterodactyl\Providers;
 
 use Illuminate\Http\Request;
-use Jexactyl\Models\Database;
+use Pterodactyl\Models\Database;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Cache\RateLimiting\Limit;
-use Jexactyl\Http\Middleware\TrimStrings;
 use Illuminate\Support\Facades\RateLimiter;
-use Jexactyl\Http\Middleware\AdminAuthenticate;
-use Jexactyl\Http\Middleware\RequireTwoFactorAuthentication;
+use Pterodactyl\Http\Middleware\TrimStrings;
+use Pterodactyl\Http\Middleware\AdminAuthenticate;
+use Pterodactyl\Http\Middleware\RequireTwoFactorAuthentication;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider

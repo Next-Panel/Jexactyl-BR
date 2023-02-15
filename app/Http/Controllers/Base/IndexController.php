@@ -1,11 +1,11 @@
 <?php
 
-namespace Jexactyl\Http\Controllers\Base;
+namespace Pterodactyl\Http\Controllers\Base;
 
 use Illuminate\View\View;
-use Jexactyl\Http\Controllers\Controller;
 use Illuminate\View\Factory as ViewFactory;
-use Jexactyl\Contracts\Repository\ServerRepositoryInterface;
+use Pterodactyl\Http\Controllers\Controller;
+use Pterodactyl\Contracts\Repository\ServerRepositoryInterface;
 
 class IndexController extends Controller
 {

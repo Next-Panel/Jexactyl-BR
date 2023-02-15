@@ -1,6 +1,6 @@
 <?php
 
-namespace Jexactyl\Models;
+namespace Pterodactyl\Models;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property string $long
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @property \Jexactyl\Models\Node[] $nodes
- * @property \Jexactyl\Models\Server[] $servers
+ * @property \Pterodactyl\Models\Node[] $nodes
+ * @property \Pterodactyl\Models\Server[] $servers
  */
 class Location extends Model
 {

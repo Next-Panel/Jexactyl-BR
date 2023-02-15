@@ -1,13 +1,13 @@
 <?php
 
-namespace Jexactyl\Http\Controllers\Admin\Jexactyl;
+namespace Pterodactyl\Http\Controllers\Admin\Jexactyl;
 
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
-use Jexactyl\Http\Controllers\Controller;
-use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
-use Jexactyl\Http\Requests\Admin\Jexactyl\RegistrationFormRequest;
+use Pterodactyl\Http\Controllers\Controller;
+use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Pterodactyl\Http\Requests\Admin\Jexactyl\RegistrationFormRequest;
 
 class RegistrationController extends Controller
 {
@@ -46,8 +46,8 @@ class RegistrationController extends Controller
     /**
      * Handle settings update.
      *
-     * @throws \Jexactyl\Exceptions\Model\DataValidationException
-     * @throws \Jexactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function update(RegistrationFormRequest $request): RedirectResponse
     {
@@ -55,7 +55,7 @@ class RegistrationController extends Controller
             $this->settings->set('jexactyl::' . $key, $value);
         }
 
-        $this->alert->success('Jexactyl Registration has been updated.')->flash();
+        $this->alert->success('O registro do Jexactyl foi atualizado.')->flash();
 
         return redirect()->route('admin.jexactyl.registration');
     }

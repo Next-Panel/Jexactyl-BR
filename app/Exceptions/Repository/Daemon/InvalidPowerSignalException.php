@@ -1,8 +1,8 @@
 <?php
 
-namespace Jexactyl\Exceptions\Repository\Daemon;
+namespace Pterodactyl\Exceptions\Repository\Daemon;
 
-use Jexactyl\Exceptions\Repository\RepositoryException;
+use Pterodactyl\Exceptions\Repository\RepositoryException;
 
 class InvalidPowerSignalException extends RepositoryException
 {

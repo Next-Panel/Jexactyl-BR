@@ -1,11 +1,11 @@
 <?php
 
-namespace Jexactyl\Models;
+namespace Pterodactyl\Models;
 
 use Illuminate\Container\Container;
 use Znck\Eloquent\Traits\BelongsToThrough;
-use Jexactyl\Contracts\Extensions\HashidsInterface;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Pterodactyl\Contracts\Extensions\HashidsInterface;
 
 /**
  * @property int $id
@@ -19,8 +19,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property string $hashid
- * @property \Jexactyl\Models\Schedule $schedule
- * @property \Jexactyl\Models\Server $server
+ * @property \Pterodactyl\Models\Schedule $schedule
+ * @property \Pterodactyl\Models\Server $server
  */
 class Task extends Model
 {
@@ -33,7 +33,7 @@ class Task extends Model
     public const RESOURCE_NAME = 'schedule_task';
 
     /**
-     * The default actions that can exist for a task in Jexactyl.
+     * The default actions that can exist for a task in Pterodactyl.
      */
     public const ACTION_POWER = 'power';
     public const ACTION_COMMAND = 'command';

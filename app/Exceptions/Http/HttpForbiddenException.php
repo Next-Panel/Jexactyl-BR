@@ -1,6 +1,6 @@
 <?php
 
-namespace Jexactyl\Exceptions\Http;
+namespace Pterodactyl\Exceptions\Http;
 
 use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;

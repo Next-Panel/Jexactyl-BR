@@ -1,16 +1,16 @@
 <?php
 
-namespace Jexactyl\Notifications;
+namespace Pterodactyl\Notifications;
 
-use Jexactyl\Models\User;
-use Jexactyl\Events\Event;
-use Jexactyl\Models\Server;
+use Pterodactyl\Models\User;
 use Illuminate\Bus\Queueable;
+use Pterodactyl\Events\Event;
+use Pterodactyl\Models\Server;
 use Illuminate\Container\Container;
-use Jexactyl\Events\Server\Installed;
+use Pterodactyl\Events\Server\Installed;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Jexactyl\Contracts\Core\ReceivesEvents;
+use Pterodactyl\Contracts\Core\ReceivesEvents;
 use Illuminate\Contracts\Notifications\Dispatcher;
 use Illuminate\Notifications\Messages\MailMessage;
 
@@ -52,9 +52,9 @@ class ServerInstalled extends Notification implements ShouldQueue, ReceivesEvent
     public function toMail(): MailMessage
     {
         return (new MailMessage())
-            ->greeting('Hello ' . $this->user->username . '.')
-            ->line('Your server has finished installing and is now ready for you to use.')
-            ->line('Server Name: ' . $this->server->name)
-            ->action('Login and Begin Using', route('index'));
+            ->greeting('Olá ' . $this->user->username . '.')
+            ->line('Seu servidor terminou de instalar e agora está pronto para você usar.')
+            ->line('Nome do Servidor: ' . $this->server->name)
+            ->action('Acesse e comece a usar', route('index'));
     }
 }

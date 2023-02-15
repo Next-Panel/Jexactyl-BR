@@ -1,6 +1,6 @@
 <?php
 
-namespace Jexactyl\Extensions\Illuminate\Database\Eloquent;
+namespace Pterodactyl\Extensions\Illuminate\Database\Eloquent;
 
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 

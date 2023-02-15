@@ -1,18 +1,18 @@
 <?php
 
-namespace Jexactyl\Http\Controllers\Admin;
+namespace Pterodactyl\Http\Controllers\Admin;
 
 use Illuminate\View\View;
-use Jexactyl\Models\Ticket;
 use Illuminate\View\Factory;
-use Jexactyl\Models\TicketMessage;
+use Pterodactyl\Models\Ticket;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
-use Jexactyl\Http\Controllers\Controller;
-use Jexactyl\Http\Requests\Admin\Tickets\TicketStatusRequest;
-use Jexactyl\Http\Requests\Admin\Tickets\TicketToggleRequest;
-use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
-use Jexactyl\Http\Requests\Admin\Tickets\TicketMessageRequest;
+use Pterodactyl\Models\TicketMessage;
+use Pterodactyl\Http\Controllers\Controller;
+use Pterodactyl\Http\Requests\Admin\Tickets\TicketStatusRequest;
+use Pterodactyl\Http\Requests\Admin\Tickets\TicketToggleRequest;
+use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Pterodactyl\Http\Requests\Admin\Tickets\TicketMessageRequest;
 
 class TicketsController extends Controller
 {
@@ -68,7 +68,7 @@ class TicketsController extends Controller
         TicketMessage::create([
             'user_id' => 0,
             'ticket_id' => $id,
-            'content' => 'Ticket status has been set to ' . $request->input('status'),
+            'content' => 'Status do Ticket foi definido para ' . $request->input('status'),
         ]);
 
         return redirect()->route('admin.tickets.view', $id);
@@ -96,7 +96,7 @@ class TicketsController extends Controller
         Ticket::findOrFail($id)->delete();
         TicketMessage::where('ticket_id', $id)->delete();
 
-        $this->alert->success('Ticket ' . $id . ' has been deleted.')->flash();
+        $this->alert->success('Ticket ' . $id . ' foi excluído.')->flash();
 
         return redirect()->route('admin.tickets.index');
     }

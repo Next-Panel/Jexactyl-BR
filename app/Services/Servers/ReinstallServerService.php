@@ -1,10 +1,10 @@
 <?php
 
-namespace Jexactyl\Services\Servers;
+namespace Pterodactyl\Services\Servers;
 
-use Jexactyl\Models\Server;
+use Pterodactyl\Models\Server;
 use Illuminate\Database\ConnectionInterface;
-use Jexactyl\Repositories\Wings\DaemonServerRepository;
+use Pterodactyl\Repositories\Wings\DaemonServerRepository;
 
 class ReinstallServerService
 {

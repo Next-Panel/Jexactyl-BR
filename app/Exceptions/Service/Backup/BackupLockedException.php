@@ -1,8 +1,8 @@
 <?php
 
-namespace Jexactyl\Exceptions\Service\Backup;
+namespace Pterodactyl\Exceptions\Service\Backup;
 
-use Jexactyl\Exceptions\DisplayException;
+use Pterodactyl\Exceptions\DisplayException;
 
 class BackupLockedException extends DisplayException
 {
@@ -11,6 +11,6 @@ class BackupLockedException extends DisplayException
      */
     public function __construct()
     {
-        parent::__construct('Cannot delete a backup that is marked as locked.');
+        parent::__construct('Não é possível excluir um backup marcado como bloqueado.');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Jexactyl\Models;
+namespace Pterodactyl\Models;
 
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -18,8 +18,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property \Carbon\CarbonImmutable $created_at
  * @property \Carbon\CarbonImmutable $updated_at
  * @property bool $required
- * @property \Jexactyl\Models\Egg $egg
- * @property \Jexactyl\Models\ServerVariable $serverVariable
+ * @property \Pterodactyl\Models\Egg $egg
+ * @property \Pterodactyl\Models\ServerVariable $serverVariable
  *
  * The "server_value" variable is only present on the object if you've loaded this model
  * using the server relationship.

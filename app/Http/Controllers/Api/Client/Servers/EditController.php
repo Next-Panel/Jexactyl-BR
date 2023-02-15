@@ -1,14 +1,14 @@
 <?php
 
-namespace Jexactyl\Http\Controllers\Api\Client\Servers;
+namespace Pterodactyl\Http\Controllers\Api\Client\Servers;
 
-use Jexactyl\Models\Server;
 use Illuminate\Http\Response;
+use Pterodactyl\Models\Server;
 use Illuminate\Http\JsonResponse;
-use Jexactyl\Exceptions\DisplayException;
-use Jexactyl\Services\Servers\ServerEditService;
-use Jexactyl\Http\Controllers\Api\Client\ClientApiController;
-use Jexactyl\Http\Requests\Api\Client\Servers\EditServerRequest;
+use Pterodactyl\Exceptions\DisplayException;
+use Pterodactyl\Services\Servers\ServerEditService;
+use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
+use Pterodactyl\Http\Requests\Api\Client\Servers\EditServerRequest;
 
 class EditController extends ClientApiController
 {

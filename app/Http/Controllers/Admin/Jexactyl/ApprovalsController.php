@@ -1,15 +1,15 @@
 <?php
 
-namespace Jexactyl\Http\Controllers\Admin\Jexactyl;
+namespace Pterodactyl\Http\Controllers\Admin\Jexactyl;
 
 use Illuminate\View\View;
-use Jexactyl\Models\User;
 use Illuminate\Http\Request;
+use Pterodactyl\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
-use Jexactyl\Http\Controllers\Controller;
-use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
-use Jexactyl\Http\Requests\Admin\Jexactyl\ApprovalFormRequest;
+use Pterodactyl\Http\Controllers\Controller;
+use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Pterodactyl\Http\Requests\Admin\Jexactyl\ApprovalFormRequest;
 
 class ApprovalsController extends Controller
 {
@@ -39,8 +39,8 @@ class ApprovalsController extends Controller
     /**
      * Updates the settings for approvals.
      *
-     * @throws \Jexactyl\Exceptions\Model\DataValidationException
-     * @throws \Jexactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function update(ApprovalFormRequest $request): RedirectResponse
     {
@@ -48,7 +48,7 @@ class ApprovalsController extends Controller
             $this->settings->set('jexactyl::approvals:' . $key, $value);
         }
 
-        $this->alert->success('Jexactyl Approval settings have been updated.')->flash();
+        $this->alert->success('As configurações de aprovação do Jexactyl foram atualizadas.')->flash();
 
         return redirect()->route('admin.jexactyl.approvals');
     }
@@ -64,11 +64,11 @@ class ApprovalsController extends Controller
             try {
                 User::query()->where('approved', false)->delete();
             } catch (DisplayException $ex) {
-                throw new DisplayException('Unable to complete action: ' . $ex->getMessage());
+                throw new DisplayException('Incapaz de completar a ação: ' . $ex->getMessage());
             }
         }
 
-        $this->alert->success('All users have been ' . $action === 'approve' ? 'approved ' : 'denied successfully.')->flash();
+        $this->alert->success('Todos os usuários foram ' . $action === 'approve' ? 'approved ' : 'negados com sucesso.')->flash();
 
         return redirect()->route('admin.jexactyl.approvals');
     }
@@ -82,7 +82,7 @@ class ApprovalsController extends Controller
         $user->update(['approved' => true]);
         // This gives the user access to the frontend.
 
-        $this->alert->success($user->username . ' has been approved.')->flash();
+        $this->alert->success($user->username . ' Foi aprovado.')->flash();
 
         return redirect()->route('admin.jexactyl.approvals');
     }
@@ -97,7 +97,7 @@ class ApprovalsController extends Controller
         // While typically we should look for associated servers, there
         // shouldn't be any present - as the user has been waiting for approval.
 
-        $this->alert->success($user->username . ' has been denied.')->flash();
+        $this->alert->success($user->username . ' foi negado.')->flash();
 
         return redirect()->route('admin.jexactyl.approvals');
     }

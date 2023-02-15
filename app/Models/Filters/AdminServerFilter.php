@@ -1,6 +1,6 @@
 <?php
 
-namespace Jexactyl\Models\Filters;
+namespace Pterodactyl\Models\Filters;
 
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;

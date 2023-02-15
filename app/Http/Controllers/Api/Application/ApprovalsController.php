@@ -1,8 +1,8 @@
 <?php
 
-namespace Jexactyl\Http\Controllers\Api\Application;
+namespace Pterodactyl\Http\Controllers\Api\Application;
 
-use Jexactyl\Models\User;
+use Pterodactyl\Models\User;
 use Illuminate\Http\Response;
 
 class ApprovalsController extends ApplicationApiController

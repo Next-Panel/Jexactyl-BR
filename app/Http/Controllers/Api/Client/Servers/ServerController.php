@@ -1,17 +1,17 @@
 <?php
 
-namespace Jexactyl\Http\Controllers\Api\Client\Servers;
+namespace Pterodactyl\Http\Controllers\Api\Client\Servers;
 
-use Jexactyl\Models\Server;
 use Illuminate\Http\Response;
+use Pterodactyl\Models\Server;
 use Illuminate\Http\JsonResponse;
-use Jexactyl\Services\Servers\ServerDeletionService;
-use Jexactyl\Transformers\Api\Client\ServerTransformer;
-use Jexactyl\Services\Servers\GetUserPermissionsService;
-use Jexactyl\Http\Controllers\Api\Client\ClientApiController;
-use Jexactyl\Http\Requests\Api\Client\Servers\GetServerRequest;
-use Jexactyl\Http\Requests\Api\Client\Servers\DeleteServerRequest;
-use Jexactyl\Http\Requests\Api\Client\Servers\UpdateBackgroundRequest;
+use Pterodactyl\Services\Servers\ServerDeletionService;
+use Pterodactyl\Transformers\Api\Client\ServerTransformer;
+use Pterodactyl\Services\Servers\GetUserPermissionsService;
+use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
+use Pterodactyl\Http\Requests\Api\Client\Servers\GetServerRequest;
+use Pterodactyl\Http\Requests\Api\Client\Servers\DeleteServerRequest;
+use Pterodactyl\Http\Requests\Api\Client\Servers\UpdateBackgroundRequest;
 
 class ServerController extends ClientApiController
 {
@@ -60,17 +60,17 @@ class ServerController extends ClientApiController
         $user = $request->user();
 
         if ($user->id != $server->owner_id) {
-            throw new DisplayException('You are not authorized to perform this action.');
+            throw new DisplayException('Você não está autorizado a realizar esta ação.');
         }
 
         if ($this->settings->get('jexactyl::renewal:deletion') != 'true') {
-            throw new DisplayException('This feature has been locked by administrators.');
+            throw new DisplayException('Este recurso foi bloqueado pelos administradores.');
         }
 
         try {
             $this->deletionService->returnResources(true)->handle($server);
         } catch (DisplayException $ex) {
-            throw new DisplayException('Unable to delete the server from the system.');
+            throw new DisplayException('Incapaz de excluir o servidor do sistema.');
         }
 
         return new JsonResponse([], Response::HTTP_NO_CONTENT);

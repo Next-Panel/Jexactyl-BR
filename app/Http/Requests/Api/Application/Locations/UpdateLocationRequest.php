@@ -1,8 +1,8 @@
 <?php
 
-namespace Jexactyl\Http\Requests\Api\Application\Locations;
+namespace Pterodactyl\Http\Requests\Api\Application\Locations;
 
-use Jexactyl\Models\Location;
+use Pterodactyl\Models\Location;
 
 class UpdateLocationRequest extends StoreLocationRequest
 {

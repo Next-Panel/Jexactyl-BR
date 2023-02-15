@@ -1,14 +1,14 @@
 <?php
 
-namespace Jexactyl\Http\Controllers\Api\Client\Servers;
+namespace Pterodactyl\Http\Controllers\Api\Client\Servers;
 
-use Jexactyl\Models\User;
 use Carbon\CarbonImmutable;
-use Jexactyl\Models\Server;
+use Pterodactyl\Models\User;
+use Pterodactyl\Models\Server;
 use Illuminate\Http\JsonResponse;
-use Jexactyl\Services\Nodes\NodeJWTService;
-use Jexactyl\Http\Controllers\Api\Client\ClientApiController;
-use Jexactyl\Http\Requests\Api\Client\Servers\Files\UploadFileRequest;
+use Pterodactyl\Services\Nodes\NodeJWTService;
+use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
+use Pterodactyl\Http\Requests\Api\Client\Servers\Files\UploadFileRequest;
 
 class FileUploadController extends ClientApiController
 {

@@ -1,19 +1,19 @@
 <?php
 
-namespace Jexactyl\Http\Controllers\Admin;
+namespace Pterodactyl\Http\Controllers\Admin;
 
 use Illuminate\View\View;
-use Jexactyl\Models\Location;
+use Pterodactyl\Models\Location;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
-use Jexactyl\Exceptions\DisplayException;
-use Jexactyl\Http\Controllers\Controller;
 use Illuminate\View\Factory as ViewFactory;
-use Jexactyl\Http\Requests\Admin\LocationFormRequest;
-use Jexactyl\Services\Locations\LocationUpdateService;
-use Jexactyl\Services\Locations\LocationCreationService;
-use Jexactyl\Services\Locations\LocationDeletionService;
-use Jexactyl\Contracts\Repository\LocationRepositoryInterface;
+use Pterodactyl\Exceptions\DisplayException;
+use Pterodactyl\Http\Controllers\Controller;
+use Pterodactyl\Http\Requests\Admin\LocationFormRequest;
+use Pterodactyl\Services\Locations\LocationUpdateService;
+use Pterodactyl\Services\Locations\LocationCreationService;
+use Pterodactyl\Services\Locations\LocationDeletionService;
+use Pterodactyl\Contracts\Repository\LocationRepositoryInterface;
 
 class LocationController extends Controller
 {
@@ -43,7 +43,7 @@ class LocationController extends Controller
     /**
      * Return the location view page.
      *
-     * @throws \Jexactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function view(int $id): View
     {
@@ -60,7 +60,7 @@ class LocationController extends Controller
     public function create(LocationFormRequest $request): RedirectResponse
     {
         $location = $this->creationService->handle($request->normalize());
-        $this->alert->success('Location was created successfully.')->flash();
+        $this->alert->success('O local foi criado com sucesso.')->flash();
 
         return redirect()->route('admin.locations.view', $location->id);
     }
@@ -77,7 +77,7 @@ class LocationController extends Controller
         }
 
         $this->updateService->handle($location->id, $request->normalize());
-        $this->alert->success('Location was updated successfully.')->flash();
+        $this->alert->success('A localização foi atualizada com sucesso.')->flash();
 
         return redirect()->route('admin.locations.view', $location->id);
     }
@@ -86,7 +86,7 @@ class LocationController extends Controller
      * Delete a location from the system.
      *
      * @throws \Exception
-     * @throws \Jexactyl\Exceptions\DisplayException
+     * @throws \Pterodactyl\Exceptions\DisplayException
      */
     public function delete(Location $location): RedirectResponse
     {

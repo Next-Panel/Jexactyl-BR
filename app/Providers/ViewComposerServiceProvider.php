@@ -1,10 +1,10 @@
 <?php
 
-namespace Jexactyl\Providers;
+namespace Pterodactyl\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Jexactyl\Http\ViewComposers\StoreComposer;
-use Jexactyl\Http\ViewComposers\SettingComposer;
+use Pterodactyl\Http\ViewComposers\StoreComposer;
+use Pterodactyl\Http\ViewComposers\SettingComposer;
 
 class ViewComposerServiceProvider extends ServiceProvider
 {

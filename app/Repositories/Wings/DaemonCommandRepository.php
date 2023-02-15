@@ -1,19 +1,19 @@
 <?php
 
-namespace Jexactyl\Repositories\Wings;
+namespace Pterodactyl\Repositories\Wings;
 
-use Jexactyl\Models\Server;
 use Webmozart\Assert\Assert;
+use Pterodactyl\Models\Server;
 use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\TransferException;
-use Jexactyl\Exceptions\Http\Connection\DaemonConnectionException;
+use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
 
 class DaemonCommandRepository extends DaemonRepository
 {
     /**
      * Sends a command or multiple commands to a running server instance.
      *
-     * @throws \Jexactyl\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function send(array|string $command): ResponseInterface
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Jexactyl\Http\Requests\Auth;
+namespace Pterodactyl\Http\Requests\Auth;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;

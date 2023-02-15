@@ -1,6 +1,6 @@
 <?php
 
-namespace Jexactyl\Exceptions\Service\Helper;
+namespace Pterodactyl\Exceptions\Service\Helper;
 
 class CdnVersionFetchingException extends \Exception
 {

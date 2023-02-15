@@ -1,8 +1,8 @@
 <?php
 
-namespace Jexactyl\Notifications;
+namespace Pterodactyl\Notifications;
 
-use Jexactyl\Models\User;
+use Pterodactyl\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -24,10 +24,10 @@ class VerifyEmail extends Notification implements ShouldQueue
     public function toMail(): MailMessage
     {
         $message = new MailMessage();
-        $message->greeting('Hello ' . $this->user->username . '! Welcome to ' . $this->name . '.');
-        $message->line('Please click the link below to verify your email address.');
-        $message->action('Verify Email', url('/auth/verify/' . $this->token));
-        $message->line('If you did not create this account please contact ' . $this->name . '.');
+        $message->greeting('Olá ' . $this->user->username . '! Bem vindo(a) ' . $this->name . '.');
+        $message->line('Clique no link abaixo para verificar seu endereço de e-mail.');
+        $message->action('Verificar e-mail', url('/auth/verify/' . $this->token));
+        $message->line('Se você não criou esta conta, entre em contato ' . $this->name . '.');
 
         return $message;
     }

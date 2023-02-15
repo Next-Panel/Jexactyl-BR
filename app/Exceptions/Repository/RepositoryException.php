@@ -1,9 +1,9 @@
 <?php
 
-namespace Jexactyl\Exceptions\Repository;
+namespace Pterodactyl\Exceptions\Repository;
 
-use Jexactyl\Exceptions\JexactylException;
+use Pterodactyl\Exceptions\PterodactylException;
 
-class RepositoryException extends JexactylException
+class RepositoryException extends PterodactylException
 {
 }

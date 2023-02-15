@@ -1,13 +1,13 @@
 <?php
 
-namespace Jexactyl\Http\Controllers\Auth;
+namespace Pterodactyl\Http\Controllers\Auth;
 
 use Illuminate\Http\JsonResponse;
-use Jexactyl\Exceptions\DisplayException;
-use Jexactyl\Http\Requests\Auth\RegisterRequest;
-use Jexactyl\Services\Users\UserCreationService;
-use Jexactyl\Exceptions\Model\DataValidationException;
-use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Pterodactyl\Exceptions\DisplayException;
+use Pterodactyl\Http\Requests\Auth\RegisterRequest;
+use Pterodactyl\Services\Users\UserCreationService;
+use Pterodactyl\Exceptions\Model\DataValidationException;
+use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
 
 class RegisterController extends AbstractLoginController
 {
@@ -31,10 +31,10 @@ class RegisterController extends AbstractLoginController
         $prefix = 'jexactyl::registration:';
 
         if ($this->settings->get($prefix . 'enabled') != 'true') {
-            throw new DisplayException('Unable to register user.');
+            throw new DisplayException('Incapaz de registrar o usuário.');
         }
 
-        if (!$this->settings->get($prefix . 'verification')) {
+        if ($this->settings->get($prefix . 'verification') != 'true') {
             $verified = true;
         }
 

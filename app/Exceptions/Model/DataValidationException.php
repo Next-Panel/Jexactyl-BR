@@ -1,15 +1,15 @@
 <?php
 
-namespace Jexactyl\Exceptions\Model;
+namespace Pterodactyl\Exceptions\Model;
 
 use Illuminate\Support\MessageBag;
 use Illuminate\Database\Eloquent\Model;
-use Jexactyl\Exceptions\JexactylException;
 use Illuminate\Contracts\Validation\Validator;
+use Pterodactyl\Exceptions\PterodactylException;
 use Illuminate\Contracts\Support\MessageProvider;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
-class DataValidationException extends JexactylException implements HttpExceptionInterface, MessageProvider
+class DataValidationException extends PterodactylException implements HttpExceptionInterface, MessageProvider
 {
     /**
      * DataValidationException constructor.
@@ -17,7 +17,7 @@ class DataValidationException extends JexactylException implements HttpException
     public function __construct(protected Validator $validator, protected Model $model)
     {
         $message = sprintf(
-            'Could not save %s[%s]: failed to validate data: %s',
+            'Não foi possível salvar %s[%s]: não conseguiu validar os dados: %s',
             get_class($model),
             $model->getKey(),
             $validator->errors()->toJson()

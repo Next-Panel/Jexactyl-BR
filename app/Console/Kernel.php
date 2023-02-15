@@ -1,14 +1,14 @@
 <?php
 
-namespace Jexactyl\Console;
+namespace Pterodactyl\Console;
 
-use Jexactyl\Models\ActivityLog;
+use Pterodactyl\Models\ActivityLog;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Database\Console\PruneCommand;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Jexactyl\Console\Commands\Schedule\ProcessRunnableCommand;
-use Jexactyl\Console\Commands\Maintenance\PruneOrphanedBackupsCommand;
-use Jexactyl\Console\Commands\Maintenance\CleanServiceBackupFilesCommand;
+use Pterodactyl\Console\Commands\Schedule\ProcessRunnableCommand;
+use Pterodactyl\Console\Commands\Maintenance\PruneOrphanedBackupsCommand;
+use Pterodactyl\Console\Commands\Maintenance\CleanServiceBackupFilesCommand;
 
 class Kernel extends ConsoleKernel
 {

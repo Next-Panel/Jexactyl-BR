@@ -1,10 +1,10 @@
 <?php
 
-namespace Jexactyl\Http\ViewComposers;
+namespace Pterodactyl\Http\ViewComposers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Container\Container;
-use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
 
 class Composer
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Jexactyl\Http\Requests\Admin\Api;
+namespace Pterodactyl\Http\Requests\Admin\Api;
 
-use Jexactyl\Models\ApiKey;
-use Jexactyl\Services\Acl\Api\AdminAcl;
-use Jexactyl\Http\Requests\Admin\AdminFormRequest;
+use Pterodactyl\Models\ApiKey;
+use Pterodactyl\Services\Acl\Api\AdminAcl;
+use Pterodactyl\Http\Requests\Admin\AdminFormRequest;
 
 class StoreApplicationApiKeyRequest extends AdminFormRequest
 {

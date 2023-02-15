@@ -1,6 +1,6 @@
 <?php
 
-namespace Jexactyl\Rules;
+namespace Pterodactyl\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
@@ -30,8 +30,8 @@ class Username implements Rule
      */
     public function message(): string
     {
-        return 'The :attribute must start and end with alpha-numeric characters and
-                contain only letters, numbers, dashes, underscores, and periods.';
+        return 'O :attribute deve começar e terminar com caracteres alfanuméricos e
+                contenham apenas letras, números, travessões, sublinhados e pontos.';
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Jexactyl\Extensions\Backups;
+namespace Pterodactyl\Extensions\Backups;
 
 use Closure;
 use Aws\S3\S3Client;
@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 use Webmozart\Assert\Assert;
 use Illuminate\Foundation\Application;
 use League\Flysystem\FilesystemAdapter;
-use Jexactyl\Extensions\Filesystem\S3Filesystem;
+use Pterodactyl\Extensions\Filesystem\S3Filesystem;
 use League\Flysystem\InMemory\InMemoryFilesystemAdapter;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
@@ -69,7 +69,7 @@ class BackupManager
         $config = $this->getConfig($name);
 
         if (empty($config['adapter'])) {
-            throw new \InvalidArgumentException("Backup disk [$name] does not have a configured adapter.");
+            throw new \InvalidArgumentException("O disco de backup [$name] não tem um adaptador configurado.");
         }
 
         $adapter = $config['adapter'];
@@ -87,7 +87,7 @@ class BackupManager
             return $instance;
         }
 
-        throw new \InvalidArgumentException("Adapter [$adapter] is not supported.");
+        throw new \InvalidArgumentException("Adaptador [$adapter] não é suportado.");
     }
 
     /**

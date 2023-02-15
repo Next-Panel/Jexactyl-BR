@@ -1,6 +1,6 @@
 <?php
 
-namespace Jexactyl\Models\Filters;
+namespace Pterodactyl\Models\Filters;
 
 use Illuminate\Support\Str;
 use Spatie\QueryBuilder\Filters\Filter;
@@ -24,7 +24,7 @@ class MultiFieldServerFilter implements Filter
     public function __invoke(Builder $query, $value, string $property)
     {
         if ($query->getQuery()->from !== 'servers') {
-            throw new \BadMethodCallException('Cannot use the MultiFieldServerFilter against a non-server model.');
+            throw new \BadMethodCallException('Não é possível utilizar o MultiFieldServerFilter contra um modelo não-servidor.');
         }
 
         if (preg_match(self::IPV4_REGEX, $value) || preg_match('/^:\d{1,5}$/', $value)) {

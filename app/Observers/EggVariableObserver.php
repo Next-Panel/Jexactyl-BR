@@ -1,8 +1,8 @@
 <?php
 
-namespace Jexactyl\Observers;
+namespace Pterodactyl\Observers;
 
-use Jexactyl\Models\EggVariable;
+use Pterodactyl\Models\EggVariable;
 
 class EggVariableObserver
 {

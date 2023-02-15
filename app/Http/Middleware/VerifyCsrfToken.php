@@ -1,6 +1,6 @@
 <?php
 
-namespace Jexactyl\Http\Middleware;
+namespace Pterodactyl\Http\Middleware;
 
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
 

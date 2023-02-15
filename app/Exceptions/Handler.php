@@ -1,6 +1,6 @@
 <?php
 
-namespace Jexactyl\Exceptions;
+namespace Pterodactyl\Exceptions;
 
 use Exception;
 use Illuminate\Support\Arr;
@@ -19,7 +19,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Mailer\Exception\TransportException;
-use Jexactyl\Exceptions\Repository\RecordNotFoundException;
+use Pterodactyl\Exceptions\Repository\RecordNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
@@ -30,7 +30,7 @@ class Handler extends ExceptionHandler
      * resulting in some weird rule names. This string will be parsed out and
      * replaced with 'p_' in the response code.
      */
-    private const Jexactyl_RULE_STRING = 'Jexactyl\_rules\_';
+    private const PTERODACTYL_RULE_STRING = 'pterodactyl\_rules\_';
 
     /**
      * A list of the exception types that should not be reported.
@@ -133,7 +133,7 @@ class Handler extends ExceptionHandler
         // much as possible at the code level, but there are a lot of spots that do a
         // ton of actions and were written before this bug discovery was made.
         //
-        // @see https://github.com/Jexactyl/panel/pull/1468
+        // @see https://github.com/pterodactyl/panel/pull/1468
         if ($connections->transactionLevel()) {
             $connections->rollBack(0);
         }
@@ -163,7 +163,7 @@ class Handler extends ExceptionHandler
             foreach ($errors as $key => $error) {
                 $meta = [
                     'source_field' => $field,
-                    'rule' => str_replace(self::Jexactyl_RULE_STRING, 'p_', Arr::get(
+                    'rule' => str_replace(self::PTERODACTYL_RULE_STRING, 'p_', Arr::get(
                         $codes,
                         str_replace('.', '_', $field) . '.' . $key
                     )),
@@ -198,7 +198,7 @@ class Handler extends ExceptionHandler
                 : strval($match ?? '500'),
             'detail' => $e instanceof HttpExceptionInterface || !is_null($match)
                 ? $e->getMessage()
-                : 'An unexpected error was encountered while processing this request, please try again.',
+                : 'Um erro inesperado foi encontrado ao processar esta solicitação, tente novamente.',
         ];
 
         if ($e instanceof ModelNotFoundException || $e->getPrevious() instanceof ModelNotFoundException) {

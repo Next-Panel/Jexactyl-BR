@@ -1,10 +1,10 @@
 <?php
 
-namespace Jexactyl\Http\Requests\Api\Client\Servers\Files;
+namespace Pterodactyl\Http\Requests\Api\Client\Servers\Files;
 
-use Jexactyl\Models\Permission;
-use Jexactyl\Contracts\Http\ClientPermissionsRequest;
-use Jexactyl\Http\Requests\Api\Client\ClientApiRequest;
+use Pterodactyl\Models\Permission;
+use Pterodactyl\Contracts\Http\ClientPermissionsRequest;
+use Pterodactyl\Http\Requests\Api\Client\ClientApiRequest;
 
 class PullFileRequest extends ClientApiRequest implements ClientPermissionsRequest
 {

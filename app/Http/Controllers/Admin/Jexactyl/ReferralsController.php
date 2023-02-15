@@ -1,13 +1,13 @@
 <?php
 
-namespace Jexactyl\Http\Controllers\Admin\Jexactyl;
+namespace Pterodactyl\Http\Controllers\Admin\Jexactyl;
 
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
-use Jexactyl\Http\Controllers\Controller;
-use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
-use Jexactyl\Http\Requests\Admin\Jexactyl\ReferralsFormRequest;
+use Pterodactyl\Http\Controllers\Controller;
+use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Pterodactyl\Http\Requests\Admin\Jexactyl\ReferralsFormRequest;
 
 class ReferralsController extends Controller
 {
@@ -34,8 +34,8 @@ class ReferralsController extends Controller
     /**
      * Handle settings update.
      *
-     * @throws \Jexactyl\Exceptions\Model\DataValidationException
-     * @throws \Jexactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function update(ReferralsFormRequest $request): RedirectResponse
     {
@@ -43,7 +43,7 @@ class ReferralsController extends Controller
             $this->settings->set('jexactyl::referrals:' . $key, $value);
         }
 
-        $this->alert->success('Referral system has been updated.')->flash();
+        $this->alert->success('O sistema de referência foi atualizado.')->flash();
 
         return redirect()->route('admin.jexactyl.referrals');
     }

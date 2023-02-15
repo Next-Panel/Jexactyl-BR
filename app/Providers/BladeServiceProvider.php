@@ -1,6 +1,6 @@
 <?php
 
-namespace Jexactyl\Providers;
+namespace Pterodactyl\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

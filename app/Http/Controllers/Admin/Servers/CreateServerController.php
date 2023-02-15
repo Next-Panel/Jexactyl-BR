@@ -1,18 +1,18 @@
 <?php
 
-namespace Jexactyl\Http\Controllers\Admin\Servers;
+namespace Pterodactyl\Http\Controllers\Admin\Servers;
 
 use Illuminate\View\View;
-use Jexactyl\Models\Node;
-use Jexactyl\Models\Location;
+use Pterodactyl\Models\Node;
+use Pterodactyl\Models\Location;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
-use Jexactyl\Http\Controllers\Controller;
 use Illuminate\View\Factory as ViewFactory;
-use Jexactyl\Repositories\Eloquent\NestRepository;
-use Jexactyl\Repositories\Eloquent\NodeRepository;
-use Jexactyl\Http\Requests\Admin\ServerFormRequest;
-use Jexactyl\Services\Servers\ServerCreationService;
+use Pterodactyl\Http\Controllers\Controller;
+use Pterodactyl\Repositories\Eloquent\NestRepository;
+use Pterodactyl\Repositories\Eloquent\NodeRepository;
+use Pterodactyl\Http\Requests\Admin\ServerFormRequest;
+use Pterodactyl\Services\Servers\ServerCreationService;
 
 class CreateServerController extends Controller
 {
@@ -31,7 +31,7 @@ class CreateServerController extends Controller
     /**
      * Displays the create server page.
      *
-     * @throws \Jexactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function index(): View|RedirectResponse
     {
@@ -63,9 +63,9 @@ class CreateServerController extends Controller
      * Create a new server on the remote system.
      *
      * @throws \Illuminate\Validation\ValidationException
-     * @throws \Jexactyl\Exceptions\DisplayException
-     * @throws \Jexactyl\Exceptions\Service\Deployment\NoViableAllocationException
-     * @throws \Jexactyl\Exceptions\Service\Deployment\NoViableNodeException
+     * @throws \Pterodactyl\Exceptions\DisplayException
+     * @throws \Pterodactyl\Exceptions\Service\Deployment\NoViableAllocationException
+     * @throws \Pterodactyl\Exceptions\Service\Deployment\NoViableNodeException
      * @throws \Throwable
      */
     public function store(ServerFormRequest $request): RedirectResponse

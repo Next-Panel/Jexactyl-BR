@@ -1,9 +1,9 @@
 <?php
 
-namespace Jexactyl\Events\Server;
+namespace Pterodactyl\Events\Server;
 
-use Jexactyl\Events\Event;
-use Jexactyl\Models\Server;
+use Pterodactyl\Events\Event;
+use Pterodactyl\Models\Server;
 use Illuminate\Queue\SerializesModels;
 
 class Deleting extends Event

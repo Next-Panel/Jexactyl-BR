@@ -1,10 +1,10 @@
 <?php
 
-namespace Jexactyl\Providers;
+namespace Pterodactyl\Providers;
 
-use Jexactyl\Extensions\Hashids;
+use Pterodactyl\Extensions\Hashids;
 use Illuminate\Support\ServiceProvider;
-use Jexactyl\Contracts\Extensions\HashidsInterface;
+use Pterodactyl\Contracts\Extensions\HashidsInterface;
 
 class HashidsServiceProvider extends ServiceProvider
 {

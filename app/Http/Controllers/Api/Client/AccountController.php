@@ -1,22 +1,22 @@
 <?php
 
-namespace Jexactyl\Http\Controllers\Api\Client;
+namespace Pterodactyl\Http\Controllers\Api\Client;
 
-use Jexactyl\Models\User;
-use Jexactyl\Models\Coupon;
 use Illuminate\Http\Request;
+use Pterodactyl\Models\User;
 use Illuminate\Http\Response;
-use Jexactyl\Facades\Activity;
+use Pterodactyl\Models\Coupon;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\JsonResponse;
+use Pterodactyl\Facades\Activity;
 use Illuminate\Support\Facades\DB;
-use Jexactyl\Notifications\VerifyEmail;
-use Jexactyl\Exceptions\DisplayException;
-use Jexactyl\Services\Users\UserUpdateService;
-use Jexactyl\Transformers\Api\Client\AccountTransformer;
-use Jexactyl\Http\Requests\Api\Client\Account\UpdateEmailRequest;
-use Jexactyl\Http\Requests\Api\Client\Account\UpdatePasswordRequest;
-use Jexactyl\Http\Requests\Api\Client\Account\UpdateUsernameRequest;
+use Pterodactyl\Notifications\VerifyEmail;
+use Pterodactyl\Exceptions\DisplayException;
+use Pterodactyl\Services\Users\UserUpdateService;
+use Pterodactyl\Transformers\Api\Client\AccountTransformer;
+use Pterodactyl\Http\Requests\Api\Client\Account\UpdateEmailRequest;
+use Pterodactyl\Http\Requests\Api\Client\Account\UpdatePasswordRequest;
+use Pterodactyl\Http\Requests\Api\Client\Account\UpdateUsernameRequest;
 
 class AccountController extends ClientApiController
 {
@@ -82,8 +82,8 @@ class AccountController extends ClientApiController
     /**
      * Update the authenticated user's username.
      *
-     * @throws \Jexactyl\Exceptions\Model\DataValidationException
-     * @throws \Jexactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function updateUsername(UpdateUsernameRequest $request): JsonResponse
     {
@@ -116,13 +116,13 @@ class AccountController extends ClientApiController
         $code = $request->input('code');
         $coupon = Coupon::query()->where('code', $code)->first();
         if (!$coupon) {
-            throw new DisplayException('Invalid coupon code specified.');
+            throw new DisplayException('Código de cupom inválido especificado.');
         }
         if ($coupon->getAttribute('expired')) {
-            throw new DisplayException('This coupon has expired.');
+            throw new DisplayException('Este cupom expirou.');
         }
         if ($coupon->getAttribute('uses') < 1) {
-            throw new DisplayException('This coupon has no uses left.');
+            throw new DisplayException('Este cupom não tem mais uso.');
         }
         $balance = $request->user()->store_balance;
         $request->user()->update(['store_balance' => $balance + $coupon->cr_amount]);

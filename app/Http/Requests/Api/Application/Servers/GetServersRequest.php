@@ -1,6 +1,6 @@
 <?php
 
-namespace Jexactyl\Http\Requests\Api\Application\Servers;
+namespace Pterodactyl\Http\Requests\Api\Application\Servers;
 
 class GetServersRequest extends GetServerRequest
 {

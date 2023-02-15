@@ -1,22 +1,22 @@
 <?php
 
-namespace Jexactyl\Http\Controllers\Admin;
+namespace Pterodactyl\Http\Controllers\Admin;
 
 use Ramsey\Uuid\Uuid;
 use Illuminate\View\View;
-use Jexactyl\Models\Nest;
-use Jexactyl\Models\Mount;
 use Illuminate\Http\Request;
+use Pterodactyl\Models\Nest;
 use Illuminate\Http\Response;
-use Jexactyl\Models\Location;
+use Pterodactyl\Models\Mount;
+use Pterodactyl\Models\Location;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
-use Jexactyl\Http\Controllers\Controller;
 use Illuminate\View\Factory as ViewFactory;
-use Jexactyl\Http\Requests\Admin\MountFormRequest;
-use Jexactyl\Repositories\Eloquent\MountRepository;
-use Jexactyl\Contracts\Repository\NestRepositoryInterface;
-use Jexactyl\Contracts\Repository\LocationRepositoryInterface;
+use Pterodactyl\Http\Controllers\Controller;
+use Pterodactyl\Http\Requests\Admin\MountFormRequest;
+use Pterodactyl\Repositories\Eloquent\MountRepository;
+use Pterodactyl\Contracts\Repository\NestRepositoryInterface;
+use Pterodactyl\Contracts\Repository\LocationRepositoryInterface;
 
 class MountController extends Controller
 {
@@ -45,7 +45,7 @@ class MountController extends Controller
     /**
      * Return the mount view page.
      *
-     * @throws \Jexactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function view(string $id): View
     {
@@ -72,7 +72,7 @@ class MountController extends Controller
         $model->saveOrFail();
         $mount = $model->fresh();
 
-        $this->alert->success('Mount was created successfully.')->flash();
+        $this->alert->success('A montagem foi criada com sucesso.')->flash();
 
         return redirect()->route('admin.mounts.view', $mount->id);
     }
@@ -90,7 +90,7 @@ class MountController extends Controller
 
         $mount->forceFill($request->validated())->save();
 
-        $this->alert->success('Mount was updated successfully.')->flash();
+        $this->alert->success('A montagem foi atualizada com sucesso.')->flash();
 
         return redirect()->route('admin.mounts.view', $mount->id);
     }
@@ -121,7 +121,7 @@ class MountController extends Controller
             $mount->eggs()->attach($eggs);
         }
 
-        $this->alert->success('Mount was updated successfully.')->flash();
+        $this->alert->success('A montagem foi atualizada com sucesso.')->flash();
 
         return redirect()->route('admin.mounts.view', $mount->id);
     }
@@ -138,7 +138,7 @@ class MountController extends Controller
             $mount->nodes()->attach($nodes);
         }
 
-        $this->alert->success('Mount was updated successfully.')->flash();
+        $this->alert->success('A montagem foi atualizada com sucesso.')->flash();
 
         return redirect()->route('admin.mounts.view', $mount->id);
     }

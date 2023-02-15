@@ -1,11 +1,11 @@
 <?php
 
-namespace Jexactyl\Http\Middleware\Api;
+namespace Pterodactyl\Http\Middleware\Api;
 
 use IPTools\IP;
 use IPTools\Range;
 use Illuminate\Http\Request;
-use Jexactyl\Facades\Activity;
+use Pterodactyl\Facades\Activity;
 use Laravel\Sanctum\TransientToken;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
@@ -19,7 +19,7 @@ class AuthenticateIPAccess
      */
     public function handle(Request $request, \Closure $next): mixed
     {
-        /** @var \Laravel\Sanctum\TransientToken|\Jexactyl\Models\ApiKey $token */
+        /** @var \Laravel\Sanctum\TransientToken|\Pterodactyl\Models\ApiKey $token */
         $token = $request->user()->currentAccessToken();
 
         // If this is a stateful request just push the request through to the next
@@ -43,6 +43,6 @@ class AuthenticateIPAccess
             ->property('identifier', $token->identifier)
             ->log();
 
-        throw new AccessDeniedHttpException('This IP address (' . $request->ip() . ') does not have permission to access the API using these credentials.');
+        throw new AccessDeniedHttpException('Este endereço IP (' . $request->ip() . ') não tem permissão para acessar a API usando essas credenciais.');
     }
 }

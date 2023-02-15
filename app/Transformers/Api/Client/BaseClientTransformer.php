@@ -1,11 +1,11 @@
 <?php
 
-namespace Jexactyl\Transformers\Api\Client;
+namespace Pterodactyl\Transformers\Api\Client;
 
-use Jexactyl\Models\User;
-use Jexactyl\Models\Server;
+use Pterodactyl\Models\User;
 use Webmozart\Assert\Assert;
-use Jexactyl\Transformers\Api\Application\BaseTransformer as BaseApplicationTransformer;
+use Pterodactyl\Models\Server;
+use Pterodactyl\Transformers\Api\Application\BaseTransformer as BaseApplicationTransformer;
 
 abstract class BaseClientTransformer extends BaseApplicationTransformer
 {

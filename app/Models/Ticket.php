@@ -1,6 +1,6 @@
 <?php
 
-namespace Jexactyl\Models;
+namespace Pterodactyl\Models;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Jexactyl\Models\Ticket.
+ * Pterodactyl\Models\Ticket.
  *
  * @property int $id
  * @property User $client
@@ -32,10 +32,10 @@ class Ticket extends Model
      */
     public const RESOURCE_NAME = 'ticket';
 
-    public const STATUS_PENDING = 'pending';
-    public const STATUS_RESOLVED = 'resolved';
-    public const STATUS_UNRESOLVED = 'unresolved';
-    public const STATUS_IN_PROGRESS = 'in-progress';
+    public const STATUS_PENDING = 'pendente';
+    public const STATUS_RESOLVED = 'resolvido';
+    public const STATUS_UNRESOLVED = 'não-resolvido';
+    public const STATUS_IN_PROGRESS = 'em-andamento';
 
     /**
      * The table associated with the model.

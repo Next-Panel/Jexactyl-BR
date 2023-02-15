@@ -1,22 +1,22 @@
 <?php
 
-namespace Jexactyl\Http\Controllers\Admin\Servers;
+namespace Pterodactyl\Http\Controllers\Admin\Servers;
 
 use Illuminate\View\View;
-use Jexactyl\Models\Nest;
-use Jexactyl\Models\Server;
 use Illuminate\Http\Request;
-use Jexactyl\Exceptions\DisplayException;
-use Jexactyl\Http\Controllers\Controller;
-use Jexactyl\Services\Servers\EnvironmentService;
-use Jexactyl\Repositories\Eloquent\NestRepository;
-use Jexactyl\Repositories\Eloquent\NodeRepository;
-use Jexactyl\Repositories\Eloquent\MountRepository;
-use Jexactyl\Repositories\Eloquent\ServerRepository;
-use Jexactyl\Traits\Controllers\JavascriptInjection;
+use Pterodactyl\Models\Nest;
+use Pterodactyl\Models\Server;
+use Pterodactyl\Exceptions\DisplayException;
+use Pterodactyl\Http\Controllers\Controller;
+use Pterodactyl\Services\Servers\EnvironmentService;
 use Illuminate\Contracts\View\Factory as ViewFactory;
-use Jexactyl\Repositories\Eloquent\LocationRepository;
-use Jexactyl\Repositories\Eloquent\DatabaseHostRepository;
+use Pterodactyl\Repositories\Eloquent\NestRepository;
+use Pterodactyl\Repositories\Eloquent\NodeRepository;
+use Pterodactyl\Repositories\Eloquent\MountRepository;
+use Pterodactyl\Repositories\Eloquent\ServerRepository;
+use Pterodactyl\Traits\Controllers\JavascriptInjection;
+use Pterodactyl\Repositories\Eloquent\LocationRepository;
+use Pterodactyl\Repositories\Eloquent\DatabaseHostRepository;
 
 class ServerViewController extends Controller
 {
@@ -70,7 +70,7 @@ class ServerViewController extends Controller
     /**
      * Returns the server startup management page.
      *
-     * @throws \Jexactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function startup(Request $request, Server $server): View
     {
@@ -118,12 +118,12 @@ class ServerViewController extends Controller
      * Returns the base server management page, or an exception if the server
      * is in a state that cannot be recovered from.
      *
-     * @throws \Jexactyl\Exceptions\DisplayException
+     * @throws \Pterodactyl\Exceptions\DisplayException
      */
     public function manage(Request $request, Server $server): View
     {
         if ($server->status === Server::STATUS_INSTALL_FAILED) {
-            throw new DisplayException('This server is in a failed install state and cannot be recovered. Please delete and re-create the server.');
+            throw new DisplayException('Este servidor está em um estado de instalação com falha e não pode ser recuperado. Exclua e recrie o servidor.');
         }
 
         // Check if the panel doesn't have at least 2 nodes configured.

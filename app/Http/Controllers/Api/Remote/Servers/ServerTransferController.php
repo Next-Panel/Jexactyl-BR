@@ -1,18 +1,18 @@
 <?php
 
-namespace Jexactyl\Http\Controllers\Api\Remote\Servers;
+namespace Pterodactyl\Http\Controllers\Api\Remote\Servers;
 
 use Illuminate\Http\Response;
-use Jexactyl\Models\Allocation;
 use Illuminate\Http\JsonResponse;
+use Pterodactyl\Models\Allocation;
 use Illuminate\Support\Facades\Log;
-use Jexactyl\Models\ServerTransfer;
-use Jexactyl\Http\Controllers\Controller;
+use Pterodactyl\Models\ServerTransfer;
 use Illuminate\Database\ConnectionInterface;
-use Jexactyl\Repositories\Eloquent\ServerRepository;
-use Jexactyl\Repositories\Wings\DaemonServerRepository;
+use Pterodactyl\Http\Controllers\Controller;
+use Pterodactyl\Repositories\Eloquent\ServerRepository;
+use Pterodactyl\Repositories\Wings\DaemonServerRepository;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
-use Jexactyl\Exceptions\Http\Connection\DaemonConnectionException;
+use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
 
 class ServerTransferController extends Controller
 {
@@ -36,7 +36,7 @@ class ServerTransferController extends Controller
         $server = $this->repository->getByUuid($uuid);
         $transfer = $server->transfer;
         if (is_null($transfer)) {
-            throw new ConflictHttpException('Server is not being transferred.');
+            throw new ConflictHttpException('O servidor não está sendo transferido.');
         }
 
         return $this->processFailedTransfer($transfer);
@@ -52,10 +52,10 @@ class ServerTransferController extends Controller
         $server = $this->repository->getByUuid($uuid);
         $transfer = $server->transfer;
         if (is_null($transfer)) {
-            throw new ConflictHttpException('Server is not being transferred.');
+            throw new ConflictHttpException('O servidor não está sendo transferido.');
         }
 
-        /** @var \Jexactyl\Models\Server $server */
+        /** @var \Pterodactyl\Models\Server $server */
         $server = $this->connection->transaction(function () use ($server, $transfer) {
             $allocations = array_merge([$transfer->old_allocation], $transfer->old_additional_allocations);
 

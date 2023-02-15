@@ -1,18 +1,18 @@
 <?php
 
-namespace Jexactyl\Http\Controllers\Api\Client\Store;
+namespace Pterodactyl\Http\Controllers\Api\Client\Store;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
-use Jexactyl\Exceptions\DisplayException;
 use PayPalCheckoutSdk\Core\PayPalHttpClient;
+use Pterodactyl\Exceptions\DisplayException;
 use PayPalCheckoutSdk\Core\ProductionEnvironment;
 use PayPalCheckoutSdk\Orders\OrdersCreateRequest;
 use PayPalCheckoutSdk\Orders\OrdersCaptureRequest;
-use Jexactyl\Http\Controllers\Api\Client\ClientApiController;
-use Jexactyl\Http\Requests\Api\Client\Store\Gateways\PayPalRequest;
+use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
+use Pterodactyl\Http\Requests\Api\Client\Store\Gateways\PayPalRequest;
 
 class PayPalController extends ClientApiController
 {
@@ -30,7 +30,7 @@ class PayPalController extends ClientApiController
     public function purchase(PayPalRequest $request): JsonResponse
     {
         if ($this->settings->get('jexactyl::store:paypal:enabled') != 'true') {
-            throw new DisplayException('Unable to purchase via PayPal: module not enabled');
+            throw new DisplayException('Não é possível comprar via PayPal: módulo não ativado');
         }
 
         $amount = $request->input('amount');
@@ -71,7 +71,7 @@ class PayPalController extends ClientApiController
         try {
             $response = $this->getClient()->execute($order);
         } catch (\Exception $ex) {
-            throw new DisplayException('Unable to process order.');
+            throw new DisplayException('Incapaz de processar a ordem.');
         }
 
         return new JsonResponse($response->result->links[1]->href ?? '/', 200, [], null, true);
@@ -93,7 +93,7 @@ class PayPalController extends ClientApiController
         try {
             $res = $this->getClient()->execute($order);
         } catch (DisplayException $ex) {
-            throw new DisplayException('Unable to process order.');
+            throw new DisplayException('Não foi possível processar o pedido.');
         }
 
         if ($res->statusCode == 200 || 201) {

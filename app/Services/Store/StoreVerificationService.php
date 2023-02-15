@@ -1,12 +1,12 @@
 <?php
 
-namespace Jexactyl\Services\Store;
+namespace Pterodactyl\Services\Store;
 
-use Jexactyl\Models\Node;
+use Pterodactyl\Models\Node;
 use Illuminate\Support\Facades\DB;
-use Jexactyl\Exceptions\DisplayException;
-use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
-use Jexactyl\Http\Requests\Api\Client\Store\CreateServerRequest;
+use Pterodactyl\Exceptions\DisplayException;
+use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Pterodactyl\Http\Requests\Api\Client\Store\CreateServerRequest;
 
 class StoreVerificationService
 {
@@ -71,6 +71,7 @@ class StoreVerificationService
 
         if ($fee > $request->user()->store_balance) {
             throw new DisplayException('You do not have enough credits to deploy to this node, as it has a deployment fee of ' . $fee . ' credits.');
+            throw new DisplayException('Você não tem créditos suficientes para implantar a este Node, pois ele tem uma taxa de implantação de ' . $fee . ' créditos.');
         }
     }
 }

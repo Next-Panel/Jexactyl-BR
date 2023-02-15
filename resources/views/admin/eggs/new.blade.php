@@ -47,7 +47,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="checkbox checkbox-primary no-margin-bottom">
-                                    <input id="pForceOutgoingIp" name="force_outgoing_ip" type="checkbox" value="1" {{ \Pterodactyl\Helpers\Utilities::checked('force_outgoing_ip', 0) }} />
+                                    <input id="pForceOutgoingIp" name="force_outgoing_ip" type="checkbox" value="1" {{ \Jexactyl\Helpers\Utilities::checked('force_outgoing_ip', 0) }} />
                                     <label for="pForceOutgoingIp" class="strong">Forçar o IP de saída</label>
                                     <p class="text-muted small">
                                         Força todo o tráfego de saída da rede a ter seu IP de origem NAT no IP do IP primário de alocação do servidor.
@@ -64,7 +64,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="pDockerImage" class="control-label">Imagem do Docker</label>
-                                <textarea id="pDockerImages" name="docker_images" rows="4" placeholder="quay.io/pterodactyl/service" class="form-control">{{ old('docker_images') }}</textarea>
+                                <textarea id="pDockerImages" name="docker_images" rows="4" placeholder="quay.io/Jexactyl/service" class="form-control">{{ old('docker_images') }}</textarea>
                                 <p class="text-muted small">As imagens dos dockers disponíveis para os servidores que utilizam este egg. Insira uma por linha. Os usuários poderão selecionar a partir desta lista de imagens se mais de um valor for fornecido.</p>
                             </div>
                             <div class="form-group">
@@ -142,7 +142,7 @@
     });
     $('#pNestId').on('change', function (event) {
         $('#pConfigFrom').html('<option value="">None</option>').select2({
-            data: $.map(_.get(Pterodactyl.nests, $(this).val() + '.eggs', []), function (item) {
+            data: $.map(_.get(Jexactyl.nests, $(this).val() + '.eggs', []), function (item) {
                 return {
                     id: item.id,
                     text: item.name + ' <' + item.author + '>',

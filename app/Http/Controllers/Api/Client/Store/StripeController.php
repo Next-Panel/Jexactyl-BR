@@ -1,13 +1,13 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Client\Store;
+namespace Jexactyl\Http\Controllers\Api\Client\Store;
 
 use Stripe\StripeClient;
 use Illuminate\Http\JsonResponse;
 use Stripe\Exception\ApiErrorException;
-use Pterodactyl\Exceptions\DisplayException;
-use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
-use Pterodactyl\Http\Requests\Api\Client\Store\Gateways\StripeRequest;
+use Jexactyl\Exceptions\DisplayException;
+use Jexactyl\Http\Controllers\Api\Client\ClientApiController;
+use Jexactyl\Http\Requests\Api\Client\Store\Gateways\StripeRequest;
 
 class StripeController extends ClientApiController
 {
@@ -31,8 +31,8 @@ class StripeController extends ClientApiController
         $currency = config('gateways.currency', 'BRL');
 
         $checkout = $client->checkout->sessions->create([
-            'success_url' => config('app.url') . '/store/balance',
-            'cancel_url' => config('app.url') . '/store/error',
+            'success_url' => config('app.url') . '/store/credits',
+            'cancel_url' => config('app.url'),
             'mode' => 'payment',
             'customer_email' => $request->user()->email,
             'metadata' => ['credit_amount' => $amount, 'user_id' => $request->user()->id],

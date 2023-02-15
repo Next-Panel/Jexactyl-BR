@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Console\Commands\Node;
+namespace Jexactyl\Console\Commands\Node;
 
 use Illuminate\Console\Command;
-use Pterodactyl\Services\Nodes\NodeCreationService;
+use Jexactyl\Services\Nodes\NodeCreationService;
 
 class MakeNodeCommand extends Command
 {
@@ -38,7 +38,7 @@ class MakeNodeCommand extends Command
     /**
      * Handle the command execution process.
      *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Jexactyl\Exceptions\Model\DataValidationException
      */
     public function handle()
     {
@@ -61,7 +61,7 @@ class MakeNodeCommand extends Command
         $data['upload_size'] = $this->option('uploadSize') ?? $this->ask('Insira o tamanho máximo de upload de arquivo', '100');
         $data['daemonListen'] = $this->option('daemonListeningPort') ?? $this->ask('Entre na porta de escuta das Wings', '8080');
         $data['daemonSFTP'] = $this->option('daemonSFTPPort') ?? $this->ask('Entre na porta de escuta SFTP das wings', '2022');
-        $data['daemonBase'] = $this->option('daemonBase') ?? $this->ask('Entre na pasta base', '/var/lib/pterodactyl/volumes');
+        $data['daemonBase'] = $this->option('daemonBase') ?? $this->ask('Entre na pasta base', '/var/lib/Jexactyl/volumes');
 
         $node = $this->creationService->handle($data);
         $this->line('Um novo node foi criado com sucesso na localização ' . $data['location_id'] . ' com o nome ' . $data['name'] . ' e tem um id de ' . $node->id . '.');

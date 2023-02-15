@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Console\Commands\Environment;
+namespace Jexactyl\Console\Commands\Environment;
 
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\Kernel;
-use Pterodactyl\Traits\Commands\EnvironmentWriterTrait;
+use Jexactyl\Traits\Commands\EnvironmentWriterTrait;
 
 class AppSettingsCommand extends Command
 {
@@ -58,7 +58,7 @@ class AppSettingsCommand extends Command
     /**
      * Handle command execution.
      *
-     * @throws \Pterodactyl\Exceptions\PterodactylException
+     * @throws \Jexactyl\Exceptions\JexactylException
      */
     public function handle(): int
     {
@@ -69,7 +69,7 @@ class AppSettingsCommand extends Command
         $this->output->comment('Forneça o endereço de e-mail que será usado para exportar novos eggs . Este deve ser um endereço de e-mail válido.');
         $this->variables['APP_SERVICE_AUTHOR'] = $this->option('author') ?? $this->ask(
             'E-mail do autor do Egg',
-            config('pterodactyl.service.author', 'unknown@unknown.com')
+            config('jexactyl.service.author', 'unknown@unknown.com')
         );
 
         if (!filter_var($this->variables['APP_SERVICE_AUTHOR'], FILTER_VALIDATE_EMAIL)) {

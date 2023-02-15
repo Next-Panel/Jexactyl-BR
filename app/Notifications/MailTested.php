@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Notifications;
+namespace Jexactyl\Notifications;
 
-use Pterodactyl\Models\User;
+use Jexactyl\Models\User;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
 
@@ -22,6 +22,6 @@ class MailTested extends Notification
         return (new MailMessage())
             ->subject('Mensagem de teste de jexactyl')
             ->greeting('Olá ' . $this->user->name . '!')
-            ->line('Este é um teste do sistema de E-mail Jexactyl.!');
+            ->line('Este é um teste do sistema de e-mail Jexactyl. Você está pronto para ir!');
     }
 }

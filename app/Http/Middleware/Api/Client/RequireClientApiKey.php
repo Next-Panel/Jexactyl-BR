@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Http\Middleware\Api\Client;
+namespace Jexactyl\Http\Middleware\Api\Client;
 
+use Jexactyl\Models\ApiKey;
 use Illuminate\Http\Request;
-use Pterodactyl\Models\ApiKey;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class RequireClientApiKey

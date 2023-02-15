@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Http\Middleware\Activity;
+namespace Jexactyl\Http\Middleware\Activity;
 
+use Jexactyl\Models\Server;
 use Illuminate\Http\Request;
-use Pterodactyl\Models\Server;
-use Pterodactyl\Facades\LogTarget;
+use Jexactyl\Facades\LogTarget;
 
 class ServerSubject
 {

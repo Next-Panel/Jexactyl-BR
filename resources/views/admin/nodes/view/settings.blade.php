@@ -76,7 +76,14 @@
                             </small></p>
                     </div>
                     <div class="form-group col-xs-12">
-                        <label class="form-label"><span class="label label-warning"><i class="fa fa-power-off"></i></span> Comunicar por SSL</label>
+                        <label for="deploy_fee" class="control-label">Taxa de implantação da loja</label>
+                        <div>
+                            <input type="text" autocomplete="off" name="deploy_fee" class="form-control" value="{{ old('deploy_fee', $node->deploy_fee) }}" />
+                        </div>
+                        <p class="text-muted"><small>Inserir um valor aqui significa que os usuários que implantam um servidor através da Storefront devem pagar uma taxa em créditos para implantar a este Node.</small></p>
+                    </div>
+                    <div class="form-group col-xs-12">
+                        <label class="form-label"><span class="label label-warning"><i class="fa fa-power-off"></i></span> Comunique-se através de SSL</label>
                         <div>
                             <div class="radio radio-success radio-inline">
                                 <input type="radio" id="pSSLTrue" value="https" name="scheme" {{ (old('scheme', $node->scheme) === 'https') ? 'checked' : '' }}>

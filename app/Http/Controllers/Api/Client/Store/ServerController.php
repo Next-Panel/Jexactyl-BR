@@ -1,19 +1,19 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Client\Store;
+namespace Jexactyl\Http\Controllers\Api\Client\Store;
 
+use Jexactyl\Models\Nest;
+use Jexactyl\Models\Node;
 use Illuminate\Http\Request;
-use Pterodactyl\Models\Nest;
-use Pterodactyl\Models\Node;
 use Illuminate\Http\JsonResponse;
-use Pterodactyl\Exceptions\DisplayException;
-use Pterodactyl\Services\Store\StoreCreationService;
-use Pterodactyl\Transformers\Api\Client\Store\EggTransformer;
-use Pterodactyl\Transformers\Api\Client\Store\NestTransformer;
-use Pterodactyl\Transformers\Api\Client\Store\NodeTransformer;
-use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
-use Pterodactyl\Http\Requests\Api\Client\Store\CreateServerRequest;
-use Pterodactyl\Exceptions\Service\Deployment\NoViableNodeException;
+use Jexactyl\Exceptions\DisplayException;
+use Jexactyl\Services\Store\StoreCreationService;
+use Jexactyl\Transformers\Api\Client\Store\EggTransformer;
+use Jexactyl\Transformers\Api\Client\Store\NestTransformer;
+use Jexactyl\Transformers\Api\Client\Store\NodeTransformer;
+use Jexactyl\Http\Controllers\Api\Client\ClientApiController;
+use Jexactyl\Http\Requests\Api\Client\Store\CreateServerRequest;
+use Jexactyl\Exceptions\Service\Deployment\NoViableNodeException;
 
 class ServerController extends ClientApiController
 {
@@ -51,8 +51,8 @@ class ServerController extends ClientApiController
      */
     public function eggs(Request $request): array
     {
-        $id = $request->input('id') ?? Nest::first()->id;
-        $eggs = Nest::query()->where('id', $id)->first()->eggs;
+        $id = $request->input('id') ?? Nest::where('private', false)->first()->id;
+        $eggs = Nest::query()->where('id', $id)->where('private', false)->first()->eggs;
 
         return $this->fractal->collection($eggs)
             ->transformWith($this->getTransformer(EggTransformer::class))
@@ -68,6 +68,7 @@ class ServerController extends ClientApiController
     public function store(CreateServerRequest $request): JsonResponse
     {
         $user = $request->user();
+        $fee = Node::find($request->input('node'))->deploy_fee;
 
         if (!$user->verified) {
             throw new DisplayException('A implantação do servidor não está disponível para contas não verificadas.');
@@ -77,9 +78,14 @@ class ServerController extends ClientApiController
             throw new DisplayException('Este nest é privado e não pode ser implantado.');
         }
 
+        if ($user->store_slots < 1) {
+            throw new DisplayException('You do not have enough server slots in order to deploy a server.');
+        }
+
         $server = $this->creationService->handle($request);
 
         $user->update([
+            'store_balance' => $user->store_balance - $fee ?? 0,
             'store_cpu' => $user->store_cpu - $request->input('cpu'),
             'store_memory' => $user->store_memory - $request->input('memory'),
             'store_disk' => $user->store_disk - $request->input('disk'),

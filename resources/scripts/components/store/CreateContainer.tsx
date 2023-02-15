@@ -67,20 +67,9 @@ export default () => {
 
         getResources().then((resources) => setResources(resources));
 
-        getNodes().then((nodes) => {
-            setNode(nodes[0].id);
-            setNodes(nodes);
-        });
-
-        getNests().then((nests) => {
-            setNest(nests[0].id);
-            setNests(nests);
-        });
-
-        getEggs().then((eggs) => {
-            setEgg(eggs[0].id);
-            setEggs(eggs);
-        });
+        getEggs().then((eggs) => setEggs(eggs));
+        getNests().then((nests) => setNests(nests));
+        getNodes().then((nodes) => setNodes(nodes));
     }, []);
 
     const changeNest = (e: ChangeEvent<HTMLSelectElement>) => {

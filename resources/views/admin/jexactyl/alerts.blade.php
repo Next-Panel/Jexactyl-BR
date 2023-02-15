@@ -2,7 +2,7 @@
 @include('partials/admin.jexactyl.nav', ['activeTab' => 'alerts'])
 
 @section('title')
-Configurações de alerta
+    Configurações de alerta
 @endsection
 
 @section('content-header')

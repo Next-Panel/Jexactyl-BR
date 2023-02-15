@@ -176,7 +176,7 @@ export default () => {
                                         {act.createdAt ? format(act.createdAt, 'MMM do, yyyy HH:mm') : 'Nunca'}
                                     </p>
                                     <p css={tw`text-2xs text-neutral-300 uppercase`}>
-                                        Código utilizado:&nbsp;{act.code}
+                                        Usado em:&nbsp;{act.code}
                                     </p>
                                 </div>
                             </GreyRowBox>

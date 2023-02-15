@@ -160,7 +160,7 @@ export default () => {
                         </Button.Danger>
                     </Wrapper>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Altere a quantidade de armazenamento atribuída ao servidor.
+                        Alterar a quantidade de armazenamento atribuída ao servidor.
                     </p>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
                         O limite não pode ser menor que 1 GB.

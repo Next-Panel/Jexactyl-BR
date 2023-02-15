@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property int $memory_overallocate
  * @property int $disk
  * @property int $disk_overallocate
+ * @property int|null $deploy_fee
  * @property int $upload_size
  * @property string $daemon_token_id
  * @property string $daemon_token
@@ -86,7 +87,7 @@ class Node extends Model
         'fqdn', 'scheme', 'behind_proxy',
         'memory', 'memory_overallocate', 'disk',
         'disk_overallocate', 'upload_size', 'daemonBase',
-        'daemonSFTP', 'daemonListen',
+        'daemonSFTP', 'daemonListen', 'deploy_fee',
         'description', 'maintenance_mode',
     ];
 

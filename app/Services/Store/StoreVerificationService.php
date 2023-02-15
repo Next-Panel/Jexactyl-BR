@@ -2,6 +2,7 @@
 
 namespace Pterodactyl\Services\Store;
 
+use Pterodactyl\Models\Node;
 use Illuminate\Support\Facades\DB;
 use Pterodactyl\Exceptions\DisplayException;
 use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
@@ -23,6 +24,8 @@ class StoreVerificationService
     {
         $this->checkUserResources($request);
         $this->checkResourceLimits($request);
+
+        $this->checkDeploymentCost($request);
     }
 
     private function checkUserResources(CreateServerRequest $request)
@@ -56,6 +59,18 @@ class StoreVerificationService
             if ($limit < $amount) {
                 throw new DisplayException('You cannot deploy with ' . $amount . ' ' . $type . ', as an admin has set a limit of ' . $limit);
             }
+        }
+    }
+
+    /**
+     * Ensures the user has enough credits in order to deploy to a given node.
+     */
+    private function checkDeploymentCost(CreateServerRequest $request)
+    {
+        $fee = Node::find($request->input('node'))->deploy_fee;
+
+        if ($fee > $request->user()->store_balance) {
+            throw new DisplayException('Você não tem créditos suficientes para implantar a este Node, pois ele tem uma taxa de implantação de ' . $fee . ' créditos.');
         }
     }
 }

@@ -51,8 +51,8 @@ class ServerController extends ClientApiController
      */
     public function eggs(Request $request): array
     {
-        $id = $request->input('id') ?? Nest::first()->id;
-        $eggs = Nest::query()->where('id', $id)->first()->eggs;
+        $id = $request->input('id') ?? Nest::where('private', false)->first()->id;
+        $eggs = Nest::query()->where('id', $id)->where('private', false)->first()->eggs;
 
         return $this->fractal->collection($eggs)
             ->transformWith($this->getTransformer(EggTransformer::class))
@@ -68,18 +68,24 @@ class ServerController extends ClientApiController
     public function store(CreateServerRequest $request): JsonResponse
     {
         $user = $request->user();
+        $fee = Node::find($request->input('node'))->deploy_fee;
 
         if (!$user->verified) {
-            throw new DisplayException('A implantação do servidor não está disponível para contas não verificadas.');
+            throw new DisplayException('A implementação do servidor não está disponível para contas não verificadas.');
         }
 
         if (Nest::find($request->input('nest'))->private) {
-            throw new DisplayException('Este nest é privado e não pode ser implantado.');
+            throw new DisplayException('Este Nest é privado e não pode ser implantado.');
+        }
+
+        if ($user->store_slots < 1) {
+            throw new DisplayException('Você não tem slots de servidor suficientes para implantar um servidor.');
         }
 
         $server = $this->creationService->handle($request);
 
         $user->update([
+            'store_balance' => $user->store_balance - $fee ?? 0,
             'store_cpu' => $user->store_cpu - $request->input('cpu'),
             'store_memory' => $user->store_memory - $request->input('memory'),
             'store_disk' => $user->store_disk - $request->input('disk'),

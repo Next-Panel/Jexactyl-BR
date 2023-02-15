@@ -80,6 +80,7 @@ class ScheduleTaskController extends ClientApiController
                 'time_offset' => $request->input('time_offset'),
                 'continue_on_failure' => $request->boolean('continue_on_failure'),
             ]);
+        });
 
         Activity::event('server:task.create')
             ->subject($schedule, $task)

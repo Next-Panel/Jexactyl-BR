@@ -1,12 +1,12 @@
 <?php
 
-namespace Jexactyl\Tests\Integration\Api\Client\Server\Startup;
+namespace Pterodactyl\Tests\Integration\Api\Client\Server\Startup;
 
-use Jexactyl\Models\User;
+use Pterodactyl\Models\User;
 use Illuminate\Http\Response;
-use Jexactyl\Models\Permission;
-use Jexactyl\Models\EggVariable;
-use Jexactyl\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use Pterodactyl\Models\Permission;
+use Pterodactyl\Models\EggVariable;
+use Pterodactyl\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class UpdateStartupVariableTest extends ClientApiIntegrationTestCase
 {
@@ -17,7 +17,7 @@ class UpdateStartupVariableTest extends ClientApiIntegrationTestCase
      */
     public function testStartupVariableCanBeUpdated(array $permissions)
     {
-        /** @var \Jexactyl\Models\Server $server */
+        /** @var \Pterodactyl\Models\Server $server */
         [$user, $server] = $this->generateTestAccount($permissions);
         $server->fill([
             'startup' => 'java {{SERVER_JARFILE}} --version {{BUNGEE_VERSION}}',
@@ -30,7 +30,7 @@ class UpdateStartupVariableTest extends ClientApiIntegrationTestCase
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonPath('errors.0.code', 'ValidationException');
-        $response->assertJsonPath('errors.0.detail', 'The value may only contain letters and numbers.');
+        $response->assertJsonPath('errors.0.detail', 'O value só pode conter letras e números.');
 
         $response = $this->actingAs($user)->putJson($this->link($server) . '/startup/variable', [
             'key' => 'BUNGEE_VERSION',
@@ -52,7 +52,7 @@ class UpdateStartupVariableTest extends ClientApiIntegrationTestCase
      */
     public function testStartupVariableCannotBeUpdatedIfNotUserViewableOrEditable(array $permissions)
     {
-        /** @var \Jexactyl\Models\Server $server */
+        /** @var \Pterodactyl\Models\Server $server */
         [$user, $server] = $this->generateTestAccount($permissions);
 
         $egg = $this->cloneEggAndVariables($server->egg);
@@ -87,7 +87,7 @@ class UpdateStartupVariableTest extends ClientApiIntegrationTestCase
      */
     public function testHiddenVariablesAreNotReturnedInStartupCommandWhenUpdatingVariable()
     {
-        /** @var \Jexactyl\Models\Server $server */
+        /** @var \Pterodactyl\Models\Server $server */
         [$user, $server] = $this->generateTestAccount();
 
         $egg = $this->cloneEggAndVariables($server->egg);
@@ -114,11 +114,11 @@ class UpdateStartupVariableTest extends ClientApiIntegrationTestCase
      * Test that an egg variable with a validation rule of 'nullable|string' works if no value
      * is passed through in the request.
      *
-     * @see https://github.com/Jexactyl/panel/issues/2433
+     * @see https://github.com/pterodactyl/panel/issues/2433
      */
     public function testEggVariableWithNullableStringIsNotRequired()
     {
-        /** @var \Jexactyl\Models\Server $server */
+        /** @var \Pterodactyl\Models\Server $server */
         [$user, $server] = $this->generateTestAccount();
 
         $egg = $this->cloneEggAndVariables($server->egg);

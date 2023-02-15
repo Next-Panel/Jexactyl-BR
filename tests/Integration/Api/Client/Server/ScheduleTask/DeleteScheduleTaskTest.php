@@ -1,13 +1,13 @@
 <?php
 
-namespace Jexactyl\Tests\Integration\Api\Client\Server\ScheduleTask;
+namespace Pterodactyl\Tests\Integration\Api\Client\Server\ScheduleTask;
 
-use Jexactyl\Models\Task;
-use Jexactyl\Models\User;
+use Pterodactyl\Models\Task;
+use Pterodactyl\Models\User;
 use Illuminate\Http\Response;
-use Jexactyl\Models\Schedule;
-use Jexactyl\Models\Permission;
-use Jexactyl\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use Pterodactyl\Models\Schedule;
+use Pterodactyl\Models\Permission;
+use Pterodactyl\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class DeleteScheduleTaskTest extends ClientApiIntegrationTestCase
 {

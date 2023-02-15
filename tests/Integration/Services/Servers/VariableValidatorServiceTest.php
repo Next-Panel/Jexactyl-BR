@@ -1,13 +1,13 @@
 <?php
 
-namespace Jexactyl\Tests\Integration\Services\Servers;
+namespace Pterodactyl\Tests\Integration\Services\Servers;
 
-use Jexactyl\Models\Egg;
-use Jexactyl\Models\User;
+use Pterodactyl\Models\Egg;
+use Pterodactyl\Models\User;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\ValidationException;
-use Jexactyl\Tests\Integration\IntegrationTestCase;
-use Jexactyl\Services\Servers\VariableValidatorService;
+use Pterodactyl\Tests\Integration\IntegrationTestCase;
+use Pterodactyl\Services\Servers\VariableValidatorService;
 
 class VariableValidatorServiceTest extends IntegrationTestCase
 {
@@ -19,7 +19,7 @@ class VariableValidatorServiceTest extends IntegrationTestCase
 
         /* @noinspection PhpFieldAssignmentTypeMismatchInspection */
         $this->egg = Egg::query()
-            ->where('author', 'support@jexactyl.com')
+            ->where('author', 'support@pterodactyl.io')
             ->where('name', 'Bungeecord')
             ->firstOrFail();
     }
@@ -43,8 +43,8 @@ class VariableValidatorServiceTest extends IntegrationTestCase
             $this->assertCount(2, $errors);
             $this->assertArrayHasKey('environment.BUNGEE_VERSION', $errors);
             $this->assertArrayHasKey('environment.SERVER_JARFILE', $errors);
-            $this->assertSame('The Bungeecord Version variable may only contain letters and numbers.', $errors['environment.BUNGEE_VERSION'][0]);
-            $this->assertSame('The Bungeecord Jar File variable field is required.', $errors['environment.SERVER_JARFILE'][0]);
+            $this->assertSame('O Bungeecord Version variable só pode conter letras e números.', $errors['environment.BUNGEE_VERSION'][0]);
+            $this->assertSame('O campo Bungeecord Jar File variable é obrigatório.', $errors['environment.SERVER_JARFILE'][0]);
         }
 
         $response = $this->getService()->handle($egg->id, [

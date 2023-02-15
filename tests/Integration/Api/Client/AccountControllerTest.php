@@ -1,9 +1,9 @@
 <?php
 
-namespace Jexactyl\Tests\Integration\Api\Client;
+namespace Pterodactyl\Tests\Integration\Api\Client;
 
-use Jexactyl\Models\User;
 use Illuminate\Support\Str;
+use Pterodactyl\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
@@ -14,7 +14,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
      */
     public function testAccountDetailsAreReturned()
     {
-        /** @var \Jexactyl\Models\User $user */
+        /** @var \Pterodactyl\Models\User $user */
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get('/api/client/account');
@@ -38,7 +38,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
      */
     public function testEmailIsUpdated()
     {
-        /** @var \Jexactyl\Models\User $user */
+        /** @var \Pterodactyl\Models\User $user */
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->putJson('/api/client/account/email', [
@@ -57,7 +57,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
      */
     public function testEmailIsNotUpdatedWhenPasswordIsInvalid()
     {
-        /** @var \Jexactyl\Models\User $user */
+        /** @var \Pterodactyl\Models\User $user */
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->putJson('/api/client/account/email', [
@@ -67,7 +67,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
 
         $response->assertStatus(Response::HTTP_BAD_REQUEST);
         $response->assertJsonPath('errors.0.code', 'InvalidPasswordProvidedException');
-        $response->assertJsonPath('errors.0.detail', 'The password provided was invalid for this account.');
+        $response->assertJsonPath('errors.0.detail', 'A senha fornecida é inválida para esta conta.');
     }
 
     /**
@@ -76,7 +76,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
      */
     public function testEmailIsNotUpdatedWhenNotValid()
     {
-        /** @var \Jexactyl\Models\User $user */
+        /** @var \Pterodactyl\Models\User $user */
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->putJson('/api/client/account/email', [
@@ -86,7 +86,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonPath('errors.0.meta.rule', 'required');
-        $response->assertJsonPath('errors.0.detail', 'The email field is required.');
+        $response->assertJsonPath('errors.0.detail', 'O campo email é obrigatório.');
 
         $response = $this->actingAs($user)->putJson('/api/client/account/email', [
             'email' => 'invalid',
@@ -95,7 +95,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonPath('errors.0.meta.rule', 'email');
-        $response->assertJsonPath('errors.0.detail', 'The email must be a valid email address.');
+        $response->assertJsonPath('errors.0.detail', 'O email deve ser um endereço de e-mail válido.');
     }
 
     /**
@@ -103,7 +103,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
      */
     public function testPasswordIsUpdated()
     {
-        /** @var \Jexactyl\Models\User $user */
+        /** @var \Pterodactyl\Models\User $user */
         $user = User::factory()->create();
 
         $initialHash = $user->password;
@@ -129,7 +129,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
      */
     public function testPasswordIsNotUpdatedIfCurrentPasswordIsInvalid()
     {
-        /** @var \Jexactyl\Models\User $user */
+        /** @var \Pterodactyl\Models\User $user */
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->putJson('/api/client/account/password', [
@@ -140,7 +140,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
 
         $response->assertStatus(Response::HTTP_BAD_REQUEST);
         $response->assertJsonPath('errors.0.code', 'InvalidPasswordProvidedException');
-        $response->assertJsonPath('errors.0.detail', 'The password provided was invalid for this account.');
+        $response->assertJsonPath('errors.0.detail', 'A senha fornecida é inválida para esta conta.');
     }
 
     /**
@@ -172,7 +172,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
      */
     public function testErrorIsReturnedIfPasswordIsNotConfirmed()
     {
-        /** @var \Jexactyl\Models\User $user */
+        /** @var \Pterodactyl\Models\User $user */
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->putJson('/api/client/account/password', [
@@ -183,6 +183,6 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonPath('errors.0.meta.rule', 'confirmed');
-        $response->assertJsonPath('errors.0.detail', 'The password confirmation does not match.');
+        $response->assertJsonPath('errors.0.detail', 'A confirmação password não corresponde.');
     }
 }

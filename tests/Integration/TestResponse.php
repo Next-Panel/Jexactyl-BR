@@ -1,10 +1,10 @@
 <?php
 
-namespace Jexactyl\Tests\Integration;
+namespace Pterodactyl\Tests\Integration;
 
 use Illuminate\Http\Response;
 use Illuminate\Testing\Assert as PHPUnit;
-use Jexactyl\Exceptions\DisplayException;
+use Pterodactyl\Exceptions\DisplayException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Testing\TestResponse as IlluminateTestResponse;
 
@@ -32,7 +32,7 @@ class TestResponse extends IlluminateTestResponse
             }
         }
 
-        PHPUnit::assertSame($actual, $status, "Expected status code {$status} but received {$actual}.");
+        PHPUnit::assertSame($actual, $status, "Código de status esperado era {$status} porém recebeu {$actual}.");
 
         return $this;
     }

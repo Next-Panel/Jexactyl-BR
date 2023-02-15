@@ -1,16 +1,16 @@
 <?php
 
-namespace Jexactyl\Tests\Integration\Services\Servers;
+namespace Pterodactyl\Tests\Integration\Services\Servers;
 
 use Exception;
-use Jexactyl\Models\Nest;
-use Jexactyl\Models\User;
-use Jexactyl\Models\Server;
-use Jexactyl\Models\ServerVariable;
+use Pterodactyl\Models\Nest;
+use Pterodactyl\Models\User;
+use Pterodactyl\Models\Server;
+use Pterodactyl\Models\ServerVariable;
 use Illuminate\Validation\ValidationException;
-use Jexactyl\Tests\Integration\IntegrationTestCase;
+use Pterodactyl\Tests\Integration\IntegrationTestCase;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Jexactyl\Services\Servers\StartupModificationService;
+use Pterodactyl\Services\Servers\StartupModificationService;
 
 class StartupModificationServiceTest extends IntegrationTestCase
 {
@@ -43,7 +43,7 @@ class StartupModificationServiceTest extends IntegrationTestCase
             $this->assertCount(1, $errors);
             $this->assertArrayHasKey('environment.BUNGEE_VERSION', $errors);
             $this->assertCount(1, $errors['environment.BUNGEE_VERSION']);
-            $this->assertSame('The Bungeecord Version variable may only contain letters and numbers.', $errors['environment.BUNGEE_VERSION'][0]);
+            $this->assertSame('O Bungeecord Version variable só pode conter letras e números.', $errors['environment.BUNGEE_VERSION'][0]);
         }
 
         ServerVariable::query()->where('variable_id', $server->variables[1]->id)->delete();
@@ -70,7 +70,7 @@ class StartupModificationServiceTest extends IntegrationTestCase
      */
     public function testServerIsProperlyModifiedAsAdminUser()
     {
-        /** @var \Jexactyl\Models\Egg $nextEgg */
+        /** @var \Pterodactyl\Models\Egg $nextEgg */
         $nextEgg = Nest::query()->findOrFail(2)->eggs()->firstOrFail();
 
         $server = $this->createServerModel(['egg_id' => 1]);

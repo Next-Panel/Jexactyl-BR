@@ -1,11 +1,11 @@
 <?php
 
-namespace Jexactyl\Tests\Integration\Api\Application\Nests;
+namespace Pterodactyl\Tests\Integration\Api\Application\Nests;
 
 use Illuminate\Http\Response;
-use Jexactyl\Contracts\Repository\NestRepositoryInterface;
-use Jexactyl\Transformers\Api\Application\NestTransformer;
-use Jexactyl\Tests\Integration\Api\Application\ApplicationApiIntegrationTestCase;
+use Pterodactyl\Contracts\Repository\NestRepositoryInterface;
+use Pterodactyl\Transformers\Api\Application\NestTransformer;
+use Pterodactyl\Tests\Integration\Api\Application\ApplicationApiIntegrationTestCase;
 
 class NestControllerTest extends ApplicationApiIntegrationTestCase
 {
@@ -26,7 +26,7 @@ class NestControllerTest extends ApplicationApiIntegrationTestCase
      */
     public function testNestResponse()
     {
-        /** @var \Jexactyl\Models\Nest[] $nests */
+        /** @var \Pterodactyl\Models\Nest[] $nests */
         $nests = $this->repository->all();
 
         $response = $this->getJson('/api/application/nests');

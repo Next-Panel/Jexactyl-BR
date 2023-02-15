@@ -1,15 +1,15 @@
 <?php
 
-namespace Jexactyl\Tests\Traits\Integration;
+namespace Pterodactyl\Tests\Traits\Integration;
 
 use Ramsey\Uuid\Uuid;
-use Jexactyl\Models\Egg;
-use Jexactyl\Models\Node;
-use Jexactyl\Models\User;
-use Jexactyl\Models\Server;
-use Jexactyl\Models\Subuser;
-use Jexactyl\Models\Location;
-use Jexactyl\Models\Allocation;
+use Pterodactyl\Models\Egg;
+use Pterodactyl\Models\Node;
+use Pterodactyl\Models\User;
+use Pterodactyl\Models\Server;
+use Pterodactyl\Models\Subuser;
+use Pterodactyl\Models\Location;
+use Pterodactyl\Models\Allocation;
 
 trait CreatesTestModels
 {
@@ -27,25 +27,25 @@ trait CreatesTestModels
         }
 
         if (!isset($attributes['owner_id'])) {
-            /** @var \Jexactyl\Models\User $user */
+            /** @var \Pterodactyl\Models\User $user */
             $user = User::factory()->create();
             $attributes['owner_id'] = $user->id;
         }
 
         if (!isset($attributes['node_id'])) {
             if (!isset($attributes['location_id'])) {
-                /** @var \Jexactyl\Models\Location $location */
+                /** @var \Pterodactyl\Models\Location $location */
                 $location = Location::factory()->create();
                 $attributes['location_id'] = $location->id;
             }
 
-            /** @var \Jexactyl\Models\Node $node */
+            /** @var \Pterodactyl\Models\Node $node */
             $node = Node::factory()->create(['location_id' => $attributes['location_id']]);
             $attributes['node_id'] = $node->id;
         }
 
         if (!isset($attributes['allocation_id'])) {
-            /** @var \Jexactyl\Models\Allocation $allocation */
+            /** @var \Pterodactyl\Models\Allocation $allocation */
             $allocation = Allocation::factory()->create(['node_id' => $attributes['node_id']]);
             $attributes['allocation_id'] = $allocation->id;
         }
@@ -65,7 +65,7 @@ trait CreatesTestModels
 
         unset($attributes['user_id'], $attributes['location_id']);
 
-        /** @var \Jexactyl\Models\Server $server */
+        /** @var \Pterodactyl\Models\Server $server */
         $server = Server::factory()->create($attributes);
 
         Allocation::query()->where('id', $server->allocation_id)->update(['server_id' => $server->id]);
@@ -81,11 +81,11 @@ trait CreatesTestModels
      *
      * @param string[] $permissions
      *
-     * @return array{\Jexactyl\Models\User, \Jexactyl\Models\Server}
+     * @return array{\Pterodactyl\Models\User, \Pterodactyl\Models\Server}
      */
     public function generateTestAccount(array $permissions = []): array
     {
-        /** @var \Jexactyl\Models\User $user */
+        /** @var \Pterodactyl\Models\User $user */
         $user = User::factory()->create();
 
         if (empty($permissions)) {
@@ -113,7 +113,7 @@ trait CreatesTestModels
         $model->uuid = Uuid::uuid4()->toString();
         $model->push();
 
-        /** @var \Jexactyl\Models\Egg $model */
+        /** @var \Pterodactyl\Models\Egg $model */
         $model = $model->fresh();
 
         foreach ($egg->variables as $variable) {
@@ -129,8 +129,8 @@ trait CreatesTestModels
      */
     private function getBungeecordEgg(): Egg
     {
-        /** @var \Jexactyl\Models\Egg $egg */
-        $egg = Egg::query()->where('author', 'support@jexactyl.com')->where('name', 'Bungeecord')->firstOrFail();
+        /** @var \Pterodactyl\Models\Egg $egg */
+        $egg = Egg::query()->where('author', 'support@pterodactyl.io')->where('name', 'Bungeecord')->firstOrFail();
 
         return $egg;
     }

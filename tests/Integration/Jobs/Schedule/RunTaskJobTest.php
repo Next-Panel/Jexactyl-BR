@@ -1,20 +1,20 @@
 <?php
 
-namespace Jexactyl\Tests\Integration\Jobs\Schedule;
+namespace Pterodactyl\Tests\Integration\Jobs\Schedule;
 
 use Carbon\Carbon;
-use Jexactyl\Models\Task;
 use Carbon\CarbonImmutable;
-use Jexactyl\Models\Server;
 use GuzzleHttp\Psr7\Request;
+use Pterodactyl\Models\Task;
 use GuzzleHttp\Psr7\Response;
-use Jexactyl\Models\Schedule;
+use Pterodactyl\Models\Server;
+use Pterodactyl\Models\Schedule;
 use Illuminate\Support\Facades\Bus;
-use Jexactyl\Jobs\Schedule\RunTaskJob;
+use Pterodactyl\Jobs\Schedule\RunTaskJob;
 use GuzzleHttp\Exception\BadResponseException;
-use Jexactyl\Tests\Integration\IntegrationTestCase;
-use Jexactyl\Repositories\Wings\DaemonPowerRepository;
-use Jexactyl\Exceptions\Http\Connection\DaemonConnectionException;
+use Pterodactyl\Tests\Integration\IntegrationTestCase;
+use Pterodactyl\Repositories\Wings\DaemonPowerRepository;
+use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
 
 class RunTaskJobTest extends IntegrationTestCase
 {
@@ -25,14 +25,14 @@ class RunTaskJobTest extends IntegrationTestCase
     {
         $server = $this->createServerModel();
 
-        /** @var \Jexactyl\Models\Schedule $schedule */
+        /** @var \Pterodactyl\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create([
             'server_id' => $server->id,
             'is_processing' => true,
             'last_run_at' => null,
             'is_active' => false,
         ]);
-        /** @var \Jexactyl\Models\Task $task */
+        /** @var \Pterodactyl\Models\Task $task */
         $task = Task::factory()->create(['schedule_id' => $schedule->id, 'is_queued' => true]);
 
         $job = new RunTaskJob($task);
@@ -52,15 +52,15 @@ class RunTaskJobTest extends IntegrationTestCase
     {
         $server = $this->createServerModel();
 
-        /** @var \Jexactyl\Models\Schedule $schedule */
+        /** @var \Pterodactyl\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create(['server_id' => $server->id]);
-        /** @var \Jexactyl\Models\Task $task */
+        /** @var \Pterodactyl\Models\Task $task */
         $task = Task::factory()->create(['schedule_id' => $schedule->id, 'action' => 'foobar']);
 
         $job = new RunTaskJob($task);
 
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid task action provided: foobar');
+        $this->expectExceptionMessage('Tarefa inválida fornecida: foobar');
         Bus::dispatchNow($job);
     }
 
@@ -71,14 +71,14 @@ class RunTaskJobTest extends IntegrationTestCase
     {
         $server = $this->createServerModel();
 
-        /** @var \Jexactyl\Models\Schedule $schedule */
+        /** @var \Pterodactyl\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create([
             'server_id' => $server->id,
             'is_active' => !$isManualRun,
             'is_processing' => true,
             'last_run_at' => null,
         ]);
-        /** @var \Jexactyl\Models\Task $task */
+        /** @var \Pterodactyl\Models\Task $task */
         $task = Task::factory()->create([
             'schedule_id' => $schedule->id,
             'action' => Task::ACTION_POWER,
@@ -112,9 +112,9 @@ class RunTaskJobTest extends IntegrationTestCase
     {
         $server = $this->createServerModel();
 
-        /** @var \Jexactyl\Models\Schedule $schedule */
+        /** @var \Pterodactyl\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create(['server_id' => $server->id]);
-        /** @var \Jexactyl\Models\Task $task */
+        /** @var \Pterodactyl\Models\Task $task */
         $task = Task::factory()->create([
             'schedule_id' => $schedule->id,
             'action' => Task::ACTION_POWER,
@@ -148,7 +148,7 @@ class RunTaskJobTest extends IntegrationTestCase
     /**
      * Test that a schedule is not executed if the server is suspended.
      *
-     * @see https://github.com/Jexactyl/panel/issues/4008
+     * @see https://github.com/pterodactyl/panel/issues/4008
      */
     public function testTaskIsNotRunIfServerIsSuspended()
     {

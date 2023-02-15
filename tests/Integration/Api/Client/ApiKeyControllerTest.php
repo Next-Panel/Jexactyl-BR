@@ -1,12 +1,12 @@
 <?php
 
-namespace Jexactyl\Tests\Integration\Api\Client;
+namespace Pterodactyl\Tests\Integration\Api\Client;
 
-use Jexactyl\Models\User;
-use Jexactyl\Models\ApiKey;
+use Pterodactyl\Models\User;
 use Illuminate\Http\Response;
-use Jexactyl\Events\ActivityLogged;
+use Pterodactyl\Models\ApiKey;
 use Illuminate\Support\Facades\Event;
+use Pterodactyl\Events\ActivityLogged;
 
 class ApiKeyControllerTest extends ClientApiIntegrationTestCase
 {
@@ -25,9 +25,9 @@ class ApiKeyControllerTest extends ClientApiIntegrationTestCase
      */
     public function testApiKeysAreReturned()
     {
-        /** @var \Jexactyl\Models\User $user */
+        /** @var \Pterodactyl\Models\User $user */
         $user = User::factory()->create();
-        /** @var \Jexactyl\Models\ApiKey $key */
+        /** @var \Pterodactyl\Models\ApiKey $key */
         $key = ApiKey::factory()->for($user)->create([
             'key_type' => ApiKey::TYPE_ACCOUNT,
         ]);
@@ -49,7 +49,7 @@ class ApiKeyControllerTest extends ClientApiIntegrationTestCase
      */
     public function testApiKeyCanBeCreatedForAccount(array $data)
     {
-        /** @var \Jexactyl\Models\User $user */
+        /** @var \Pterodactyl\Models\User $user */
         $user = User::factory()->create();
 
         // Small subtest to ensure we're always comparing the  number of keys to the
@@ -67,7 +67,7 @@ class ApiKeyControllerTest extends ClientApiIntegrationTestCase
             ->assertOk()
             ->assertJsonPath('object', ApiKey::RESOURCE_NAME);
 
-        /** @var \Jexactyl\Models\ApiKey $key */
+        /** @var \Pterodactyl\Models\ApiKey $key */
         $key = ApiKey::query()->where('identifier', $response->json('attributes.identifier'))->firstOrFail();
 
         $this->assertJsonTransformedWith($response->json('attributes'), $key);
@@ -92,19 +92,19 @@ class ApiKeyControllerTest extends ClientApiIntegrationTestCase
                 'allowed_ips' => $ips,
             ])
             ->assertUnprocessable()
-            ->assertJsonPath('errors.0.detail', 'The allowed ips may not have more than 50 items.');
+            ->assertJsonPath('errors.0.detail', 'O allowed ips não pode ter mais do que 50 itens.');
     }
 
     /**
      * Test that no more than 25 API keys can exist at any one time for an account. This prevents
      * a DoS attack vector against the panel.
      *
-     * @see https://github.com/Jexactyl/panel/security/advisories/GHSA-pjmh-7xfm-r4x9
-     * @see https://github.com/Jexactyl/panel/issues/4394
+     * @see https://github.com/pterodactyl/panel/security/advisories/GHSA-pjmh-7xfm-r4x9
+     * @see https://github.com/pterodactyl/panel/issues/4394
      */
     public function testApiKeyLimitIsApplied()
     {
-        /** @var \Jexactyl\Models\User $user */
+        /** @var \Pterodactyl\Models\User $user */
         $user = User::factory()->create();
         ApiKey::factory()->times(25)->for($user)->create([
             'key_type' => ApiKey::TYPE_ACCOUNT,
@@ -122,7 +122,7 @@ class ApiKeyControllerTest extends ClientApiIntegrationTestCase
     /**
      * Test that a bad request results in a validation error being returned by the API.
      *
-     * @see https://github.com/Jexactyl/panel/issues/2457
+     * @see https://github.com/pterodactyl/panel/issues/2457
      */
     public function testValidationErrorIsReturnedForBadRequests()
     {
@@ -134,7 +134,7 @@ class ApiKeyControllerTest extends ClientApiIntegrationTestCase
         ])
             ->assertUnprocessable()
             ->assertJsonPath('errors.0.meta.rule', 'required')
-            ->assertJsonPath('errors.0.detail', 'The description field is required.');
+            ->assertJsonPath('errors.0.detail', 'O campo description é obrigatório.');
 
         $this->postJson('/api/client/account/api-keys', [
             'description' => str_repeat('a', 501),
@@ -142,7 +142,7 @@ class ApiKeyControllerTest extends ClientApiIntegrationTestCase
         ])
             ->assertUnprocessable()
             ->assertJsonPath('errors.0.meta.rule', 'max')
-            ->assertJsonPath('errors.0.detail', 'The description may not be greater than 500 characters.');
+            ->assertJsonPath('errors.0.detail', 'O description não pode ser maior que 500 caracteres.');
 
         $this->postJson('/api/client/account/api-keys', [
                 'description' => 'Foobar',
@@ -160,9 +160,9 @@ class ApiKeyControllerTest extends ClientApiIntegrationTestCase
      */
     public function testApiKeyCanBeDeleted()
     {
-        /** @var \Jexactyl\Models\User $user */
+        /** @var \Pterodactyl\Models\User $user */
         $user = User::factory()->create();
-        /** @var \Jexactyl\Models\ApiKey $key */
+        /** @var \Pterodactyl\Models\ApiKey $key */
         $key = ApiKey::factory()->for($user)->create([
             'key_type' => ApiKey::TYPE_ACCOUNT,
         ]);
@@ -179,9 +179,9 @@ class ApiKeyControllerTest extends ClientApiIntegrationTestCase
      */
     public function testNonExistentApiKeyDeletionReturns404Error()
     {
-        /** @var \Jexactyl\Models\User $user */
+        /** @var \Pterodactyl\Models\User $user */
         $user = User::factory()->create();
-        /** @var \Jexactyl\Models\ApiKey $key */
+        /** @var \Pterodactyl\Models\ApiKey $key */
         $key = ApiKey::factory()->create([
             'user_id' => $user->id,
             'key_type' => ApiKey::TYPE_ACCOUNT,
@@ -200,11 +200,11 @@ class ApiKeyControllerTest extends ClientApiIntegrationTestCase
      */
     public function testApiKeyBelongingToAnotherUserCannotBeDeleted()
     {
-        /** @var \Jexactyl\Models\User $user */
+        /** @var \Pterodactyl\Models\User $user */
         $user = User::factory()->create();
-        /** @var \Jexactyl\Models\User $user2 */
+        /** @var \Pterodactyl\Models\User $user2 */
         $user2 = User::factory()->create();
-        /** @var \Jexactyl\Models\ApiKey $key */
+        /** @var \Pterodactyl\Models\ApiKey $key */
         $key = ApiKey::factory()->for($user2)->create([
             'key_type' => ApiKey::TYPE_ACCOUNT,
         ]);
@@ -223,9 +223,9 @@ class ApiKeyControllerTest extends ClientApiIntegrationTestCase
      */
     public function testApplicationApiKeyCannotBeDeleted()
     {
-        /** @var \Jexactyl\Models\User $user */
+        /** @var \Pterodactyl\Models\User $user */
         $user = User::factory()->create();
-        /** @var \Jexactyl\Models\ApiKey $key */
+        /** @var \Pterodactyl\Models\ApiKey $key */
         $key = ApiKey::factory()->for($user)->create([
             'key_type' => ApiKey::TYPE_APPLICATION,
         ]);

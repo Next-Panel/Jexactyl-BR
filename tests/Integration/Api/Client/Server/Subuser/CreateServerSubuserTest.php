@@ -1,14 +1,14 @@
 <?php
 
-namespace Jexactyl\Tests\Integration\Api\Client\Server\Subuser;
+namespace Pterodactyl\Tests\Integration\Api\Client\Server\Subuser;
 
-use Jexactyl\Models\User;
 use Illuminate\Support\Str;
-use Jexactyl\Models\Subuser;
+use Pterodactyl\Models\User;
 use Illuminate\Http\Response;
-use Jexactyl\Models\Permission;
+use Pterodactyl\Models\Subuser;
+use Pterodactyl\Models\Permission;
 use Illuminate\Foundation\Testing\WithFaker;
-use Jexactyl\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use Pterodactyl\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class CreateServerSubuserTest extends ClientApiIntegrationTestCase
 {
@@ -32,7 +32,7 @@ class CreateServerSubuserTest extends ClientApiIntegrationTestCase
 
         $response->assertOk();
 
-        /** @var \Jexactyl\Models\User $subuser */
+        /** @var \Pterodactyl\Models\User $subuser */
         $subuser = User::query()->where('email', $email)->firstOrFail();
 
         $response->assertJsonPath('object', Subuser::RESOURCE_NAME);
@@ -99,7 +99,7 @@ class CreateServerSubuserTest extends ClientApiIntegrationTestCase
         ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-        $response->assertJsonPath('errors.0.detail', 'The email must be between 1 and 191 characters.');
+        $response->assertJsonPath('errors.0.detail', 'O email deve estar entre 1 e 191 caracteres.');
         $response->assertJsonPath('errors.0.meta.source_field', 'email');
     }
 
@@ -111,7 +111,7 @@ class CreateServerSubuserTest extends ClientApiIntegrationTestCase
     {
         [$user, $server] = $this->generateTestAccount();
 
-        /** @var \Jexactyl\Models\User $existing */
+        /** @var \Pterodactyl\Models\User $existing */
         $existing = User::factory()->create(['email' => $this->faker->email]);
 
         $response = $this->actingAs($user)->postJson($this->link($server) . '/users', [
@@ -152,7 +152,7 @@ class CreateServerSubuserTest extends ClientApiIntegrationTestCase
 
         $response->assertStatus(Response::HTTP_BAD_REQUEST);
         $response->assertJsonPath('errors.0.code', 'ServerSubuserExistsException');
-        $response->assertJsonPath('errors.0.detail', 'A user with that email address is already assigned as a subuser for this server.');
+        $response->assertJsonPath('errors.0.detail', 'O usuário com esse endereço de e-mail já está atribuído como subusuário desse servidor.');
     }
 
     public function permissionsDataProvider(): array

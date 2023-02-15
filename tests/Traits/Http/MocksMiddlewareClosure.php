@@ -1,6 +1,6 @@
 <?php
 
-namespace Jexactyl\Tests\Traits\Http;
+namespace Pterodactyl\Tests\Traits\Http;
 
 use Closure;
 use Illuminate\Http\Request;
@@ -14,7 +14,7 @@ trait MocksMiddlewareClosure
     protected function getClosureAssertions(): \Closure
     {
         if (is_null($this->request)) {
-            throw new \BadFunctionCallException('Calling getClosureAssertions without defining a request object is not supported.');
+            throw new \BadFunctionCallException('Não é possível chamar o getClosureAssertions sem definir um objeto de solicitação.');
         }
 
         return function ($response) {

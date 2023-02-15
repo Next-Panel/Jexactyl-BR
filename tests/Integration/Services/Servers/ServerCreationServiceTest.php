@@ -1,24 +1,24 @@
 <?php
 
-namespace Jexactyl\Tests\Integration\Services\Servers;
+namespace Pterodactyl\Tests\Integration\Services\Servers;
 
-use Jexactyl\Models\Egg;
-use Jexactyl\Models\Node;
-use Jexactyl\Models\User;
 use Mockery\MockInterface;
-use Jexactyl\Models\Server;
+use Pterodactyl\Models\Egg;
 use GuzzleHttp\Psr7\Request;
+use Pterodactyl\Models\Node;
+use Pterodactyl\Models\User;
 use GuzzleHttp\Psr7\Response;
-use Jexactyl\Models\Location;
-use Jexactyl\Models\Allocation;
+use Pterodactyl\Models\Server;
+use Pterodactyl\Models\Location;
+use Pterodactyl\Models\Allocation;
 use Illuminate\Foundation\Testing\WithFaker;
-use Jexactyl\Models\Objects\DeploymentObject;
 use GuzzleHttp\Exception\BadResponseException;
 use Illuminate\Validation\ValidationException;
-use Jexactyl\Tests\Integration\IntegrationTestCase;
-use Jexactyl\Services\Servers\ServerCreationService;
-use Jexactyl\Repositories\Wings\DaemonServerRepository;
-use Jexactyl\Exceptions\Http\Connection\DaemonConnectionException;
+use Pterodactyl\Models\Objects\DeploymentObject;
+use Pterodactyl\Tests\Integration\IntegrationTestCase;
+use Pterodactyl\Services\Servers\ServerCreationService;
+use Pterodactyl\Repositories\Wings\DaemonServerRepository;
+use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
 
 class ServerCreationServiceTest extends IntegrationTestCase
 {
@@ -37,7 +37,7 @@ class ServerCreationServiceTest extends IntegrationTestCase
 
         /* @noinspection PhpFieldAssignmentTypeMismatchInspection */
         $this->bungeecord = Egg::query()
-            ->where('author', 'support@jexactyl.com')
+            ->where('author', 'support@pterodactyl.io')
             ->where('name', 'Bungeecord')
             ->firstOrFail();
 
@@ -54,18 +54,18 @@ class ServerCreationServiceTest extends IntegrationTestCase
      */
     public function testServerIsCreatedWithDeploymentObject()
     {
-        /** @var \Jexactyl\Models\User $user */
+        /** @var \Pterodactyl\Models\User $user */
         $user = User::factory()->create();
 
-        /** @var \Jexactyl\Models\Location $location */
+        /** @var \Pterodactyl\Models\Location $location */
         $location = Location::factory()->create();
 
-        /** @var \Jexactyl\Models\Node $node */
+        /** @var \Pterodactyl\Models\Node $node */
         $node = Node::factory()->create([
             'location_id' => $location->id,
         ]);
 
-        /** @var \Jexactyl\Models\Allocation[]|\Illuminate\Database\Eloquent\Collection $allocations */
+        /** @var \Pterodactyl\Models\Allocation[]|\Illuminate\Database\Eloquent\Collection $allocations */
         $allocations = Allocation::factory()->times(5)->create([
             'node_id' => $node->id,
         ]);
@@ -117,7 +117,7 @@ class ServerCreationServiceTest extends IntegrationTestCase
         } catch (ValidationException $exception) {
             $this->assertCount(1, $exception->errors());
             $this->assertArrayHasKey('environment.BUNGEE_VERSION', $exception->errors());
-            $this->assertSame('The Bungeecord Version variable field is required.', $exception->errors()['environment.BUNGEE_VERSION'][0]);
+            $this->assertSame('O campo Bungeecord Version variable é obrigatório.', $exception->errors()['environment.BUNGEE_VERSION'][0]);
         }
 
         $response = $this->getService()->handle($data, $deployment);
@@ -156,18 +156,18 @@ class ServerCreationServiceTest extends IntegrationTestCase
      */
     public function testErrorEncounteredByWingsCausesServerToBeDeleted()
     {
-        /** @var \Jexactyl\Models\User $user */
+        /** @var \Pterodactyl\Models\User $user */
         $user = User::factory()->create();
 
-        /** @var \Jexactyl\Models\Location $location */
+        /** @var \Pterodactyl\Models\Location $location */
         $location = Location::factory()->create();
 
-        /** @var \Jexactyl\Models\Node $node */
+        /** @var \Pterodactyl\Models\Node $node */
         $node = Node::factory()->create([
             'location_id' => $location->id,
         ]);
 
-        /** @var \Jexactyl\Models\Allocation $allocation */
+        /** @var \Pterodactyl\Models\Allocation $allocation */
         $allocation = Allocation::factory()->create([
             'node_id' => $node->id,
         ]);

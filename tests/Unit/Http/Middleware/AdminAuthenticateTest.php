@@ -1,9 +1,9 @@
 <?php
 
-namespace Jexactyl\Tests\Unit\Http\Middleware;
+namespace Pterodactyl\Tests\Unit\Http\Middleware;
 
-use Jexactyl\Models\User;
-use Jexactyl\Http\Middleware\AdminAuthenticate;
+use Pterodactyl\Models\User;
+use Pterodactyl\Http\Middleware\AdminAuthenticate;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class AdminAuthenticateTest extends MiddlewareTestCase

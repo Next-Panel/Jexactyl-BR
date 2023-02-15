@@ -1,16 +1,16 @@
 <?php
 
-namespace Jexactyl\Tests\Integration\Services\Databases;
+namespace Pterodactyl\Tests\Integration\Services\Databases;
 
 use Mockery\MockInterface;
-use Jexactyl\Models\Database;
-use Jexactyl\Models\DatabaseHost;
-use Jexactyl\Tests\Integration\IntegrationTestCase;
-use Jexactyl\Repositories\Eloquent\DatabaseRepository;
-use Jexactyl\Services\Databases\DatabaseManagementService;
-use Jexactyl\Exceptions\Repository\DuplicateDatabaseNameException;
-use Jexactyl\Exceptions\Service\Database\TooManyDatabasesException;
-use Jexactyl\Exceptions\Service\Database\DatabaseClientFeatureNotEnabledException;
+use Pterodactyl\Models\Database;
+use Pterodactyl\Models\DatabaseHost;
+use Pterodactyl\Tests\Integration\IntegrationTestCase;
+use Pterodactyl\Repositories\Eloquent\DatabaseRepository;
+use Pterodactyl\Services\Databases\DatabaseManagementService;
+use Pterodactyl\Exceptions\Repository\DuplicateDatabaseNameException;
+use Pterodactyl\Exceptions\Service\Database\TooManyDatabasesException;
+use Pterodactyl\Exceptions\Service\Database\DatabaseClientFeatureNotEnabledException;
 
 class DatabaseManagementServiceTest extends IntegrationTestCase
 {
@@ -23,7 +23,7 @@ class DatabaseManagementServiceTest extends IntegrationTestCase
     {
         parent::setUp();
 
-        config()->set('Jexactyl.client_features.databases.enabled', true);
+        config()->set('pterodactyl.client_features.databases.enabled', true);
 
         $this->repository = $this->mock(DatabaseRepository::class);
     }
@@ -43,7 +43,7 @@ class DatabaseManagementServiceTest extends IntegrationTestCase
      */
     public function testExceptionIsThrownIfClientDatabasesAreNotEnabled()
     {
-        config()->set('Jexactyl.client_features.databases.enabled', false);
+        config()->set('pterodactyl.client_features.databases.enabled', false);
 
         $this->expectException(DatabaseClientFeatureNotEnabledException::class);
 
@@ -77,7 +77,7 @@ class DatabaseManagementServiceTest extends IntegrationTestCase
         $server = $this->createServerModel();
 
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('The database name passed to DatabaseManagementService::handle MUST be prefixed with "s{server_id}_".');
+        $this->expectExceptionMessage('O nome do banco de dados passou para DatabaseManagementService::handle DEVE ser prefixado com "s{server_id}_".');
 
         $this->getService()->create($server, $data);
     }
@@ -99,7 +99,7 @@ class DatabaseManagementServiceTest extends IntegrationTestCase
         ]);
 
         $this->expectException(DuplicateDatabaseNameException::class);
-        $this->expectExceptionMessage('A database with that name already exists for this server.');
+        $this->expectExceptionMessage('Um banco de dados com esse nome já existe para este servidor.');
 
         // Try to create a database with the same name as a database on a different host. We expect
         // this to fail since we don't account for the specific host when checking uniqueness.

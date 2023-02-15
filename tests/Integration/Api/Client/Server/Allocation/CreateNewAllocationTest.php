@@ -1,11 +1,11 @@
 <?php
 
-namespace Jexactyl\Tests\Integration\Api\Client\Server\Allocation;
+namespace Pterodactyl\Tests\Integration\Api\Client\Server\Allocation;
 
 use Illuminate\Http\Response;
-use Jexactyl\Models\Allocation;
-use Jexactyl\Models\Permission;
-use Jexactyl\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use Pterodactyl\Models\Allocation;
+use Pterodactyl\Models\Permission;
+use Pterodactyl\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class CreateNewAllocationTest extends ClientApiIntegrationTestCase
 {
@@ -16,9 +16,9 @@ class CreateNewAllocationTest extends ClientApiIntegrationTestCase
     {
         parent::setUp();
 
-        config()->set('Jexactyl.client_features.allocations.enabled', true);
-        config()->set('Jexactyl.client_features.allocations.range_start', 5000);
-        config()->set('Jexactyl.client_features.allocations.range_end', 5050);
+        config()->set('pterodactyl.client_features.allocations.enabled', true);
+        config()->set('pterodactyl.client_features.allocations.range_start', 5000);
+        config()->set('pterodactyl.client_features.allocations.range_end', 5050);
     }
 
     /**
@@ -28,7 +28,7 @@ class CreateNewAllocationTest extends ClientApiIntegrationTestCase
      */
     public function testNewAllocationCanBeAssignedToServer(array $permission)
     {
-        /** @var \Jexactyl\Models\Server $server */
+        /** @var \Pterodactyl\Models\Server $server */
         [$user, $server] = $this->generateTestAccount($permission);
         $server->update(['allocation_limit' => 2]);
 
@@ -47,7 +47,7 @@ class CreateNewAllocationTest extends ClientApiIntegrationTestCase
      */
     public function testAllocationCannotBeCreatedIfUserDoesNotHavePermission()
     {
-        /** @var \Jexactyl\Models\Server $server */
+        /** @var \Pterodactyl\Models\Server $server */
         [$user, $server] = $this->generateTestAccount([Permission::ACTION_ALLOCATION_UPDATE]);
         $server->update(['allocation_limit' => 2]);
 
@@ -59,9 +59,9 @@ class CreateNewAllocationTest extends ClientApiIntegrationTestCase
      */
     public function testAllocationCannotBeCreatedIfNotEnabled()
     {
-        config()->set('Jexactyl.client_features.allocations.enabled', false);
+        config()->set('pterodactyl.client_features.allocations.enabled', false);
 
-        /** @var \Jexactyl\Models\Server $server */
+        /** @var \Pterodactyl\Models\Server $server */
         [$user, $server] = $this->generateTestAccount();
         $server->update(['allocation_limit' => 2]);
 
@@ -76,7 +76,7 @@ class CreateNewAllocationTest extends ClientApiIntegrationTestCase
      */
     public function testAllocationCannotBeCreatedIfServerIsAtLimit()
     {
-        /** @var \Jexactyl\Models\Server $server */
+        /** @var \Pterodactyl\Models\Server $server */
         [$user, $server] = $this->generateTestAccount();
         $server->update(['allocation_limit' => 1]);
 

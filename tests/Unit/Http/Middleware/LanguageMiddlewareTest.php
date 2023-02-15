@@ -1,12 +1,12 @@
 <?php
 
-namespace Jexactyl\Tests\Unit\Http\Middleware;
+namespace Pterodactyl\Tests\Unit\Http\Middleware;
 
 use Mockery as m;
-use Jexactyl\Models\User;
 use Mockery\MockInterface;
+use Pterodactyl\Models\User;
 use Illuminate\Foundation\Application;
-use Jexactyl\Http\Middleware\LanguageMiddleware;
+use Pterodactyl\Http\Middleware\LanguageMiddleware;
 
 class LanguageMiddlewareTest extends MiddlewareTestCase
 {
@@ -28,7 +28,7 @@ class LanguageMiddlewareTest extends MiddlewareTestCase
     public function testLanguageIsSetForGuest()
     {
         $this->request->shouldReceive('user')->withNoArgs()->andReturnNull();
-        $this->appMock->shouldReceive('setLocale')->with('en')->once()->andReturnNull();
+        $this->appMock->shouldReceive('setLocale')->with('pt')->once()->andReturnNull();
 
         $this->getMiddleware()->handle($this->request, $this->getClosureAssertions());
     }

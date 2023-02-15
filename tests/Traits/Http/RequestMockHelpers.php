@@ -1,11 +1,11 @@
 <?php
 
-namespace Jexactyl\Tests\Traits\Http;
+namespace Pterodactyl\Tests\Traits\Http;
 
 use Mockery as m;
 use Mockery\Mock;
-use Jexactyl\Models\User;
 use Illuminate\Http\Request;
+use Pterodactyl\Models\User;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
 trait RequestMockHelpers
@@ -37,7 +37,7 @@ trait RequestMockHelpers
      */
     public function generateRequestUserModel(array $args = []): User
     {
-        /** @var \Jexactyl\Models\User $user */
+        /** @var \Pterodactyl\Models\User $user */
         $user = User::factory()->make($args);
         $this->setRequestUserModel($user);
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace Jexactyl\Tests\Assertions;
+namespace Pterodactyl\Tests\Assertions;
 
 use PHPUnit\Framework\Assert;
-use Jexactyl\Events\ActivityLogged;
 use Illuminate\Support\Facades\Event;
+use Pterodactyl\Events\ActivityLogged;
 use Illuminate\Database\Eloquent\Model;
-use Jexactyl\Models\ActivityLogSubject;
+use Pterodactyl\Models\ActivityLogSubject;
 
 trait AssertsActivityLogged
 {

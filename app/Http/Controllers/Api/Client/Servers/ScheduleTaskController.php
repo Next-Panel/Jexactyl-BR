@@ -3,12 +3,12 @@
 namespace Pterodactyl\Http\Controllers\Api\Client\Servers;
 
 use Pterodactyl\Models\Task;
-use Pterodactyl\Models\Server;
 use Illuminate\Http\Response;
+use Pterodactyl\Models\Server;
 use Pterodactyl\Models\Schedule;
+use Illuminate\Http\JsonResponse;
 use Pterodactyl\Facades\Activity;
 use Pterodactyl\Models\Permission;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Database\ConnectionInterface;
 use Pterodactyl\Repositories\Eloquent\TaskRepository;
 use Pterodactyl\Exceptions\Http\HttpForbiddenException;

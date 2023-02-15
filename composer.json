@@ -10,7 +10,7 @@
         "ext-pdo_mysql": "*",
         "ext-posix": "*",
         "ext-zip": "*",
-        "aws/aws-sdk-php": "~3.238.2",
+        "aws/aws-sdk-php": "~3.258.10",
         "doctrine/dbal": "~3.4.5",
         "guzzlehttp/guzzle": "~7.5.0",
         "hashids/hashids": "~4.1.0",

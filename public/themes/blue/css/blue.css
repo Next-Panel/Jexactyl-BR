@@ -1,5 +1,5 @@
 /**
- * Jexactyl - Panel
+ * Pterodactyl - Panel
  * Copyright (c) 2015 - 2017 Dane Everitt <dane@daneeveritt.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -47,10 +47,6 @@ body {
 .skin-blue .sidebar-menu>li.header {
     color: #797979;
     background: #0e111582;
-}
-
-.skin-blue .main-header .navbar {
-    background-color: #202b4a;
 }
 
 .skin-blue .main-header .navbar .sidebar-toggle:hover {

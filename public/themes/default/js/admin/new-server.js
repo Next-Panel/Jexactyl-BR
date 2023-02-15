@@ -19,27 +19,27 @@
 // SOFTWARE.
 $(document).ready(function() {
     $('#pNestId').select2({
-        placeholder: 'Select a Nest',
+        placeholder: 'Selecione um Nest',
     }).change();
 
     $('#pEggId').select2({
-        placeholder: 'Select a Nest Egg',
+        placeholder: 'Selecione um Nest de Eggs',
     });
 
     $('#pPackId').select2({
-        placeholder: 'Select a Service Pack',
+        placeholder: 'Selecione um Pacote de Serviços',
     });
 
     $('#pNodeId').select2({
-        placeholder: 'Select a Node',
+        placeholder: 'Selecione um Node',
     }).change();
 
     $('#pAllocation').select2({
-        placeholder: 'Select a Default Allocation',
+        placeholder: 'Selecione uma alocação padrão',
     });
 
     $('#pAllocationAdditional').select2({
-        placeholder: 'Select Additional Allocations',
+        placeholder: 'Selecionar alocações adicionais',
     });
 });
 
@@ -55,11 +55,11 @@ $(document).on('click', function (event) {
 
 $('#pNodeId').on('change', function () {
     currentNode = $(this).val();
-    $.each(Jexactyl.nodeData, function (i, v) {
+    $.each(Pterodactyl.nodeData, function (i, v) {
         if (v.id == currentNode) {
             $('#pAllocation').html('').select2({
                 data: v.allocations,
-                placeholder: 'Select a Default Allocation',
+                placeholder: 'Selecione uma alocação padrão',
             });
 
             updateAdditionalAllocations();
@@ -69,7 +69,7 @@ $('#pNodeId').on('change', function () {
 
 $('#pNestId').on('change', function (event) {
     $('#pEggId').html('').select2({
-        data: $.map(_.get(Jexactyl.nests, $(this).val() + '.eggs', []), function (item) {
+        data: $.map(_.get(Pterodactyl.nests, $(this).val() + '.eggs', []), function (item) {
             return {
                 id: item.id,
                 text: item.name,
@@ -79,7 +79,7 @@ $('#pNestId').on('change', function (event) {
 });
 
 $('#pEggId').on('change', function (event) {
-    let parentChain = _.get(Jexactyl.nests, $('#pNestId').val(), null);
+    let parentChain = _.get(Pterodactyl.nests, $('#pNestId').val(), null);
     let objectChain = _.get(parentChain, 'eggs.' + $(this).val(), null);
 
     const images = _.get(objectChain, 'docker_images', {})
@@ -93,13 +93,13 @@ $('#pEggId').on('change', function (event) {
     }
 
     if (!_.get(objectChain, 'startup', false)) {
-        $('#pStartup').val(_.get(parentChain, 'startup', 'ERROR: Startup Not Defined!'));
+        $('#pStartup').val(_.get(parentChain, 'startup', 'ERRO: Inicialização não definida!'));
     } else {
         $('#pStartup').val(_.get(objectChain, 'startup'));
     }
 
     $('#pPackId').html('').select2({
-        data: [{ id: 0, text: 'No Service Pack' }].concat(
+        data: [{ id: 0, text: 'Sem Pacote de Serviços' }].concat(
             $.map(_.get(objectChain, 'packs', []), function (item, i) {
                 return {
                     id: item.id,
@@ -140,7 +140,7 @@ function updateAdditionalAllocations() {
     let currentAllocation = $('#pAllocation').val();
     let currentNode = $('#pNodeId').val();
 
-    $.each(Jexactyl.nodeData, function (i, v) {
+    $.each(Pterodactyl.nodeData, function (i, v) {
         if (v.id == currentNode) {
             let allocations = [];
 
@@ -154,7 +154,7 @@ function updateAdditionalAllocations() {
 
             $('#pAllocationAdditional').html('').select2({
                 data: allocations,
-                placeholder: 'Select Additional Allocations',
+                placeholder: 'Selecionar alocações adicionais',
             });
         }
     });

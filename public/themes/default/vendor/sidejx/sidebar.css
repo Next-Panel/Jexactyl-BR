@@ -1,0 +1,71 @@
+/* 
+ *
+ *
+ *  Isto foi criado para selar e permitir com que o css não de erro. versão 1.5 por Jexactyl-Brasil
+ *
+ *
+ */
+
+/* Retorna modulo (padrão jex) */
+.sidebar-menu>li {
+    background: rgba(16, 0, 22, 0.35); /* COR BARRA LATERAL NAO SELECIONADO*/
+    border-radius: 0px;
+    margin-top: 4px;
+    position: relative;
+    padding: 0.1rem 10px 0.1rem 0.188rem;
+}
+
+.content-header>h1 { /* Titulo e sub titulo da area principal */
+    margin-left: 0px; /* DA ESPAÇO PRO BOTÃO */
+}
+
+@media (max-width:767px) {
+    .main-sidebar {
+        -webkit-transform: translate(0, 0);
+        -ms-transform: translate(0, 0);
+        -o-transform: translate(0, 0);
+        transform: translate(0, 0)
+    }
+}
+
+/* Reduz o tamanho da barra para 90px(padrão jex) */
+.main-sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: 10px; /* TOPO DA SIDEBAR*/
+    min-height: 100%;
+    width: 90px; /* TAMANHO DA AREA DA SIDEBAR */
+    z-index: 810;
+    -webkit-transition: -webkit-transform .3s ease-in-out, width .3s ease-in-out;
+    -moz-transition: -moz-transform .3s ease-in-out, width .3s ease-in-out;
+    -o-transition: -o-transform .3s ease-in-out, width .3s ease-in-out;
+    transition: transform .3s ease-in-out, width .3s ease-in-out
+}
+
+/* Reduz o tamanho da barra para 90px(padrão jex) */
+.content-wrapper,
+.main-footer {
+    -webkit-transition: -webkit-transform .3s ease-in-out, margin .3s ease-in-out;
+    -moz-transition: -moz-transform .3s ease-in-out, margin .3s ease-in-out;
+    -o-transition: -o-transform .3s ease-in-out, margin .3s ease-in-out;
+    transition: transform .3s ease-in-out, margin .3s ease-in-out;
+    margin-left: 90px;
+    z-index: 820
+}
+
+/* Remove TEXTO DA EMPRESA */
+a>span {
+    display: none;
+}
+
+/* Remove TEXTO SIDEBAR */
+.sidebar-menu>li>a>span {
+    display: none
+}
+
+/* Remove BOTAO ABRIR E FECHAR SIDEBAR */
+.skin-blue .main-header .navbar {
+    background-color: none;
+    display: none;
+}

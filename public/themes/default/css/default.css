@@ -1,0 +1,10 @@
+/* TEXTO SIDEBAR */
+.sidebar-menu>li>a>span {
+    display: none
+}
+
+/* BOTAO ABRIR E FECHAR SIDEBAR */
+.skin-blue .main-header .navbar {
+    background-color: none;
+    display: none;
+}

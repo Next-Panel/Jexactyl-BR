@@ -76,8 +76,8 @@ export default ({ database, className }: Props) => {
                         <FlashMessageRender byKey={'database:delete'} css={tw`mb-6`} />
                         <h2 css={tw`text-2xl mb-6`}>Confirme a exclusão do Database</h2>
                         <p css={tw`text-sm`}>
-                            A exclusão de um Database é uma ação permanente, não pode ser desfeita. Isso vai
-                            excluir permanentemente o Database: <strong>{database.name}</strong> e todos os dados associados.
+                            A exclusão de um Database é uma ação permanente, não pode ser desfeita. Isso vai excluir
+                            permanentemente o Database: <strong>{database.name}</strong> e todos os dados associados.
                         </p>
                         <Form css={tw`m-0 mt-6`}>
                             <Field

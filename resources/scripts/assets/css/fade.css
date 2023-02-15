@@ -1,82 +1,80 @@
 @keyframes fadeInDown {
     from {
-        transform: translate3d(0,-50px,0);
+        transform: translate3d(0, -50px, 0);
     }
 
     to {
-        transform: translate3d(0,0,0)
+        transform: translate3d(0, 0, 0);
     }
 }
 
 @-webkit-keyframes fadeInDown {
     from {
-        transform: translate3d(0,-50px,0);
+        transform: translate3d(0, -50px, 0);
     }
 
     to {
-        transform: translate3d(0,0,0)
-
+        transform: translate3d(0, 0, 0);
     }
 }
 
 @keyframes fadeInUp {
     from {
-        transform: translate3d(0,50px,0);
+        transform: translate3d(0, 50px, 0);
     }
 
     to {
-        transform: translate3d(0,0,0)
+        transform: translate3d(0, 0, 0);
     }
 }
 
 @-webkit-keyframes fadeInUp {
     from {
-        transform: translate3d(0,50px,0);
+        transform: translate3d(0, 50px, 0);
     }
 
     to {
-        transform: translate3d(0,0,0)
-
+        transform: translate3d(0, 0, 0);
     }
 }
 
 @keyframes fadeInLeft {
     from {
-        transform: translate3d(50px,0,0);
+        transform: translate3d(50px, 0, 0);
     }
 
     to {
-        transform: translate3d(0,0,0)
+        transform: translate3d(0, 0, 0);
     }
 }
 
 @-webkit-keyframes fadeInLeft {
     from {
-        transform: translate3d(50px,0,0);
+        transform: translate3d(50px, 0, 0);
     }
 
     to {
-        transform: translate3d(0,0,0)
+        transform: translate3d(0, 0, 0);
     }
 }
 
 @keyframes fadeInRight {
     from {
-        transform: translate3d(-50px,0,0);
+        transform: translate3d(-50px, 0, 0);
     }
 
     to {
-        transform: translate3d(0,0,0)
+        transform: translate3d(0, 0, 0);
     }
 }
 
 @-webkit-keyframes fadeInRight {
     from {
-        transform: translate3d(-50px,0,0);
+        transform: translate3d(-50px, 0, 0);
     }
 
     to {
-        transform: translate3d(0,0,0)
+        transform: translate3d(0, 0, 0);
     }
 }
 
@@ -119,4 +117,3 @@
     animation-name: fadeInRight;
     -webkit-animation-name: fadeInRight;
 }
-

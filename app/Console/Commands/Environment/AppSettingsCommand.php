@@ -34,7 +34,7 @@ class AppSettingsCommand extends Command
 
     protected $signature = 'p:environment:setup
                             {--new-salt : Se deve ou não gerar um novo salt para hashids.}
-                            {--author= : O email que os serviços criados nesta instância devem estar vinculados.}
+                            {--author= : O E-mail que os serviços criados nesta instância devem estar vinculados.}
                             {--url= : O URL em que este painel estará sendo executado.}
                             {--timezone= : O fuso horário a ser usado para os tempos do painel.}
                             {--cache= : O back-end do driver de cache a ser usado.}
@@ -73,7 +73,7 @@ class AppSettingsCommand extends Command
         );
 
         if (!filter_var($this->variables['APP_SERVICE_AUTHOR'], FILTER_VALIDATE_EMAIL)) {
-            $this->output->error('O email do autor de serviço fornecido é inválido.');
+            $this->output->error('O E-mail do autor de serviço fornecido é inválido.');
 
             return 1;
         }

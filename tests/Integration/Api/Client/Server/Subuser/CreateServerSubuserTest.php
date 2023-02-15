@@ -99,7 +99,7 @@ class CreateServerSubuserTest extends ClientApiIntegrationTestCase
         ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-        $response->assertJsonPath('errors.0.detail', 'O email deve estar entre 1 e 191 caracteres.');
+        $response->assertJsonPath('errors.0.detail', 'O E-mail deve estar entre 1 e 191 caracteres.');
         $response->assertJsonPath('errors.0.meta.source_field', 'email');
     }
 

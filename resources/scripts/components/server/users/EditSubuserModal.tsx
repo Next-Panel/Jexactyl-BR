@@ -97,7 +97,7 @@ const EditSubuserModal = ({ subuser }: Props) => {
             }
             validationSchema={object().shape({
                 email: string()
-                    .max(191, 'Os endereços de email não devem exceder 191 caracteres.')
+                    .max(191, 'Os endereços de E-mail não devem exceder 191 caracteres.')
                     .email('Um endereço de E-mail válido deve ser fornecido.')
                     .required('Um endereço de E-mail válido deve ser fornecido.'),
                 permissions: array().of(string()),
@@ -131,7 +131,7 @@ const EditSubuserModal = ({ subuser }: Props) => {
                             name={'email'}
                             label={'E-mail do usuário'}
                             description={
-                                'Digite o endereço de email do usuário que você deseja convidar como sub-usuário deste servidor.'
+                                'Digite o endereço de E-mail do usuário que você deseja convidar como sub-usuário deste servidor.'
                             }
                         />
                     </div>

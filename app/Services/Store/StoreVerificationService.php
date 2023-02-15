@@ -70,7 +70,6 @@ class StoreVerificationService
         $fee = Node::find($request->input('node'))->deploy_fee;
 
         if ($fee > $request->user()->store_balance) {
-            throw new DisplayException('You do not have enough credits to deploy to this node, as it has a deployment fee of ' . $fee . ' credits.');
             throw new DisplayException('Você não tem créditos suficientes para implantar a este Node, pois ele tem uma taxa de implantação de ' . $fee . ' créditos.');
         }
     }

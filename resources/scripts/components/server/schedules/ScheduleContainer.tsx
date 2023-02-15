@@ -30,7 +30,10 @@ export default () => {
         getServerSchedules(uuid)
             .then((schedules) => setSchedules(schedules))
             .catch((error) => {
-                addError({ message: httpErrorToHuman(error), key: 'schedules' });
+                addError({
+                    message: httpErrorToHuman(error),
+                    key: 'schedules',
+                });
                 console.error(error);
             })
             .then(() => setLoading(false));
@@ -38,8 +41,8 @@ export default () => {
 
     return (
         <ServerContentBlock
-            title={'Schedules'}
-            description={'Manage scheduled functions for your server.'}
+            title={'Programações'}
+            description={'Gerencie as funções programadas para seu servidor.'}
             showFlashKey={'schedules'}
         >
             {!schedules.length && loading ? (
@@ -48,7 +51,7 @@ export default () => {
                 <>
                     {schedules.length === 0 ? (
                         <p css={tw`text-sm text-center text-neutral-300`}>
-                            There are no schedules configured for this server.
+                            Não há programações configuradas para este servidor.
                         </p>
                     ) : (
                         schedules.map((schedule) => (
@@ -70,7 +73,7 @@ export default () => {
                         <div css={tw`mt-8 flex justify-end`}>
                             <EditScheduleModal visible={visible} onModalDismissed={() => setVisible(false)} />
                             <Button type={'button'} onClick={() => setVisible(true)}>
-                                Create schedule
+                                Criar programação
                             </Button>
                         </div>
                     </Can>

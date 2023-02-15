@@ -46,10 +46,8 @@ export default ({ open, onClose }: DialogProps) => {
         <Dialog
             open={open}
             onClose={onClose}
-            title={'Create a new ticket'}
-            description={
-                'This ticket will be registered under your account and accessible to all administrators on the Panel.'
-            }
+            title={'Criar um novo ticket'}
+            description={'Este ticket será registrado sob sua conta e acessível a todos os administradores do Painel.'}
         >
             <Formik
                 onSubmit={submit}
@@ -63,24 +61,24 @@ export default ({ open, onClose }: DialogProps) => {
                     <Form className={'mt-6'}>
                         <SpinnerOverlay visible={isSubmitting} />
                         <FormikFieldWrapper
-                            label={'Title'}
+                            label={'Título'}
                             name={'title'}
-                            description={'A title for this ticket.'}
+                            description={'Um título para este ticket.'}
                             className={'mb-6'}
                         >
                             <Field name={'title'} as={Input} />
                         </FormikFieldWrapper>
                         <FormikFieldWrapper
-                            label={'Description'}
+                            label={'Descrição'}
                             name={'description'}
                             description={
-                                'Provide additional information, images and other content in order to help us fix your issue faster.'
+                                'Forneça informações adicionais, imagens e outros conteúdos a fim de nos ajudar a resolver seu problema mais rapidamente.'
                             }
                         >
                             <Field name={'description'} as={CustomTextarea} />
                         </FormikFieldWrapper>
                         <div className={'flex justify-end mt-6'}>
-                            <Button type={'submit'}>Create</Button>
+                            <Button type={'submit'}>Criar</Button>
                         </div>
                     </Form>
                 )}

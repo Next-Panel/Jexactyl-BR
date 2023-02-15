@@ -10,7 +10,8 @@ import Tooltip from '@/components/elements/tooltip/Tooltip';
 import SearchContainer from '@/components/dashboard/search/SearchContainer';
 
 export default () => {
-    const logo = useStoreState((state) => state.settings.data?.logo);
+    const logo_string = useStoreState((state) => state.settings.data?.logo);
+    const logo = logo_string === '' ? 'https://avatars.githubusercontent.com/u/91636558' : `${logo_string}`;
     const tickets = useStoreState((state) => state.settings.data!.tickets);
     const store = useStoreState((state) => state.storefront.data!.enabled);
     const rootAdmin = useStoreState((state) => state.user.data!.rootAdmin);
@@ -46,7 +47,7 @@ export default () => {
         <PanelDiv>
             <ProgressBar />
             <Link to={'/'}>
-                <img className={'p-2'} src={logo ?? 'https://avatars.githubusercontent.com/u/91636558'} />
+                <img className={'p-2'} src={`${logo}`} />
             </Link>
             <div>
                 <div className={'navigation-link'}>
@@ -55,14 +56,14 @@ export default () => {
                     </div>
                 </div>
                 <NavLink to={'/'} className={'navigation-link'} exact>
-                    <Tooltip placement={'bottom'} content={'Servers'}>
+                    <Tooltip placement={'bottom'} content={'Servidores'}>
                         <div className={'bg-gray-700 rounded-lg p-2 my-8'}>
                             <Icon.Server size={32} />
                         </div>
                     </Tooltip>
                 </NavLink>
                 <NavLink to={'/account'} className={'navigation-link'}>
-                    <Tooltip placement={'bottom'} content={'Account'}>
+                    <Tooltip placement={'bottom'} content={'Conta'}>
                         <div className={'bg-gray-700 rounded-lg p-2 my-8'}>
                             <Icon.User size={32} />
                         </div>
@@ -70,7 +71,7 @@ export default () => {
                 </NavLink>
                 {store && (
                     <NavLink to={'/store'} className={'navigation-link'}>
-                        <Tooltip placement={'bottom'} content={'Store'}>
+                        <Tooltip placement={'bottom'} content={'Loja'}>
                             <div className={'bg-gray-700 rounded-lg p-2 my-8'}>
                                 <Icon.ShoppingCart size={32} />
                             </div>
@@ -88,7 +89,7 @@ export default () => {
                 )}
                 {rootAdmin && (
                     <a href={'/admin'} className={'navigation-link'}>
-                        <Tooltip placement={'bottom'} content={'Admin'}>
+                        <Tooltip placement={'bottom'} content={'Administrador'}>
                             <div className={'bg-gray-700 rounded-lg p-2 my-8'}>
                                 <Icon.Settings size={32} />
                             </div>
@@ -97,7 +98,7 @@ export default () => {
                 )}
                 <div id={'logo'}>
                     <button onClick={onTriggerLogout} className={'navigation-link'}>
-                        <Tooltip placement={'bottom'} content={'Logout'}>
+                        <Tooltip placement={'bottom'} content={'Sair'}>
                             <div className={'flex flex-row fixed bottom-0 mb-8 bg-gray-700 rounded-lg p-2'}>
                                 <Icon.LogOut size={32} />
                             </div>

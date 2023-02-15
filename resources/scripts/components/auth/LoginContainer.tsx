@@ -54,7 +54,9 @@ const LoginContainer = ({ history }: RouteComponentProps) => {
                     return;
                 }
 
-                history.replace('/auth/login/checkpoint', { token: response.confirmationToken });
+                history.replace('/auth/login/checkpoint', {
+                    token: response.confirmationToken,
+                });
             })
             .catch((error) => {
                 console.error(error);
@@ -72,19 +74,19 @@ const LoginContainer = ({ history }: RouteComponentProps) => {
             onSubmit={onSubmit}
             initialValues={{ username: '', password: '' }}
             validationSchema={object().shape({
-                username: string().required('A username or email must be provided.'),
-                password: string().required('Please enter your account password.'),
+                username: string().required('Deve ser fornecido um nome de usuário ou e-mail.'),
+                password: string().required('Por favor introduza a senha da sua conta.'),
             })}
         >
             {({ isSubmitting, setSubmitting, submitForm }) => (
-                <LoginFormContainer title={'Login to ' + name} css={tw`w-full flex`}>
-                    <Field light type={'text'} label={'Username or Email'} name={'username'} disabled={isSubmitting} />
+                <LoginFormContainer title={'Logar no Painel ' + name} css={tw`w-full flex`}>
+                    <Field light type={'text'} label={'Usuário ou E-mail'} name={'username'} disabled={isSubmitting} />
                     <div css={tw`mt-6`}>
-                        <Field light type={'password'} label={'Password'} name={'password'} disabled={isSubmitting} />
+                        <Field light type={'password'} label={'Senha'} name={'password'} disabled={isSubmitting} />
                     </div>
                     <div css={tw`mt-6`}>
                         <Button type={'submit'} size={Button.Sizes.Large} css={tw`w-full`} disabled={isSubmitting}>
-                            Login
+                            Logar
                         </Button>
                     </div>
                     {recaptchaEnabled && (
@@ -107,7 +109,7 @@ const LoginContainer = ({ history }: RouteComponentProps) => {
                             to={'/auth/password'}
                             css={tw`text-xs text-neutral-500 tracking-wide no-underline uppercase hover:text-neutral-600`}
                         >
-                            Forgot password?
+                            Esqueceu sua senha?
                         </Link>
                     </div>
                     <div css={tw`mt-6 text-center`}>
@@ -116,15 +118,15 @@ const LoginContainer = ({ history }: RouteComponentProps) => {
                                 to={'/auth/register'}
                                 css={tw`text-xs text-neutral-500 tracking-wide no-underline uppercase hover:text-neutral-600`}
                             >
-                                Signup with Email
+                                Registrar com E-mail
                             </Link>
                         )}
                         {discord && (
                             <Link
                                 to={'/auth/discord'}
-                                css={tw`text-xs ml-6 text-neutral-500 tracking-wide no-underline uppercase hover:text-neutral-600`}
+                                css={tw`text-xs text-neutral-500 tracking-wide no-underline uppercase hover:text-neutral-600`}
                             >
-                                Authenticate with Discord
+                                Logar com Discord
                             </Link>
                         )}
                     </div>

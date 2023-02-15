@@ -34,18 +34,18 @@ export default () => {
                     <div>
                         <NavLink to={'/account'} exact>
                             <div css={tw`flex items-center justify-between`}>
-                                Account <Icon.User css={tw`ml-1`} size={18} />
+                                Contas <Icon.User css={tw`ml-1`} size={18} />
                             </div>
                         </NavLink>
                         <NavLink to={'/account/security'}>
                             <div css={tw`flex items-center justify-between`}>
-                                Security <Icon.Key css={tw`ml-1`} size={18} />
+                                Segurança <Icon.Key css={tw`ml-1`} size={18} />
                             </div>
                         </NavLink>
                         {referrals && (
                             <NavLink to={'/account/referrals'}>
                                 <div css={tw`flex items-center justify-between`}>
-                                    Referrals <Icon.DollarSign css={tw`ml-1`} size={18} />
+                                    Referências <Icon.DollarSign css={tw`ml-1`} size={18} />
                                 </div>
                             </NavLink>
                         )}
@@ -56,24 +56,28 @@ export default () => {
                         </NavLink>
                         <NavLink to={'/account/ssh'}>
                             <div css={tw`flex items-center justify-between`}>
-                                SSH Keys <Icon.Terminal css={tw`ml-1`} size={18} />
+                                Chaves SSH <Icon.Terminal css={tw`ml-1`} size={18} />
                             </div>
                         </NavLink>
                         {coupons && (
                             <NavLink to={'/account/coupons'}>
                                 <div className={'flex items-center justify-between'}>
-                                    Coupons <Icon.DollarSign className={'ml-1'} size={18} />
+                                    Cupons <Icon.DollarSign className={'ml-1'} size={18} />
                                 </div>
                             </NavLink>
                         )}
                     </div>
                 </SubNavigation>
             ) : (
-                <SubNavigation className={'j-down lg:visible invisible'}>
-                    <div>
-                        <InformationContainer />
-                    </div>
-                </SubNavigation>
+                <>
+                    {width >= 1024 && (
+                        <SubNavigation className={'j-down lg:visible invisible'}>
+                            <div>
+                                <InformationContainer />
+                            </div>
+                        </SubNavigation>
+                    )}
+                </>
             )}
             <TransitionRouter>
                 <React.Suspense fallback={<Spinner centered />}>

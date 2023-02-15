@@ -48,31 +48,31 @@ export default () => {
     if (!ticket) return <Spinner centered />;
 
     return (
-        <PageContentBlock title={'View Ticket'} showFlashKey={'tickets'}>
+        <PageContentBlock title={'Veja os tickets'} showFlashKey={'tickets'}>
             <NewMessageDialog open={visible} onClose={() => setVisible(false)} />
             <div className={'mt-6 grid grid-cols-1 sm:grid-cols-2 lg:w-1/4 gap-4'}>
                 <Button.Text className={'w-full'} onClick={doRedirect}>
-                    View All Tickets
+                    Ver Todos os Tickets
                 </Button.Text>
                 <Button.Danger className={'w-full'} onClick={doDeletion}>
-                    Delete Ticket
+                    Excluir Ticket
                 </Button.Danger>
             </div>
             <Alert
                 type={
-                    ticket.status === 'pending'
+                    ticket.status === 'pendente'
                         ? 'info'
-                        : ticket.status === 'in-progress'
+                        : ticket.status === 'em-andamento'
                         ? 'info'
-                        : ticket.status === 'unresolved'
+                        : ticket.status === 'não-resolvido'
                         ? 'danger'
-                        : ticket.status === 'resolved'
+                        : ticket.status === 'resolvido'
                         ? 'success'
                         : 'warning'
                 }
                 className={'my-4 w-full'}
             >
-                This ticket is marked as&nbsp;<p className={'font-bold'}>{ticket.status ?? 'unknown'}</p>.
+                Este ticket está marcado como&nbsp;<p className={'font-bold'}>{ticket.status ?? 'unknown'}</p>.
             </Alert>
             <TitledGreyBox title={ticket.title}>
                 <p className={'line-clamp-5 truncate'}>{ticket.content}</p>
@@ -83,7 +83,7 @@ export default () => {
                 )}
             </TitledGreyBox>
             {!messages ? (
-                <p className={'text-gray-400 text-center'}>No one has replied to this ticket yet.</p>
+                <p className={'text-gray-400 text-center'}>Ainda ninguém respondeu a este ticket.</p>
             ) : (
                 <>
                     {messages.map((message) => (
@@ -95,7 +95,7 @@ export default () => {
                                             <p className={'text-lg text-center text-gray-400'}>{message.content}</p>
                                         </div>
                                     ) : (
-                                        <TitledGreyBox title={`Response from ${message.userEmail}`} className={'mt-4'}>
+                                        <TitledGreyBox title={`Resposta de ${message.userEmail}`} className={'mt-4'}>
                                             <p className={'line-clamp-5 truncate'}>{message.content}</p>
                                             {message.createdAt && (
                                                 <p className={'text-right p-2 text-sm text-gray-400'}>
@@ -111,7 +111,7 @@ export default () => {
                 </>
             )}
             <div className={'flex justify-center items-center mt-6'}>
-                <Button onClick={() => setVisible(true)}>Create Message</Button>
+                <Button onClick={() => setVisible(true)}>Criar Mensagem</Button>
             </div>
         </PageContentBlock>
     );

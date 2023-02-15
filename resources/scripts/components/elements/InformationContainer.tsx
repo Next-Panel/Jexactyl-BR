@@ -33,7 +33,11 @@ export default () => {
     const verify = () => {
         apiVerify().then((data) => {
             if (data.success)
-                addFlash({ type: 'info', key: 'dashboard', message: 'Verification email has been resent.' });
+                addFlash({
+                    type: 'info',
+                    key: 'dashboard',
+                    message: 'O e-mail de verificação foi reenviado.',
+                });
         });
     };
 
@@ -41,31 +45,31 @@ export default () => {
         <>
             {store.earn.enabled ? (
                 <InformationBox icon={faCircle} iconCss={'animate-pulse'}>
-                    Earning <span className={'text-green-600'}>{store.earn.amount}</span> credits / min.
+                    Ganhando <span className={'text-green-600'}>{store.earn.amount}</span> Créditos / min.
                 </InformationBox>
             ) : (
                 <InformationBox icon={faExclamationCircle}>
-                    Credit earning is currently <span className={'text-red-600'}>disabled.</span>
+                    Atualmente, os ganhos de crédito estão <span className={'text-red-600'}>desativado.</span>
                 </InformationBox>
             )}
             <InformationBox icon={faCoins}>
-                You have <span className={'text-green-600'}>{bal}</span> credits available.
+                Você tem <span className={'text-green-600'}>{bal}</span> créditos disponíveis.
             </InformationBox>
             <InformationBox icon={faUserLock}>
                 {user.useTotp ? (
                     <>
-                        <span className={'text-green-600'}>2FA is enabled</span> on your account.
+                        <span className={'text-green-600'}>2FA está habilitado</span> em sua conta.
                     </>
                 ) : (
                     <>
-                        <span className={'text-yellow-600'}>Enable 2FA</span> to secure your account.
+                        <span className={'text-yellow-600'}>Habilitar 2FA</span> para proteger sua conta.
                     </>
                 )}
             </InformationBox>
             {!user.verified ? (
                 <InformationBox icon={faTimesCircle} iconCss={'text-yellow-500'}>
                     <span onClick={verify} className={'cursor-pointer text-blue-400'}>
-                        Verify your account to get started.
+                        Verifique sua conta para começar.
                     </span>
                 </InformationBox>
             ) : (
@@ -80,10 +84,12 @@ export default () => {
                                 />
                             </span>
                             {' - '}
-                            {formatDistanceToNowStrict(activity.timestamp, { addSuffix: true })}
+                            {formatDistanceToNowStrict(activity.timestamp, {
+                                addSuffix: true,
+                            })}
                         </>
                     ) : (
-                        'Unable to get latest activity logs.'
+                        'Incapaz de obter os últimos registros de atividades.'
                     )}
                 </InformationBox>
             )}

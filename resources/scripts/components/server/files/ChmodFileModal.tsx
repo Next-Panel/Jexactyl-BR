@@ -34,7 +34,13 @@ const ChmodFileModal = ({ files, ...props }: OwnProps) => {
         mutate(
             (data) =>
                 data.map((f) =>
-                    f.name === files[0].file ? { ...f, mode: fileBitsToString(mode, !f.isFile), modeBits: mode } : f
+                    f.name === files[0].file
+                        ? {
+                              ...f,
+                              mode: fileBitsToString(mode, !f.isFile),
+                              modeBits: mode,
+                          }
+                        : f
                 ),
             false
         );
@@ -53,7 +59,12 @@ const ChmodFileModal = ({ files, ...props }: OwnProps) => {
     };
 
     return (
-        <Formik onSubmit={submit} initialValues={{ mode: files.length > 1 ? '' : files[0].mode || '' }}>
+        <Formik
+            onSubmit={submit}
+            initialValues={{
+                mode: files.length > 1 ? '' : files[0].mode || '',
+            }}
+        >
             {({ isSubmitting }) => (
                 <Modal {...props} dismissable={!isSubmitting} showSpinnerOverlay={isSubmitting}>
                     <Form css={tw`m-0`}>
@@ -62,7 +73,7 @@ const ChmodFileModal = ({ files, ...props }: OwnProps) => {
                                 <Field type={'string'} id={'file_mode'} name={'mode'} label={'File Mode'} autoFocus />
                             </div>
                             <div css={tw`w-full sm:w-auto mt-4 sm:mt-0`}>
-                                <Button css={tw`w-full`}>Update</Button>
+                                <Button css={tw`w-full`}>Atualizar</Button>
                             </div>
                         </div>
                     </Form>

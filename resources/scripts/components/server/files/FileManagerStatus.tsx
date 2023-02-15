@@ -25,7 +25,9 @@ const Spinner = ({ progress, className }: { progress: number; className?: string
             stroke={'white'}
             strokeDasharray={28 * Math.PI}
             className={'rotate-[-90deg] origin-[50%_50%] transition-[stroke-dashoffset] duration-300'}
-            style={{ strokeDashoffset: ((100 - progress) / 100) * 28 * Math.PI }}
+            style={{
+                strokeDashoffset: ((100 - progress) / 100) * 28 * Math.PI,
+            }}
         />
     </svg>
 );
@@ -58,17 +60,17 @@ const FileUploadList = () => {
             ))}
             <Dialog.Footer>
                 <Button.Danger variant={Button.Variants.Secondary} onClick={() => clearFileUploads()}>
-                    Cancel Uploads
+                    Cancelar Uploads
                 </Button.Danger>
-                <Button.Text onClick={close}>Close</Button.Text>
+                <Button.Text onClick={close}>Fechar</Button.Text>
             </Dialog.Footer>
         </div>
     );
 };
 
 const FileUploadListDialog = asDialog({
-    title: 'File Uploads',
-    description: 'The following files are being uploaded to your server.',
+    title: 'Upload de Arquivos',
+    description: 'Os seguintes arquivos estão sendo enviados para o seu servidor.',
 })(FileUploadList);
 
 export default () => {
@@ -89,7 +91,7 @@ export default () => {
     return (
         <>
             {count > 0 && (
-                <Tooltip content={`${count} files are uploading, click to view`}>
+                <Tooltip content={`${count} arquivos estão sendo enviados, clique para ver`}>
                     <button
                         className={'flex items-center justify-center w-10 h-10'}
                         onClick={() => (open.value = true)}

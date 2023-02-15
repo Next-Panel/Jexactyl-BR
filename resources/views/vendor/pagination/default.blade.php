@@ -1,20 +1,20 @@
 @if ($paginator->lastPage() > 1)
     <ul class="pagination pull-right no-margin">
-        <!-- Previous Page Link -->
+        <!-- Link da p&aacute;gina anterior -->
         @if ($paginator->onFirstPage())
             {{-- <li class="disabled"><span>&laquo;</span></li> --}}
         @else
             <li><a href="{{ $paginator->previousPageUrl() }}" rel="prev">&laquo;</a></li>
         @endif
 
-        <!-- Pagination Elements -->
+        <!-- Elementos de Pagina&ccedil;&atilde;o -->
         @foreach ($elements as $element)
-            <!-- "Three Dots" Separator -->
+            <!-- "Three Dots" Separador -->
             @if (is_string($element))
                 <li class="disabled"><span>{{ $element }}</span></li>
             @endif
 
-            <!-- Array Of Links -->
+            <!-- Matriz De Links -->
             @if (is_array($element))
                 @foreach ($element as $page => $url)
                     @if ($page == $paginator->currentPage())
@@ -26,7 +26,7 @@
             @endif
         @endforeach
 
-        <!-- Next Page Link -->
+        <!-- Link para a pr&aacute;xima p&aacute;gina -->
         @if ($paginator->hasMorePages())
             <li><a href="{{ $paginator->nextPageUrl() }}" rel="next">&raquo;</a></li>
         @else

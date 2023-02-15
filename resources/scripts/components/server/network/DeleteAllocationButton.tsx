@@ -25,7 +25,10 @@ const DeleteAllocationButton = ({ allocation }: Props) => {
         clearFlashes();
 
         mutate((data) => data?.filter((a) => a.id !== allocation), false);
-        setServerFromState((s) => ({ ...s, allocations: s.allocations.filter((a) => a.id !== allocation) }));
+        setServerFromState((s) => ({
+            ...s,
+            allocations: s.allocations.filter((a) => a.id !== allocation),
+        }));
 
         deleteServerAllocation(uuid, allocation).catch((error) => {
             clearAndAddHttpError(error);
@@ -38,11 +41,11 @@ const DeleteAllocationButton = ({ allocation }: Props) => {
             <Dialog.Confirm
                 open={confirm}
                 onClose={() => setConfirm(false)}
-                title={'Remove Allocation'}
-                confirm={'Delete'}
+                title={'Remover alocação'}
+                confirm={'Excluir'}
                 onConfirmed={deleteAllocation}
             >
-                This allocation will be immediately removed from your server.
+                Essa alocação será removida imediatamente do seu servidor.
             </Dialog.Confirm>
             <Button.Danger
                 variant={Button.Variants.Secondary}

@@ -34,29 +34,29 @@ export default () => {
     const referrals = useStoreState((state) => state.storefront.data!.referrals.enabled);
 
     return (
-        <PageContentBlock title={'Account Overview'} description={'View and update account details.'}>
+        <PageContentBlock title={'Visão geral da conta'} description={'Visualizar e atualizar detalhes da conta.'}>
             {state?.twoFactorRedirect && (
                 <Alert type={'danger'}>
-                    Your account must have two-factor authentication enabled in order to continue.
+                        Sua conta deve ter autenticação de dois fatores ativada para continuar.
                 </Alert>
             )}
             <Container
                 className={'j-up'}
                 css={[tw`lg:grid lg:grid-cols-2 gap-8 mb-10`, state?.twoFactorRedirect ? tw`mt-4` : tw`mt-10`]}
             >
-                <ContentBox title={'Update Username'} showFlashes={'account:username'}>
+                <ContentBox title={'Atualizar Usuário'} showFlashes={'account:username'}>
                     <UpdateUsernameForm />
                 </ContentBox>
-                <ContentBox title={'Update Email Address'} showFlashes={'account:email'}>
+                <ContentBox title={'Atualizar Endereço de E-mail'} showFlashes={'account:email'}>
                     <UpdateEmailAddressForm />
                 </ContentBox>
                 {referrals && (
-                    <ContentBox title={'Referral Codes'} showFlashes={'account:referral'}>
+                    <ContentBox title={'Código de Referéncia'} showFlashes={'account:referral'}>
                         <AddReferralCodeForm />
                     </ContentBox>
                 )}
                 {discord && (
-                    <ContentBox title={'Connect with Discord'} showFlashes={'account:discord'}>
+                    <ContentBox title={'Conectar com o Discord'} showFlashes={'account:discord'}>
                         <DiscordAccountForm />
                     </ContentBox>
                 )}

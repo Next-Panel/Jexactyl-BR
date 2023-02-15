@@ -32,7 +32,7 @@ const BackupContainer = () => {
     }
 
     return (
-        <ServerContentBlock title={'Backups'} description={'Protect your data with backups.'} showFlashKey={'backups'}>
+        <ServerContentBlock title={'Backups'} description={'Proteja seus dados com backups.'} showFlashKey={'backups'}>
             <Pagination data={backups} onPageSelect={setPage}>
                 {({ items }) =>
                     !items.length ? (
@@ -41,8 +41,8 @@ const BackupContainer = () => {
                         !backupLimit ? null : (
                             <p css={tw`text-center text-sm text-neutral-300`}>
                                 {page > 1
-                                    ? "Looks like we've run out of backups to show you, try going back a page."
-                                    : 'It looks like there are no backups currently stored for this server.'}
+                                    ? 'Parece que ficamos sem backups para mostrar, tente voltar uma página.'
+                                    : 'Parece que atualmente não há backups armazenados para este servidor.'}
                             </p>
                         )
                     ) : (
@@ -54,14 +54,14 @@ const BackupContainer = () => {
             </Pagination>
             {backupLimit === 0 && (
                 <p css={tw`text-center text-sm text-neutral-300`}>
-                    Backups cannot be created for this server because the backup limit is set to 0.
+                    Os backups não podem ser criados para este servidor porque o limite de backup é definido como 0.
                 </p>
             )}
             <Can action={'backup.create'}>
                 <div css={tw`mt-6 sm:flex items-center justify-end`}>
                     {backupLimit > 0 && backups.backupCount > 0 && (
                         <p css={tw`text-sm text-neutral-300 mb-4 sm:mr-6 sm:mb-0`}>
-                            {backups.backupCount} of {backupLimit} backups have been created for this server.
+                            {backups.backupCount} de {backupLimit} backups foram criados para este servidor.
                         </p>
                     )}
                     {backupLimit > 0 && backupLimit > backups.backupCount && (

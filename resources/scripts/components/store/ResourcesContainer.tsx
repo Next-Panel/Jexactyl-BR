@@ -50,7 +50,7 @@ export default () => {
                 addFlash({
                     type: 'success',
                     key: 'store:resources',
-                    message: 'Resource has been added to your account.',
+                    message: 'O recurso foi adicionado à sua conta.',
                 });
             })
             .catch((error) => clearAndAddHttpError({ key: 'store:resources', error }));
@@ -60,20 +60,20 @@ export default () => {
 
     return (
         <PageContentBlock
-            title={'Buy Resources'}
-            description={'Buy more resources to add to your server.'}
+            title={'Comprar recursos'}
+            description={'Compre mais recursos para adicionar ao seu servidor.'}
             showFlashKey={'store:resources'}
         >
             <SpinnerOverlay size={'large'} visible={open} />
             <Dialog.Confirm
                 open={open}
                 onClose={() => setOpen(false)}
-                title={'Confirm resource seletion'}
-                confirm={'Continue'}
+                title={'Confirmar a seleção de recursos'}
+                confirm={'Continuar'}
                 onConfirmed={() => purchase(resource)}
             >
-                Are you sure you want to purchase this resource ({resource})? This will take the credits from your
-                account and add the resource. This is not a reversible transaction.
+                Tem certeza de que deseja comprar este recurso ({resource})? Isso gastará os créditos da sua conta e
+                adicionará o recurso. Esta não é uma transação reversível.
             </Dialog.Confirm>
             <Container className={'j-up lg:grid lg:grid-cols-4 my-10 gap-8'}>
                 <PurchaseBox
@@ -84,7 +84,7 @@ export default () => {
                     setOpen={setOpen}
                     icon={<Icon.Cpu />}
                     setResource={setResource}
-                    description={'Buy CPU to improve server load times and performance.'}
+                    description={'Compre CPU para melhorar os tempos de carregamento e o desempenho do servidor.'}
                 />
                 <PurchaseBox
                     type={'Memory'}
@@ -94,7 +94,7 @@ export default () => {
                     setOpen={setOpen}
                     icon={<Icon.PieChart />}
                     setResource={setResource}
-                    description={'Buy RAM to improve overall server performance.'}
+                    description={'Compre RAM para melhorar o desempenho geral do servidor.'}
                 />
                 <PurchaseBox
                     type={'Disk'}
@@ -104,7 +104,7 @@ export default () => {
                     setOpen={setOpen}
                     icon={<Icon.HardDrive />}
                     setResource={setResource}
-                    description={'Buy disk to store more files.'}
+                    description={'Comprar disco para armazenar mais arquivos.'}
                 />
                 <PurchaseBox
                     type={'Slots'}
@@ -113,7 +113,7 @@ export default () => {
                     setOpen={setOpen}
                     icon={<Icon.Server />}
                     setResource={setResource}
-                    description={'Buy a server slot so you can deploy a new server.'}
+                    description={'Comprar um slot de servidor para que você possa implantar um novo servidor.'}
                 />
             </Container>
             <Container className={'j-up lg:grid lg:grid-cols-4 my-10 gap-8'}>
@@ -124,7 +124,7 @@ export default () => {
                     setOpen={setOpen}
                     icon={<Icon.Share2 />}
                     setResource={setResource}
-                    description={'Buy a network port to add to a server.'}
+                    description={'Compre uma porta de rede para adicionar a um servidor.'}
                 />
                 <PurchaseBox
                     type={'Backups'}
@@ -133,7 +133,7 @@ export default () => {
                     setOpen={setOpen}
                     icon={<Icon.Archive />}
                     setResource={setResource}
-                    description={'Buy a backup to keep your data secure.'}
+                    description={'Compre um backup para manter seus dados seguros.'}
                 />
                 <PurchaseBox
                     type={'Databases'}
@@ -142,27 +142,27 @@ export default () => {
                     setOpen={setOpen}
                     icon={<Icon.Database />}
                     setResource={setResource}
-                    description={'Buy a database to get and set data.'}
+                    description={'Compre um banco de dados para obter e definir dados.'}
                 />
-                <TitledGreyBox title={'How to use resources'}>
-                    <p className={'font-semibold'}>Adding to an existing server</p>
+                <TitledGreyBox title={'Como usar os recursos'}>
+                    <p className={'font-semibold'}>Adicionando a um servidor existente</p>
                     <p className={'text-xs text-gray-500'}>
-                        If you have a server that is already deployed, you can add resources to it by going to the
-                        &apos;edit&apos; tab.
+                        Se você tiver um servidor que já está implantado, você pode adicionar recursos a ele indo para
+                        a guia editar.
                     </p>
-                    <p className={'font-semibold mt-1'}>Adding to a new server</p>
+                    <p className={'font-semibold mt-1'}>Adicionando a um novo servidor</p>
                     <p className={'text-xs text-gray-500'}>
-                        You can buy resources and add them to a new server in the server creation page, which you can
-                        access via the store.
+                        Você pode comprar recursos e adicioná-los a um novo servidor na página de criação do servidor,
+                        que você pode acessar através da loja.
                     </p>
                 </TitledGreyBox>
             </Container>
             <div className={'flex justify-center items-center'}>
                 <div className={'bg-auto bg-center bg-storeone p-4 m-4 rounded-lg'}>
                     <div className={'text-center bg-gray-900 bg-opacity-75 p-4'}>
-                        <h1 className={'j-down text-4xl'}>Ready to get started?</h1>
+                        <h1 className={'j-down text-4xl'}>Pronto para começar?</h1>
                         <Link to={'/store/create'}>
-                            <Button.Text className={'j-up w-full mt-4'}>Create a server</Button.Text>
+                            <Button.Text className={'j-up w-full mt-4'}>Criar o Servidor</Button.Text>
                         </Link>
                     </div>
                 </div>

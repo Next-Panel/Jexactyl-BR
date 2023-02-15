@@ -10,33 +10,33 @@ export default () => {
     const username = useStoreState((state) => state.user.data!.username);
 
     return (
-        <PageContentBlock title={'Storefront Overview'}>
+        <PageContentBlock title={'Visão geral da Loja'}>
             <div className={'flex flex-row items-center justify-between mt-10'}>
                 {width >= 1280 && (
                     <div>
-                        <h1 className={'j-left text-6xl'}>Hey, {username}!</h1>
-                        <h3 className={'j-left text-2xl mt-2 text-neutral-500'}>👋 Welcome to the store.</h3>
+                        <h1 className={'j-left text-6xl'}>Opa, {username}!</h1>
+                        <h3 className={'j-left text-2xl mt-2 text-neutral-500'}>👋 Bem-vindo à loja.</h3>
                     </div>
                 )}
                 <ResourceBar className={'w-full lg:w-3/4'} />
             </div>
             <div className={'lg:grid lg:grid-cols-3 gap-8 my-10'}>
                 <StoreBanner
-                    title={'Want to create a server?'}
+                    title={'Deseja criar um servidor?'}
                     className={'bg-storeone'}
-                    action={'Create'}
+                    action={'Criar'}
                     link={'create'}
                 />
                 <StoreBanner
-                    title={'Need more resources?'}
+                    title={'Precisa de mais recursos?'}
                     className={'bg-storetwo'}
-                    action={'Buy Resources'}
+                    action={'Comprar Recursos'}
                     link={'resources'}
                 />
                 <StoreBanner
-                    title={'Run out of credits?'}
+                    title={'Ficou sem créditos?'}
                     className={'bg-storethree'}
-                    action={'Buy Credits'}
+                    action={'Comprar Créditos'}
                     link={'credits'}
                 />
             </div>

@@ -30,7 +30,11 @@ export default ({ match, location }: RouteComponentProps<{ token: string }>) => 
 
     const submit = ({ password, passwordConfirmation }: Values, { setSubmitting }: FormikHelpers<Values>) => {
         clearFlashes();
-        performPasswordReset(email, { token: match.params.token, password, passwordConfirmation })
+        performPasswordReset(email, {
+            token: match.params.token,
+            password,
+            passwordConfirmation,
+        })
             .then(() => {
                 // @ts-expect-error this is valid
                 window.location = '/';
@@ -39,7 +43,11 @@ export default ({ match, location }: RouteComponentProps<{ token: string }>) => 
                 console.error(error);
 
                 setSubmitting(false);
-                addFlash({ type: 'danger', title: 'Error', message: httpErrorToHuman(error) });
+                addFlash({
+                    type: 'danger',
+                    title: 'Error',
+                    message: httpErrorToHuman(error),
+                });
             });
     };
 
@@ -52,35 +60,35 @@ export default ({ match, location }: RouteComponentProps<{ token: string }>) => 
             }}
             validationSchema={object().shape({
                 password: string()
-                    .required('A new password is required.')
-                    .min(8, 'Your new password should be at least 8 characters in length.'),
+                    .required('É necessária uma nova palavra-passe.')
+                    .min(8, 'A sua nova senha deve ter pelo menos 8 caracteres.'),
                 passwordConfirmation: string()
-                    .required('Your new password does not match.')
+                    .required('A sua nova senha não corresponde.')
                     // @ts-expect-error this is valid
-                    .oneOf([ref('password'), null], 'Your new password does not match.'),
+                    .oneOf([ref('password'), null], 'A sua nova senha não corresponde.'),
             })}
         >
             {({ isSubmitting }) => (
-                <LoginFormContainer title={'Reset Password'} css={tw`w-full flex`}>
+                <LoginFormContainer title={'Redefinir Senha'} css={tw`w-full flex`}>
                     <div>
-                        <label>Email</label>
+                        <label>E-mail</label>
                         <Input value={email} isLight disabled />
                     </div>
                     <div css={tw`mt-6`}>
                         <Field
                             light
-                            label={'New Password'}
+                            label={'Nova Senha'}
                             name={'password'}
                             type={'password'}
-                            description={'Passwords must be at least 8 characters in length.'}
+                            description={'As senha devem ter pelo menos 8 caracteres de comprimento.'}
                         />
                     </div>
                     <div css={tw`mt-6`}>
-                        <Field light label={'Confirm New Password'} name={'passwordConfirmation'} type={'password'} />
+                        <Field light label={'Confirmar Nova Senha'} name={'passwordConfirmation'} type={'password'} />
                     </div>
                     <div css={tw`mt-6`}>
                         <Button size={Button.Sizes.Large} css={tw`w-full`} type={'submit'} disabled={isSubmitting}>
-                            Reset Password
+                            Resetar Senha
                         </Button>
                     </div>
                     <div css={tw`mt-6 text-center`}>
@@ -88,7 +96,7 @@ export default ({ match, location }: RouteComponentProps<{ token: string }>) => 
                             to={'/auth/login'}
                             css={tw`text-xs text-neutral-500 tracking-wide no-underline uppercase hover:text-neutral-600`}
                         >
-                            Return to Login
+                            Voltar ao login
                         </Link>
                     </div>
                 </LoginFormContainer>

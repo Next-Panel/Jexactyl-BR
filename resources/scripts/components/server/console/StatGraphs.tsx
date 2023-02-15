@@ -67,28 +67,31 @@ export default () => {
             previous.current.rx < 0 ? 0 : Math.max(0, values.network.rx_bytes - previous.current.rx),
         ]);
 
-        previous.current = { tx: values.network.tx_bytes, rx: values.network.rx_bytes };
+        previous.current = {
+            tx: values.network.tx_bytes,
+            rx: values.network.rx_bytes,
+        };
     });
 
     return (
         <>
-            <ChartBlock title={'CPU Load'}>
+            <ChartBlock title={'Uso da CPU'}>
                 <Line {...cpu.props} />
             </ChartBlock>
-            <ChartBlock title={'Disk'}>
+            <ChartBlock title={'Disco'}>
                 <Line {...disk.props} />
             </ChartBlock>
-            <ChartBlock title={'Memory'}>
+            <ChartBlock title={'Memória'}>
                 <Line {...memory.props} />
             </ChartBlock>
             <ChartBlock
-                title={'Network'}
+                title={'Rede'}
                 legend={
                     <>
-                        <Tooltip arrow content={'Inbound'}>
+                        <Tooltip arrow content={'Entrada'}>
                             <Icon.UploadCloud className={'mr-2 w-4 h-4 text-green-400'} />
                         </Tooltip>
-                        <Tooltip arrow content={'Outbound'}>
+                        <Tooltip arrow content={'Saída'}>
                             <Icon.DownloadCloud className={'w-4 h-4 text-cyan-400'} />
                         </Tooltip>
                     </>

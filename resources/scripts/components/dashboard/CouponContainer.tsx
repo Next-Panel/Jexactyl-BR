@@ -13,7 +13,7 @@ import { ApplicationStore } from '@/state';
 import { httpErrorToHuman } from '@/api/http';
 
 const schema = object().shape({
-    code: string().required('You must specify the code you wish to redeem.'),
+    code: string().required('Você deve especificar o código que deseja resgatar.'),
 });
 
 export default () => {
@@ -23,7 +23,7 @@ export default () => {
         clearFlashes();
         redeemCoupon(values.code)
             .then(() => {
-                addFlash({ type: 'success', key: 'coupons', message: 'Successfully redeemed the coupon.' });
+                addFlash({ type: 'success', key: 'coupons', message: 'Cupom resgatado com sucesso.' });
             })
             .catch((err) => {
                 addFlash({ type: 'danger', key: 'coupons', message: httpErrorToHuman(err) });
@@ -35,19 +35,19 @@ export default () => {
     };
 
     return (
-        <PageContentBlock title={'Coupons'}>
-            <h1 className={'j-left text-5xl'}>Coupons</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500'}>Redeem coupons given to you.</h3>
+        <PageContentBlock title={'Cupons'}>
+            <h1 className={'j-left text-5xl'}>Cupons</h1>
+            <h3 className={'j-left text-2xl mt-2 text-neutral-500'}>Resgatar cupons dados a você.</h3>
             <FlashMessageRender byKey={'coupons'} className={'mt-2'} />
-            <ContentBox title={'Redeem'} className={'w-1/4 mt-6'}>
+            <ContentBox title={'Resgatar'} className={'w-1/4 mt-6'}>
                 <Formik initialValues={{ code: '' }} onSubmit={submit} validationSchema={schema}>
                     {({ isSubmitting, isValid }) => (
                         <Fragment>
                             <SpinnerOverlay size={'large'} visible={isSubmitting} />
                             <Form>
-                                <Field id={'code'} type={'text'} name={'code'} label={'Enter Code'} />
+                                <Field id={'code'} type={'text'} name={'code'} label={'Coloque o código'} />
                                 <div className={'mt-6'}>
-                                    <Button disabled={isSubmitting || !isValid}>Redeem</Button>
+                                    <Button disabled={isSubmitting || !isValid}>Resgatar</Button>
                                 </div>
                             </Form>
                         </Fragment>

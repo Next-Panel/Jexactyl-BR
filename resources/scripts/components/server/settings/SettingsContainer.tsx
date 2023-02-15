@@ -16,8 +16,8 @@ export default () => {
 
     return (
         <ServerContentBlock
-            title={'Settings'}
-            description={'Control important settings for your server.'}
+            title={'Configurações'}
+            description={'Controle configurações importantes para seu servidor.'}
             showFlashKey={'settings'}
         >
             <div className={'md:flex'}>
@@ -29,7 +29,7 @@ export default () => {
                         </div>
                         <CopyOnClick text={uuid}>
                             <div css={tw`flex items-center justify-between mt-2 text-sm`}>
-                                <p>Server ID</p>
+                                <p>ID do servidor</p>
                                 <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>{uuid}</code>
                             </div>
                         </CopyOnClick>

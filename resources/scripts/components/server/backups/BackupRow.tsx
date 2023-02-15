@@ -66,7 +66,7 @@ export default ({ backup, className }: Props) => {
                             <span
                                 css={tw`bg-red-500 py-px px-2 rounded-full text-white text-xs uppercase border border-red-600 mr-2`}
                             >
-                                Failed
+                                Falhou
                             </span>
                         )}
                         <p css={tw`break-words truncate`}>{backup.name}</p>
@@ -81,7 +81,10 @@ export default ({ backup, className }: Props) => {
             </div>
             <div css={tw`flex-1 md:flex-none md:w-48 mt-4 md:mt-0 md:ml-8 md:text-center`}>
                 <p title={format(backup.createdAt, 'ddd, MMMM do, yyyy HH:mm:ss')} css={tw`text-sm`}>
-                    {formatDistanceToNow(backup.createdAt, { includeSeconds: true, addSuffix: true })}
+                    {formatDistanceToNow(backup.createdAt, {
+                        includeSeconds: true,
+                        addSuffix: true,
+                    })}
                 </p>
                 <p css={tw`text-2xs text-neutral-500 uppercase mt-1`}>Created</p>
             </div>

@@ -123,7 +123,10 @@ const Modal: React.FC<ModalProps> = ({
                         <Fade timeout={150} appear in>
                             <div
                                 css={tw`absolute w-full h-full rounded flex items-center justify-center`}
-                                style={{ background: 'hsla(211, 10%, 53%, 0.35)', zIndex: 9999 }}
+                                style={{
+                                    background: 'hsla(211, 10%, 53%, 0.35)',
+                                    zIndex: 9999,
+                                }}
                             >
                                 <Spinner />
                             </div>

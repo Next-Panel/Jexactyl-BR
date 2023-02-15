@@ -1,14 +1,14 @@
 @extends('layouts.admin')
 
 @section('title')
-    Locations
+    localização
 @endsection
 
 @section('content-header')
-    <h1>Locations<small>All locations that nodes can be assigned to for easier categorization.</small></h1>
+    <h1>Localizações<small>Todos os locais aos quais os nodes podem ser atribuídos para facilitar a categorização.</small></h1>
     <ol class="breadcrumb">
-        <li><a href="{{ route('admin.index') }}">Admin</a></li>
-        <li class="active">Locations</li>
+        <li><a href="{{ route('admin.index') }}">Administrador</a></li>
+        <li class="active">Localizações</li>
     </ol>
 @endsection
 
@@ -17,9 +17,9 @@
     <div class="col-xs-12">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Location List</h3>
+                <h3 class="box-title">Lista de localizações</h3>
                 <div class="box-tools">
-                    <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#newLocationModal">Create New</button>
+                    <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#newLocationModal">Criar Novo</button>
                 </div>
             </div>
             <div class="box-body table-responsive no-padding">
@@ -27,10 +27,10 @@
                     <tbody>
                         <tr>
                             <th>ID</th>
-                            <th>Short Code</th>
-                            <th>Description</th>
+                            <th>Nome Simples</th>
+                            <th>Descrição</th>
                             <th class="text-center">Nodes</th>
-                            <th class="text-center">Servers</th>
+                            <th class="text-center">Servidores</th>
                         </tr>
                         @foreach ($locations as $location)
                             <tr>
@@ -53,26 +53,26 @@
             <form action="{{ route('admin.locations') }}" method="POST">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Create Location</h4>
+                    <h4 class="modal-title">Criar localização</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="pShortModal" class="form-label">Short Code</label>
+                            <label for="pShortModal" class="form-label">Nome Simples</label>
                             <input type="text" name="short" id="pShortModal" class="form-control" />
-                            <p class="text-muted small">A short identifier used to distinguish this location from others. Must be between 1 and 60 characters, for example, <code>us.nyc.lvl3</code>.</p>
+                            <p class="text-muted small">Um identificador curto usado para distinguir esse local de outros. Deve ter entre 1 e 60 caracteres, por exemplo, <code>br.painel.loc</code>.</p>
                         </div>
                         <div class="col-md-12">
-                            <label for="pLongModal" class="form-label">Description</label>
+                            <label for="pLongModal" class="form-label">Descrição</label>
                             <textarea name="long" id="pLongModal" class="form-control" rows="4"></textarea>
-                            <p class="text-muted small">A longer description of this location. Must be less than 191 characters.</p>
+                            <p class="text-muted small">Uma descrição mais longa desse local. Deve ter menos de 191 caracteres.</p>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     {!! csrf_field() !!}
-                    <button type="button" class="btn btn-default btn-sm pull-left" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success btn-sm">Create</button>
+                    <button type="button" class="btn btn-default btn-sm pull-left" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success btn-sm">Criar</button>
                 </div>
             </form>
         </div>

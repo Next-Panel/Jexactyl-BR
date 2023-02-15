@@ -27,7 +27,7 @@ export default () => {
                 addFlash({
                     key: 'console:share',
                     type: 'success',
-                    message: 'Server has been renewed.',
+                    message: 'O servidor foi renovado.',
                 });
             })
             .catch((error) => {
@@ -38,26 +38,25 @@ export default () => {
                 addFlash({
                     key: 'console:share',
                     type: 'danger',
-                    message: 'Unable to renew your server. Are you sure you have enough credits?',
+                    message: 'Incapaz de renovar seu servidor. Tem certeza de que tem créditos suficientes?',
                 });
             });
     };
-
     return (
         <>
             <Dialog.Confirm
                 open={open}
                 onClose={() => setOpen(false)}
-                title={'Confirm server renewal'}
+                title={'Confirme a renovação do servidor'}
                 onConfirmed={() => doRenewal()}
             >
                 <SpinnerOverlay visible={loading} />
-                You will be charged {store.renewals.cost} credits to add {store.renewals.days} days until your next
-                renewal is due.
+                Você será cobrado {store.renewals.cost} créditos para adicionar {store.renewals.days} dias até sua
+                próxima renovação é devida.
             </Dialog.Confirm>
-            in {renewal} days{' '}
+            em {renewal} dias{' '}
             <span className={'text-blue-500 text-sm cursor-pointer'} onClick={() => setOpen(true)}>
-                {'('}Renew{')'}
+                {'('}Renovar{')'}
             </span>
         </>
     );

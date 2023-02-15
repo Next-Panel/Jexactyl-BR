@@ -22,8 +22,8 @@ export default () => {
     if (approvals && !approved && authenticated) {
         return (
             <NotApproved
-                title={'Awaiting Approval'}
-                message={'Your account is currently pending approval from an administator.'}
+                title={'Aguardando aprovação'}
+                message={'Sua conta está atualmente pendente de aprovação de um administrador.'}
             />
         );
     }

@@ -15,7 +15,10 @@ import ActivityLogEntry from '@/components/elements/activity/ActivityLogEntry';
 export default () => {
     const { hash } = useLocationHash();
     const { clearAndAddHttpError } = useFlashKey('server:activity');
-    const [filters, setFilters] = useState<ActivityLogFilters>({ page: 1, sorts: { timestamp: -1 } });
+    const [filters, setFilters] = useState<ActivityLogFilters>({
+        page: 1,
+        sorts: { timestamp: -1 },
+    });
 
     const { data, isValidating, error } = useActivityLogs(filters, {
         revalidateOnMount: true,
@@ -23,7 +26,10 @@ export default () => {
     });
 
     useEffect(() => {
-        setFilters((value) => ({ ...value, filters: { ip: hash.ip, event: hash.event } }));
+        setFilters((value) => ({
+            ...value,
+            filters: { ip: hash.ip, event: hash.event },
+        }));
     }, [hash]);
 
     useEffect(() => {
@@ -32,8 +38,8 @@ export default () => {
 
     return (
         <ServerContentBlock
-            title={'Server Activity'}
-            description={'View activity on this server.'}
+            title={'Atividade do servidor'}
+            description={'Ver atividade neste servidor.'}
             showFlashKey={'server:activity'}
         >
             {(filters.filters?.event || filters.filters?.ip) && (
@@ -43,14 +49,16 @@ export default () => {
                         className={classNames(btnStyles.button, btnStyles.text, 'w-full sm:w-auto')}
                         onClick={() => setFilters((value) => ({ ...value, filters: {} }))}
                     >
-                        Clear Filters <Icon.XCircle className={'w-4 h-4 ml-2'} />
+                        Limpar Filtros <Icon.XCircle className={'w-4 h-4 ml-2'} />
                     </Link>
                 </div>
             )}
             {!data && isValidating ? (
                 <Spinner centered />
             ) : !data?.items.length ? (
-                <p className={'j-up text-sm text-center text-gray-400'}>No activity logs available for this server.</p>
+                <p className={'j-up text-sm text-center text-gray-400'}>
+                    Nenhum registro de atividade disponível para este servidor.
+                </p>
             ) : (
                 <div className={'bg-neutral-900 j-up'}>
                     {data?.items.map((activity) => (

@@ -34,7 +34,7 @@ export default ({ databaseId, onUpdate }: { databaseId: string; onUpdate: (datab
 
     return (
         <Button variant={Button.Variants.Secondary} color={'primary'} css={tw`mr-2`} onClick={rotate}>
-            Rotate Password
+            Trocar senha
         </Button>
     );
 };

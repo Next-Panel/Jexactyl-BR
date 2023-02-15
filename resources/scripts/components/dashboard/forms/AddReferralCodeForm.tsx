@@ -16,7 +16,7 @@ interface Values {
 
 const schema = Yup.object().shape({
     code: Yup.string().length(16).required(),
-    password: Yup.string().required('You must provide your current account password.'),
+    password: Yup.string().required('Deve fornecer a sua senha de conta corrente.'),
 });
 
 export default () => {
@@ -31,14 +31,14 @@ export default () => {
                 addFlash({
                     type: 'success',
                     key: 'account:referral',
-                    message: 'You are now using a referral code.',
+                    message: 'Agora você está usando o Código de referência.',
                 })
             )
             .catch((error) =>
                 addFlash({
                     type: 'danger',
                     key: 'account:referral',
-                    title: 'Error',
+                    title: 'Erro',
                     message: httpErrorToHuman(error),
                 })
             )
@@ -55,7 +55,7 @@ export default () => {
         <>
             {code ? (
                 <p className={'my-2 text-gray-400'}>
-                    You have already used a referral code.
+                    Voce ja usou um código de referência
                     <span className={'bg-gray-800 rounded p-1 ml-2'}>{code}</span>
                 </p>
             ) : (
@@ -63,17 +63,22 @@ export default () => {
                     {({ isSubmitting, isValid }) => (
                         <React.Fragment>
                             <Form className={'m-0'}>
-                                <Field id={'code'} type={'text'} name={'code'} label={'Enter referral code'} />
+                                <Field
+                                    id={'code'}
+                                    type={'text'}
+                                    name={'code'}
+                                    label={'Introduza o código de referência'}
+                                />
                                 <div className={'mt-6'}>
                                     <Field
                                         id={'confirm_password'}
                                         type={'password'}
                                         name={'password'}
-                                        label={'Confirm Password'}
+                                        label={'Confirmar Senha'}
                                     />
                                 </div>
                                 <div className={'mt-6'}>
-                                    <Button disabled={isSubmitting || !isValid}>Use Code</Button>
+                                    <Button disabled={isSubmitting || !isValid}>Usar código</Button>
                                 </div>
                             </Form>
                         </React.Fragment>

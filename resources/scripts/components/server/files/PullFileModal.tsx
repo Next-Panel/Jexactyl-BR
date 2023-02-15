@@ -76,7 +76,7 @@ export default ({ className }: WithClassname) => {
                         url: string()
                             .required()
                             .url()
-                            .test('unique', 'File or directory with that name already exists.', (v) => {
+                            .test('unique', 'Arquivo ou diretório com esse nome já existe.', (v) => {
                                 return (
                                     v !== undefined &&
                                     data !== undefined &&
@@ -87,7 +87,7 @@ export default ({ className }: WithClassname) => {
                 >
                     {({ resetForm, submitForm, isSubmitting: _, values }) => (
                         <Dialog
-                            title={'Pull Remote File'}
+                            title={'Baixar arquivo remoto'}
                             open={visible}
                             onClose={() => {
                                 setVisible(false);
@@ -98,7 +98,7 @@ export default ({ className }: WithClassname) => {
                             <Form css={tw`m-0`}>
                                 <Field type={'text'} id={'url'} name={'url'} label={'URL'} autoFocus />
                                 <p css={tw`mt-2 text-sm md:text-base break-all`}>
-                                    <span css={tw`text-neutral-200`}>This file will be downloaded to&nbsp;</span>
+                                    <span css={tw`text-neutral-200`}>Este arquivo será baixado para&nbsp;</span>
                                     <Code>
                                         /home/container/
                                         <span css={tw`text-cyan-200`}>
@@ -118,10 +118,10 @@ export default ({ className }: WithClassname) => {
                                         resetForm();
                                     }}
                                 >
-                                    Cancel
+                                    Cancelar
                                 </Button.Text>
                                 <Button className={'w-full sm:w-auto'} onClick={submitForm}>
-                                    Pull File
+                                    Baixar Arquivo
                                 </Button>
                             </Dialog.Footer>
                         </Dialog>
@@ -129,7 +129,7 @@ export default ({ className }: WithClassname) => {
                 </Formik>
             </Portal>
             <Button.Text onClick={() => setVisible(true)} className={className}>
-                Pull Remote File
+                Baixar arquivo remoto
             </Button.Text>
         </>
     );

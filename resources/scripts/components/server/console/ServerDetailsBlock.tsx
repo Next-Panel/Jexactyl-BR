@@ -28,7 +28,12 @@ const Bar = styled.div`
 `;
 
 export default ({ className }: { className?: string }) => {
-    const [stats, setStats] = useState<Stats>({ memory: 0, cpu: 0, disk: 0, uptime: 0 });
+    const [stats, setStats] = useState<Stats>({
+        memory: 0,
+        cpu: 0,
+        disk: 0,
+        uptime: 0,
+    });
 
     const status = ServerContext.useStoreState((state) => state.status.value);
     const instance = ServerContext.useStoreState((state) => state.socket.instance);
@@ -81,7 +86,7 @@ export default ({ className }: { className?: string }) => {
 
     return (
         <div className={classNames('grid grid-cols-6 gap-2 md:gap-4', className)}>
-            <StatBlock icon={faClock} title={'Uptime'}>
+            <StatBlock icon={faClock} title={'Tempo ativo'}>
                 {status === null ? (
                     'Offline'
                 ) : stats.uptime > 0 ? (
@@ -90,12 +95,12 @@ export default ({ className }: { className?: string }) => {
                     capitalize(status)
                 )}
             </StatBlock>
-            <StatBlock icon={faWifi} title={'Address'} copyOnClick={allocation}>
+            <StatBlock icon={faWifi} title={'Endereço'} copyOnClick={allocation}>
                 {allocation}
             </StatBlock>
             <StatBlock icon={faMicrochip} title={'CPU'}>
                 {status === 'offline' ? (
-                    <span className={'text-gray-400'}>Offline</span>
+                    <span className={'text-gray-400'}>Desligado</span>
                 ) : (
                     <Limit limit={textLimits.cpu}>{stats.cpu.toFixed(2)}%</Limit>
                 )}
@@ -104,12 +109,16 @@ export default ({ className }: { className?: string }) => {
                 ) : limits.cpu === 0 ? (
                     <Bar style={{ width: '100%' }} css={tw`bg-neutral-900`} />
                 ) : (
-                    <Bar style={{ width: cpuUsed === undefined ? '100%' : `${cpuUsed}%` }} />
+                    <Bar
+                        style={{
+                            width: cpuUsed === undefined ? '100%' : `${cpuUsed}%`,
+                        }}
+                    />
                 )}
             </StatBlock>
-            <StatBlock icon={faMemory} title={'Memory'}>
+            <StatBlock icon={faMemory} title={'Memória RAM'}>
                 {status === 'offline' ? (
-                    <span className={'text-gray-400'}>Offline</span>
+                    <span className={'text-gray-400'}>Desligado</span>
                 ) : (
                     <Limit limit={textLimits.memory}>{bytesToString(stats.memory)}</Limit>
                 )}
@@ -118,24 +127,32 @@ export default ({ className }: { className?: string }) => {
                 ) : limits.memory === 0 ? (
                     <Bar style={{ width: '100%' }} css={tw`bg-neutral-900`} />
                 ) : (
-                    <Bar style={{ width: memoryUsed === undefined ? '100%' : `${memoryUsed}%` }} />
+                    <Bar
+                        style={{
+                            width: memoryUsed === undefined ? '100%' : `${memoryUsed}%`,
+                        }}
+                    />
                 )}
             </StatBlock>
-            <StatBlock icon={faHdd} title={'Disk'}>
+            <StatBlock icon={faHdd} title={'Disco'}>
                 <Limit limit={textLimits.disk}>{bytesToString(stats.disk)}</Limit>
                 {diskUsed > 90 ? (
                     <Bar style={{ width: '100%' }} css={tw`bg-red-500`} />
                 ) : limits.disk === 0 ? (
                     <Bar style={{ width: '100%' }} css={tw`bg-neutral-900`} />
                 ) : (
-                    <Bar style={{ width: diskUsed === undefined ? '100%' : `${diskUsed}%` }} />
+                    <Bar
+                        style={{
+                            width: diskUsed === undefined ? '100%' : `${diskUsed}%`,
+                        }}
+                    />
                 )}
             </StatBlock>
-            <StatBlock icon={faScroll} title={'Save Console Logs'}>
+            <StatBlock icon={faScroll} title={'Salvar logs do console'}>
                 <ConsoleShareContainer />
             </StatBlock>
             {renewable && (
-                <StatBlock icon={faClock} title={'Renewal Date'}>
+                <StatBlock icon={faClock} title={'Data de renovação'}>
                     <RenewalInfo />
                 </StatBlock>
             )}

@@ -31,7 +31,10 @@ export default ({ scheduleId, onDeleted }: Props) => {
             .catch((error) => {
                 console.error(error);
 
-                addError({ key: 'schedules', message: httpErrorToHuman(error) });
+                addError({
+                    key: 'schedules',
+                    message: httpErrorToHuman(error),
+                });
                 setIsLoading(false);
                 setVisible(false);
             });
@@ -42,15 +45,15 @@ export default ({ scheduleId, onDeleted }: Props) => {
             <Dialog.Confirm
                 open={visible}
                 onClose={() => setVisible(false)}
-                title={'Delete Schedule'}
-                confirm={'Delete'}
+                title={'Excluir programação'}
+                confirm={'Excluir'}
                 onConfirmed={onDelete}
             >
                 <SpinnerOverlay visible={isLoading} />
-                All tasks will be removed and any running processes will be terminated.
+                Todas as tarefas serão removidas e quaisquer processos em execução serão encerrados.
             </Dialog.Confirm>
             <Button.Danger css={tw`flex-1 sm:flex-none mr-4 border-transparent`} onClick={() => setVisible(true)}>
-                Delete
+                Excluir
             </Button.Danger>
         </>
     );

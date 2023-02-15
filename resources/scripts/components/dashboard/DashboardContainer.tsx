@@ -17,8 +17,11 @@ import { usePersistedState } from '@/plugins/usePersistedState';
 import ResourceBar from '@/components/elements/store/ResourceBar';
 import PageContentBlock from '@/components/elements/PageContentBlock';
 
+import useWindowDimensions from '@/plugins/useWindowDimensions';
+
 export default () => {
     const { search } = useLocation();
+    const { width } = useWindowDimensions();
     const defaultPage = Number(new URLSearchParams(search).get('page') || '1');
 
     const [page, setPage] = useState(!isNaN(defaultPage) && defaultPage > 0 ? defaultPage : 1);
@@ -29,7 +32,11 @@ export default () => {
 
     const { data: servers, error } = useSWR<PaginatedResult<Server>>(
         ['/api/client/servers', showOnlyAdmin && rootAdmin, page],
-        () => getServers({ page, type: showOnlyAdmin && rootAdmin ? 'admin' : undefined })
+        () =>
+            getServers({
+                page,
+                type: showOnlyAdmin && rootAdmin ? 'admin' : undefined,
+            })
     );
 
     useEffect(() => {
@@ -52,16 +59,16 @@ export default () => {
     }, [error]);
 
     return (
-        <PageContentBlock title={'Dashboard'} css={tw`mt-4 sm:mt-10`} showFlashKey={'dashboard'}>
-            <ResourceBar className={'my-10'} titles />
+        <PageContentBlock title={'Painel'} css={tw`mt-4 sm:mt-10`} showFlashKey={'dashboard'}>
+            {width >= 1024 && <ResourceBar className={'my-10'} titles />}
             {rootAdmin && (
                 <div css={tw`mb-10 flex justify-between items-center`}>
                     <div>
                         <h1 className={'j-left text-5xl'}>
-                            {showOnlyAdmin ? "Showing others' servers" : 'Showing your servers'}
+                            {showOnlyAdmin ? 'Mostrando os servidores dos outros' : 'Mostrando seus servidores'}
                         </h1>
                         <h3 className={'j-left text-2xl mt-2 text-neutral-500'}>
-                            Select a server to view, update or modify.
+                            Selecione um servidor para visualizar, atualizar ou modificar.
                         </h3>
                     </div>
                     <Switch
@@ -91,8 +98,8 @@ export default () => {
                             </div>
                         ) : (
                             <ScreenBlock
-                                title={'Seems quite quiet here...'}
-                                message={'There are no available servers to display.'}
+                                title={'Parece bastante tranquilo aqui...'}
+                                message={'Não há servidores disponíveis para exibição.'}
                                 image={NotFoundSvg}
                                 noContainer
                             />

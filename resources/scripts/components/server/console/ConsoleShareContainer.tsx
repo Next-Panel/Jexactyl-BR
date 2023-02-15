@@ -28,11 +28,15 @@ export default () => {
                 addFlash({
                     key: 'console:share',
                     type: 'success',
-                    message: 'Your server logs have been saved to the /share folder.',
+                    message: 'Os logs do seu servidor foram salvos na pasta /share.',
                 });
             })
             .catch((error) => {
-                addFlash({ key: 'console:share', type: 'danger', message: httpErrorToHuman(error) });
+                addFlash({
+                    key: 'console:share',
+                    type: 'danger',
+                    message: httpErrorToHuman(error),
+                });
             });
     };
 
@@ -49,10 +53,10 @@ export default () => {
     return (
         <>
             {status === 'offline' ? (
-                <span className={'text-gray-400'}>Offline</span>
+                <span className={'text-gray-400'}>Desligado</span>
             ) : (
                 <div className={'cursor-pointer'} onClick={submit}>
-                    Save
+                    Salvar
                 </div>
             )}
         </>

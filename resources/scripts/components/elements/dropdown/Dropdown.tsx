@@ -11,7 +11,12 @@ interface Props {
 }
 
 const DropdownGap = ({ invisible }: { invisible?: boolean }) => (
-    <div className={classNames('border m-2', { 'border-neutral-700': !invisible, 'border-transparent': invisible })} />
+    <div
+        className={classNames('border m-2', {
+            'border-neutral-700': !invisible,
+            'border-transparent': invisible,
+        })}
+    />
 );
 
 type TypedChild = (React.ReactChild | React.ReactFragment | React.ReactPortal) & {
@@ -29,7 +34,7 @@ const Dropdown = forwardRef<typeof Menu, Props>(({ as, children }, ref) => {
     }, [children]);
 
     if (!Button) {
-        throw new Error('Cannot mount <Dropdown /> component without a child <Dropdown.Button />.');
+        throw new Error('Não é possível montar o componente <Dropdown /> sem um filho <Dropdown.Button />.');
     }
 
     return (

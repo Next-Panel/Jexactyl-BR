@@ -23,5 +23,9 @@ export default (uuid: string, initialData?: Response | null, config?: ConfigInte
                 dockerImages: data.meta.docker_images || {},
             };
         },
-        { initialData: initialData || undefined, errorRetryCount: 3, ...(config || {}) }
+        {
+            initialData: initialData || undefined,
+            errorRetryCount: 3,
+            ...(config || {}),
+        }
     );

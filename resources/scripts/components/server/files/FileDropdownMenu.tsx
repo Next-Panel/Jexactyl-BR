@@ -51,7 +51,7 @@ const FileDropdownMenu = ({ file }: { file: FileObject }) => {
     const { clearAndAddHttpError, clearFlashes } = useFlash();
     const directory = ServerContext.useStoreState((state) => state.files.directory);
 
-    useEventListener(`Jexactyl:files:ctx:${file.key}`, (e: CustomEvent) => {
+    useEventListener(`pterodactyl:files:ctx:${file.key}`, (e: CustomEvent) => {
         if (onClickRef.current) {
             onClickRef.current.triggerMenu(e.detail);
         }
@@ -122,8 +122,8 @@ const FileDropdownMenu = ({ file }: { file: FileObject }) => {
                 confirm={'Delete'}
                 onConfirmed={doDeletion}
             >
-                You will not be able to recover the contents of&nbsp;
-                <span className={'font-semibold text-gray-50'}>{file.name}</span> once deleted.
+                Você não será capaz de recuperar o conteúdo de&nbsp;
+                <span className={'font-semibold text-gray-50'}>{file.name}</span> Uma vez excluído.
             </Dialog.Confirm>
             <DropdownMenu
                 ref={onClickRef}
@@ -135,7 +135,12 @@ const FileDropdownMenu = ({ file }: { file: FileObject }) => {
                                 <ChmodFileModal
                                     visible
                                     appear
-                                    files={[{ file: file.name, mode: file.modeBits }]}
+                                    files={[
+                                        {
+                                            file: file.name,
+                                            mode: file.modeBits,
+                                        },
+                                    ]}
                                     onDismissed={() => setModal(null)}
                                 />
                             ) : (
@@ -153,27 +158,27 @@ const FileDropdownMenu = ({ file }: { file: FileObject }) => {
                 )}
             >
                 <Can action={'file.update'}>
-                    <Row onClick={() => setModal('rename')} title={'Rename'} />
-                    <Row onClick={() => setModal('move')} title={'Move'} />
-                    <Row onClick={() => setModal('chmod')} title={'Permissions'} />
+                    <Row onClick={() => setModal('rename')} title={'Renomear'} />
+                    <Row onClick={() => setModal('move')} title={'Mover'} />
+                    <Row onClick={() => setModal('chmod')} title={'Permissões'} />
                 </Can>
                 {file.isFile && (
                     <Can action={'file.create'}>
-                        <Row onClick={doCopy} title={'Copy'} />
+                        <Row onClick={doCopy} title={'Copiar'} />
                     </Can>
                 )}
                 {file.isArchiveType() ? (
                     <Can action={'file.create'}>
-                        <Row onClick={doUnarchive} title={'Unarchive'} />
+                        <Row onClick={doUnarchive} title={'Descompactar'} />
                     </Can>
                 ) : (
                     <Can action={'file.archive'}>
-                        <Row onClick={doArchive} title={'Archive'} />
+                        <Row onClick={doArchive} title={'Arquivar'} />
                     </Can>
                 )}
                 {file.isFile && <Row onClick={doDownload} title={'Download'} />}
                 <Can action={'file.delete'}>
-                    <Row onClick={() => setShowConfirmation(true)} title={'Delete'} $danger />
+                    <Row onClick={() => setShowConfirmation(true)} title={'Deletar'} $danger />
                 </Can>
             </DropdownMenu>
         </>

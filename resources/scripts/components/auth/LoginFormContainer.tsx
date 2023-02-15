@@ -30,7 +30,8 @@ const Container = styled.div`
 `;
 
 export default forwardRef<HTMLFormElement, Props>(({ title, ...props }, ref) => {
-    const logo = useStoreState((state) => state.settings.data?.logo);
+    const logo_string = useStoreState((state) => state.settings.data?.logo);
+    const logo = logo_string === '' ? '/assets/svgs/pterodactyl.svg' : `${logo_string}`;
 
     return (
         <Container>
@@ -39,19 +40,19 @@ export default forwardRef<HTMLFormElement, Props>(({ title, ...props }, ref) => 
             <Form {...props} ref={ref}>
                 <div css={tw`md:flex w-full bg-neutral-900 shadow-lg rounded-lg p-6 md:pl-0 mx-1`}>
                     <div css={tw`flex-none select-none mb-6 md:mb-0 self-center`}>
-                        <img src={logo ?? '/assets/svgs/Jexactyl.svg'} css={tw`block w-48 md:w-64 mx-auto`} />
+                        <img src={`${logo}`} css={tw`block w-48 md:w-64 mx-auto`} />
                     </div>
                     <div css={tw`flex-1`}>{props.children}</div>
                 </div>
             </Form>
             <p css={tw`text-neutral-500 text-xs mt-6 sm:float-left`}>
-                &copy; <a href={'https://jexactyl.com'}>Jexactyl,</a> built on{' '}
-                <a href={'https://jexactyl.com'}>Jexactyl.</a>
+                &copy; <a href={'https://jexactyl.com'}>Jexactyl,</a> Feito sobre{' '}
+                <a href={'https://pterodactyl.io'}>Pterodactyl.</a>
             </p>
             <p css={tw`text-neutral-500 text-xs mt-6 sm:float-right`}>
                 <a href={'https://jexactyl.com'}> Site </a>
                 &bull;
-                <a href={'https://github.com/jexactyl/jexactyl'}> GitHub </a>
+                <a href={'https://github.com/Jexactyl-Brasil/Jexactyl-Brasil'}> GitHub </a>
             </p>
         </Container>
     );

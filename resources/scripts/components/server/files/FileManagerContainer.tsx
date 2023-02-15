@@ -80,8 +80,12 @@ export default () => {
     };
 
     return (
-        <ServerContentBlock title={'File Manager'} description={'Create, edit and view files.'} showFlashKey={'files'}>
-            <Input onChange={searchFiles} className={'mb-4 j-up'} placeholder={'Search for files and folders...'} />
+        <ServerContentBlock
+            title={'Gerenciador de arquivos'}
+            description={'Crie, edite e visualize arquivos.'}
+            showFlashKey={'files'}
+        >
+            <Input onChange={searchFiles} className={'mb-4 j-up'} placeholder={'Buscar arquivos e pastas...'} />
             <div css={tw`flex flex-wrap-reverse md:flex-nowrap justify-center mb-4`}>
                 <ErrorBoundary>
                     <div className={'j-right'}>
@@ -104,7 +108,7 @@ export default () => {
                             <UploadButton />
                             <PullFileModal />
                             <NavLink to={`/server/${id}/files/new${window.location.hash}`}>
-                                <Button>New File</Button>
+                                <Button>Novo arquivo</Button>
                             </NavLink>
                         </div>
                     </Can>
@@ -115,15 +119,15 @@ export default () => {
             ) : (
                 <>
                     {!files.length ? (
-                        <p css={tw`text-sm text-neutral-400 text-center`}>This directory seems to be empty.</p>
+                        <p css={tw`text-sm text-neutral-400 text-center`}>Este diretório parece estar vazio.</p>
                     ) : (
                         <CSSTransition classNames={'fade'} timeout={150} appear in>
                             <>
                                 {files.length > 250 && (
                                     <div css={tw`rounded bg-yellow-400 mb-px p-3`}>
                                         <p css={tw`text-yellow-900 text-sm text-center`}>
-                                            This directory is too large to display in the browser, limiting the output
-                                            to the first 250 files.
+                                            Este diretório é muito grande para ser exibido no navegador, limitando a
+                                            saída para os primeiros 250 arquivos.
                                         </p>
                                     </div>
                                 )}
@@ -137,15 +141,15 @@ export default () => {
                 </>
             )}
             <Can action={'file.sftp'}>
-                <TitledGreyBox title={'SFTP Details'} className={'j-up mt-8 md:mt-6'}>
+                <TitledGreyBox title={'Detalhes do SFTP'} className={'j-up mt-8 md:mt-6'}>
                     <div>
-                        <Label>Server Address</Label>
+                        <Label>Endereço do servidor</Label>
                         <CopyOnClick text={`sftp://${ip(sftp.ip)}:${sftp.port}`}>
                             <Input type={'text'} value={`sftp://${ip(sftp.ip)}:${sftp.port}`} readOnly />
                         </CopyOnClick>
                     </div>
                     <div css={tw`mt-6`}>
-                        <Label>Username</Label>
+                        <Label>Nome de usuário</Label>
                         <CopyOnClick text={`${username}.${id}`}>
                             <Input type={'text'} value={`${username}.${id}`} readOnly />
                         </CopyOnClick>
@@ -154,13 +158,13 @@ export default () => {
                         <div css={tw`flex-1`}>
                             <div css={tw`border-l-4 border-cyan-500 p-3`}>
                                 <p css={tw`text-xs text-neutral-200`}>
-                                    Your SFTP password is the same as the password you use to access this panel.
+                                    Sua senha SFTP é a mesma da senha que você usa para acessar este painel.
                                 </p>
                             </div>
                         </div>
                         <div css={tw`ml-4`}>
                             <a href={`sftp://${username}.${id}@${ip(sftp.ip)}:${sftp.port}`}>
-                                <Button.Text variant={Button.Variants.Secondary}>Launch SFTP</Button.Text>
+                                <Button.Text variant={Button.Variants.Secondary}>Inicie o SFTP</Button.Text>
                             </a>
                         </div>
                     </div>

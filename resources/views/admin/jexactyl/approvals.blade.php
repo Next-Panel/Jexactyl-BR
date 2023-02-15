@@ -2,11 +2,11 @@
 @include('partials/admin.jexactyl.nav', ['activeTab' => 'approvals'])
 
 @section('title')
-    User Approvals
+Aprovações de usuários
 @endsection
 
 @section('content-header')
-    <h1>User Approvals<small>Allow or deny requests to create accounts.</small></h1>
+    <h1>Aprovações de usuários<small>Permitir ou negar pedidos de criação de contas.</small></h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.index') }}">Admin</a></li>
         <li class="active">Jexactyl</li>
@@ -27,30 +27,30 @@
                 ">
                     <div class="box-header with-border">
                         <i class="fa fa-users"></i>
-                        <h3 class="box-title">Approval System <small>Decide whether the approval system is enabled or disabled.</small></h3>
+                        <h3 class="box-title">Sistema de Aprovação <small>Decidir se o sistema de aprovação está ativado ou desativado.</small></h3>
                     </div>
                     <div class="box-body">
                         <div class="row">
                             <div class="form-group col-md-4">
-                                <label class="control-label">Enabled</label>
+                                <label class="control-label">Habilitado</label>
                                 <div>
                                     <select name="enabled" class="form-control">
-                                        <option @if ($enabled == 'false') selected @endif value="false">Disabled</option>
-                                        <option @if ($enabled == 'true') selected @endif value="true">Enabled</option>
+                                        <option @if ($enabled == 'false') selected @endif value="false">Desabilitado</option>
+                                        <option @if ($enabled == 'true') selected @endif value="true">Habilitado</option>
                                     </select>
-                                    <p class="text-muted"><small>Determines whether users must be approved by an admin to use the Panel.</small></p>
+                                    <p class="text-muted"><small>Determina se os usuários devem ser aprovados por um administrador para usar o Painel.</small></p>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="control-label" for="webhook">Webhook URL</label>
+                                <label class="control-label" for="webhook">URL do Webhook</label>
                                 <input name="webhook" id="webhook" class="form-control" value="{{ $webhook }}">
-                                <p class="text-muted"><small>Provide the Discord Webhook URL to use when a user needs to be approved.</small></p>
+                                <p class="text-muted"><small>Fornecer a URL do Webhook Discord para ser usada quando um usuário precisar ser aprovado.</small></p>
                             </div>
                         </div>
                     </div>
                     <div class="box box-footer">
                         {!! csrf_field() !!}
-                        <button type="submit" name="_method" value="PATCH" class="btn btn-default pull-right">Save Changes</button>
+                        <button type="submit" name="_method" value="PATCH" class="btn btn-default pull-right">Salvar mudanças</button>
                     </div>
                 </div>
             </div>
@@ -61,24 +61,24 @@
             <div class="box box-success">
                 <div class="box-header with-border">
                     <i class="fa fa-list"></i>
-                    <h3 class="box-title">Approval Requests <small>Allow or deny requests to create accounts.</small></h3>
+                    <h3 class="box-title">Solicitações de aprovação <small>Permitir ou negar pedidos de criação de contas.</small></h3>
                     <form id="massdenyform" action="{{ route('admin.jexactyl.approvals.all', 'deny') }}" method="POST">
                         {!! csrf_field() !!}
-                        <button id="denyAllBtn" class="btn btn-danger pull-right">Deny All</button>
+                        <button id="denyAllBtn" class="btn btn-danger pull-right">Recusar tudo</button>
                     </form>
                     <form id="massapproveform" action="{{ route('admin.jexactyl.approvals.all', 'approve') }}" method="POST">
                         {!! csrf_field() !!}
-                        <button id="approveAllBtn" class="btn btn-success pull-right">Approve All</button>
+                        <button id="approveAllBtn" class="btn btn-success pull-right">Aprovar tudo</button>
                     </form>
                  </div>
                 <div class="box-body table-responsive no-padding">
                     <table class="table table-hover">
                         <tbody>
                             <tr>
-                                <th>User ID</th>
-                                <th>Email</th>
-                                <th>Username</th>
-                                <th>Registered</th>
+                                <th>ID do usuário</th>
+                                <th>E-mail</th>
+                                <th>Nome do usuário</th>
+                                <th>Registrado</th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -130,10 +130,10 @@
 
         swal({
             type: 'error',
-            title: 'Deny this request?',
-            text: 'This will remove this user from the Panel immediately.',
+            title: 'Negar este pedido?',
+            text: 'Isso removerá esse usuário do painel imediatamente.',
             showCancelButton: true,
-            confirmButtonText: 'Deny',
+            confirmButtonText: 'Negar',
             confirmButtonColor: 'red',
             closeOnConfirm: false
         }, function () {
@@ -146,10 +146,10 @@
 
         swal({
             type: 'success',
-            title: 'Approve this request?',
-            text: 'This user will gain access to the Panel immediately.',
+            title: 'Aprovar este pedido?',
+            text: 'Este usuário obterá acesso ao painel imediatamente.',
             showCancelButton: true,
-            confirmButtonText: 'Approve',
+            confirmButtonText: 'Aprovar',
             confirmButtonColor: 'green',
             closeOnConfirm: false
         }, function () {
@@ -160,10 +160,10 @@
     $('#approveAllBtn').click(function (event) {
         event.preventDefault();
         swal({
-            title: 'Approve All Users?',
-            text: 'This will approve all of the users waiting for approval.',
+            title: 'Aprovar todos os usuários?',
+            text: 'Isso aprovará todos os usuários que aguardam a aprovação.',
             showCancelButton: true,
-            confirmButtonText: 'Approve All',
+            confirmButtonText: 'Aprovar tudo',
             confirmButtonColor: 'green',
             closeOnConfirm: false
         }, function () {
@@ -174,10 +174,10 @@
     $('#denyAllBtn').click(function (event) {
         event.preventDefault();
         swal({
-            title: 'Deny All Users?',
-            text: 'This will deny all of the users waiting for approval.',
+            title: 'Recusar todos os usuários?',
+            text: 'Isto negará a aprovação de todos os usuários.',
             showCancelButton: true,
-            confirmButtonText: 'Deny All',
+            confirmButtonText: 'Recusar tudo',
             confirmButtonColor: 'red',
             closeOnConfirm: false
         }, function () {

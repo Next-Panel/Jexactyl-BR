@@ -42,7 +42,9 @@ export default ({ className, titles }: RowProps) => {
             <Tooltip content={props.description}>
                 <Wrapper>
                     {props.icon}
-                    <span className={'ml-2'}>{props.toHuman ? megabytesToHuman(props.amount) : props.amount}</span>
+                    <span className={'ml-2'}>
+                        {props.toHuman ? <span className={'sm'}>{megabytesToHuman(props.amount)}</span> : props.amount}
+                    </span>
                     {props.suffix}
                 </Wrapper>
             </Tooltip>
@@ -52,53 +54,53 @@ export default ({ className, titles }: RowProps) => {
     return (
         <StoreContainer className={classNames(className, 'j-right grid grid-cols-2 sm:grid-cols-7 gap-x-6 gap-y-2')}>
             <ResourceBox
-                title={'Credits'}
-                description={'The amount of credits you have available.'}
+                title={'Créditos'}
+                description={'A quantidade de créditos que você tem disponível.'}
                 icon={<Icon.DollarSign />}
                 amount={resources.balance}
             />
             <ResourceBox
                 title={'CPU'}
-                description={'The amount of CPU (in %) you have available.'}
+                description={'A quantidade de CPU (em %) que você tem disponível.'}
                 icon={<Icon.Cpu />}
                 amount={resources.cpu}
                 suffix={'%'}
             />
             <ResourceBox
-                title={'Memory'}
-                description={'The amount of RAM (in MB/GB) you have available.'}
+                title={'Memória'}
+                description={'A quantidade de RAM (em MB/GB) que você tem disponível.'}
                 icon={<Icon.PieChart />}
                 amount={resources.memory}
                 toHuman
             />
             <ResourceBox
-                title={'Disk'}
-                description={'The amount of storage (in MB/GB) you have available.'}
+                title={'Disco'}
+                description={'A quantidade de armazenamento (em MB/GB) que você tem disponível.'}
                 icon={<Icon.HardDrive />}
                 amount={resources.disk}
                 toHuman
             />
             <ResourceBox
                 title={'Slots'}
-                description={'The amount of servers you are able to deploy.'}
+                description={'A quantidade de servidores que você pode implantar.'}
                 icon={<Icon.Server />}
                 amount={resources.slots}
             />
             <ResourceBox
-                title={'Ports'}
-                description={'The amount of ports you can add to your servers.'}
+                title={'Portas'}
+                description={'A quantidade de portas que você pode adicionar aos seus servidores.'}
                 icon={<Icon.Share2 />}
                 amount={resources.ports}
             />
             <ResourceBox
                 title={'Backups'}
-                description={'The amount of backup slots you can add to your servers.'}
+                description={'A quantidade de slots de backup que você pode adicionar aos seus servidores.'}
                 icon={<Icon.Archive />}
                 amount={resources.backups}
             />
             <ResourceBox
                 title={'Databases'}
-                description={'The amount of database slots you can add to your servers.'}
+                description={'A quantidade de slots de banco de dados que você pode adicionar aos seus servidores.'}
                 icon={<Icon.Database />}
                 amount={resources.databases}
             />

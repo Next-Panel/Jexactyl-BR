@@ -22,7 +22,7 @@ export default ({ size }: Props) => {
     return (
         <>
             {visible && <SearchModal appear visible={visible} onDismissed={() => setVisible(false)} />}
-            <Tooltip placement={'bottom'} content={'Search'}>
+            <Tooltip placement={'bottom'} content={'Procurar'}>
                 <div className={'navigation-link'} onClick={() => setVisible(true)}>
                     <Icon.Search size={size} />
                 </div>

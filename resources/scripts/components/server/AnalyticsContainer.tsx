@@ -94,9 +94,9 @@ export default () => {
     }, [instance, connected]);
 
     return (
-        <ServerContentBlock title={'Analytics'} description={'View statistics for your server.'}>
+        <ServerContentBlock title={'Analíticos'} description={'Veja as estatísticas do seu servidor.'}>
             {status === ('offline' || null) ? (
-                <p className={'text-center text-gray-400'}>Your server is offline.</p>
+                <p className={'text-center text-gray-400'}>Seu servidor está offline.</p>
             ) : (
                 <div className={'grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-2'}>
                     <div className={'col-span-2 grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-4'}>
@@ -104,21 +104,25 @@ export default () => {
                     </div>
                     <div>
                         <ContentBox>
-                            <UsageBox progress={cpuUsed} title={'CPU Usage'} content={`${cpuUsed.toFixed(2)}% used`} />
+                            <UsageBox
+                                progress={cpuUsed}
+                                title={'Uso da CPU'}
+                                content={`${cpuUsed.toFixed(2)}% utilizado`}
+                            />
                             <UsageBox
                                 progress={memoryUsed}
-                                title={'Memory Usage'}
-                                content={`${memoryUsed.toFixed(2)}% used`}
+                                title={'Uso da memória'}
+                                content={`${memoryUsed.toFixed(2)}% utilizado`}
                             />
                             <UsageBox
                                 progress={diskUsed}
-                                title={'Disk Usage'}
-                                content={`${diskUsed.toFixed(2)}% used`}
+                                title={'Uso do disco'}
+                                content={`${diskUsed.toFixed(2)}% utilizado`}
                             />
                         </ContentBox>
                         <TitledGreyBox title={'Performance Metrics'} className={'rounded mt-4'}>
                             {!messages ? (
-                                <p className={'text-gray-400 text-center'}>No metrics are currently available.</p>
+                                <p className={'text-gray-400 text-center'}>Atualmente não há métricas disponíveis.</p>
                             ) : (
                                 <>
                                     {messages.slice(0, 2).map((message) => (

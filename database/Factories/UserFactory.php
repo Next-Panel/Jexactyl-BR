@@ -4,8 +4,8 @@ namespace Database\Factories;
 
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
-use Jexactyl\Models\User;
 use Illuminate\Support\Str;
+use Pterodactyl\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserFactory extends Factory
@@ -32,7 +32,7 @@ class UserFactory extends Factory
             'name_first' => $this->faker->firstName,
             'name_last' => $this->faker->lastName,
             'password' => $password ?: $password = bcrypt('password'),
-            'language' => 'en',
+            'language' => 'pt',
             'root_admin' => false,
             'use_totp' => false,
             'created_at' => Carbon::now(),

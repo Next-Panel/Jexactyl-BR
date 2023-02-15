@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Ramsey\Uuid\Uuid;
-use Jexactyl\Models\Egg;
+use Pterodactyl\Models\Egg;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class EggFactory extends Factory

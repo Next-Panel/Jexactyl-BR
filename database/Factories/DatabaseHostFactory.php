@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use Jexactyl\Models\DatabaseHost;
+use Pterodactyl\Models\DatabaseHost;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

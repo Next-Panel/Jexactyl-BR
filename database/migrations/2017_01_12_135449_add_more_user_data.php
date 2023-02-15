@@ -1,6 +1,6 @@
 <?php
 
-use Jexactyl\Models\User;
+use Pterodactyl\Models\User;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;

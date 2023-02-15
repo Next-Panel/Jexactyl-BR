@@ -1,6 +1,6 @@
 <?php
 
-use Jexactyl\Models\Backup;
+use Pterodactyl\Models\Backup;
 
 return [
     // The backup driver to use for this Panel instance. All client generated server backups

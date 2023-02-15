@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Console;
+namespace Jexactyl\Console;
 
 /**
  * @mixin \Illuminate\Console\Command
@@ -46,7 +46,7 @@ Você deve executar o seguinte comando para finalizar a migração de seu banco 
 
   <fg=green;options=bold>php artisan migrate --step --force</>
 
-  Você não poderá usar o Painel do Jexactyl como esperado sem fixar seu
+  Você não poderá usar o Painel Jexactyl como esperado sem fixar seu
   de banco de dados, executando o comando acima.
 ');
 

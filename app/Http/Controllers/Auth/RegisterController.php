@@ -1,13 +1,13 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Auth;
+namespace Jexactyl\Http\Controllers\Auth;
 
 use Illuminate\Http\JsonResponse;
-use Pterodactyl\Exceptions\DisplayException;
-use Pterodactyl\Http\Requests\Auth\RegisterRequest;
-use Pterodactyl\Services\Users\UserCreationService;
-use Pterodactyl\Exceptions\Model\DataValidationException;
-use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Jexactyl\Exceptions\DisplayException;
+use Jexactyl\Http\Requests\Auth\RegisterRequest;
+use Jexactyl\Services\Users\UserCreationService;
+use Jexactyl\Exceptions\Model\DataValidationException;
+use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
 
 class RegisterController extends AbstractLoginController
 {
@@ -34,7 +34,7 @@ class RegisterController extends AbstractLoginController
             throw new DisplayException('Incapaz de registrar o usuário.');
         }
 
-        if ($this->settings->get($prefix . 'verification') != 'true') {
+        if (!$this->settings->get($prefix . 'verification')) {
             $verified = true;
         }
 

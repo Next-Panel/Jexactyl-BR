@@ -67,20 +67,9 @@ export default () => {
 
         getResources().then((resources) => setResources(resources));
 
-        getNodes().then((nodes) => {
-            setNode(nodes[0].id);
-            setNodes(nodes);
-        });
-
-        getNests().then((nests) => {
-            setNest(nests[0].id);
-            setNests(nests);
-        });
-
-        getEggs().then((eggs) => {
-            setEgg(eggs[0].id);
-            setEggs(eggs);
-        });
+        getEggs().then((eggs) => setEggs(eggs));
+        getNests().then((nests) => setNests(nests));
+        getNodes().then((nodes) => setNodes(nodes));
     }, []);
 
     const changeNest = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -245,10 +234,12 @@ export default () => {
                     <StoreContainer className={'lg:grid lg:grid-cols-3 my-10 gap-4'}>
                         <TitledGreyBox title={'Nodes disponíveis'} icon={faLayerGroup} className={'mt-8 sm:mt-0'}>
                             <Select name={'node'} onChange={(e) => setNode(parseInt(e.target.value))}>
+                                {!node && <option>Select a node...</option>}
                                 {nodes.map((n) => (
                                     <option key={n.id} value={n.id}>
                                         {n.name} ({n.location}) |{' '}
-                                        {100 - parseInt(((n?.used / n?.total) * 100).toFixed(0))}% espaço restante
+                                        {100 - parseInt(((n?.used / n?.total) * 100).toFixed(0))}% grátis |{' '}
+                                        {n.deployFee} créditos
                                     </option>
                                 ))}
                             </Select>
@@ -256,6 +247,7 @@ export default () => {
                         </TitledGreyBox>
                         <TitledGreyBox title={'Nest do Servidor'} icon={faCube} className={'mt-8 sm:mt-0'}>
                             <Select name={'nest'} onChange={(nest) => changeNest(nest)}>
+                                {!nest && <option>Select a nest...</option>}
                                 {nests.map((n) => (
                                     <option key={n.id} value={n.id}>
                                         {n.name}
@@ -268,6 +260,7 @@ export default () => {
                         </TitledGreyBox>
                         <TitledGreyBox title={'Egg do Servidor'} icon={faEgg} className={'mt-8 sm:mt-0'}>
                             <Select name={'egg'} onChange={(e) => setEgg(parseInt(e.target.value))}>
+                                {!egg && <option>Select an egg...</option>}
                                 {eggs.map((e) => (
                                     <option key={e.id} value={e.id}>
                                         {e.name}

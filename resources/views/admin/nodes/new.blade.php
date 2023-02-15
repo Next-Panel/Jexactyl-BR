@@ -77,7 +77,12 @@
                         <p class="text-muted small">Insira o nome de domínio (por exemplo,<code> node.example.com</code>) a ser usado para se conectar ao daemon. Um endereço IP pode ser usado <em>somente</em> se você não estiver usando SSL para esse node.</p>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Comunicar por SSL</label>
+                        <label for="pDeployFee" class="form-label">Taxa de implantação da loja</label>
+                        <input type="text" name="deploy_fee" id="pDeployFee" class="form-control" value="{{ old('deploy_fee') ?? 0 }}"/>
+                        <p class="text-muted small">Inserir um valor aqui significa que os usuários que implantam um servidor através da Storefront devem pagar uma taxa em créditos para implantar a este Node.</p>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Comunique-se através de SSL</label>
                         <div>
                             <div class="radio radio-success radio-inline">
                                 <input type="radio" id="pSSLTrue" value="https" name="scheme" checked>
@@ -120,7 +125,7 @@
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="pDaemonBase" class="form-label">Diretório de arquivos do Servidor Daemon </label>
-                            <input type="text" name="daemonBase" id="pDaemonBase" class="form-control" value="/var/lib/pterodactyl/volumes" />
+                            <input type="text" name="daemonBase" id="pDaemonBase" class="form-control" value="/var/lib/Jexactyl/volumes" />
                             <p class="text-muted small">Insira o diretório onde os arquivos do servidor devem ser armazenados. <strong>Se utilizar a OVH deve verificar o seu esquema de partição. Talvez seja necessário usar <code>/home/daemon-data</code> para ter espaço suficiente.</strong></p>
                         </div>
                         <div class="form-group col-md-6">

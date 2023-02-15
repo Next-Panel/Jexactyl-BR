@@ -46,7 +46,7 @@ Novo servidor
 
                         <div class="form-group">
                             <div class="checkbox checkbox-primary no-margin-bottom">
-                                <input id="pStartOnCreation" name="start_on_completion" type="checkbox" {{ \Pterodactyl\Helpers\Utilities::checked('start_on_completion', 1) }} />
+                                <input id="pStartOnCreation" name="start_on_completion" type="checkbox" {{ \Jexactyl\Helpers\Utilities::checked('start_on_completion', 1) }} />
                                 <label for="pStartOnCreation" class="strong">Iniciar o servidor ao ser instalado</label>
                             </div>
                         </div>
@@ -221,7 +221,7 @@ Novo servidor
                     </div>
                     <div class="form-group col-xs-12">
                         <div class="checkbox checkbox-primary no-margin-bottom">
-                            <input type="checkbox" id="pOomDisabled" name="oom_disabled" value="0" {{ \Pterodactyl\Helpers\Utilities::checked('oom_disabled', 0) }} />
+                            <input type="checkbox" id="pOomDisabled" name="oom_disabled" value="0" {{ \Jexactyl\Helpers\Utilities::checked('oom_disabled', 0) }} />
                             <label for="pOomDisabled" class="strong">Habilitar o OOM Killer</label>
                         </div>
 
@@ -264,7 +264,7 @@ Novo servidor
                     </div>
                     <div class="form-group col-xs-12">
                         <div class="checkbox checkbox-primary no-margin-bottom">
-                            <input type="checkbox" id="pSkipScripting" name="skip_scripts" value="1" {{ \Pterodactyl\Helpers\Utilities::checked('skip_scripts', 0) }} />
+                            <input type="checkbox" id="pSkipScripting" name="skip_scripts" value="1" {{ \Jexactyl\Helpers\Utilities::checked('skip_scripts', 0) }} />
                             <label for="pSkipScripting" class="strong">Pular o Script de Instalação do Egg</label>
                         </div>
 

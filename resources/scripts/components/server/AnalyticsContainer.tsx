@@ -1,10 +1,10 @@
 import { ServerContext } from '@/state/server';
 import React, { useEffect, useState } from 'react';
-import { Alert } from '@/components/elements/alert';
+//import { Alert } from '@/components/elements/alert';
 import ContentBox from '@/components/elements/ContentBox';
 import { getMessages, Message } from '@/api/server/analytics';
 import StatGraphs from '@/components/server/console/StatGraphs';
-import TitledGreyBox from '@/components/elements/TitledGreyBox';
+//import TitledGreyBox from '@/components/elements/TitledGreyBox';
 import { SocketEvent, SocketRequest } from '@/components/server/events';
 import ServerContentBlock from '@/components/elements/ServerContentBlock';
 
@@ -120,6 +120,7 @@ export default () => {
                                 content={`${diskUsed.toFixed(2)}% utilizado`}
                             />
                         </ContentBox>
+                        {/*
                         <TitledGreyBox title={'Performance Metrics'} className={'rounded mt-4'}>
                             {!messages ? (
                                 <p className={'text-gray-400 text-center'}>Atualmente não há métricas disponíveis.</p>
@@ -136,6 +137,7 @@ export default () => {
                                 </>
                             )}
                         </TitledGreyBox>
+                        */}
                     </div>
                 </div>
             )}

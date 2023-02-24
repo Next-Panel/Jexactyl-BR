@@ -1,5 +1,6 @@
 import { encodePathSegments } from '@/helpers';
 import { differenceInHours, format, formatDistanceToNow } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 import { FileObject } from '@/api/server/files/loadDirectory';
 import FileDropdownMenu from '@/components/server/files/FileDropdownMenu';
 import { ServerContext } from '@/state/server';
@@ -58,8 +59,8 @@ const FileObjectRow = ({ file }: { file: FileObject }) => (
             {file.isFile && <div css={tw`w-1/6 text-right mr-4 hidden sm:block`}>{bytesToString(file.size)}</div>}
             <div css={tw`w-1/5 text-right mr-4 hidden md:block`} title={file.modifiedAt.toString()}>
                 {Math.abs(differenceInHours(file.modifiedAt, new Date())) > 48
-                    ? format(file.modifiedAt, 'MMM do, yyyy h:mma')
-                    : formatDistanceToNow(file.modifiedAt, { addSuffix: true })}
+                    ? format(file.modifiedAt, "'dia' d 'de' MMMM yyyy', ás' HH:mm", { locale: ptBR })
+                    : formatDistanceToNow(file.modifiedAt, { addSuffix: true, locale: ptBR })}
             </div>
         </Clickable>
         <FileDropdownMenu file={file} />

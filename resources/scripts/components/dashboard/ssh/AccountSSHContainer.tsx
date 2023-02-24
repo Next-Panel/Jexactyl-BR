@@ -1,5 +1,6 @@
 import tw from 'twin.macro';
 import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 import * as Icon from 'react-feather';
 import React, { useEffect } from 'react';
 import { useFlashKey } from '@/plugins/useFlash';
@@ -50,8 +51,10 @@ export default () => {
                                     <p css={tw`text-sm break-words font-medium`}>{key.name}</p>
                                     <p css={tw`text-xs mt-1 font-mono truncate`}>SHA256:{key.fingerprint}</p>
                                     <p css={tw`text-xs mt-1 text-neutral-300 uppercase`}>
-                                        Adicionada na:&nbsp;
-                                        {format(key.createdAt, 'MMM do, yyyy HH:mm')}
+                                        Adicionado em:&nbsp;
+                                        {format(key.createdAt, "'dia' d 'de' MMMM yyyy', ás' HH:mm:ss", {
+                                            locale: ptBR,
+                                        })}
                                     </p>
                                 </div>
                                 <DeleteSSHKeyButton name={key.name} fingerprint={key.fingerprint} />

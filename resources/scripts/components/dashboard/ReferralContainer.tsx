@@ -1,5 +1,6 @@
 import tw from 'twin.macro';
 import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 import { breakpoint } from '@/theme';
 import * as Icon from 'react-feather';
 import styled from 'styled-components/macro';
@@ -173,7 +174,11 @@ export default () => {
                                     </p>
                                     <p css={tw`text-2xs text-neutral-300 uppercase`}>
                                         Usado em:&nbsp;
-                                        {act.createdAt ? format(act.createdAt, 'MMM do, yyyy HH:mm') : 'Nunca'}
+                                        {act.createdAt
+                                            ? format(act.createdAt, "'dia' d 'de' MMMM yyyy', ás' HH:mm", {
+                                                  locale: ptBR,
+                                              })
+                                            : 'Nunca'}
                                     </p>
                                     <p css={tw`text-2xs text-neutral-300 uppercase`}>Usado em:&nbsp;{act.code}</p>
                                 </div>

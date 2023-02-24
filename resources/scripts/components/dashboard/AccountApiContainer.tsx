@@ -1,5 +1,6 @@
 import tw from 'twin.macro';
 import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 import * as Icon from 'react-feather';
 import Code from '@/components/elements/Code';
 import { useFlashKey } from '@/plugins/useFlash';
@@ -74,8 +75,12 @@ export default () => {
                                 <div css={tw`ml-4 flex-1 overflow-hidden`}>
                                     <p css={tw`text-sm break-words`}>{key.description}</p>
                                     <p css={tw`text-2xs text-neutral-300 uppercase`}>
-                                        Last used:&nbsp;
-                                        {key.lastUsedAt ? format(key.lastUsedAt, 'MMM do, yyyy HH:mm') : 'Never'}
+                                        Última utilização:&nbsp;
+                                        {key.lastUsedAt
+                                            ? format(key.lastUsedAt, "'dia' d 'de' MMMM yyyy', ás' HH:mm", {
+                                                  locale: ptBR,
+                                              })
+                                            : 'Nunca'}
                                     </p>
                                 </div>
                                 <p css={tw`text-sm ml-4 hidden md:block`}>

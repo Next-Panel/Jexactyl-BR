@@ -3,6 +3,7 @@ import apiVerify from '@/api/account/verify';
 import { useStoreState } from '@/state/hooks';
 import React, { useEffect, useState } from 'react';
 import { formatDistanceToNowStrict } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 import { getResources } from '@/api/store/getResources';
 import Translate from '@/components/elements/Translate';
 import InformationBox from '@/components/elements/InformationBox';
@@ -86,6 +87,7 @@ export default () => {
                             {' - '}
                             {formatDistanceToNowStrict(activity.timestamp, {
                                 addSuffix: true,
+                                locale: ptBR,
                             })}
                         </>
                     ) : (

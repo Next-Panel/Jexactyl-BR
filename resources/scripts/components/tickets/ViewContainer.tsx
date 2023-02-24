@@ -1,4 +1,5 @@
 import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 import useFlash from '@/plugins/useFlash';
 import { useRouteMatch } from 'react-router';
 import React, { useEffect, useState } from 'react';
@@ -99,7 +100,13 @@ export default () => {
                                             <p className={'line-clamp-5 truncate'}>{message.content}</p>
                                             {message.createdAt && (
                                                 <p className={'text-right p-2 text-sm text-gray-400'}>
-                                                    {format(message.createdAt, "MMM do 'at' h:mma")}
+                                                    {format(
+                                                        message.createdAt,
+                                                        "'dia' d 'de' MMMM yyyy', ás' HH:mm:ss",
+                                                        {
+                                                            locale: ptBR,
+                                                        }
+                                                    )}
                                                 </p>
                                             )}
                                         </TitledGreyBox>

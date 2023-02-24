@@ -51,7 +51,7 @@ export default () => {
                                     <p className={'text-2xs text-neutral-500 uppercase mt-1'}>
                                         {formatDistanceToNow(ticket.createdAt, {
                                             addSuffix: true,
-                                            locale: ptBR }
+                                            locale: ptBR,
                                         })}
                                     </p>
                                 </div>

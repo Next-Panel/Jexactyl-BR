@@ -1,10 +1,10 @@
 import { ServerContext } from '@/state/server';
 import React, { useEffect, useState } from 'react';
-import { Alert } from '@/components/elements/alert';
+//import { Alert } from '@/components/elements/alert';
 import ContentBox from '@/components/elements/ContentBox';
 import { getMessages, Message } from '@/api/server/analytics';
 import StatGraphs from '@/components/server/console/StatGraphs';
-import TitledGreyBox from '@/components/elements/TitledGreyBox';
+//import TitledGreyBox from '@/components/elements/TitledGreyBox';
 import { SocketEvent, SocketRequest } from '@/components/server/events';
 import ServerContentBlock from '@/components/elements/ServerContentBlock';
 
@@ -47,7 +47,8 @@ const UsageBox = ({ progress, title, content }: { progress: number; title: strin
 );
 
 export default () => {
-    const [messages, setMessages] = useState<Message[]>();
+    //const [messages, setMessages] = useState<Message[]>();
+    const [setMessages] = useState<Message[]>();
     const [stats, setStats] = useState<Stats>({ memory: 0, cpu: 0, disk: 0 });
 
     const status = ServerContext.useStoreState((state) => state.status.value);
@@ -120,6 +121,7 @@ export default () => {
                                 content={`${diskUsed.toFixed(2)}% utilizado`}
                             />
                         </ContentBox>
+                        {/*
                         <TitledGreyBox title={'Performance Metrics'} className={'rounded mt-4'}>
                             {!messages ? (
                                 <p className={'text-gray-400 text-center'}>Atualmente não há métricas disponíveis.</p>
@@ -136,6 +138,7 @@ export default () => {
                                 </>
                             )}
                         </TitledGreyBox>
+                        */}
                     </div>
                 </div>
             )}

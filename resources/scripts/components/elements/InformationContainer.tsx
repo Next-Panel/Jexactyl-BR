@@ -87,7 +87,7 @@ export default () => {
                             {' - '}
                             {formatDistanceToNowStrict(activity.timestamp, {
                                 addSuffix: true,
-                                locale: ptBR
+                                locale: ptBR,
                             })}
                         </>
                     ) : (

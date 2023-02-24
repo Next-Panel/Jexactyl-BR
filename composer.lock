@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a00efbc227b313b7016f815b5d31ac8f",
+    "content-hash": "7ddf7840a4b2bc20a63f180f29daef9e",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -1599,16 +1599,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v9.52.0",
+            "version": "v9.52.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "eb85cd9d72e5bfa54b4d0d9040786f26d6184a9e"
+                "reference": "9239128cfb4d22afefb64060dfecf53e82987267"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/eb85cd9d72e5bfa54b4d0d9040786f26d6184a9e",
-                "reference": "eb85cd9d72e5bfa54b4d0d9040786f26d6184a9e",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/9239128cfb4d22afefb64060dfecf53e82987267",
+                "reference": "9239128cfb4d22afefb64060dfecf53e82987267",
                 "shasum": ""
             },
             "require": {
@@ -1793,7 +1793,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-02-14T14:51:14+00:00"
+            "time": "2023-02-22T14:38:06+00:00"
         },
         {
             "name": "laravel/helpers",
@@ -2242,16 +2242,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "2.3.8",
+            "version": "2.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "c493585c130544c4e91d2e0e131e6d35cb0cbc47"
+                "reference": "c1e114f74e518daca2729ea8c4bf1167038fa4b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/c493585c130544c4e91d2e0e131e6d35cb0cbc47",
-                "reference": "c493585c130544c4e91d2e0e131e6d35cb0cbc47",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/c1e114f74e518daca2729ea8c4bf1167038fa4b5",
+                "reference": "c1e114f74e518daca2729ea8c4bf1167038fa4b5",
                 "shasum": ""
             },
             "require": {
@@ -2344,7 +2344,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-12-10T16:02:17+00:00"
+            "time": "2023-02-15T14:07:24+00:00"
         },
         {
             "name": "league/config",
@@ -2430,16 +2430,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "3.12.2",
+            "version": "3.12.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "f6377c709d2275ed6feaf63e44be7a7162b0e77f"
+                "reference": "81e87e74dd5213795c7846d65089712d2dda90ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/f6377c709d2275ed6feaf63e44be7a7162b0e77f",
-                "reference": "f6377c709d2275ed6feaf63e44be7a7162b0e77f",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/81e87e74dd5213795c7846d65089712d2dda90ce",
+                "reference": "81e87e74dd5213795c7846d65089712d2dda90ce",
                 "shasum": ""
             },
             "require": {
@@ -2501,7 +2501,7 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem/issues",
-                "source": "https://github.com/thephpleague/flysystem/tree/3.12.2"
+                "source": "https://github.com/thephpleague/flysystem/tree/3.12.3"
             },
             "funding": [
                 {
@@ -2517,7 +2517,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-19T12:02:19+00:00"
+            "time": "2023-02-18T15:32:41+00:00"
         },
         {
             "name": "league/flysystem-aws-s3-v3",
@@ -3904,26 +3904,26 @@
         },
         {
             "name": "prologue/alerts",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/prologuephp/alerts.git",
-                "reference": "b2880e28814b8dba8768e60e00511627381efe14"
+                "reference": "33e86d1f64dae7a8d6e29e7d6c282abc77a89b97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/prologuephp/alerts/zipball/b2880e28814b8dba8768e60e00511627381efe14",
-                "reference": "b2880e28814b8dba8768e60e00511627381efe14",
+                "url": "https://api.github.com/repos/prologuephp/alerts/zipball/33e86d1f64dae7a8d6e29e7d6c282abc77a89b97",
+                "reference": "33e86d1f64dae7a8d6e29e7d6c282abc77a89b97",
                 "shasum": ""
             },
             "require": {
-                "illuminate/config": "~9",
-                "illuminate/session": "~9",
-                "illuminate/support": "~9"
+                "illuminate/config": "~9|^10",
+                "illuminate/session": "~9|^10",
+                "illuminate/support": "~9|^10"
             },
             "require-dev": {
-                "mockery/mockery": "~0.9",
-                "phpunit/phpunit": "~4.1"
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^9"
             },
             "type": "library",
             "extra": {
@@ -3967,9 +3967,9 @@
             ],
             "support": {
                 "issues": "https://github.com/prologuephp/alerts/issues",
-                "source": "https://github.com/prologuephp/alerts/tree/1.0.0"
+                "source": "https://github.com/prologuephp/alerts/tree/1.1.0"
             },
-            "time": "2022-01-19T09:28:45+00:00"
+            "time": "2023-02-01T06:54:14+00:00"
         },
         {
             "name": "psr/cache",

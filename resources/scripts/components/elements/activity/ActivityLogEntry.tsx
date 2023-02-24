@@ -10,6 +10,7 @@ import Translate from '@/components/elements/Translate';
 import { getObjectKeys, isObject } from '@/lib/objects';
 import Tooltip from '@/components/elements/tooltip/Tooltip';
 import { format, formatDistanceToNowStrict } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 import ActivityLogMetaButton from '@/components/elements/activity/ActivityLogMetaButton';
 
 interface Props {
@@ -87,10 +88,14 @@ export default ({ activity, children }: Props) => {
                                 <span className={'text-gray-400'}>&nbsp;|&nbsp;</span>
                             </span>
                         )}
-                        <Tooltip placement={'right'} content={format(activity.timestamp, 'MMM do, yyyy H:mm:ss')}>
+                        <Tooltip
+                            placement={'right'}
+                            content={format(activity.timestamp, "'dia' d 'de' MMMM yyyy', ás' HH:mm", { locale: ptBR })}
+                        >
                             <span>
                                 {formatDistanceToNowStrict(activity.timestamp, {
                                     addSuffix: true,
+                                    locale: ptBR,
                                 })}
                             </span>
                         </Tooltip>

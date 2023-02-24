@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Spinner from '@/components/elements/Spinner';
 import { Button } from '@/components/elements/button';
 import { format, formatDistanceToNow } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 import GreyRowBox from '@/components/elements/GreyRowBox';
 import { getTickets, Ticket } from '@/api/account/tickets';
 import PageContentBlock from '@/components/elements/PageContentBlock';
@@ -49,8 +50,8 @@ export default () => {
                                     <p className={'text-sm'}>{format(ticket.createdAt, 'MMMM do, yyyy')}</p>
                                     <p className={'text-2xs text-neutral-500 uppercase mt-1'}>
                                         {formatDistanceToNow(ticket.createdAt, {
-                                            includeSeconds: true,
                                             addSuffix: true,
+                                            locale: ptBR }
                                         })}
                                     </p>
                                 </div>

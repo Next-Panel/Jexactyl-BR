@@ -4,7 +4,10 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+
+
     "content-hash": "d0020fffeef30355ae5931866169310f",
+
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -3904,26 +3907,26 @@
         },
         {
             "name": "prologue/alerts",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/prologuephp/alerts.git",
-                "reference": "b2880e28814b8dba8768e60e00511627381efe14"
+                "reference": "33e86d1f64dae7a8d6e29e7d6c282abc77a89b97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/prologuephp/alerts/zipball/b2880e28814b8dba8768e60e00511627381efe14",
-                "reference": "b2880e28814b8dba8768e60e00511627381efe14",
+                "url": "https://api.github.com/repos/prologuephp/alerts/zipball/33e86d1f64dae7a8d6e29e7d6c282abc77a89b97",
+                "reference": "33e86d1f64dae7a8d6e29e7d6c282abc77a89b97",
                 "shasum": ""
             },
             "require": {
-                "illuminate/config": "~9",
-                "illuminate/session": "~9",
-                "illuminate/support": "~9"
+                "illuminate/config": "~9|^10",
+                "illuminate/session": "~9|^10",
+                "illuminate/support": "~9|^10"
             },
             "require-dev": {
-                "mockery/mockery": "~0.9",
-                "phpunit/phpunit": "~4.1"
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^9"
             },
             "type": "library",
             "extra": {
@@ -3967,9 +3970,9 @@
             ],
             "support": {
                 "issues": "https://github.com/prologuephp/alerts/issues",
-                "source": "https://github.com/prologuephp/alerts/tree/1.0.0"
+                "source": "https://github.com/prologuephp/alerts/tree/1.1.0"
             },
-            "time": "2022-01-19T09:28:45+00:00"
+            "time": "2023-02-01T06:54:14+00:00"
         },
         {
             "name": "psr/cache",

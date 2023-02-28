@@ -24,7 +24,7 @@ class PruneOrphanedBackupsCommand extends Command
     {
         $since = $this->option('prune-age') ?? config('backups.prune_age', 360);
         if (!$since || !is_digit($since)) {
-            throw new \InvalidArgumentException('The "--prune-age" argument must be a value greater than 0.');
+            throw new \InvalidArgumentException('O argumento da "--prune-age" deve ser um valor maior que 0.');
         }
 
         $query = $this->backupRepository->getBuilder()

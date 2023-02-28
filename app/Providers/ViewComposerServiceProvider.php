@@ -11,7 +11,7 @@ class ViewComposerServiceProvider extends ServiceProvider
     /**
      * Register bindings in the container.
      */
-    public function boot()
+    public function boot(): void
     {
         $this->app->make('view')->composer('*', SettingComposer::class);
         $this->app->make('view')->composer('*', StoreComposer::class);

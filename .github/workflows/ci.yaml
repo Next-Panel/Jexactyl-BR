@@ -5,10 +5,12 @@ on:
     branches:
       - 'develop'
       - '1.0-develop'
+      - 'Pterodactyl'
   pull_request:
     branches:
       - "develop"
       - "1.0-develop"
+      - 'Pterodactyl'
 
 jobs:
   tests:

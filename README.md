@@ -5,6 +5,8 @@
 ![Downloads - Latest](https://img.shields.io/github/downloads/jexactyl/jexactyl/latest/total?style=for-the-badge)
 ![Version](https://img.shields.io/github/v/release/Next-Panel/Jexactyl-BR?style=for-the-badge)
 ![Contributors](https://img.shields.io/github/contributors-anon/Next-Panel/Jexactyl-BR?style=for-the-badge)
+![GitHub Stars](https://img.shields.io/github/stars/Next-Panel/Jexactyl-BR?style=for-the-badge)
+![Alt](https://repobeats.axiom.co/api/embed/9c6b5f5caeb7e2fec2b4942cf72f11ec660b830c.svg "Repobeats analytics image")
 
 <h1 align="center">Jexactyl</h1>
 <h5 align="center">

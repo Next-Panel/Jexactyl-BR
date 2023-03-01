@@ -52,7 +52,7 @@ export default forwardRef<HTMLFormElement, Props>(({ title, ...props }, ref) => 
             <p css={tw`text-neutral-500 text-xs mt-6 sm:float-right`}>
                 <a href={'https://jexactyl.com'}> Site </a>
                 &bull;
-                <a href={'https://github.com/Jexactyl-Brasil/Jexactyl-Brasil'}> GitHub </a>
+                <a href={'https://github.com/Next-Panel/Jexactyl-BR'}> GitHub </a>
             </p>
         </Container>
     );

@@ -31,7 +31,7 @@
                     @if ($version->isLatestPanel())
                     Você está executando o Jexactyl <code>{{ config('app.version') }}</code>. 
                     @else
-                    Jexactyl não está atualizado. <code>{{ config('app.version') }} (current) -> <a href="https://github.com/Jexactyl-Brasil/Jexactyl-Brasil/releases/v{{ $version->getPanel() }}" target="_blank">{{ $version->getPanel() }}</a> (latest)</code>
+                    Jexactyl não está atualizado. <code>{{ config('app.version') }} (current) -> <a href="https://github.com/Next-Panel/Jexactyl-BR/releases/v{{ $version->getPanel() }}" target="_blank">{{ $version->getPanel() }}</a> (latest)</code>
                     @endif
                 </div>
             </div>

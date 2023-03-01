@@ -3,8 +3,8 @@
 [![Discord](https://img.shields.io/discord/922284031129825280?style=for-the-badge)](https://discord.com/invite/qttGR4Z5Pk)
 ![Downloads - Total](https://img.shields.io/github/downloads/jexactyl/jexactyl/total?style=for-the-badge)
 ![Downloads - Latest](https://img.shields.io/github/downloads/jexactyl/jexactyl/latest/total?style=for-the-badge)
-![Version](https://img.shields.io/github/v/release/Jexactyl-Brasil/Jexactyl-Brasil?style=for-the-badge)
-![Contributors](https://img.shields.io/github/contributors-anon/Jexactyl-Brasil/Jexactyl-Brasil?style=for-the-badge)
+![Version](https://img.shields.io/github/v/release/Next-Panel/Jexactyl-BR?style=for-the-badge)
+![Contributors](https://img.shields.io/github/contributors-anon/Next-Panel/Jexactyl-BR?style=for-the-badge)
 
 <h1 align="center">Jexactyl</h1>
 <h5 align="center">

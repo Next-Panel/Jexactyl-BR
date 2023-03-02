@@ -1,11 +1,12 @@
 [![Logo Image](https://cdn.discordapp.com/attachments/1012411945141424218/1012430446556090468/JexactylBannerBasic.jpg)](https://jexactylbrasil.ml)
 
-[![Discord](https://img.shields.io/discord/922284031129825280?style=for-the-badge)](https://discord.com/invite/qttGR4Z5Pk)
+![GitHub Stars](https://img.shields.io/github/stars/Next-Panel/Jexactyl-BR?style=for-the-badge)
+[![CodeFactor](https://www.codefactor.io/repository/github/next-panel/jexactyl-br/badge?style=for-the-badge)](https://www.codefactor.io/repository/github/next-panel/jexactyl-br)
+[![Discord](https://img.shields.io/discord/1053464120311173172?style=for-the-badge)](https://discord.gg/68k7wDGjYc)
 ![Downloads - Total](https://img.shields.io/github/downloads/jexactyl/jexactyl/total?style=for-the-badge)
 ![Downloads - Latest](https://img.shields.io/github/downloads/jexactyl/jexactyl/latest/total?style=for-the-badge)
 ![Version](https://img.shields.io/github/v/release/Next-Panel/Jexactyl-BR?style=for-the-badge)
 ![Contributors](https://img.shields.io/github/contributors-anon/Next-Panel/Jexactyl-BR?style=for-the-badge)
-![GitHub Stars](https://img.shields.io/github/stars/Next-Panel/Jexactyl-BR?style=for-the-badge)
 ![Alt](https://repobeats.axiom.co/api/embed/9c6b5f5caeb7e2fec2b4942cf72f11ec660b830c.svg "Repobeats analytics image")
 
 <h1 align="center">Jexactyl</h1>

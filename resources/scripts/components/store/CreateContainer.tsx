@@ -234,10 +234,12 @@ export default () => {
                     <StoreContainer className={'lg:grid lg:grid-cols-3 my-10 gap-4'}>
                         <TitledGreyBox title={'Nodes disponíveis'} icon={faLayerGroup} className={'mt-8 sm:mt-0'}>
                             <Select name={'node'} onChange={(e) => setNode(parseInt(e.target.value))}>
+                                {!node && <option>Selecione o node...</option>}
                                 {nodes.map((n) => (
                                     <option key={n.id} value={n.id}>
                                         {n.name} ({n.location}) |{' '}
-                                        {100 - parseInt(((n?.used / n?.total) * 100).toFixed(0))}% espaço restante
+                                        {100 - parseInt(((n?.used / n?.total) * 100).toFixed(0))}% livre | {n.deployFee}{' '}
+                                        creditos
                                     </option>
                                 ))}
                             </Select>
@@ -245,6 +247,7 @@ export default () => {
                         </TitledGreyBox>
                         <TitledGreyBox title={'Nest do Servidor'} icon={faCube} className={'mt-8 sm:mt-0'}>
                             <Select name={'nest'} onChange={(nest) => changeNest(nest)}>
+                                {!nest && <option>Selecione o nest...</option>}
                                 {nests.map((n) => (
                                     <option key={n.id} value={n.id}>
                                         {n.name}
@@ -257,6 +260,7 @@ export default () => {
                         </TitledGreyBox>
                         <TitledGreyBox title={'Egg do Servidor'} icon={faEgg} className={'mt-8 sm:mt-0'}>
                             <Select name={'egg'} onChange={(e) => setEgg(parseInt(e.target.value))}>
+                                {!egg && <option>Selecione o egg...</option>}
                                 {eggs.map((e) => (
                                     <option key={e.id} value={e.id}>
                                         {e.name}

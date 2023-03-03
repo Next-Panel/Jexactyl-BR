@@ -30,7 +30,7 @@ Se você precisar de ajuda em algum momento durante o processo de instalação, 
 * Aprovações de usuários, renovações de servidores, e muito mais.
 
 ## Patrocinadores
-* Quer patrocinar a tradução do Jexactyl? [Doe aqui.](https://donate.stripe.com/6oE02Zftd9cC34IbIS)*
+* Quer patrocinar a tradução do Jexactyl? [Doe aqui.](https://discord.gg/68k7wDGjYc)*
 
 | Empresa | Sobre | Link |
 | ------- | ----- | ------- |

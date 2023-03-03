@@ -34,7 +34,7 @@ Se você precisar de ajuda em algum momento durante o processo de instalação, 
 
 | Empresa | Sobre | Link |
 | ------- | ----- | ------- |
-| [**Nenhum patrocínio**](https://) | Descrição | [@ninguém](https://) |
+| [Blume • Bots & Sites](https://discord.gg/phtrcBxdxR) | Forneceremos aos nossos clientes as soluções mais confiáveis, seguras e econômicas para dar vida a seus projetos, aplicativos, sites e muito mais online. | [@Blume](https://) |
 
 ## Previews
 ![image](https://user-images.githubusercontent.com/30575805/207936437-e9990069-ec34-4273-b5d2-6cdf21ab755b.png)

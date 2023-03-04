@@ -92,7 +92,7 @@ return [
 
     'cdn' => [
         'cache_time' => 60,
-        'url' => 'https://versions.jexactyl.com',
+        'url' => 'https://raw.githubusercontent.com/Next-Panel/Jexactyl-API/master/status.json',
     ],
 
     /*

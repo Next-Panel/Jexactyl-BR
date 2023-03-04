@@ -170,7 +170,7 @@ class CreateServerScheduleTaskTest extends ClientApiIntegrationTestCase
             ->assertForbidden();
     }
 
-    public static function permissionsDataProvider(): array
+    public function permissionsDataProvider(): array
     {
         return [[[]], [[Permission::ACTION_SCHEDULE_UPDATE]]];
     }

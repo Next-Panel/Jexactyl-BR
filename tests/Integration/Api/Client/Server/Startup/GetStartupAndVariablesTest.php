@@ -58,7 +58,7 @@ class GetStartupAndVariablesTest extends ClientApiIntegrationTestCase
         $this->actingAs($user2)->getJson($this->link($server) . '/startup')->assertNotFound();
     }
 
-    public static function permissionsDataProvider(): array
+    public function permissionsDataProvider(): array
     {
         return [[[]], [[Permission::ACTION_STARTUP_READ]]];
     }

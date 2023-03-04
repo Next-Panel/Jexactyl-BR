@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
     /**
      * Register the commands for the application.
      */
-    protected function commands(): void
+    protected function commands()
     {
         $this->load(__DIR__ . '/Commands');
     }
@@ -26,11 +26,8 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      */
-    protected function schedule(Schedule $schedule): void
+    protected function schedule(Schedule $schedule)
     {
-        // https://laravel.com/docs/10.x/upgrade#redis-cache-tags
-        $schedule->command('cache:prune-stale-tags')->hourly();
-
         // Execute scheduled commands for servers every minute, as if there was a normal cron running.
         $schedule->command(ProcessRunnableCommand::class)->everyMinute()->withoutOverlapping();
         $schedule->command(CleanServiceBackupFilesCommand::class)->daily();

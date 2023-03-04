@@ -331,7 +331,7 @@ class ClientControllerTest extends ClientApiIntegrationTestCase
         $response->assertJsonPath('data.0.attributes.relationships.allocations.data.0.attributes.notes', null);
     }
 
-    public static function filterTypeDataProvider(): array
+    public function filterTypeDataProvider(): array
     {
         return [['admin'], ['admin-all']];
     }

@@ -27,7 +27,7 @@ return [
     | sending an E-mail. You will specify which one you are using for your
     | mailers below. You are free to add additional mailers as required.
     |
-    | Supported: "smtp", "sendmail", "mailgun", "ses", "ses-v2",
+    | Supported: "smtp", "sendmail", "mailgun", "ses",
     |            "postmark", "log", "array", "failover"
     |
     */

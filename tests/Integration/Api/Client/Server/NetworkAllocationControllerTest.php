@@ -133,7 +133,7 @@ class NetworkAllocationControllerTest extends ClientApiIntegrationTestCase
             ->assertForbidden();
     }
 
-    public static function updatePermissionsDataProvider(): array
+    public function updatePermissionsDataProvider(): array
     {
         return [[[]], [[Permission::ACTION_ALLOCATION_UPDATE]]];
     }

@@ -37,7 +37,7 @@ class RunTaskJobTest extends IntegrationTestCase
 
         $job = new RunTaskJob($task);
 
-        Bus::dispatchSync($job);
+        Bus::dispatchNow($job);
 
         $task->refresh();
         $schedule->refresh();
@@ -61,7 +61,7 @@ class RunTaskJobTest extends IntegrationTestCase
 
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Tarefa inválida fornecida: foobar');
-        Bus::dispatchSync($job);
+        Bus::dispatchNow($job);
     }
 
     /**
@@ -95,7 +95,7 @@ class RunTaskJobTest extends IntegrationTestCase
         }))->andReturnSelf();
         $mock->expects('send')->with('start')->andReturn(new Response());
 
-        Bus::dispatchSync(new RunTaskJob($task, $isManualRun));
+        Bus::dispatchNow(new RunTaskJob($task, $isManualRun));
 
         $task->refresh();
         $schedule->refresh();
@@ -133,7 +133,7 @@ class RunTaskJobTest extends IntegrationTestCase
             $this->expectException(DaemonConnectionException::class);
         }
 
-        Bus::dispatchSync(new RunTaskJob($task));
+        Bus::dispatchNow(new RunTaskJob($task));
 
         if ($continueOnFailure) {
             $task->refresh();
@@ -165,7 +165,7 @@ class RunTaskJobTest extends IntegrationTestCase
             'payload' => 'start',
         ]);
 
-        Bus::dispatchSync(new RunTaskJob($task));
+        Bus::dispatchNow(new RunTaskJob($task));
 
         $task->refresh();
         $schedule->refresh();
@@ -175,7 +175,7 @@ class RunTaskJobTest extends IntegrationTestCase
         $this->assertTrue(Carbon::now()->isSameAs(\DateTimeInterface::ATOM, $schedule->last_run_at));
     }
 
-    public static function isManualRunDataProvider(): array
+    public function isManualRunDataProvider(): array
     {
         return [[true], [false]];
     }

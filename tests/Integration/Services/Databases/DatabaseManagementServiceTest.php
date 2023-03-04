@@ -194,7 +194,7 @@ class DatabaseManagementServiceTest extends IntegrationTestCase
         $this->assertDatabaseMissing('databases', ['server_id' => $server->id]);
     }
 
-    public static function invalidDataDataProvider(): array
+    public function invalidDataDataProvider(): array
     {
         return [
             [[]],

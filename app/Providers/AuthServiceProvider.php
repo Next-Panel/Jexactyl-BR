@@ -17,12 +17,14 @@ class AuthServiceProvider extends ServiceProvider
         Server::class => ServerPolicy::class,
     ];
 
-    public function boot(): void
+    public function boot()
     {
         Sanctum::usePersonalAccessTokenModel(ApiKey::class);
+
+        $this->registerPolicies();
     }
 
-    public function register(): void
+    public function register()
     {
         Sanctum::ignoreMigrations();
     }

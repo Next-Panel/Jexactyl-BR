@@ -77,7 +77,7 @@ class DeleteServerScheduleTest extends ClientApiIntegrationTestCase
         $this->assertDatabaseHas('schedules', ['id' => $schedule->id]);
     }
 
-    public static function permissionsDataProvider(): array
+    public function permissionsDataProvider(): array
     {
         return [[[]], [[Permission::ACTION_SCHEDULE_DELETE]]];
     }

@@ -213,7 +213,7 @@ class SftpAuthenticationControllerTest extends IntegrationTestCase
         $this->post('/api/remote/sftp/auth', $data)->assertForbidden();
     }
 
-    public static function authorizationTypeDataProvider(): array
+    public function authorizationTypeDataProvider(): array
     {
         return [
             'password auth' => ['password'],
@@ -221,7 +221,7 @@ class SftpAuthenticationControllerTest extends IntegrationTestCase
         ];
     }
 
-    public static function serverStateDataProvider(): array
+    public function serverStateDataProvider(): array
     {
         return [
             'installing' => [Server::STATUS_INSTALLING],

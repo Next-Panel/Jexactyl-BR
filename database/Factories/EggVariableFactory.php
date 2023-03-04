@@ -34,7 +34,7 @@ class EggVariableFactory extends Factory
     /**
      * Indicate that the egg variable is viewable.
      */
-    public function viewable(): static
+    public function viewable(): Factory
     {
         return $this->state(function (array $attributes) {
             return [
@@ -46,7 +46,7 @@ class EggVariableFactory extends Factory
     /**
      * Indicate that the egg variable is editable.
      */
-    public function editable(): static
+    public function editable(): Factory
     {
         return $this->state(function (array $attributes) {
             return [

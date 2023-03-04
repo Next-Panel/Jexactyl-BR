@@ -46,7 +46,7 @@ class AllocationAuthorizationTest extends ClientApiIntegrationTestCase
         $this->actingAs($user)->json($method, $this->link($server3, '/network/allocations/' . $allocation3->id . $endpoint))->assertNotFound();
     }
 
-    public static function methodDataProvider(): array
+    public function methodDataProvider(): array
     {
         return [
             ['POST', ''],

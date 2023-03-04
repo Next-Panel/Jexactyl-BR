@@ -98,7 +98,10 @@ class DeleteAllocationTest extends ClientApiIntegrationTestCase
         $this->actingAs($user)->deleteJson($this->link($server, "/network/allocations/{$server2->allocation_id}"))->assertNotFound();
     }
 
-    public static function permissionDataProvider(): array
+    /**
+     * @return array
+     */
+    public function permissionDataProvider()
     {
         return [[[Permission::ACTION_ALLOCATION_DELETE]], [[]]];
     }

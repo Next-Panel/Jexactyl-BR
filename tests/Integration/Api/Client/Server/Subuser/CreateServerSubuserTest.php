@@ -155,7 +155,7 @@ class CreateServerSubuserTest extends ClientApiIntegrationTestCase
         $response->assertJsonPath('errors.0.detail', 'O usuário com esse endereço de E-mail já está atribuído como subusuário desse servidor.');
     }
 
-    public static function permissionsDataProvider(): array
+    public function permissionsDataProvider(): array
     {
         return [[[]], [[Permission::ACTION_USER_CREATE]]];
     }

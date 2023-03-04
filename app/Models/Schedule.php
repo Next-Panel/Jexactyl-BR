@@ -71,8 +71,14 @@ class Schedule extends Model
         'is_active' => 'boolean',
         'is_processing' => 'boolean',
         'only_when_online' => 'boolean',
-        'last_run_at' => 'datetime',
-        'next_run_at' => 'datetime',
+    ];
+
+    /**
+     * Columns to mutate to a date.
+     */
+    protected $dates = [
+        'last_run_at',
+        'next_run_at',
     ];
 
     protected $attributes = [

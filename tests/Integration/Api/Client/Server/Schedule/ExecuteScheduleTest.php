@@ -64,7 +64,7 @@ class ExecuteScheduleTest extends ClientApiIntegrationTestCase
         $this->actingAs($user)->postJson($this->link($schedule, '/execute'))->assertForbidden();
     }
 
-    public static function permissionsDataProvider(): array
+    public function permissionsDataProvider(): array
     {
         return [[[]], [[Permission::ACTION_SCHEDULE_UPDATE]]];
     }

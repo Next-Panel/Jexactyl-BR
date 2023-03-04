@@ -89,7 +89,7 @@ class GetServerSchedulesTest extends ClientApiIntegrationTestCase
             ->assertForbidden();
     }
 
-    public static function permissionsDataProvider(): array
+    public function permissionsDataProvider(): array
     {
         return [
             [[], false],

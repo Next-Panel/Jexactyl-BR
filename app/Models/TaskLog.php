@@ -23,8 +23,10 @@ class TaskLog extends Model
         'id' => 'integer',
         'task_id' => 'integer',
         'run_status' => 'integer',
-        'run_time' => 'datetime',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
     ];
+
+    /**
+     * The attributes that should be mutated to dates.
+     */
+    protected $dates = ['run_time', 'created_at', 'updated_at'];
 }

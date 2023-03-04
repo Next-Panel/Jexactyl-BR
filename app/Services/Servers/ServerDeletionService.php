@@ -2,6 +2,7 @@
 
 namespace Pterodactyl\Services\Servers;
 
+use Pterodactyl\Models\User;
 use Illuminate\Http\Response;
 use Pterodactyl\Models\Server;
 use Illuminate\Support\Facades\Log;

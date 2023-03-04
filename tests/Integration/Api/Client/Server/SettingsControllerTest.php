@@ -112,12 +112,12 @@ class SettingsControllerTest extends ClientApiIntegrationTestCase
         $this->assertTrue($server->isInstalled());
     }
 
-    public static function renamePermissionsDataProvider(): array
+    public function renamePermissionsDataProvider(): array
     {
         return [[[]], [[Permission::ACTION_SETTINGS_RENAME]]];
     }
 
-    public static function reinstallPermissionsDataProvider(): array
+    public function reinstallPermissionsDataProvider(): array
     {
         return [[[]], [[Permission::ACTION_SETTINGS_REINSTALL]]];
     }

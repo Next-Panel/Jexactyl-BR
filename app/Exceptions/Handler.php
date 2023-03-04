@@ -73,7 +73,7 @@ class Handler extends ExceptionHandler
      *
      * @noinspection PhpUnusedLocalVariableInspection
      */
-    public function register(): void
+    public function register()
     {
         if (config('app.exceptions.report_all', false)) {
             $this->dontReport = [];

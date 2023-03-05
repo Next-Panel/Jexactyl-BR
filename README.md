@@ -20,7 +20,7 @@
 </h5>
 
 ## Instalação
-Vá até nossa [Documentação](https://docs.jexactylbrasil.ml/) para começar com a auto-hospedagem deste software.
+Vá até nossa [Documentação](https://jexactylbrasil.ml/) para começar com a auto-hospedagem deste software.
 Se você precisar de ajuda em algum momento durante o processo de instalação, por favor nos informe sobre [Discord](https://discord.gg/68k7wDGjYc).
 
 ## Por que usar Jexactyl?

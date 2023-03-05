@@ -37,7 +37,7 @@ Se você precisar de ajuda em algum momento durante o processo de instalação, 
 | Empresa | Sobre | Link |
 | ------- | ----- | ------- |
 | [Blume • Bots & Sites](https://discord.gg/phtrcBxdxR) | Forneceremos aos nossos clientes as soluções mais confiáveis, seguras e econômicas para dar vida a seus projetos, aplicativos, sites e muito mais online. | [@Blume](https://discord.gg/phtrcBxdxR) |
-| [Nopixel Roleplay](https://discord.gg/HzjJkhqM) | ★ROLEPLAY★ ★ɢᴍ modificada★ ★ᴀᴛᴇɴᴅɪᴍᴇɴᴛᴏ 24ʜʀs★ ★sᴄʀɪᴘᴛs ᴇxᴄʟᴜsɪᴠᴏs★ ★ᴠᴀʀɪᴏs ᴇᴠᴇɴᴛᴏs★ ★sᴇʀᴠɪᴅᴏʀ ʟᴇᴠᴇ★ ★sistema se segurar igual fivem★ etc.. | [@Nopixel](https://discord.gg/HzjJkhqM) |
+| [Nopixel Roleplay](https://discord.gg/HzjJkhqM) | ★ɢᴍ modificada★ ★ᴀᴛᴇɴᴅɪᴍᴇɴᴛᴏ 24ʜʀs★ ★sᴄʀɪᴘᴛs ᴇxᴄʟᴜsɪᴠᴏs★ ★ᴠᴀʀɪᴏs ᴇᴠᴇɴᴛᴏs★ ★sᴇʀᴠɪᴅᴏʀ ʟᴇᴠᴇ★ ★sistema se segurar igual fivem★ etc.. | [@Nopixel](https://discord.gg/HzjJkhqM) |
 | [Hostza Cloud](https://hostza.com.br/) | Hostza Cloud é um serviço de hospedagem de aplicações, fácil e eficiente, deixe seu app online em minutos. | [@Hostza](https://hostza.com.br/) |
 
 ## Previews

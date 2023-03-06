@@ -247,7 +247,7 @@
     border-radius: 30px 100px 100px 30px;
     margin-top: 4px;
     position: relative;
-    padding: 0.1rem 10px 0.1rem 0.188rem;
+    padding: 0.1rem 0px 0.1rem 0.188rem;
 }
 /* BARRALATERAL */
 .sidebar-menu > li > a {

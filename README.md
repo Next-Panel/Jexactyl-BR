@@ -1,4 +1,4 @@
-[![Logo Image](https://cdn.discordapp.com/attachments/1012411945141424218/1012430446556090468/JexactylBannerBasic.jpg)](https://jexactylbrasil.ml)
+# [![Logo Image](https://cdn.discordapp.com/attachments/1012411945141424218/1012430446556090468/JexactylBannerBasic.jpg)](https://jexactylbrasil.ml)
 
 ![GitHub Stars](https://img.shields.io/github/stars/Next-Panel/Jexactyl-BR?style=for-the-badge)
 ![Comitts Year](https://img.shields.io/github/commit-activity/y/Next-Panel/Jexactyl-BR?style=for-the-badge)
@@ -19,7 +19,7 @@
     </strong>
 </h5>
 
-# Instalação
+## Instalação
 Vá até nossa [Documentação](https://jexactylbrasil.ml/) para começar com a auto-hospedagem deste software.
 Se você precisar de ajuda em algum momento durante o processo de instalação, por favor nos informe sobre [Discord](https://discord.gg/68k7wDGjYc).
 

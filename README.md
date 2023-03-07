@@ -1,6 +1,6 @@
 <div align="center">
 
-# [![Logo Image](https://cdn.discordapp.com/attachments/1012411945141424218/1012430446556090468/JexactylBannerBasic.jpg)](https://jexactylbrasil.ml)
+# [![Logo Image](https://cdn.discordapp.com/attachments/1012411945141424218/1012430446556090468/JexactylBannerBasic.jpg)](https://nextpanel.com.br/)
 
 ![GitHub Stars](https://img.shields.io/github/stars/Next-Panel/Jexactyl-BR?colorA=302D41&colorB=f9e2af&style=for-the-badge)
 ![Version](https://img.shields.io/github/v/release/Next-Panel/Jexactyl-BR?colorA=302D41&colorB=f9e2af&style=for-the-badge)
@@ -28,7 +28,7 @@
 </h5>
 
 ## Instalação
-Vá até nossa [Documentação](https://jexactylbrasil.ml/) para começar com a auto-hospedagem deste software.
+Vá até nossa [Documentação](https://nextpanel.com.br/) para começar com a auto-hospedagem deste software.
 Se você precisar de ajuda em algum momento durante o processo de instalação, por favor nos informe sobre [Discord](https://discord.gg/68k7wDGjYc).
 
 ## Por que usar Jexactyl?

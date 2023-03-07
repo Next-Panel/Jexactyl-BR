@@ -1,15 +1,23 @@
+<div align="center">
+
 # [![Logo Image](https://cdn.discordapp.com/attachments/1012411945141424218/1012430446556090468/JexactylBannerBasic.jpg)](https://jexactylbrasil.ml)
 
-![GitHub Stars](https://img.shields.io/github/stars/Next-Panel/Jexactyl-BR?style=for-the-badge)
-![Comitts Year](https://img.shields.io/github/commit-activity/y/Next-Panel/Jexactyl-BR?style=for-the-badge)
-![Version](https://img.shields.io/github/v/release/Next-Panel/Jexactyl-BR?style=for-the-badge)
-[![CodeFactor](https://www.codefactor.io/repository/github/next-panel/jexactyl-br/badge?style=for-the-badge)](https://www.codefactor.io/repository/github/next-panel/jexactyl-br)
-[![Discord](https://img.shields.io/discord/1053464120311173172?style=for-the-badge)](https://discord.gg/68k7wDGjYc)
-![Contributors](https://img.shields.io/github/contributors-anon/Next-Panel/Jexactyl-BR?style=for-the-badge)
-![Downloads - Total](https://img.shields.io/github/downloads/Next-Panel/Jexactyl-BR/total?style=for-the-badge)
-![Downloads - Latest](https://img.shields.io/github/downloads/Next-Panel/Jexactyl-BR/latest/total?style=for-the-badge)
+![GitHub Stars](https://img.shields.io/github/stars/Next-Panel/Jexactyl-BR?colorA=302D41&colorB=f9e2af&style=for-the-badge)
+![Version](https://img.shields.io/github/v/release/Next-Panel/Jexactyl-BR?colorA=302D41&colorB=f9e2af&style=for-the-badge)
+![Comitts Year](https://img.shields.io/github/commit-activity/y/Next-Panel/Jexactyl-BR?colorA=302D41&colorB=f9e2af&style=for-the-badge)
+
+![Last-Comitt](https://img.shields.io/github/last-commit/Next-Panel/Jexactyl-BR?style=for-the-badge&colorA=302D41&colorB=b4befe)
+[![Discord](https://img.shields.io/discord/1053464120311173172?style=for-the-badge&colorA=302D41&colorB=b4befe)](https://discord.gg/68k7wDGjYc)
+![Contributors](https://img.shields.io/github/contributors-anon/Next-Panel/Jexactyl-BR?style=for-the-badge&colorA=302D41&colorB=b4befe)
+![Downloads - Total](https://img.shields.io/github/downloads/Next-Panel/Jexactyl-BR/total?style=for-the-badge&colorA=302D41&colorB=b4befe)
+![Downloads - Latest](https://img.shields.io/github/downloads/Next-Panel/Jexactyl-BR/latest/total?style=for-the-badge&colorA=302D41&colorB=b4befe)
+<!--
+[![CodeFactor](https://www.codefactor.io/repository/github/next-panel/jexactyl-br/badge?style=for-the-badge&colorA=302D41&colorB=b4befe)](https://www.codefactor.io/repository/github/next-panel/jexactyl-br)
+-->
 
 ![Alt](https://repobeats.axiom.co/api/embed/9c6b5f5caeb7e2fec2b4942cf72f11ec660b830c.svg "Repobeats analytics image")
+
+</div>
 
 <h1 align="center">Jexactyl</h1>
 <h5 align="center">

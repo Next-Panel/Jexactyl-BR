@@ -95,7 +95,7 @@
                         @endif
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Serviços de CDN</label>
+                        <label class="form-label">Serviços CDN(Proxy)</label>
                         <div>
                             <div class="radio radio-success radio-inline">
                                 <input type="radio" id="pProxyFalse" value="0" name="behind_proxy" checked>

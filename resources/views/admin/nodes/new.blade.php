@@ -106,7 +106,7 @@
                                 <label for="pProxyTrue"> Usar proxy </label>
                             </div>
                         </div>
-                        <p class="text-muted small">Se você estiver usando serviços CDN como CloudFlare que estão com proxy ativados coloque <code>"Usar Proxy"</code>,Caso contrario deixe <code>"Não usar Proxy"</code>. </p>
+                        <p class="text-muted small">Se você estiver usando serviços CDN que estão com proxy ativados coloque <code>"Usar Proxy"</code>,Caso contrario deixe <code>"Não usar Proxy"</code>.No CloudFlare isso pode não ser necessario.</p>
                     </div>
                 </div>
             </div>

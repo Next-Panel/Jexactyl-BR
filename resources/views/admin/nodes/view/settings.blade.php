@@ -7,7 +7,7 @@
 @section('content-header')
     <h1>{{ $node->name }}<small>Defina as definições do node.</small></h1>
     <ol class="breadcrumb">
-        <li><a href="{{ route('admin.index') }}">Administrador</a></li>
+        <li><a href="{{ route('admin.index') }}">Administração</a></li>
         <li><a href="{{ route('admin.nodes') }}">Nodes</a></li>
         <li><a href="{{ route('admin.nodes.view', $node->id) }}">{{ $node->name }}</a></li>
         <li class="active">Definições</li>
@@ -67,12 +67,21 @@
                         </div>
                     </div>
                     <div class="form-group col-xs-12">
-                        <label for="fqdn" class="control-label">Nome de domínio totalmente qualificado</label>
+                        <label for="fqdn" class="control-label">FQDN Wings</label>
                         <div>
                             <input type="text" autocomplete="off" name="fqdn" class="form-control" value="{{ old('fqdn', $node->fqdn) }}" />
                         </div>
                         <p class="text-muted"><small>Insira o nome de domínio (por exemplo,<code> node.example.com</code>) a ser usado para se conectar ao daemon. Um endereço IP só pode ser usado se você não estiver usando SSL para esse node.
                                 <a tabindex="0" data-toggle="popover" data-trigger="focus" title="Por que eu preciso de uma FQDN?" data-content="A fim de proteger as comunicações entre seu servidor e este Node, usamos SSL. Não é possível gerar um certificado SSL para endereços IP, portanto, você precisará fornecer um FQDN.">Por quê?</a>
+                            </small></p>
+                    </div>
+                    <div class="form-group col-xs-12">
+                        <label for="daemonSFTPIP" class="control-label">FQDN SFTP (Opcional)</label>
+                        <div>
+                        <input type="text" name="daemonSFTPIP" class="form-control" value="{{ old('daemonSFTPIP', $node->daemonSFTPIP) }}"/>
+                        </div>
+                        <p class="text-muted"><small>Insira o nome do domínio SFTP ou ip (por exemplo, <code>sftp.example.com</code> ou <code>123.456.789.123</code>) a ser usado para se conectar ao sftp do daemon.
+                                <a tabindex="0" data-toggle="popover" data-trigger="focus" title="Por que eu preciso de uma FQDN para o SFTP?" data-content="Ao utilizar um SFTP separado, é possível configurar um servidor Wings atrás do Proxy do Cloudflare. Isso pode melhorar a segurança e a eficiência do servidor.">Por quê?</a>
                             </small></p>
                     </div>
                     <div class="form-group col-xs-12">
@@ -90,7 +99,7 @@
                         <p class="text-muted small">Na maioria dos casos, você deve optar por usar uma conexão SSL. Se estiver usando um endereço IP ou se você não deseja usar SSL, selecione uma conexão HTTP.</p>
                     </div>
                     <div class="form-group col-xs-12">
-                        <label class="form-label"><span class="label label-warning"><i class="fa fa-power-off"></i></span> Serviços CDN(Proxy)</label>
+                        <label class="form-label"><span class="label label-warning"><i class="fa fa-power-off"></i></span>Serviços CDN(Proxy)</label>
                         <div>
                             <div class="radio radio-success radio-inline">
                                 <input type="radio" id="pProxyFalse" value="0" name="behind_proxy" {{ (old('behind_proxy', $node->behind_proxy) == false) ? 'checked' : '' }}>
@@ -184,13 +193,13 @@
                     <div class="col-xs-12">
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label for="daemonListen" class="control-label"><span class="label label-warning"><i class="fa fa-power-off"></i></span> Porta do Daemon</label>
+                                <label for="daemonListen" class="control-label"><span class="label label-warning"><i class="fa fa-power-off"></i></span>Porta do Daemon</label>
                                 <div>
                                     <input type="text" name="daemonListen" class="form-control" value="{{ old('daemonListen', $node->daemonListen) }}"/>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="daemonSFTP" class="control-label"><span class="label label-warning"><i class="fa fa-power-off"></i></span>Porta SFTP do Daemon </label>
+                                <label for="daemonSFTP" class="control-label"><span class="label label-warning"><i class="fa fa-power-off"></i></span>Porta SFTP do Daemon</label>
                                 <div>
                                     <input type="text" name="daemonSFTP" class="form-control" value="{{ old('daemonSFTP', $node->daemonSFTP) }}"/>
                                 </div>

@@ -7,7 +7,7 @@
 @section('content-header')
     <h1>Novo Node<small>Criar um novo Node local ou remoto para os servidores a serem instalados.</small></h1>
     <ol class="breadcrumb">
-        <li><a href="{{ route('admin.index') }}">Administrador</a></li>
+        <li><a href="{{ route('admin.index') }}">Administração</a></li>
         <li><a href="{{ route('admin.nodes') }}">Nodes</a></li>
         <li class="active">Novo</li>
     </ol>
@@ -161,16 +161,20 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-md-6">
-                            <label for="pDaemonListen" class="form-label"> Porta do Daemon</label>
+                        <div class="form-group col-md-4">
+                            <label for="pDaemonListen" class="form-label">Porta do Daemon</label>
                             <input type="text" name="daemonListen" class="form-control" id="pDaemonListen" value="8080" />
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="pDaemonSFTP" class="form-label">Porta SFTP do Daemon  </label>
+                        <div class="form-group col-md-4">
+                            <label for="pDaemonSFTPIP" class="form-label">IP SFTP do Daemon</label>
+                            <input type="text" name="daemonSFTPIP" class="form-control" id="pDaemonSFTPIP"/>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="pDaemonSFTP" class="form-label">Porta SFTP do Daemon</label>
                             <input type="text" name="daemonSFTP" class="form-control" id="pDaemonSFTP" value="2022" />
                         </div>
                         <div class="col-md-12">
-                            <p class="text-muted small">O daemon executa seu próprio contêiner de gerenciamento SFTP e não usa o processo SSHd no servidor físico principal. <Strong>Não use a mesma porta que você atribuiu para o processo SSH do servidor físico.</strong> Se você estiver executando o daemon com <code>"Usar Proxy"</code> do serviços CDN como CloudFlare®, você deve definir a porta do daemon como <code>8443</code> para permitir o proxy de websocket sobre SSL.</p>
+                            <p class="text-muted small">O daemon executa seu próprio contêiner de gerenciamento SFTP e não utiliza o processo SSHd no servidor físico principal. <Strong>Não utilize a mesma porta que você designou para o processo SSH do seu servidor físico.</strong> Se você estiver executando o daemon atrás do CloudFlare&reg; você deve configurar o porta daemon para <code>8443</code> para permitir a proxy de websocket sobre SSL.</p>
                         </div>
                     </div>
                 </div>

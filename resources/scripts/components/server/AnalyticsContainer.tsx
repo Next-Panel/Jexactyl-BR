@@ -47,7 +47,7 @@ const UsageBox = ({ progress, title, content }: { progress: number; title: strin
 );
 
 export default () => {
-    const [messages, setMessages] = useState<Message[]>();
+    const [setMessages] = useState<Message[]>();
     const [stats, setStats] = useState<Stats>({ memory: 0, cpu: 0, disk: 0 });
 
     const status = ServerContext.useStoreState((state) => state.status.value);

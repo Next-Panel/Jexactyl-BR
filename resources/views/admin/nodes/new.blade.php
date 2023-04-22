@@ -55,26 +55,17 @@
                         <p class="text-muted small">Ao definir um Node como<code>privado</code>, você estará negando a capacidade de implantar automaticamente nesse node.
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Implantável via Loja do Jexactyl</label>
-                        <div>
-                            <div class="radio radio-success radio-inline">
-                                <input type="radio" id="pDeployableTrue" value="1" name="deployable" checked>
-                                <label for="pDeployableTrue"> Permitir </label>
-                            </div>
-                            <div class="radio radio-danger radio-inline">
-                                <input type="radio" id="pDeployableFalse" value="0" name="deployable">
-                                <label for="pDeployableFalse"> Negar </label>
-                            </div>
-                        </div>
-                        <p class="text-muted"><small>
-                            Essa opção permite que você controle se esse node está visível por meio da página Criação de Servidor da vitrine Jexactyl.
-                            Se ele estiver definido como negado, os usuários não poderão implantar nesse node.
-                        </small></p>
-                    </div>
-                    <div class="form-group">
-                        <label for="pFQDN" class="form-label">FQDN</label>
+                        <label for="pFQDN" class="form-label">FQDN Wings</label>
                         <input type="text" name="fqdn" id="pFQDN" class="form-control" value="{{ old('fqdn') }}"/>
                         <p class="text-muted small">Insira o nome de domínio (por exemplo,<code> node.example.com</code>) a ser usado para se conectar ao daemon. Um endereço IP pode ser usado <em>somente</em> se você não estiver usando SSL para esse node.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="daemonSFTPIP" class="control-label">FQDN SFTP (Opcional)</label>
+                        <div>
+                        <input type="text" name="daemonSFTPIP" class="form-control" id="pDaemonSFTPIP"/>
+                        </div>
+                        <p class="text-muted"><small>Insira o nome do domínio SFTP ou ip (por exemplo, <code>sftp.example.com</code> ou <code>123.456.789.123</code>) a ser usado para se conectar ao sftp do daemon.Ao utilizar um SFTP separado, é possível configurar um servidor Wings atrás do Proxy do Cloudflare. Isso pode melhorar a segurança e a eficiência do servidor.
+                            </small></p>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Comunicar por SSL</label>
@@ -160,23 +151,22 @@
                             <p class="text-muted small">Insira a quantidade total de espaço em disco disponível para novos servidores. Se você quiser permitir a superalocação de espaço em disco, insira a porcentagem que deseja permitir. Para desativar a verificação de superalocação, insira <code>-1</code> no campo. Digitar <code>0</code> evitará a criação de novos servidores se ultrapassar o limite do Node.</p>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="form-group col-md-4">
-                            <label for="pDaemonListen" class="form-label">Porta do Daemon</label>
-                            <input type="text" name="daemonListen" class="form-control" id="pDaemonListen" value="8080" />
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="daemonListen" class="control-label"><span class="label label-warning"><i class="fa fa-power-off"></i></span>Porta do Daemon</label>
+                                    <div>
+                                        <input type="text" name="daemonListen" class="form-control" id="pDaemonListen" value="8080" />
+                                    </div>
+                                </div>
+                            <div class="form-group col-md-6">
+                                <label for="daemonSFTP" class="control-label"><span class="label label-warning"><i class="fa fa-power-off"></i></span>Porta SFTP do Daemon</label>
+                                    <div>
+                                        <input type="text" name="daemonSFTP" class="form-control" id="pDaemonSFTP" value="2022" />
+                                </div>
                         </div>
-                        <div class="form-group col-md-4">
-                            <label for="pDaemonSFTPIP" class="form-label">IP SFTP do Daemon</label>
-                            <input type="text" name="daemonSFTPIP" class="form-control" id="pDaemonSFTPIP"/>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="pDaemonSFTP" class="form-label">Porta SFTP do Daemon</label>
-                            <input type="text" name="daemonSFTP" class="form-control" id="pDaemonSFTP" value="2022" />
-                        </div>
-                        <div class="col-md-12">
+                    <div class="col-md-12">
                             <p class="text-muted small">O daemon executa seu próprio contêiner de gerenciamento SFTP e não utiliza o processo SSHd no servidor físico principal. <Strong>Não utilize a mesma porta que você designou para o processo SSH do seu servidor físico.</strong> Se você estiver executando o daemon atrás do CloudFlare&reg; você deve configurar o porta daemon para <code>8443</code> para permitir a proxy de websocket sobre SSL.</p>
                         </div>
-                    </div>
                 </div>
                 <div class="box-footer">
                     {!! csrf_field() !!}

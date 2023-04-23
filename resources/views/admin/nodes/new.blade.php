@@ -168,6 +168,24 @@
                             <p class="text-muted small">O daemon executa seu próprio contêiner de gerenciamento SFTP e não utiliza o processo SSHd no servidor físico principal. <Strong>Não utilize a mesma porta que você designou para o processo SSH do seu servidor físico.</strong> Se você estiver executando o daemon atrás do CloudFlare&reg; você deve configurar o porta daemon para <code>8443</code> para permitir a proxy de websocket sobre SSL.</p>
                         </div>
                 </div>
+                <div class="form-group">
+                    <label class="form-label">Implantável via Loja do Jexactyl</label>
+                        <div>
+                            <div class="radio radio-success radio-inline">
+                                <input type="radio" id="pDeployableTrue" value="1" name="deployable" checked>
+                                <label for="pDeployableTrue"> Permitir </label>
+                            </div>
+                            <div class="radio radio-danger radio-inline">
+                                <input type="radio" id="pDeployableFalse" value="0" name="deployable">
+                                <label for="pDeployableFalse"> Negar </label>
+                            </div>
+                            </div>
+                        <p class="text-muted"><small>
+                            Essa opção permite que você controle se esse node está visível por meio da página Criação de Servidor da vitrine Jexactyl.
+                            Se ele estiver definido como negado, os usuários não poderão implantar nesse node.
+                        </small></p>
+                    </div>
+                </div>
                 <div class="box-footer">
                     {!! csrf_field() !!}
                     <button type="submit" class="btn btn-success pull-right">Criar Node</button>

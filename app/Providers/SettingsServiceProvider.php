@@ -73,6 +73,7 @@ class SettingsServiceProvider extends ServiceProvider
             })->toArray();
         } catch (QueryException $exception) {
             $log->notice('Uma exceção de consulta(query) foi encontrada ao tentar carregar as configurações do Database: ' . $exception->getMessage());
+            
             return;
         }
 

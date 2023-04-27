@@ -41,14 +41,14 @@
                                 <div class="form-group col-md-6">
                                     <label class="control-label">Hospedagem SMTP</label>
                                     <div>
-                                        <input required type="text" class="form-control" name="mail:mailers:smtp:host" value="{{ old('mail:mailers:smtp:host', config('mail.mailers.smtp.host')) }}" />
+                                        <input required type="text" class="form-control" name="mail:host" value="{{ old('mail:host', config('mail.host')) }}" />
                                         <p class="text-muted small">Digite o endereço do servidor SMTP pelo qual o E-mail deve ser enviado.</p>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label class="control-label">Porta SMTP</label>
                                     <div>
-                                        <input required type="number" class="form-control" name="mail:mailers:smtp:port" value="{{ old('mail:mailers:smtp:port', config('mail.mailers.smtp.port')) }}" />
+                                        <input required type="number" class="form-control" name="mail:port" value="{{ old('mail:port', config('mail.port')) }}" />
                                         <p class="text-muted small">Digite a porta do servidor SMTP pela qual o E-mail deve ser enviado.</p>
                                     </div>
                                 </div>
@@ -56,9 +56,9 @@
                                     <label class="control-label">Criptografia</label>
                                     <div>
                                         @php
-                                            $encryption = old('mail:mailers:smtp:encryption', config('mail.mailers.smtp.encryption'));
+                                            $encryption = old('mail:encryption', config('mail.encryption'));
                                         @endphp
-                                        <select name="mail:mailers:smtp:encryption" class="form-control">
+                                        <select name="mail:encryption" class="form-control">
                                             <option value="" @if($encryption === '') selected @endif>Nenhuma</option>
                                             <option value="tls" @if($encryption === 'tls') selected @endif>Transport Layer Security (TLS)</option>
                                             <option value="ssl" @if($encryption === 'ssl') selected @endif>Secure Sockets Layer (SSL)</option>
@@ -70,14 +70,14 @@
                                 <div class="form-group col-md-6">
                                     <label class="control-label">Nome de usuário <span class="field-optional"></span></label>
                                     <div>
-                                        <input type="text" class="form-control" name="mail:mailers:smtp:username" value="{{ old('mail:mailers:smtp:username', config('mail.mailers.smtp.username')) }}" />
+                                        <input type="text" class="form-control" name="mail:username" value="{{ old('mail:username', config('mail.username')) }}" />
                                         <p class="text-muted small">O nome de usuário a ser usado ao conectar-se ao servidor SMTP.</p>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="control-label">Senha <span class="field-optional"></span></label>
                                     <div>
-                                        <input type="password" class="form-control" name="mail:mailers:smtp:password"/>
+                                        <input type="password" class="form-control" name="mail:password"/>
                                         <p class="text-muted small">A senha a ser usada em conjunto com o nome de usuário SMTP. Deixe em branco para continuar usando a senha existente. Para definir a senha para um valor vazio, digite <code>!e</code> no campo.</p>
                                     </div>
                                 </div>
@@ -120,11 +120,11 @@
                 url: '/admin/mail',
                 contentType: 'application/json',
                 data: JSON.stringify({
-                    'mail:mailers:smtp:host': $('input[name="mail:mailers:smtp:host"]').val(),
-                    'mail:mailers:smtp:port': $('input[name="mail:mailers:smtp:port"]').val(),
-                    'mail:mailers:smtp:encryption': $('select[name="mail:mailers:smtp:encryption"]').val(),
-                    'mail:mailers:smtp:username': $('input[name="mail:mailers:smtp:username"]').val(),
-                    'mail:mailers:smtp:password': $('input[name="mail:mailers:smtp:password"]').val(),
+                    'mail:host': $('input[name="mail:host"]').val(),
+                    'mail:port': $('input[name="mail:port"]').val(),
+                    'mail:encryption': $('select[name="mail:encryption"]').val(),
+                    'mail:username': $('input[name="mail:username"]').val(),
+                    'mail:password': $('input[name="mail:password"]').val(),
                     'mail:from:address': $('input[name="mail:from:address"]').val(),
                     'mail:from:name': $('input[name="mail:from:name"]').val()
                 }),

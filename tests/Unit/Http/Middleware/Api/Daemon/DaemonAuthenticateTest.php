@@ -138,7 +138,7 @@ class DaemonAuthenticateTest extends MiddlewareTestCase
      *
      * @return array|\string[][]
      */
-    public static function badTokenDataProvider(): array
+    public function badTokenDataProvider(): array
     {
         return [
             ['foo'],

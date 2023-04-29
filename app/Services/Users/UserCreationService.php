@@ -100,7 +100,7 @@ class UserCreationService
                 $user->notify(new VerifyEmail($user, $name, $token ?? null));
             }
         } catch (\Exception $e) {
-        // If the email system isn't active, still let users create accounts.
+            // If the email system isn't active, still let users create accounts.
         }
 
         $this->connection->commit();

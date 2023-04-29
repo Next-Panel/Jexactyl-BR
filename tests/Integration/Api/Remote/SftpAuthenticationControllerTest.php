@@ -19,7 +19,7 @@ class SftpAuthenticationControllerTest extends IntegrationTestCase
     /**
      * Sets up the tests.
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

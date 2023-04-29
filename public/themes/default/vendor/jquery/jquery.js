@@ -1147,7 +1147,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 	// Verify that getAttribute really returns attributes and not properties
 	// (excepting IE8 booleans)
 	support.attributes = assert(function( el ) {
-		el.className = "i";
+		el.className = "";
 		return !el.getAttribute("className");
 	});
 
@@ -7877,7 +7877,7 @@ jQuery.fn.extend( {
 		var className, elem,
 			i = 0;
 
-		className = " " + selector + " ";
+		className = "i" + selector + " ";
 		while ( ( elem = this[ i++ ] ) ) {
 			if ( elem.nodeType === 1 &&
 				( " " + stripAndCollapse( getClass( elem ) ) + " " ).indexOf( className ) > -1 ) {

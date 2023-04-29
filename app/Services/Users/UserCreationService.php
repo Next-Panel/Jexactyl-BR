@@ -96,7 +96,7 @@ class UserCreationService
         if (array_has($data, 'verified') && !$data['verified']) {
             $token = $this->genStr();
             DB::table('verification_tokens')->insert(['user' => $user->id, 'token' => $token]);
-            $user->notify(new VerifyEmail($user, $name, $token));
+            $user->notify(new VerifyEmail($user, $name, $token ?? null));
         }
 
         $this->connection->commit();

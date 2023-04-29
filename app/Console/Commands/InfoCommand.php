@@ -62,12 +62,12 @@ class InfoCommand extends Command
         $this->output->title('Configuração de E-mail');
         $this->table([], [
             ['Driver', $this->config->get('mail.default')],
-            ['Host', $this->config->get('mail.host')],
-            ['Port', $this->config->get('mail.port')],
-            ['Username', $this->config->get('mail.username')],
+            ['Host', $this->config->get('mail.mailers.smtp.host')],
+            ['Port', $this->config->get('mail.mailers.smtp.port')],
+            ['Username', $this->config->get('mail.mailers.smtp.username')],
             ['From Address', $this->config->get('mail.from.address')],
             ['From Name', $this->config->get('mail.from.name')],
-            ['Encryption', $this->config->get('mail.encryption')],
+            ['Encryption', $this->config->get('mail.mailers.smtp.encryption')],
         ], 'compact');
     }
 

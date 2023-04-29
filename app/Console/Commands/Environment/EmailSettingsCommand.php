@@ -80,17 +80,17 @@ class EmailSettingsCommand extends Command
     {
         $this->variables['MAIL_HOST'] = $this->option('host') ?? $this->ask(
             trans('command/messages.environment.mail.ask_smtp_host'),
-            $this->config->get('mail.host')
+            $this->config->get('mail.mailers.smtp.host')
         );
 
         $this->variables['MAIL_PORT'] = $this->option('port') ?? $this->ask(
             trans('command/messages.environment.mail.ask_smtp_port'),
-            $this->config->get('mail.port')
+            $this->config->get('mail.mailers.smtp.port')
         );
 
         $this->variables['MAIL_USERNAME'] = $this->option('username') ?? $this->ask(
             trans('command/messages.environment.mail.ask_smtp_username'),
-            $this->config->get('mail.username')
+            $this->config->get('mail.mailers.smtp.username')
         );
 
         $this->variables['MAIL_PASSWORD'] = $this->option('password') ?? $this->secret(
@@ -100,7 +100,7 @@ class EmailSettingsCommand extends Command
         $this->variables['MAIL_ENCRYPTION'] = $this->option('encryption') ?? $this->choice(
             trans('command/messages.environment.mail.ask_encryption'),
             ['tls' => 'TLS', 'ssl' => 'SSL', '' => 'None'],
-            $this->config->get('mail.encryption', 'tls')
+            $this->config->get('mail.mailers.smtp.encryption', 'tls')
         );
     }
 

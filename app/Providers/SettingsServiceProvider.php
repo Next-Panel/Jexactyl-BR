@@ -39,11 +39,11 @@ class SettingsServiceProvider extends ServiceProvider
      * when using the SMTP driver.
      */
     protected array $emailKeys = [
-        'mail:host',
-        'mail:port',
-        'mail:encryption',
-        'mail:username',
-        'mail:password',
+        'mail:mailers:smtp:host',
+        'mail:mailers:smtp:port',
+        'mail:mailers:smtp:encryption',
+        'mail:mailers:smtp:username',
+        'mail:mailers:smtp:password',
         'mail:from:address',
         'mail:from:name',
     ];
@@ -53,13 +53,13 @@ class SettingsServiceProvider extends ServiceProvider
      * configuration array.
      */
     protected static array $encrypted = [
-        'mail:password',
+        'mail:mailers:smtp:password',
     ];
 
     /**
      * Boot the service provider.
      */
-    public function boot(ConfigRepository $config, Encrypter $encrypter, Log $log, SettingsRepositoryInterface $settings): void
+    public function boot(ConfigRepository $config, Encrypter $encrypter, Log $log, SettingsRepositoryInterface $settings)
     {
         // Only set the email driver settings from the database if we
         // are configured using SMTP as the driver.
@@ -72,7 +72,7 @@ class SettingsServiceProvider extends ServiceProvider
                 return [$setting->key => $setting->value];
             })->toArray();
         } catch (QueryException $exception) {
-            $log->notice('Uma exceção de consulta(query) foi encontrada ao tentar carregar as configurações do Database: ' . $exception->getMessage());
+            $log->notice('A query exception was encountered while trying to load settings from the database: ' . $exception->getMessage());
 
             return;
         }

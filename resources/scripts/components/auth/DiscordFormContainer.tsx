@@ -36,12 +36,12 @@ const DiscordFormContainer = ({ children }: { children: React.ReactNode }) => {
                     <div css={tw`flex-1`}>{children}</div>
                 </div>
                 <p css={tw`text-neutral-500 text-xs mt-6 sm:float-left`}>
-                    &copy; <a href={'https://jexactylbrasil.ml'}>Jexactyl-Brasil,</a> feito sobre{' '}
-                    <a href={'https://jexactyl.com'}>Jexactyl.</a> apartir do{' '}
-                    <a href={'https://pterodactyl.io'}>Pterodactyl.</a>
+                    &copy; <a href={'https://jexactyl.com'}>Jexactyl,</a> um york do{' '}
+                    <a href={'https://pterodactyl.io'}>Pterodactyl</a> e traduzido pela{' '}
+                    <a href={'https://nextpanel.com.br'}>Nextpanel.</a>
                 </p>
                 <p css={tw`text-neutral-500 text-xs mt-6 sm:float-right`}>
-                    <a href={'https://jexactylbrasil.ml'}> Site </a>
+                    <a href={'https://nextpanel.com.br'}> Site </a>
                     &bull;
                     <a href={'https://github.com/Next-Panel/Jexactyl-BR'}> GitHub </a>
                 </p>

@@ -48,7 +48,7 @@ const PageContentBlock: React.FC<PageContentBlockProps> = ({
                 </ContentContainer>
                 <ContentContainer css={tw`text-sm text-center my-4 pb-8`}>
                     <p css={tw`text-neutral-500 sm:float-left`}>
-                        &copy; <a href={'https://jexactyl.com'}>Jexactyl,</a> um york do{' '}
+                        &copy; <a href={'https://jexactyl.com'}>Jexactyl,</a> um fork do{' '}
                         <a href={'https://pterodactyl.io'}>Pterodactyl</a> e traduzido pela{' '}
                         <a href={'https://nextpanel.com.br'}>Nextpanel.</a>
                     </p>

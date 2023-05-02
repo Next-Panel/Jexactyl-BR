@@ -26,6 +26,7 @@ class StoreComposer extends Composer
             'gateways' => [
                 'paypal' => $this->setting('store:paypal:enabled', Composer::TYPE_BOOL),
                 'stripe' => $this->setting('store:stripe:enabled', Composer::TYPE_BOOL),
+                'mpago' => $this->setting('store:mpago:enabled', Composer::TYPE_BOOL),
             ],
 
             'renewals' => [

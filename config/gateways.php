@@ -50,4 +50,16 @@ return [
         'secret' => env('STRIPE_CLIENT_SECRET', ''),
         'webhook_secret' => env('STRIPE_WEBHOOK_SECRET', ''),
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Mercado Pago Configuration
+    |--------------------------------------------------------------------------
+    | These values determine the configuration for the Mercado Pago purchase system.
+    |
+    */
+    'mpago' => [
+        'client_id' => env('MPAGO_ACCESS_TOKEN', ''),
+        'client_secret' => env('MPAGO_CLIENT_SECRET', ''),
+    ],
 ];

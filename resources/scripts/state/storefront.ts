@@ -27,6 +27,7 @@ export interface StorefrontSettings {
     gateways: {
         paypal: boolean;
         stripe: boolean;
+        mpago: boolean;
     };
     earn: {
         enabled: boolean;

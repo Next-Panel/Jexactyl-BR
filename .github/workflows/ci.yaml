@@ -5,12 +5,12 @@ on:
     branches:
       - 'develop'
       - '1.0-develop'
-      - 'Pterodactyl'
+      - 'mercadopagosdk'
   pull_request:
     branches:
       - "develop"
       - "1.0-develop"
-      - 'Pterodactyl'
+      - 'mercadopagosdk'
 
 jobs:
   tests:

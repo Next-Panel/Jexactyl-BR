@@ -9,6 +9,7 @@ import { getResources, Resources } from '@/api/store/getResources';
 import PageContentBlock from '@/components/elements/PageContentBlock';
 import StripePurchaseForm from '@/components/store/forms/StripePurchaseForm';
 import PaypalPurchaseForm from '@/components/store/forms/PaypalPurchaseForm';
+import MercadoPagoPurchaseForm from '@/components/store/forms/MercadoPagoPurchaseForm';
 
 const Container = styled.div`
     ${tw`flex flex-wrap`};
@@ -31,6 +32,7 @@ export default () => {
     const earn = useStoreState((state) => state.storefront.data!.earn);
     const paypal = useStoreState((state) => state.storefront.data!.gateways?.paypal);
     const stripe = useStoreState((state) => state.storefront.data!.gateways?.stripe);
+    const mpago = useStoreState((state) => state.storefront.data!.gateways?.mpago);
 
     useEffect(() => {
         getResources().then((resources) => setResources(resources));
@@ -52,7 +54,8 @@ export default () => {
                 <ContentBox title={'Comprar Créditos'} showFlashes={'account:balance'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     {paypal && <PaypalPurchaseForm />}
                     {stripe && <StripePurchaseForm />}
-                    {!paypal && !stripe && (
+                    {mpago && <MercadoPagoPurchaseForm />}
+                    {!paypal && !stripe && !mpago && (
                         <p className={'text-gray-400 text-sm m-2'}>
                             Se nenhum gateway aparecer aqui, é porque eles ainda não foram configurados.
                         </p>

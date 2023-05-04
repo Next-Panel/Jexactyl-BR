@@ -3,7 +3,6 @@
 namespace Pterodactyl\Http\Controllers\Api\Client\Store;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
@@ -39,9 +38,9 @@ class MercadoPagoController extends ClientApiController
 
 
         $amount = $request->input('amount');
-        if ($amount === '0') {
-            throw new Exception('Um Valor deve ser selecionado.');
-        }
+        if ($amount === 0) {
+    		throw new DisplayException('Selecione um Valor antes de confirmar.');
+		}
         $cost = config('gateways.mpago.cost', 1) / 100 * $amount;
         $currency = config('gateways.currency', 'BRL');
 

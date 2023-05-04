@@ -60,6 +60,6 @@ return [
     */
     'mpago' => [
         'access_token' => env('MPAGO_ACCESS_TOKEN', ''),
-        'cost' => env('MPAGO_COST', ''),
+        'cost' => env('MPAGO_COST', 1.00),
     ],
 ];

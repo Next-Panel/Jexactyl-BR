@@ -61,6 +61,16 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
+                                <label class="control-label">Habilitar Mercado Pago</label>
+                                <div>
+                                    <select name="store:mpago:enabled" class="form-control">
+                                        <option @if ($mpago_enabled == 'false') selected @endif value="false">Desabilitado</option>
+                                        <option @if ($mpago_enabled == 'true') selected @endif value="true">Habilitado</option>
+                                    </select>
+                                    <p class="text-muted"><small>Determina se os usuários poderão comprar créditos com PayPal.</small></p>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
                                 <label class="control-label" for="store:currency">Nome da moeda</label>
                                 <select name="store:currency" id="store:currency" class="form-control">
                                     @foreach ($currencies as $currency)

@@ -2,10 +2,14 @@
 
 namespace Pterodactyl\Http\Controllers\Api\Client\Store;
 
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\RedirectResponse;
 use MercadoPago\SDK;
+use MercadoPago\Payment;
 use MercadoPago\Preference;
-use MercadoPago\Exceptions\MercadoPagoException;
 use Pterodactyl\Exceptions\DisplayException;
 use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
 use Pterodactyl\Http\Requests\Api\Client\Store\Gateways\MercadoPagoRequest;
@@ -18,53 +22,77 @@ class MercadoPagoController extends ClientApiController
     }
 
     /**
-     * @throws DisplayException|MercadoPagoException
+     * Constructs the MercadoPago preference and redirects
+     * the user over to MercadoPago for credits purchase.
+     *
+     * @throws DisplayException
      */
     public function purchase(MercadoPagoRequest $request): JsonResponse
     {
-        if (!$this->settings->get('jexactyl::store:mpago:enabled')) {
-            throw new DisplayException('Não é possível comprar via Mercado Pago: módulo não ativado');
+        if ($this->settings->get('jexactyl::store:mpago:enabled') != 'true') {
+            throw new DisplayException('Não é possível comprar via MercadoPago: módulo não ativado');
         }
 
-        SDK::setAccessToken(config('gateways.mpago.client_id'));
+        if (config('gateways.mpago.access_token') === '') {
+            throw new DisplayException('Não é possível comprar via MercadoPago: Token não configurado.');
+        }
+
 
         $amount = $request->input('amount');
-        $cost = number_format(config('gateways.mpago.cost', 1.00) / 100 * $amount, 2);
+        if ($amount === '0') {
+            throw new Exception('Um Valor deve ser selecionado.');
+        }
+        $cost = config('gateways.mpago.cost', 1) / 100 * $amount;
         $currency = config('gateways.currency', 'BRL');
 
-        $preference = new Preference();
+        DB::table('mercado_pago')->insert([
+            'user_id' => $request->user()->id,
+            'amount' => $amount,
+        ]);
 
+        SDK::setAccessToken(config('gateways.mpago.access_token'));
+
+        $preference = new Preference();
         $preference->back_urls = [
-            'success' => config('app.url') . '/store/credits',
-            'failure' => config('app.url'),
-            'pending' => config('app.url'),
+            'success' => route('api:client:store.mercadopago.callback'),
+            'failure' => config('app.url') . '/store/credits',
+            'pending' => route('api:client:store.mercadopago.callback'),
         ];
         $preference->auto_return = 'approved';
-        $preference->payment_methods = [
-            'excluded_payment_types' => [
-                ['id' => 'ticket'],
-                ['id' => 'atm'],
-            ],
-        ];
-        $preference->notification_url = config('app.url') . route('api:client:store.mpago.callback');
-        $preference->external_reference = $request->user()->id;
-        $preference->metadata = [
-            'credit_amount' => $amount,
-            'user_id' => $request->user()->id,
-        ];
-        $preference->items = [
-            [
-                'id' => uniqid(),
-                'title' => $amount . ' Créditos | ' . $this->settings->get('settings::app:name'),
-                'description' => $amount . ' Créditos',
-                'quantity' => 1,
-                'unit_price' => floatval($cost),
-                'currency_id' => $currency,
-            ],
-        ];
-
+        $preference->payer = new \MercadoPago\Payer();
+        $preference->payer->email = $request->user()->email;
+        $item = new \MercadoPago\Item();
+        $item->title = $this->settings->get('settings::app:name', 'Jexactyl').' - ' . $amount . ' | ' . ' Creditos';
+        $item->quantity = 1;
+        $item->unit_price = $cost;
+        $preference->items = [$item];
         $preference->save();
 
-        return new JsonResponse($preference->init_point, 200, [], null, true);
+        return new JsonResponse($preference->init_point ?? '/', 200, [], null, true);
+    }
+
+    /**
+     * Add balance to a user when the purchase is successful.
+     *
+     * @throws DisplayException
+     */
+    public function callback(Request $request): RedirectResponse
+    {
+        $user = $request->user();
+        $data = DB::table('mercado_pago')->where('user_id', $user->id)->first();
+
+        SDK::setAccessToken(config('gateways.mpago.access_token'));
+        
+        $payment = Payment::find_by_id($request->input('payment_id'));
+        
+        if ($payment->status == 'approved') {
+            $user->update([
+                'store_balance' => $user->store_balance + $data->amount,
+            ]);
+        }
+
+        DB::table('mercado_pago')->where('user_id', $user->id)->delete();
+
+        return redirect('/store');
     }
 }

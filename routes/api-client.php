@@ -107,8 +107,8 @@ Route::group([
     });
 
     Route::group(['prefix' => '/mercadopago'], function () {
-        Route::get('/callback', [Client\Store\MercadoPagoController::class, 'callback'])->name('api:client:store.mpago.callback');
-        Route::post('/', [Client\Store\MercadoPagoController::class, 'purchase'])->name('api:client:store.mpago');
+        Route::get('/callback', [Client\Store\MercadoPagoController::class, 'callback'])->name('api:client:store.mercadopago.callback');
+        Route::post('/', [Client\Store\MercadoPagoController::class, 'purchase'])->name('api:client:store.mercadopago');
     });
     
 });

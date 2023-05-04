@@ -43,7 +43,7 @@ export default () => {
     return (
         <PageContentBlock
             title={'Saldo da conta'}
-            description={'Compre créditos facilmente através do Stripe ou PayPal.'}
+            description={'Compre créditos facilmente através do Stripe, PayPal ou Mercado Pago.'}
         >
             <Container className={'j-up lg:grid lg:grid-cols-2 my-10'}>
                 <ContentBox title={'Carteira do Usuário'} showFlashes={'account:balance'} css={tw`sm:mt-0`}>

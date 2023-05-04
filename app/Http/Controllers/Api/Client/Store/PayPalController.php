@@ -33,6 +33,14 @@ class PayPalController extends ClientApiController
             throw new DisplayException('Não é possível comprar via PayPal: módulo não ativado');
         }
 
+        if (config('gateways.paypal.client_id') === '') {
+            throw new DisplayException('Não é possível comprar via PayPal: Client ID não configurado.');
+        }
+
+        if (config('gateways.paypal.client_secret') === '') {
+            throw new DisplayException('Não é possível comprar via PayPal: Client Secret não configurado.');
+        }
+
         $amount = $request->input('amount');
         $cost = config('gateways.paypal.cost', 1) / 100 * $amount;
         $currency = config('gateways.currency', 'USD');

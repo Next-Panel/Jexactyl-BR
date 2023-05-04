@@ -59,7 +59,7 @@ return [
     |
     */
     'mpago' => [
-        'client_id' => env('MPAGO_ACCESS_TOKEN', ''),
-        'client_secret' => env('MPAGO_CLIENT_SECRET', ''),
+        'access_token' => env('MPAGO_ACCESS_TOKEN', ''),
+        'cost' => env('MPAGO_COST', ''),
     ],
 ];

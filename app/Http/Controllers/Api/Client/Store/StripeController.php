@@ -24,6 +24,14 @@ class StripeController extends ClientApiController
         if (!$this->settings->get('jexactyl::store:stripe:enabled')) {
             throw new DisplayException('Não é possível comprar via Stripe: módulo não ativado');
         }
+        
+        if (config('gateways.stripe.secret') === '') {
+            throw new DisplayException('Não é possível comprar via Stripe: Secret não configurado.');
+        }
+
+        if (config('gateways.stripe.webhook_secret') === '') {
+            throw new DisplayException('Não é possível comprar via Stripe: WebHook Secret não configurado.');
+        }
 
         $client = new StripeClient(config('gateways.stripe.secret'));
         $amount = $request->input('amount');

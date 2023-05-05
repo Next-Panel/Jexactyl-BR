@@ -32,7 +32,7 @@ Vá até nossa [Documentação](https://nextpanel.com.br/) para começar com a a
 Se você precisar de ajuda em algum momento durante o processo de instalação, por favor nos informe sobre [Discord](https://discord.gg/68k7wDGjYc).
 
 ## Por que usar Jexactyl?
-* Sistema de faturamento que suporta [Stripe](https://stripe.com) e [PayPal](https://paypal.com) pronto para o uso.
+* Sistema de faturamento que suporta [Stripe](https://stripe.com), [PayPal](https://paypal.com) e [Mercado Pago](https://www.mercadopago.com.br) pronto para o uso.
 * Total personalização através de um simples painel de controle administrativo.
 * Sistema de tickets a fim de dar suporte aos clientes.
 * Personalizabilidade e configurações aprimoradas.
@@ -65,7 +65,7 @@ Se você precisar de ajuda em algum momento durante o processo de instalação, 
 
 ### Isenção de responsabilidade
 * A Jexactyl Brasil não é de forma alguma afiliada ao [Jexactyl](https://jexactyl.com), somos um grupo de pessoas que decidirão trazer esse belo painel para a nossa língua (Portugues).
-* De forma alguma a Jexactyl Brasil é afiliada de alguma forma ao [Pterodactyl®](https://pterdoactyl.io) ou ao [Jexactyl](https://jexactyl.com).
+* De forma alguma o Jexactyl-BR é afiliado de alguma forma ao [Pterodactyl®](https://pterdoactyl.io) ou ao [Jexactyl](https://jexactyl.com).
 
 ## Licensing
 Some JavaScript and CSS used within the panel are licensed under a `MIT` or `Apache 2.0` license. Please check their

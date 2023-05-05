@@ -2,13 +2,13 @@
 
 namespace Pterodactyl\Http\Controllers\Api\Client\Store;
 
+use MercadoPago\SDK;
+use MercadoPago\Payment;
+use MercadoPago\Preference;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
-use MercadoPago\SDK;
-use MercadoPago\Payment;
-use MercadoPago\Preference;
 use Pterodactyl\Exceptions\DisplayException;
 use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
 use Pterodactyl\Http\Requests\Api\Client\Store\Gateways\MercadoPagoRequest;
@@ -36,11 +36,10 @@ class MercadoPagoController extends ClientApiController
             throw new DisplayException('Não é possível comprar via MercadoPago: Token não configurado.');
         }
 
-
         $amount = $request->input('amount');
         if ($amount === 0) {
-    		throw new DisplayException('Selecione um Valor antes de confirmar.');
-		}
+            throw new DisplayException('Selecione um Valor antes de confirmar.');
+        }
         $cost = config('gateways.mpago.cost', 1) / 100 * $amount;
         $currency = config('gateways.currency', 'BRL');
 
@@ -61,7 +60,7 @@ class MercadoPagoController extends ClientApiController
         $preference->payer = new \MercadoPago\Payer();
         $preference->payer->email = $request->user()->email;
         $item = new \MercadoPago\Item();
-        $item->title = $this->settings->get('settings::app:name', 'Jexactyl').' - ' . $amount . ' | ' . ' Creditos';
+        $item->title = $this->settings->get('settings::app:name', 'Jexactyl') . ' - ' . $amount . ' |  Creditos';
         $item->quantity = 1;
         $item->unit_price = $cost;
         $preference->items = [$item];
@@ -81,9 +80,9 @@ class MercadoPagoController extends ClientApiController
         $data = DB::table('mercado_pago')->where('user_id', $user->id)->first();
 
         SDK::setAccessToken(config('gateways.mpago.access_token'));
-        
+
         $payment = Payment::find_by_id($request->input('payment_id'));
-        
+
         if ($payment->status == 'approved') {
             $user->update([
                 'store_balance' => $user->store_balance + $data->amount,

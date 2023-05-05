@@ -110,7 +110,6 @@ Route::group([
         Route::get('/callback', [Client\Store\MercadoPagoController::class, 'callback'])->name('api:client:store.mercadopago.callback');
         Route::post('/', [Client\Store\MercadoPagoController::class, 'purchase'])->name('api:client:store.mercadopago');
     });
-    
 });
 
 /*

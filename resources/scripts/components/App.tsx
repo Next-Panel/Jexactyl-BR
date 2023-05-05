@@ -63,12 +63,13 @@ const App = () => {
         store.getActions().storefront.setStorefront(StoreConfiguration!);
     }
 
-    function earn() {
-        setTimeout(earn, 61000); // Allow 1 second for time inconsistencies.
-        earnCredits().catch(() => console.error('Failed to add credits'));
+    if (store.getState().storefront.data?.earn?.enabled) {
+        function earn() {
+            setTimeout(earn, 61000); // Allow 1 second for time inconsistencies.
+            earnCredits().catch(() => console.error('Falha ao Adicionar Creditos'));
+        }
+        earn();
     }
-
-    earn();
 
     return (
         <>

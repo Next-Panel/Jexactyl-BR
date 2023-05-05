@@ -43,8 +43,8 @@ class PayPalController extends ClientApiController
 
         $amount = $request->input('amount');
         if ($amount === 0) {
-    		throw new DisplayException('Selecione um Valor antes de confirmar.');
-		}
+            throw new DisplayException('Selecione um Valor antes de confirmar.');
+        }
         $cost = config('gateways.paypal.cost', 1) / 100 * $amount;
         $currency = config('gateways.currency', 'USD');
 

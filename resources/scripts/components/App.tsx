@@ -82,7 +82,7 @@ const App = () => {
                 </StoreProvider>
             </>
         );
-    };
+    }
 };
 
 export default hot(App);

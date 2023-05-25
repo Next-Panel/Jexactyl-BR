@@ -37,51 +37,52 @@ setupInterceptors(history);
 
 const App = () => {
     function App() {
-    const { JexactylUser, SiteConfiguration, StoreConfiguration } = window as ExtendedWindow;
+        const { JexactylUser, SiteConfiguration, StoreConfiguration } = window as ExtendedWindow;
 
-    if (JexactylUser && !store.getState().user.data) {
-        store.getActions().user.setUserData({
-            uuid: JexactylUser.uuid,
-            username: JexactylUser.username,
-            email: JexactylUser.email,
-            approved: JexactylUser.approved,
-            verified: JexactylUser.verified,
-            discordId: JexactylUser.discord_id,
-            language: JexactylUser.language,
-            rootAdmin: JexactylUser.root_admin,
-            useTotp: JexactylUser.use_totp,
-            referralCode: JexactylUser.referral_code,
-            createdAt: new Date(JexactylUser.created_at),
-            updatedAt: new Date(JexactylUser.updated_at),
-        });
-    }
-
-    if (!store.getState().settings.data) {
-        store.getActions().settings.setSettings(SiteConfiguration!);
-    }
-
-    if (!store.getState().storefront.data) {
-        store.getActions().storefront.setStorefront(StoreConfiguration!);
-    }
-
-    if (store.getState().storefront.data?.earn?.enabled) {
-        function earn() {
-            setTimeout(earn, 61000); // Allow 1 second for time inconsistencies.
-            earnCredits().catch(() => console.error('Falha ao Adicionar Creditos'));
+        if (JexactylUser && !store.getState().user.data) {
+            store.getActions().user.setUserData({
+                uuid: JexactylUser.uuid,
+                username: JexactylUser.username,
+                email: JexactylUser.email,
+                approved: JexactylUser.approved,
+                verified: JexactylUser.verified,
+                discordId: JexactylUser.discord_id,
+                language: JexactylUser.language,
+                rootAdmin: JexactylUser.root_admin,
+                useTotp: JexactylUser.use_totp,
+                referralCode: JexactylUser.referral_code,
+                createdAt: new Date(JexactylUser.created_at),
+                updatedAt: new Date(JexactylUser.updated_at),
+            });
         }
-        earn();
-    }
 
-    return (
-        <>
-            <GlobalStylesheet />
-            <StoreProvider store={store}>
-                <div css={tw`mx-auto w-auto`}>
-                    <IndexRouter />
-                </div>
-            </StoreProvider>
-        </>
-    );
+        if (!store.getState().settings.data) {
+            store.getActions().settings.setSettings(SiteConfiguration!);
+        }
+
+        if (!store.getState().storefront.data) {
+            store.getActions().storefront.setStorefront(StoreConfiguration!);
+        }
+
+        if (store.getState().storefront.data?.earn?.enabled) {
+            function earn() {
+                setTimeout(earn, 61000); // Allow 1 second for time inconsistencies.
+                earnCredits().catch(() => console.error('Falha ao Adicionar Creditos'));
+            }
+            earn();
+        }
+
+        return (
+            <>
+                <GlobalStylesheet />
+                <StoreProvider store={store}>
+                    <div css={tw`mx-auto w-auto`}>
+                        <IndexRouter />
+                    </div>
+                </StoreProvider>
+            </>
+        );
+    };
 };
 
 export default hot(App);

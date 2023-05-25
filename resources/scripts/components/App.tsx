@@ -36,6 +36,7 @@ interface ExtendedWindow extends Window {
 setupInterceptors(history);
 
 const App = () => {
+    function App() {
     const { JexactylUser, SiteConfiguration, StoreConfiguration } = window as ExtendedWindow;
 
     if (JexactylUser && !store.getState().user.data) {

@@ -12,9 +12,10 @@ return new class () extends Migration {
      */
     public function up()
     {
-        Schema::create('mercado_pago', function (Blueprint $table) {
+        Schema::create('mpago', function (Blueprint $table) {
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('amount');
+            $table->unsignedInteger('internal_status');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class () extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('mercado_pago');
+        Schema::dropIfExists('mpago');
     }
 };

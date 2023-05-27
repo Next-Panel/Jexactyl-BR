@@ -13,8 +13,6 @@ return new class () extends Migration {
     public function up()
     {
         Schema::create('mpago', function (Blueprint $table) {
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('amount');
             $table->string('internal_status');
             $table->string('internal_token');
             $table->timestamps();

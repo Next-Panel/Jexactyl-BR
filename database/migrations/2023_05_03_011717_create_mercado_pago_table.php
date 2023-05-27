@@ -1,5 +1,3 @@
-<?php
-
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -13,10 +11,12 @@ return new class () extends Migration {
     public function up()
     {
         Schema::create('mpago', function (Blueprint $table) {
-            $table->id();
+            $table->unsignedBigInteger('id');
             $table->string('internal_status');
             $table->string('internal_token');
             $table->timestamps();
+
+            $table->primary('id');
         });
     }
 

@@ -67,7 +67,7 @@
                                         <option @if ($mpago_enabled == 'false') selected @endif value="false">Desabilitado</option>
                                         <option @if ($mpago_enabled == 'true') selected @endif value="true">Habilitado</option>
                                     </select>
-                                    <p class="text-muted"><small>Determina se os usuários poderão comprar créditos com PayPal.</small></p>
+                                    <p class="text-muted"><small>Determina se os usuários poderão comprar créditos com Mercado Pago.</small></p>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">

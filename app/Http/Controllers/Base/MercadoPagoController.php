@@ -222,8 +222,14 @@ class MercadoPagoController extends Controller
             $color = '65280'; // Verde
         }
 
-        $name = 'Mercado Pago - Registro IPN';
-        $icon = 'https://avatars.githubusercontent.com/u/91636558';
+        $name = config('app.name', 'Jexactyl') . ' -  Mercado Pago IPN';
+
+        if (!str_starts_with(config('app.logo'), 'https://') && !str_starts_with(config('app.logo'), 'http://')) {
+            $icon = 'https://avatars.githubusercontent.com/u/91636558';
+        } else {
+            $icon = config('app.logo');
+        }
+
         $webhookData = [
             'username' => $name,
             'avatar_url' => $icon,

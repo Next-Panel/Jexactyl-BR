@@ -11,9 +11,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Pterodactyl\Http\Controllers\Controller;
+use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
 
 class MercadoPagoController extends Controller
 {
+    public function __construct(
+        private SettingsRepositoryInterface $settings
+    ) {
+    }
     public function index(Request $request): Response
     {
         $notificationId = $request->input('id') ?? $request->input('data.id') ?? $request->input('payment_id') ?? 'error12011';
@@ -182,17 +187,17 @@ class MercadoPagoController extends Controller
         }
 
         try {
-            if (config('gateways.mpago.discord_webhook', false) === true) {
-                $Content = [
-                    'pagamento' => [
-                        'user_email' => $payment->metadata->user_email ?? 'Desconhecido(ERRO)',
-                        'valor' => $credit_amount ?? 'Desconhecido(ERRO)',
-                        'payment_id' => $notificationId ?? 'Desconhecido(ERRO)',
-                        'metadata_token' => $metadata_token ?? 'Desconhecido(ERRO)',
-                        'message' => $Message ?? 'Desconhecido(ERRO)',
-                    ],
-                ];
-                $this->sendDiscordWebhook($Content);
+            if ($this->settings->get('jexactyl::store:mpago:discord:enabled') === 'true' && $this->settings->get('jexactyl::store:mpago:discord:webhook')) {
+                    $Content = [
+                        'pagamento' => [
+                            'user_email' => $payment->metadata->user_email ?? 'Desconhecido(ERRO)',
+                            'valor' => $credit_amount ?? 'Desconhecido(ERRO)',
+                            'payment_id' => $notificationId ?? 'Desconhecido(ERRO)',
+                            'metadata_token' => $metadata_token ?? 'Desconhecido(ERRO)',
+                            'message' => $Message ?? 'Desconhecido(ERRO)',
+                        ],
+                    ];
+                    $this->sendDiscordWebhook($Content);
             }
         } catch (\Exception $e) {
             Log::channel('mpago')->error("Discord ERRO: {$e}");
@@ -207,6 +212,7 @@ class MercadoPagoController extends Controller
 
     private function sendDiscordWebhook($Content)
     {
+
         $metadata_token = $Content['pagamento']['metadata_token'];
         $data = DB::table('mpago')->where('internal_token', $metadata_token)->first();
         $internalStatus = $data->internal_status;
@@ -267,7 +273,7 @@ class MercadoPagoController extends Controller
         ];
 
         try {
-            Http::withBody(json_encode($webhookData), 'application/json')->post(config('gateways.mpago.webhook_link'));
+            Http::withBody(json_encode($webhookData), 'application/json')->post($this->settings->get('jexactyl::store:mpago:discord:webhook'));
         } catch (\Exception $e) {
             Log::channel('mpago')->error("Discord ERRO: {$e}");
         }

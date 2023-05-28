@@ -39,6 +39,9 @@ class StoreController extends Controller
             'paypal_enabled' => $this->settings->get($prefix . 'paypal:enabled', false),
             'stripe_enabled' => $this->settings->get($prefix . 'stripe:enabled', false),
             'mpago_enabled' => $this->settings->get($prefix . 'mpago:enabled', false),
+            'mpago_discord_webhook' => $this->settings->get($prefix . 'mpago:discord:webhook', 0),
+            'mpago_discord_enabled' => $this->settings->get($prefix . 'mpago:discord:enabled', false),
+
             'selected_currency' => $this->settings->get($prefix . 'currency', 'BRL'),
             'currencies' => $currencies,
 

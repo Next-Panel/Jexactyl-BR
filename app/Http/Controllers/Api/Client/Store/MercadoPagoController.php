@@ -56,7 +56,7 @@ class MercadoPagoController extends ClientApiController
         $preference = new Preference();
         $preference->back_urls = [
             'success' => route('api:client:store.mercadopago.callback'),
-            'failure' => config('app.url') . '/store/credits',
+            'failure' => config('app.url') . "/mercadopago/callback?failuretoken=$token",
             'pending' => route('api:client:store.mercadopago.callback'),
         ];
         $preference->payer = new \MercadoPago\Payer();
@@ -98,6 +98,10 @@ class MercadoPagoController extends ClientApiController
 
     public function callback(Request $request): RedirectResponse
     {
+        $failure = $request->input('failuretoken') ?? 'OK';
+        if ($failure != 'OK') {
+            DB::table('mpago')->where('internal_token', $failure)->delete();
+        }
         return redirect('/store/credits');
     }
 }

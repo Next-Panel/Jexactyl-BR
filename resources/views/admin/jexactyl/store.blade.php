@@ -61,6 +61,7 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
+<<<<<<< Updated upstream
                                 <label class="control-label">Habilitar Mercado Pago</label>
                                 <div>
                                     <select name="store:mpago:enabled" class="form-control">
@@ -71,6 +72,8 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
+=======
+>>>>>>> Stashed changes
                                 <label class="control-label" for="store:currency">Nome da moeda</label>
                                 <select name="store:currency" id="store:currency" class="form-control">
                                     @foreach ($currencies as $currency)
@@ -78,6 +81,42 @@
                                     @endforeach
                                 </select>
                                 <p class="text-muted"><small>O nome da moeda que será utilizado no Jexactyl.</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <i class="fa fa-money"></i> <h3 class="box-title">Pagamentos com o Mercado Pago <small>configurações do sistema de pagamentos do Mercado Pago.</small></h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Habilitar Mercado Pago</label>
+                                <div>
+                                    <select name="store:mpago:enabled" class="form-control">
+                                        <option @if ($mpago_enabled == 'false') selected @endif value="false">Desabilitado</option>
+                                        <option @if ($mpago_enabled == 'true') selected @endif value="true">Habilitado</option>
+                                    </select>
+                                    <p class="text-muted"><small>Determina se os usuários poderão comprar créditos com Mercado Pago.</small></p>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Habilitar Discord WebHook Mercado Pago IPN</label>
+                                <div>
+                                    <select name="store:mpago:discord:enabled" class="form-control">
+                                        <option @if ($mpago_discord_enabled == 'false') selected @endif value="false">Desabilitado</option>
+                                        <option @if ($mpago_discord_enabled == 'true') selected @endif value="true">Habilitado</option>
+                                    </select>
+                                    <p class="text-muted"><small>Habilita o sistema de webhook de notificações de pagamento para o discord, permite ver status de compra e pagamentos feitos em tempo real.</small></p>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Discord WebHook Link</label>
+                                <div>
+                                    <input type="password" class="form-control" name="store:mpago:discord:webhook" value="{{ $mpago_discord_webhook }}" />
+                                    <p class="text-muted"><small>Link do Webhook onde o IPN vai mostrar as notificações.</small></p>
+                                </div>
                             </div>
                         </div>
                     </div>

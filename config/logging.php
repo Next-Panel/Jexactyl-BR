@@ -116,5 +116,11 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+
+        'mpago' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/MercadoPago.log'),
+            'level' => 'error',
+        ],
     ],
 ];

@@ -47,7 +47,7 @@ export default () => {
                 <Form>
                     <SpinnerOverlay size={'large'} visible={submitting} />
                     <Select name={'amount'} disabled={submitting} onChange={(e) => setAmount(parseInt(e.target.value))}>
-                        <option key={'stripe:placeholder'} value={0} hidden>
+                        <option key={'stripe:placeholder'} hidden>
                             Escolha um valor...
                         </option>
                         <option key={'stripe:buy:100'} value={100}>

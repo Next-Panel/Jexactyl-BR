@@ -141,7 +141,7 @@ export default () => {
                 </>
             )}
             <Can action={'file.sftp'}>
-                <TitledGreyBox title={'Detalhes do SFTP'} className={'j-up mt-8 md:mt-6'}>
+                <TitledGreyBox title={'Detalhes do SFTP'} className={'mt-8 md:mt-6'}>
                     <div>
                         <Label>Endereço do servidor</Label>
                         <CopyOnClick text={`sftp://${ip(sftp.ip)}:${sftp.port}`}>

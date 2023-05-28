@@ -56,7 +56,7 @@ export default () => {
             {!data && isValidating ? (
                 <Spinner centered />
             ) : !data?.items.length ? (
-                <p className={'j-up text-sm text-center text-gray-400'}>
+                <p className={'text-sm text-center text-gray-400'}>
                     Nenhum registro de atividade disponível para este servidor.
                 </p>
             ) : (

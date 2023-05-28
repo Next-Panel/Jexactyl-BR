@@ -30,7 +30,7 @@ export default () => {
             description={'Crie chaves SSH para se conectar aos seus servidores.'}
             showFlashKey={'account'}
         >
-            <div className={'j-up md:flex flex-nowrap my-10'}>
+            <div className={'md:flex flex-nowrap my-10'}>
                 <ContentBox title={'Adicionar Chave SSH'} css={tw`flex-none w-full md:w-1/2`}>
                     <CreateSSHKeyForm />
                 </ContentBox>

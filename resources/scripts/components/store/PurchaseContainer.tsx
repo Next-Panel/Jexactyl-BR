@@ -45,7 +45,7 @@ export default () => {
             title={'Saldo da conta'}
             description={'Compre créditos facilmente através do Stripe, PayPal ou Mercado Pago.'}
         >
-            <Container className={'j-up lg:grid lg:grid-cols-2 my-10'}>
+            <Container className={'lg:grid lg:grid-cols-2 my-10'}>
                 <ContentBox title={'Carteira do Usuário'} showFlashes={'account:balance'} css={tw`sm:mt-0`}>
                     <h1 css={tw`text-7xl flex justify-center items-center`}>
                         {resources.balance} <span className={'text-base ml-4'}>creditos</span>
@@ -64,11 +64,11 @@ export default () => {
             </Container>
             {earn.enabled && (
                 <>
-                    <h1 className={'j-left text-5xl'}>Ganhos de crédito AFK</h1>
-                    <h3 className={'j-left text-2xl text-neutral-500'}>
+                    <h1 className={'text-5xl'}>Ganhos de crédito AFK</h1>
+                    <h3 className={'text-2xl text-neutral-500'}>
                         Veja quantos créditos você receberá por minuto de AFK.
                     </h3>
-                    <Container className={'j-up lg:grid lg:grid-cols-2 my-10'}>
+                    <Container className={'lg:grid lg:grid-cols-2 my-10'}>
                         <ContentBox title={'Earn Rate'} showFlashes={'earn:rate'} css={tw`sm:mt-0`}>
                             <h1 css={tw`text-7xl flex justify-center items-center`}>
                                 {earn.amount} <span className={'text-base ml-4'}>creditos / min</span>

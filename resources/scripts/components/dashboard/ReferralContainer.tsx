@@ -107,7 +107,7 @@ export default () => {
             description={'Criar um código e compartilhá-lo com outros.'}
             showFlashKey={'referrals'}
         >
-            <Container className={'j-up lg:grid lg:grid-cols-3 my-10'}>
+            <Container className={'lg:grid lg:grid-cols-3 my-10'}>
                 <ContentBox title={'Seus códigos de indicação'} css={tw`sm:mt-0`}>
                     <Dialog.Confirm
                         title={'Excluir Código de Indicação'}

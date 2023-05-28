@@ -71,7 +71,7 @@ export default () => {
             ) : (
                 <>
                     {width >= 1024 && (
-                        <SubNavigation className={'j-down lg:visible invisible'}>
+                        <SubNavigation className={'lg:visible invisible'}>
                             <div>
                                 <InformationContainer />
                             </div>

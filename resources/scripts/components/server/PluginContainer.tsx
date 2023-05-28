@@ -93,13 +93,13 @@ export default () => {
             {!data ? null : (
                 <>
                     {!data.plugins ? (
-                        <p className={'j-up text-gray-400 text-center'}>Aguardando uma consulta de pesquisa...</p>
+                        <p className={'text-gray-400 text-center'}>Aguardando uma consulta de pesquisa...</p>
                     ) : (
                         <>
                             {data.plugins.length < 1 ? (
                                 <p>Não foi encontrado nenhum plugin.</p>
                             ) : (
-                                <div className={'j-up lg:grid lg:grid-cols-3 p-2'}>
+                                <div className={'lg:grid lg:grid-cols-3 p-2'}>
                                     {data.plugins.map((plugin, key) => (
                                         <>
                                             <TitledGreyBox title={plugin.name} key={key} className={'m-2'}>

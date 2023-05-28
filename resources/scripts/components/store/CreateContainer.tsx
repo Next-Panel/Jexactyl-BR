@@ -155,10 +155,8 @@ export default () => {
                 })}
             >
                 <Form>
-                    <h1 className={'j-left text-5xl'}>Detalhes básicos</h1>
-                    <h3 className={'j-left text-2xl text-neutral-500'}>
-                        Defina os campos básicos para seu novo servidor.
-                    </h3>
+                    <h1 className={'text-5xl'}>Detalhes básicos</h1>
+                    <h3 className={'text-2xl text-neutral-500'}>Defina os campos básicos para seu novo servidor.</h3>
                     <StoreContainer className={'lg:grid lg:grid-cols-2 my-10 gap-4'}>
                         <TitledGreyBox title={'Nome do Servidor'} icon={faStickyNote} className={'mt-8 sm:mt-0'}>
                             <Field name={'name'} />
@@ -173,8 +171,8 @@ export default () => {
                             <p className={'mt-1 text-xs text-yellow-400'}>* Opcional</p>
                         </TitledGreyBox>
                     </StoreContainer>
-                    <h1 className={'j-left text-5xl'}>Limites de recursos</h1>
-                    <h3 className={'j-left text-2xl text-neutral-500'}>
+                    <h1 className={'text-5xl'}>Limites de recursos</h1>
+                    <h3 className={'text-2xl text-neutral-500'}>
                         Defina limites específicos para CPU, RAM e muito mais.
                     </h3>
                     <StoreContainer className={'lg:grid lg:grid-cols-3 my-10 gap-4'}>
@@ -208,8 +206,8 @@ export default () => {
                             <p className={'mt-1 text-xs text-gray-400'}>{resources.disk}MB disponível</p>
                         </TitledGreyBox>
                     </StoreContainer>
-                    <h1 className={'j-left text-5xl'}>Limites de recursos</h1>
-                    <h3 className={'j-left text-2xl text-neutral-500'}>
+                    <h1 className={'text-5xl'}>Limites de recursos</h1>
+                    <h3 className={'text-2xl text-neutral-500'}>
                         Adicionar bancos de dados, alocações e portas ao seu servidor.
                     </h3>
                     <StoreContainer className={'lg:grid lg:grid-cols-3 my-10 gap-4'}>
@@ -229,8 +227,8 @@ export default () => {
                             <p className={'mt-1 text-xs text-gray-400'}>{resources.databases} disponível</p>
                         </TitledGreyBox>
                     </StoreContainer>
-                    <h1 className={'j-left text-5xl'}>Implantação</h1>
-                    <h3 className={'j-left text-2xl text-neutral-500'}>Escolher um node e um tipo de servidor.</h3>
+                    <h1 className={'text-5xl'}>Implantação</h1>
+                    <h3 className={'text-2xl text-neutral-500'}>Escolher um node e um tipo de servidor.</h3>
                     <StoreContainer className={'lg:grid lg:grid-cols-3 my-10 gap-4'}>
                         <TitledGreyBox title={'Nodes disponíveis'} icon={faLayerGroup} className={'mt-8 sm:mt-0'}>
                             <Select name={'node'} onChange={(e) => setNode(parseInt(e.target.value))}>

@@ -14,8 +14,8 @@ export default () => {
             <div className={'flex flex-row items-center justify-between mt-10'}>
                 {width >= 1280 && (
                     <div>
-                        <h1 className={'j-left text-6xl'}>Opa, {username}!</h1>
-                        <h3 className={'j-left text-2xl mt-2 text-neutral-500'}>👋 Bem-vindo à loja.</h3>
+                        <h1 className={'text-6xl'}>Olá, {username}!</h1>
+                        <h3 className={'text-2xl mt-2 text-neutral-500'}>👋 Bem-vindo à loja.</h3>
                     </div>
                 )}
                 <ResourceBar className={'w-full lg:w-3/4'} />

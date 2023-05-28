@@ -75,7 +75,7 @@ export default () => {
                 Tem certeza de que deseja comprar este recurso ({resource})? Isso gastará os créditos da sua conta e
                 adicionará o recurso. Esta não é uma transação reversível.
             </Dialog.Confirm>
-            <Container className={'j-up lg:grid lg:grid-cols-4 my-10 gap-8'}>
+            <Container className={'lg:grid lg:grid-cols-4 my-10 gap-8'}>
                 <PurchaseBox
                     type={'CPU'}
                     amount={50}
@@ -116,7 +116,7 @@ export default () => {
                     description={'Comprar um slot de servidor para que você possa implantar um novo servidor.'}
                 />
             </Container>
-            <Container className={'j-up lg:grid lg:grid-cols-4 my-10 gap-8'}>
+            <Container className={'lg:grid lg:grid-cols-4 my-10 gap-8'}>
                 <PurchaseBox
                     type={'Ports'}
                     amount={1}
@@ -160,9 +160,9 @@ export default () => {
             <div className={'flex justify-center items-center'}>
                 <div className={'bg-auto bg-center bg-storeone p-4 m-4 rounded-lg'}>
                     <div className={'text-center bg-gray-900 bg-opacity-75 p-4'}>
-                        <h1 className={'j-down text-4xl'}>Pronto para começar?</h1>
+                        <h1 className={'text-4xl'}>Pronto para começar?</h1>
                         <Link to={'/store/create'}>
-                            <Button.Text className={'j-up w-full mt-4'}>Criar o Servidor</Button.Text>
+                            <Button.Text className={'w-full mt-4'}>Criar o Servidor</Button.Text>
                         </Link>
                     </div>
                 </div>

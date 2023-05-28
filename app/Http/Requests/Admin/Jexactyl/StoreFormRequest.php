@@ -15,7 +15,7 @@ class StoreFormRequest extends AdminFormRequest
             'store:mpago:enabled' => 'required|in:true,false',
             'store:mpago:discord:enabled' => 'required|in:true,false',
             'store:mpago:discord:webhook' => 'required|string',
-            
+
             'store:currency' => 'required|min:1|max:10',
 
             'earn:enabled' => 'required|in:true,false',

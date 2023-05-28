@@ -102,6 +102,7 @@ class MercadoPagoController extends ClientApiController
         if ($failure != 'OK') {
             DB::table('mpago')->where('internal_token', $failure)->delete();
         }
+
         return redirect('/store/credits');
     }
 }

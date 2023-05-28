@@ -18,7 +18,7 @@ export default () => {
                         <h3 className={'text-2xl mt-2 text-neutral-500'}>👋 Bem-vindo à loja.</h3>
                     </div>
                 )}
-                <ResourceBar className={'w-full lg:w-3/4'} />
+                 {width >= 1024 && <ResourceBar className={'w-full lg:w-[100%]'} />}
             </div>
             <div className={'lg:grid lg:grid-cols-3 gap-8 my-10'}>
                 <StoreBanner

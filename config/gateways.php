@@ -60,6 +60,7 @@ return [
     */
     'mpago' => [
         'access_token' => env('MPAGO_ACCESS_TOKEN', ''),
-        'cost' => env('MPAGO_COST', 1.00),
+        'discord_webhook' => env('MPAGO_DISCORD_ACTIVE', false),
+        'webhook_link' => env('MPAGO_DISCORD_WEBHOOK', ''),
     ],
 ];

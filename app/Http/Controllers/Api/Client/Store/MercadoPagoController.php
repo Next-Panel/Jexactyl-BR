@@ -2,8 +2,8 @@
 
 namespace Pterodactyl\Http\Controllers\Api\Client\Store;
 
+use Carbon\Carbon;
 use MercadoPago\SDK;
-use MercadoPago\Payment;
 use MercadoPago\Preference;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -36,16 +36,19 @@ class MercadoPagoController extends ClientApiController
             throw new DisplayException('Não é possível comprar via MercadoPago: Token não configurado.');
         }
 
-        $amount = $request->input('amount');
-        if ($amount === 0) {
-            throw new DisplayException('Selecione um Valor antes de confirmar.');
+        if (!str_contains(config('app.url'), 'https://')) {
+            throw new DisplayException('Não é possível comprar via MercadoPago: APP_URL não está com HTTPS, exigido pelo Mercado Pago.');
         }
-        $cost = config('gateways.mpago.cost', 1) / 100 * $amount;
+
+        $amount = $request->input('amount');
+        $cost = config('gateways.cost', 1) / 100 * $amount;
         $currency = config('gateways.currency', 'BRL');
 
-        DB::table('mercado_pago')->insert([
-            'user_id' => $request->user()->id,
-            'amount' => $amount,
+        $token = $this->generateToken();
+
+        DB::table('mpago')->insert([
+            'internal_status' => 'Criado',
+            'internal_token' => $token,
         ]);
 
         SDK::setAccessToken(config('gateways.mpago.access_token'));
@@ -56,41 +59,45 @@ class MercadoPagoController extends ClientApiController
             'failure' => config('app.url') . '/store/credits',
             'pending' => route('api:client:store.mercadopago.callback'),
         ];
-        $preference->auto_return = 'approved';
         $preference->payer = new \MercadoPago\Payer();
         $preference->payer->email = $request->user()->email;
         $item = new \MercadoPago\Item();
         $item->title = $this->settings->get('settings::app:name', 'Jexactyl') . ' - ' . $amount . ' |  Creditos';
         $item->quantity = 1;
         $item->unit_price = $cost;
+        $item->currency = $currency;
         $preference->items = [$item];
+        $preference->metadata = [
+            'credit_amount' => $amount,
+            'user_id' => $request->user()->id,
+            'user_email' => $request->user()->email,
+            'internal_token' => $token,
+        ];
         $preference->save();
 
         return new JsonResponse($preference->init_point ?? '/', 200, [], null, true);
     }
 
-    /**
-     * Add balance to a user when the purchase is successful.
-     *
-     * @throws DisplayException
-     */
-    public function callback(Request $request): RedirectResponse
+    private function generateToken(): string
     {
-        $user = $request->user();
-        $data = DB::table('mercado_pago')->where('user_id', $user->id)->first();
+        // Gerar uma sequência de 20 caracteres aleatórios
+        $token = '';
+        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $charactersLength = strlen($characters);
 
-        SDK::setAccessToken(config('gateways.mpago.access_token'));
-
-        $payment = Payment::find_by_id($request->input('payment_id'));
-
-        if ($payment->status == 'approved') {
-            $user->update([
-                'store_balance' => $user->store_balance + $data->amount,
-            ]);
+        for ($i = 0; $i < 20; ++$i) {
+            $token .= $characters[random_int(0, $charactersLength - 1)];
         }
 
-        DB::table('mercado_pago')->where('user_id', $user->id)->delete();
+        // Adicionar informações de data no token
+        $now = Carbon::now();
+        $token .= '_' . $now->format('YmdHis');
 
-        return redirect('/store');
+        return $token;
+    }
+
+    public function callback(Request $request): RedirectResponse
+    {
+        return redirect('/store/credits');
     }
 }

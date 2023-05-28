@@ -17,3 +17,5 @@ Route::get('/{react}', [Base\IndexController::class, 'index'])
     ->where('react', '^(?!(\/)?(api|auth|admin|daemon)).+');
 
 Route::post('/stripe/listen', [Base\StripeController::class, 'index']);
+
+Route::post('/mercadopago/listen', [Base\MercadoPagoController::class, 'index']);

@@ -13,12 +13,10 @@ return new class () extends Migration {
     public function up()
     {
         Schema::create('mpago', function (Blueprint $table) {
-            $table->unsignedBigInteger('id');
+            $table->id();
             $table->string('internal_status');
             $table->string('internal_token');
             $table->timestamps();
-
-            $table->primary('id');
         });
     }
 

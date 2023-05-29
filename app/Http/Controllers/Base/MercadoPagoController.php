@@ -29,7 +29,7 @@ class MercadoPagoController extends Controller
                 $msg = 'Erro ao processar o pagamento: ID de pagamento Não encontrado.'; // caso ID não exista, mostra essa mensagem
             } elseif ($notificationId == '123456') {
                 $msg = $this->TestePayment(); // Redireciona para o Evento de teste
-                $status = '401';
+                $status = '200';
             } else {
                 $result = $this->EventPayment($notificationId); // Redireciona para o Evento de pagamento
                 $msg = $result['message'];

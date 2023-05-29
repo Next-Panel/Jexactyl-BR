@@ -85,14 +85,14 @@ class MercadoPagoController extends Controller
             // Busca no database o internal_token existente, se existir
             $data = DB::table('mpago')->where('internal_token', $metadata_token)->first();
         } catch (\Exception $e) {
-            $ErrorManager = shell_exec('DatabaseVerifyError');
+            $ErrorManager = ('DatabaseVerifyError');
             $statusType = '400';
         }
 
         $internalStatus = $data->internal_status ?? 'Desconhecido';
 
         if ($internalStatus == 'Desconhecido') {
-            $ErrorManager = shell_exec('InternalDatabaseError');
+            $ErrorManager = ('InternalDatabaseError');
             $statusType = '400';
         }
 

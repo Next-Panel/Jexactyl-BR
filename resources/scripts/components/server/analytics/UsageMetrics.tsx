@@ -107,7 +107,11 @@ export default () => {
                             <br />
                             Utilização da CPU {getStatusFromUsage(parseInt(cpuUsed))}
                         </p>
-                        <p className={'font-semibold text-sm text-gray-400 mt-1'}>Usando {cpuUsed}%</p>
+                        {status === 'running' ? (
+                            <p className={'font-semibold text-sm text-gray-400 mt-1'}>Usando {cpuUsed}%</p>
+                        ) : (
+                            <p className={'font-semibold text-sm text-gray-400 mt-1'}>Servidor Offline</p>
+                        )}
                     </div>
                 </ContentBox>
                 <ContentBox isLight>
@@ -117,7 +121,11 @@ export default () => {
                             <br />
                             Utilização da RAM {getStatusFromUsage(parseInt(memoryUsed))}
                         </p>
-                        <p className={'font-semibold text-sm text-gray-400 mt-1'}>Usando {memoryUsed}%</p>
+                        {status === 'running' ? (
+                            <p className={'font-semibold text-sm text-gray-400 mt-1'}>Usando {memoryUsed}%</p>
+                        ) : (
+                            <p className={'font-semibold text-sm text-gray-400 mt-1'}>Servidor Offline</p>
+                        )}
                     </div>
                 </ContentBox>
                 <ContentBox isLight>
@@ -127,7 +135,11 @@ export default () => {
                             <br />
                             Utilização do disco {getStatusFromUsage(parseInt(diskUsed))}
                         </p>
-                        <p className={'font-semibold text-sm text-gray-400 mt-1'}>Usando {diskUsed}%</p>
+                        {status === 'running' ? (
+                            <p className={'font-semibold text-sm text-gray-400 mt-1'}>Usando {diskUsed}%</p>
+                        ) : (
+                            <p className={'font-semibold text-sm text-gray-400 mt-1'}>Servidor Offline</p>
+                        )}
                     </div>
                 </ContentBox>
             </div>

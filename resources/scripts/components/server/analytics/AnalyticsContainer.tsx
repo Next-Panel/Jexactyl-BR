@@ -107,10 +107,7 @@ export default () => {
                         <PowerButtons className={'flex space-x-4 text-center mb-4'} />
                     </Can>
                     <ContentBox>
-                        <UsageBox 
-                        progress={parseInt(cpuUsed)} 
-                        title={'Uso da CPU'} 
-                        content={`${cpuUsed}% utilizada`} />
+                        <UsageBox progress={parseInt(cpuUsed)} title={'Uso da CPU'} content={`${cpuUsed}% utilizada`} />
                         <UsageBox
                             progress={parseInt(memoryUsed)}
                             title={'Uso da memória'}

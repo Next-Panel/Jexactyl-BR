@@ -22,23 +22,32 @@ class MercadoPagoController extends Controller
 
     public function index(Request $request): Response
     {
-        $notificationId = $request->input('id') ?? $request->input('data.id') ?? $request->input('payment_id') ?? 'error12011';
+        $topic = $request->input('topic');
 
-        try {
-            if ($notificationId == 'error12011') {
-                $msg = 'Erro ao processar o pagamento: ID de pagamento Não encontrado.'; // caso ID não exista, mostra essa mensagem
-            } elseif ($notificationId == '123456') {
-                $msg = $this->TestePayment(); // Redireciona para o Evento de teste
-                $status = '200';
-            } else {
-                $result = $this->EventPayment($notificationId); // Redireciona para o Evento de pagamento
-                $msg = $result['message'];
-                $status = $result['status'];
+        if ($topic === 'merchant_order') {
+            $msg = "Ignorado";
+            $status = '200';
+        } else if ($topic === 'payment') {
+            $msg = "Ignorado";
+            $status = '200';
+        } else {
+            try {
+                $notificationId = $request->input('data.id') ?? $request->input('id') ?? $request->input('payment_id') ?? 'error12011';
+                if ($notificationId == 'error12011') {
+                    $msg = 'Erro ao processar o pagamento: ID de pagamento Não encontrado.'; // caso ID não exista, mostra essa mensagem
+                } elseif ($notificationId == '123456') {
+                    $msg = $this->TestePayment(); // Redireciona para o Evento de teste
+                    $status = '200';
+                } else {
+                    $result = $this->EventPayment($notificationId); // Redireciona para o Evento de pagamento
+                    $msg = $result['message'];
+                    $status = $result['status'];
+                }
+            } catch (\Exception $e) {
+                Log::channel('mpago')->error("Erro {$e}");
+                $msg = "Falhou - {$e}";
+                $status = '401';
             }
-        } catch (\Exception $e) {
-            Log::channel('mpago')->error("Erro {$e}");
-            $msg = "Falhou - {$e}";
-            $status = '401';
         }
 
         return new Response($msg, $status);
@@ -54,7 +63,6 @@ class MercadoPagoController extends Controller
         SDK::setAccessToken(config('gateways.mpago.access_token'));
 
         $payment = Payment::find_by_id($notificationId) ?? 'Desconhecido';
-        $user_id = $payment->metadata->user_id ?? 'Desconhecido';
         $credit_amount = $payment->metadata->credit_amount ?? 'Desconhecido';
 
         $ErrorManager = 'Nada';
@@ -81,12 +89,25 @@ class MercadoPagoController extends Controller
             $statusType = '400';
         }
 
-        try {
-            // Busca no database o internal_token existente, se existir
-            $data = DB::table('mpago')->where('internal_token', $metadata_token)->first();
-        } catch (\Exception $e) {
-            $ErrorManager = 'DatabaseVerifyError';
-            $statusType = '400';
+        $data = DB::table('mpago')->where('internal_token', $metadata_token)->first() ?? 'Inexistente';
+
+        if ($data == 'Inexistente') {
+            if ($metadata_token !== 'Desconhecido') {
+                try {
+                    DB::table('mpago')->insert([
+                        'internal_status' => 'Criado',
+                        'internal_token' => $metadata_token,
+                    ]);
+                    $data = DB::table('mpago')->where('internal_token', $metadata_token)->first();
+                } catch (\Exception $e) {
+                    Log::channel('mpago')->error("Database ERRO: {$e}");
+                    $ErrorManager = 'DatabaseVerifyError';
+                    $statusType = '400';
+                }
+            } else {
+                $ErrorManager = 'MetadataTokenError';
+                $statusType = '400';
+            }
         }
 
         $internalStatus = $data->internal_status ?? 'Desconhecido';
@@ -130,6 +151,7 @@ class MercadoPagoController extends Controller
             }
 
             if ($status === 'pending') {
+                DB::table('mpago')->where('internal_token', $metadata_token)->update(['internal_status' => 'Pendente']);
                 $Message = 'O pagamento está pendente.';
                 $statusType = '200';
             }
@@ -169,7 +191,7 @@ class MercadoPagoController extends Controller
                 if ($internalStatus === 'Finalizado') {
                     $Message = 'Este Pagamento ja foi Finalizado.';
                     $statusType = '200';
-                } elseif ($internalStatus == 'Cancelado') {
+                } else if ($internalStatus == 'Cancelado') {
                     $Message = 'Este Pagamento foi Cancelado.';
                     $statusType = '200';
                 } else {
@@ -191,6 +213,7 @@ class MercadoPagoController extends Controller
             if ($this->settings->get('jexactyl::store:mpago:discord:enabled') === 'true' && $this->settings->get('jexactyl::store:mpago:discord:webhook')) {
                 $Content = [
                     'pagamento' => [
+                        'payment_locale' => $payment->metadata->payment_locale ?? 'Jexactyl',
                         'user_email' => $payment->metadata->user_email ?? 'Desconhecido(ERRO)',
                         'valor' => $credit_amount ?? 'Desconhecido(ERRO)',
                         'payment_id' => $notificationId ?? 'Desconhecido(ERRO)',
@@ -215,17 +238,26 @@ class MercadoPagoController extends Controller
     {
         $metadata_token = $Content['pagamento']['metadata_token'];
         $data = DB::table('mpago')->where('internal_token', $metadata_token)->first();
-        $internalStatus = $data->internal_status;
+        $internalStatus = $data->internal_status ?? 'Desconhecido';
 
-        if ($internalStatus == 'Criado') {
+        if ($internalStatus == 'Desconhecido') {
+            $description = 'Erro Desconhecido.';
+            $color = '16711680'; // Vermelho
+        } else if ($internalStatus == 'Criado') {
             $description = 'Novo Pagamento foi criado.';
             $color = '16776960'; // Amarelo
-        } elseif ($internalStatus == 'Cancelado') {
+        } else if ($internalStatus == 'Cancelado') {
             $description = 'Pagamento Cancelado.';
             $color = '16711680'; // Vermelho
-        } else {
+        } else if ($internalStatus == 'Pendente') {
+            $description = 'Pagamento Pendente.';
+            $color = '16776960'; // Amarelo
+        } else if ($internalStatus == 'Finalizado') {
             $description = 'Pagamento concluido.';
             $color = '65280'; // Verde
+        } else {
+            $description = 'Pagamento ?';
+            $color = '16711680'; // Verde
         }
 
         $name = config('app.name', 'Jexactyl') . ' -  Mercado Pago IPN';
@@ -245,6 +277,10 @@ class MercadoPagoController extends Controller
                     'color' => $color,
                     'description' => $description,
                     'fields' => [
+                        [
+                            'name' => 'Local do Pagamento:',
+                            'value' => $Content['pagamento']['payment_locale'],
+                        ],
                         [
                             'name' => 'Email do usuario:',
                             'value' => $Content['pagamento']['user_email'],
@@ -266,7 +302,7 @@ class MercadoPagoController extends Controller
                             'value' => $Content['pagamento']['message'],
                         ],
                     ],
-                    'footer' => ['text' => 'Jexactyl', 'icon_url' => $icon],
+                    'footer' => ['text' => $name, 'icon_url' => $icon],
                     'timestamp' => date('c'),
                 ],
             ],

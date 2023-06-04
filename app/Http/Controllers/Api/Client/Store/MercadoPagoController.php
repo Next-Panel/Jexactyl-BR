@@ -7,7 +7,6 @@ use MercadoPago\SDK;
 use MercadoPago\Preference;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
 use Pterodactyl\Exceptions\DisplayException;
 use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;

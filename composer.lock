@@ -5181,8 +5181,6 @@
                 "illuminate/contracts": "^8.0|^9.0|^10.0|^10.0",
                 "illuminate/support": "^8.0|^9.0|^10.0",
                 "league/fractal": "^0.20.1|^0.20",
-                "nesbot/carbon": "^2.63|^10.0",
-                "league/fractal": "^0.20.1|^0.20",
                 "nesbot/carbon": "^2.63",
                 "php": "^8.0",
                 "spatie/fractalistic": "^2.9.5|^2.9",
@@ -5191,7 +5189,6 @@
             "require-dev": {
                 "ext-json": "*",
                 "orchestra/testbench": "^7.0|^8.0",
-                "pestphp/pest": "^1.22|^8.0",
                 "pestphp/pest": "^1.22"
             },
             "type": "library",
@@ -5482,16 +5479,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v10.7.0",
+            "version": "v10.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "91876a7dd88148f8b4bac6e3202503312ae5d581"
+                "reference": "d0e48cc85e1aa54cbff3644d1979a4a4c3fdd7bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/91876a7dd88148f8b4bac6e3202503312ae5d581",
-                "reference": "91876a7dd88148f8b4bac6e3202503312ae5d581",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/d0e48cc85e1aa54cbff3644d1979a4a4c3fdd7bf",
+                "reference": "d0e48cc85e1aa54cbff3644d1979a4a4c3fdd7bf",
                 "shasum": ""
             },
             "require": {
@@ -5537,9 +5534,9 @@
             ],
             "support": {
                 "issues": "https://github.com/stripe/stripe-php/issues",
-                "source": "https://github.com/stripe/stripe-php/tree/v10.7.0"
+                "source": "https://github.com/stripe/stripe-php/tree/v10.15.0"
             },
-            "time": "2023-02-23T23:30:31+00:00"
+            "time": "2023-06-08T21:47:46+00:00"
         },
         {
             "name": "symfony/console",

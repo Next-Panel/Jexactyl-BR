@@ -92,7 +92,7 @@
                     <div class="alert alert-info">
                         <p>O fornecimento de uma senha de usu&aacute;rio &eacute; opcional. Os E-mails de novos usu&aacute;rios solicitam aos usu&aacute;rios que criem uma senha na primeira vez em que se logarem. Se uma senha for fornecida aqui, voc&ecirc; precisar&aacute; encontrar um m&eacute;todo diferente de fornec&ecirc;-la ao usu&aacute;rio.</p>
                     </div>
-                    <div id="gen_pass" class=" alert alert-success" style="display:none;margin-bottom: 10px;"></div>
+                    <div id="gen_pass" class="alert alert-success" style="display:none;margin-bottom: 10px;"></div>
                     <div class="form-group">
                         <label for="pass" class="control-label">Senha</label>
                         <div>

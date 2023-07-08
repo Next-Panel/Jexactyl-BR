@@ -7,7 +7,6 @@ use MercadoPago\SDK;
 use MercadoPago\Preference;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
 use Pterodactyl\Exceptions\DisplayException;
 use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
@@ -50,17 +49,12 @@ class MercadoPagoController extends ClientApiController
 
         $token = $this->generateToken();
 
-        DB::table('mpago')->insert([
-            'internal_status' => 'Criado',
-            'internal_token' => $token,
-        ]);
-
         SDK::setAccessToken(config('gateways.mpago.access_token'));
 
         $preference = new Preference();
         $preference->back_urls = [
             'success' => route('api:client:store.mercadopago.callback'),
-            'failure' => config('app.url') . '/store/credits',
+            'failure' => route('api:client:store.mercadopago.callback'),
             'pending' => route('api:client:store.mercadopago.callback'),
         ];
         $preference->notification_url = config('app.url') . '/mercadopago/listen';

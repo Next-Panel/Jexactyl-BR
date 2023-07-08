@@ -32,7 +32,7 @@ export default () => {
                     type: 'success',
                     key: 'account:username',
                     message: 'O seu usuário foi alterado.',
-                })
+                }),
             )
             .catch((error) =>
                 addFlash({
@@ -40,7 +40,7 @@ export default () => {
                     key: 'account:username',
                     title: 'Erro',
                     message: httpErrorToHuman(error),
-                })
+                }),
             )
             .then(() => {
                 resetForm();

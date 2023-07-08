@@ -27,7 +27,7 @@ const StartupContainer = () => {
             invocation: server.data!.invocation,
             dockerImage: server.data!.dockerImage,
         }),
-        isEqual
+        isEqual,
     );
 
     const { data, error, isValidating, mutate } = getServerStartup(uuid, {
@@ -73,7 +73,7 @@ const StartupContainer = () => {
                 })
                 .then(() => setLoading(false));
         },
-        [uuid]
+        [uuid],
     );
 
     return !data ? (

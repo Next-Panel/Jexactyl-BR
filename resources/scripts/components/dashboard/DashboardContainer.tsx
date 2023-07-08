@@ -34,7 +34,7 @@ export default () => {
             getServers({
                 page,
                 type: showOnlyAdmin && rootAdmin ? 'admin' : undefined,
-            })
+            }),
     );
 
     useEffect(() => {

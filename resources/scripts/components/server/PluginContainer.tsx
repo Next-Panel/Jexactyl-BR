@@ -49,7 +49,7 @@ export default () => {
                     key: 'server:plugins',
                     type: 'success',
                     message: 'Plugin instalado com sucesso.',
-                })
+                }),
             )
             .catch((error) => clearAndAddHttpError(error));
     };

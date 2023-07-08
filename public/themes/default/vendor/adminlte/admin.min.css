@@ -63,10 +63,18 @@ body {
 
 .content-wrapper,
 .main-footer {
-    -webkit-transition: -webkit-transform 0.3s ease-in-out, margin 0.3s ease-in-out;
-    -moz-transition: -moz-transform 0.3s ease-in-out, margin 0.3s ease-in-out;
-    -o-transition: -o-transform 0.3s ease-in-out, margin 0.3s ease-in-out;
-    transition: transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+    -webkit-transition:
+        -webkit-transform 0.3s ease-in-out,
+        margin 0.3s ease-in-out;
+    -moz-transition:
+        -moz-transform 0.3s ease-in-out,
+        margin 0.3s ease-in-out;
+    -o-transition:
+        -o-transform 0.3s ease-in-out,
+        margin 0.3s ease-in-out;
+    transition:
+        transform 0.3s ease-in-out,
+        margin 0.3s ease-in-out;
     margin-left: 80px;
     z-index: 820;
 }
@@ -472,10 +480,18 @@ a:focus {
     min-height: 100%;
     width: 80px;
     z-index: 810;
-    -webkit-transition: -webkit-transform 0.3s ease-in-out, width 0.3s ease-in-out;
-    -moz-transition: -moz-transform 0.3s ease-in-out, width 0.3s ease-in-out;
-    -o-transition: -o-transform 0.3s ease-in-out, width 0.3s ease-in-out;
-    transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+    -webkit-transition:
+        -webkit-transform 0.3s ease-in-out,
+        width 0.3s ease-in-out;
+    -moz-transition:
+        -moz-transform 0.3s ease-in-out,
+        width 0.3s ease-in-out;
+    -o-transition:
+        -o-transform 0.3s ease-in-out,
+        width 0.3s ease-in-out;
+    transition:
+        transform 0.3s ease-in-out,
+        width 0.3s ease-in-out;
 }
 
 @media (max-width: 767px) {

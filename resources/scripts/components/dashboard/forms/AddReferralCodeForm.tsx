@@ -32,7 +32,7 @@ export default () => {
                     type: 'success',
                     key: 'account:referral',
                     message: 'Agora você está usando o Código de referência.',
-                })
+                }),
             )
             .catch((error) =>
                 addFlash({
@@ -40,7 +40,7 @@ export default () => {
                     key: 'account:referral',
                     title: 'Erro',
                     message: httpErrorToHuman(error),
-                })
+                }),
             )
             .then(() => {
                 resetForm();

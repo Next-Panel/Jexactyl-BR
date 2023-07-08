@@ -105,7 +105,7 @@ export default () => {
                                                         "'dia' d 'de' MMMM yyyy', ás' HH:mm:ss",
                                                         {
                                                             locale: ptBR,
-                                                        }
+                                                        },
                                                     )}
                                                 </p>
                                             )}

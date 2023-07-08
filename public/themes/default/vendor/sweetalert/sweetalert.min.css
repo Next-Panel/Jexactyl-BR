@@ -94,14 +94,22 @@ body.stop-scrolling {
     overflow: hidden;
     padding: 0 10px;
     max-height: 0;
-    webkit-transition: padding 0.15s, max-height 0.15s;
-    transition: padding 0.15s, max-height 0.15s;
+    webkit-transition:
+        padding 0.15s,
+        max-height 0.15s;
+    transition:
+        padding 0.15s,
+        max-height 0.15s;
 }
 .sweet-alert .sa-error-container.show {
     padding: 10px 0;
     max-height: 100px;
-    webkit-transition: padding 0.2s, max-height 0.2s;
-    transition: padding 0.25s, max-height 0.25s;
+    webkit-transition:
+        padding 0.2s,
+        max-height 0.2s;
+    transition:
+        padding 0.25s,
+        max-height 0.25s;
 }
 .sweet-alert .sa-error-container .icon {
     display: inline-block;
@@ -229,7 +237,9 @@ body.stop-scrolling {
 }
 .sweet-alert button:focus {
     outline: 0;
-    box-shadow: 0 0 2px rgba(128, 179, 235, 0.5), inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+    box-shadow:
+        0 0 2px rgba(128, 179, 235, 0.5),
+        inset 0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 .sweet-alert button:hover {
     background-color: #7ecff4;
@@ -247,7 +257,9 @@ body.stop-scrolling {
     background-color: #a8a8a8;
 }
 .sweet-alert button.cancel:focus {
-    box-shadow: rgba(197, 205, 211, 0.8) 0 0 2px, rgba(0, 0, 0, 0.0470588) 0 0 0 1px inset !important;
+    box-shadow:
+        rgba(197, 205, 211, 0.8) 0 0 2px,
+        rgba(0, 0, 0, 0.0470588) 0 0 0 1px inset !important;
 }
 .sweet-alert button[disabled] {
     opacity: 0.6;

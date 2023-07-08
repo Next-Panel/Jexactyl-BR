@@ -23,7 +23,7 @@ const schema = object().shape({
         .max(48, 'O nome do Database não deve exceder 48 caracteres.')
         .matches(
             /^[\w\-.]{3,48}$/,
-            'O nome do Database deve conter apenas caracteres alfanuméricos, sublinhados, traços e/ou períodos.'
+            'O nome do Database deve conter apenas caracteres alfanuméricos, sublinhados, traços e/ou períodos.',
         ),
     connectionsFrom: string().matches(/^[\w\-/.%:]+$/, 'Um endereço de host válido deve ser fornecido.'),
 });

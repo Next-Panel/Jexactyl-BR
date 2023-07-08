@@ -237,6 +237,13 @@
                             Se ele estiver definido como negado, os usuários não poderão implantar nesse node.
                         </small></p>
                     </div>
+                                        <div class="form-group col-xs-12">
+                        <label for="deploy_fee" class="control-label">Taxa de implantação da loja</label>
+                        <div>
+                            <input type="text" autocomplete="off" name="deploy_fee" class="form-control" value="{{ old('deploy_fee', $node->deploy_fee) }}" />
+                        </div>
+                        <p class="text-muted"><small>Inserir um valor aqui significa que os usuários que implantam um servidor por meio da Vitrine devem pagar uma taxa em créditos para implantar nesse nó.</small></p>
+                    </div>
                 </div>
             </div>
         </div>

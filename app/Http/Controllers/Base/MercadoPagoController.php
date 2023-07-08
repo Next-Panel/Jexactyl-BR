@@ -25,10 +25,10 @@ class MercadoPagoController extends Controller
         $topic = $request->input('topic');
 
         if ($topic === 'merchant_order') {
-            $msg = 'Ignorado';
+            $msg = "Ignorado";
             $status = '200';
-        } elseif ($topic === 'payment') {
-            $msg = 'Ignorado';
+        } else if ($topic === 'payment') {
+            $msg = "Ignorado";
             $status = '200';
         } else {
             try {
@@ -191,7 +191,7 @@ class MercadoPagoController extends Controller
                 if ($internalStatus === 'Finalizado') {
                     $Message = 'Este Pagamento ja foi Finalizado.';
                     $statusType = '200';
-                } elseif ($internalStatus == 'Cancelado') {
+                } else if ($internalStatus == 'Cancelado') {
                     $Message = 'Este Pagamento foi Cancelado.';
                     $statusType = '200';
                 } else {
@@ -215,6 +215,7 @@ class MercadoPagoController extends Controller
                     'pagamento' => [
                         'payment_locale' => $payment->metadata->payment_locale ?? 'Jexactyl',
                         'user_email' => $payment->metadata->user_email ?? 'Desconhecido(ERRO)',
+                        'user_id' => $payment->metadata->user_id ?? 'Desconhecido(ERRO)',
                         'valor' => $credit_amount ?? 'Desconhecido(ERRO)',
                         'payment_id' => $notificationId ?? 'Desconhecido(ERRO)',
                         'metadata_token' => $metadata_token ?? 'Desconhecido(ERRO)',
@@ -243,21 +244,21 @@ class MercadoPagoController extends Controller
         if ($internalStatus == 'Desconhecido') {
             $description = 'Erro Desconhecido.';
             $color = '16711680'; // Vermelho
-        } elseif ($internalStatus == 'Criado') {
+        } else if ($internalStatus == 'Criado') {
             $description = 'Novo Pagamento foi criado.';
             $color = '16776960'; // Amarelo
-        } elseif ($internalStatus == 'Cancelado') {
+        } else if ($internalStatus == 'Cancelado') {
             $description = 'Pagamento Cancelado.';
             $color = '16711680'; // Vermelho
-        } elseif ($internalStatus == 'Pendente') {
+        } else if ($internalStatus == 'Pendente') {
             $description = 'Pagamento Pendente.';
             $color = '16776960'; // Amarelo
-        } elseif ($internalStatus == 'Finalizado') {
+        } else if ($internalStatus == 'Finalizado') {
             $description = 'Pagamento concluido.';
             $color = '65280'; // Verde
         } else {
             $description = 'Pagamento ?';
-            $color = '16711680'; // Verde
+            $color = '16711680'; // Vermelhor
         }
 
         $name = config('app.name', 'Jexactyl') . ' -  Mercado Pago IPN';
@@ -282,7 +283,11 @@ class MercadoPagoController extends Controller
                             'value' => $Content['pagamento']['payment_locale'],
                         ],
                         [
-                            'name' => 'Email do usuario:',
+                            'name' => 'ID do Usuário:',
+                            'value' => $Content['pagamento']['user_id'],
+                        ],
+                        [
+                            'name' => 'Email do Usuário:',
                             'value' => $Content['pagamento']['user_email'],
                         ],
                         [

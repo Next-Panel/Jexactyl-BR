@@ -25,10 +25,10 @@ class MercadoPagoController extends Controller
         $topic = $request->input('topic');
 
         if ($topic === 'merchant_order') {
-            $msg = "Ignorado";
+            $msg = 'Ignorado';
             $status = '200';
-        } else if ($topic === 'payment') {
-            $msg = "Ignorado";
+        } elseif ($topic === 'payment') {
+            $msg = 'Ignorado';
             $status = '200';
         } else {
             try {
@@ -191,7 +191,7 @@ class MercadoPagoController extends Controller
                 if ($internalStatus === 'Finalizado') {
                     $Message = 'Este Pagamento ja foi Finalizado.';
                     $statusType = '200';
-                } else if ($internalStatus == 'Cancelado') {
+                } elseif ($internalStatus == 'Cancelado') {
                     $Message = 'Este Pagamento foi Cancelado.';
                     $statusType = '200';
                 } else {
@@ -244,16 +244,16 @@ class MercadoPagoController extends Controller
         if ($internalStatus == 'Desconhecido') {
             $description = 'Erro Desconhecido.';
             $color = '16711680'; // Vermelho
-        } else if ($internalStatus == 'Criado') {
+        } elseif ($internalStatus == 'Criado') {
             $description = 'Novo Pagamento foi criado.';
             $color = '16776960'; // Amarelo
-        } else if ($internalStatus == 'Cancelado') {
+        } elseif ($internalStatus == 'Cancelado') {
             $description = 'Pagamento Cancelado.';
             $color = '16711680'; // Vermelho
-        } else if ($internalStatus == 'Pendente') {
+        } elseif ($internalStatus == 'Pendente') {
             $description = 'Pagamento Pendente.';
             $color = '16776960'; // Amarelo
-        } else if ($internalStatus == 'Finalizado') {
+        } elseif ($internalStatus == 'Finalizado') {
             $description = 'Pagamento concluido.';
             $color = '65280'; // Verde
         } else {

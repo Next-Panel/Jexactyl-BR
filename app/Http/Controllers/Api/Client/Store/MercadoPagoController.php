@@ -7,6 +7,7 @@ use MercadoPago\SDK;
 use MercadoPago\Preference;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
 use Pterodactyl\Exceptions\DisplayException;
 use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
@@ -39,20 +40,30 @@ class MercadoPagoController extends ClientApiController
             throw new DisplayException('Não é possível comprar via MercadoPago: APP_URL não está com HTTPS, exigido pelo Mercado Pago.');
         }
 
+        if (str_ends_with(config('app.url'), '/')) {
+            throw new DisplayException('Não é possível comprar via MercadoPago: APP_URL possue uma "/" no final do link, remova, exigido pelo Mercado Pago.');
+        }
+
         $amount = $request->input('amount');
         $cost = config('gateways.cost', 1) / 100 * $amount;
         $currency = config('gateways.currency', 'BRL');
 
         $token = $this->generateToken();
 
+        DB::table('mpago')->insert([
+            'internal_status' => 'Criado',
+            'internal_token' => $token,
+        ]);
+
         SDK::setAccessToken(config('gateways.mpago.access_token'));
 
         $preference = new Preference();
         $preference->back_urls = [
             'success' => route('api:client:store.mercadopago.callback'),
-            'failure' => route('api:client:store.mercadopago.callback'),
+            'failure' => config('app.url') . '/store/credits',
             'pending' => route('api:client:store.mercadopago.callback'),
         ];
+        $preference->notification_url = config('app.url') . '/mercadopago/listen';
         $preference->payer = new \MercadoPago\Payer();
         $preference->payer->email = $request->user()->email;
         $item = new \MercadoPago\Item();

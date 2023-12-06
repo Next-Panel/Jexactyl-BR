@@ -64,12 +64,12 @@ export default () => {
                     ticket.status === 'pendente'
                         ? 'info'
                         : ticket.status === 'em-andamento'
-                        ? 'info'
-                        : ticket.status === 'não-resolvido'
-                        ? 'danger'
-                        : ticket.status === 'resolvido'
-                        ? 'success'
-                        : 'warning'
+                          ? 'info'
+                          : ticket.status === 'não-resolvido'
+                            ? 'danger'
+                            : ticket.status === 'resolvido'
+                              ? 'success'
+                              : 'warning'
                 }
                 className={'my-4 w-full'}
             >

@@ -115,13 +115,14 @@ class SftpAuthenticationControllerTest extends IntegrationTestCase
      */
     public function testUserIsNotThrottledIfNoPublicKeyMatches()
     {
+        // levemente modifificado
+        $publicKey = PrivateKey::c('Ed25519')->getPublicKey()->toString('OpenSSH');
         for ($i = 0; $i <= 10; ++$i) {
             $this->postJson('/api/remote/sftp/auth', [
                 'type' => 'public_key',
                 'username' => $this->getUsername(),
-                'password' => PrivateKey::createKey('Ed25519')->getPublicKey()->toString('OpenSSH'),
-            ])
-                ->assertForbidden();
+                'password' => $publicKey,
+            ])->assertForbidden();
         }
     }
 

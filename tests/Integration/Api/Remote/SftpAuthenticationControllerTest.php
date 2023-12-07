@@ -109,7 +109,7 @@ class SftpAuthenticationControllerTest extends IntegrationTestCase
         }
     }
     // test
-    private static function CreateKeys()
+    private static function createKeys()
     {
         return PrivateKey::createKey('Ed25519')->getPublicKey()->toString('OpenSSH');
     }
@@ -123,7 +123,7 @@ class SftpAuthenticationControllerTest extends IntegrationTestCase
             $this->postJson('/api/remote/sftp/auth', [
                 'type' => 'public_key',
                 'username' => $this->getUsername(),
-                'password' => CreateKeys(),
+                'password' => $this->createKeys(),
             ])
                 ->assertForbidden();
         }

@@ -14,7 +14,7 @@ class NestControllerTest extends ApplicationApiIntegrationTestCase
     /**
      * Setup tests.
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

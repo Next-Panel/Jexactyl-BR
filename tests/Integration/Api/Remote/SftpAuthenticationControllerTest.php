@@ -108,7 +108,11 @@ class SftpAuthenticationControllerTest extends IntegrationTestCase
                 ->assertStatus($i === 10 ? 429 : 403);
         }
     }
-
+    // test
+    private static function CreateKeys()
+    {
+        return PrivateKey::createKey('Ed25519')->getPublicKey()->toString('OpenSSH');
+    }
     /**
      * Test that the user is not throttled so long as a valid public key is provided, even
      * if it doesn't actually exist in the database for the user.
@@ -119,7 +123,7 @@ class SftpAuthenticationControllerTest extends IntegrationTestCase
             $this->postJson('/api/remote/sftp/auth', [
                 'type' => 'public_key',
                 'username' => $this->getUsername(),
-                'password' => static PrivateKey::createKey('Ed25519')->getPublicKey()->toString('OpenSSH'),
+                'password' => CreateKeys(),
             ])
                 ->assertForbidden();
         }

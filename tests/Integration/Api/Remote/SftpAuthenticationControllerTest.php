@@ -121,7 +121,7 @@ class SftpAuthenticationControllerTest extends IntegrationTestCase
             $this->postJson('/api/remote/sftp/auth', [
                 'type' => 'public_key',
                 'username' => $this->getUsername(),
-                'password' => ,
+                'password' => $geratedkey,
             ])
                 ->assertForbidden();
         }

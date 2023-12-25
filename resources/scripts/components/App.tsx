@@ -70,7 +70,6 @@ const App = () => {
         }
     }
     earn();
-
     return (
         <>
             <GlobalStylesheet />

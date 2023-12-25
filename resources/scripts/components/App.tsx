@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import tw from 'twin.macro';
 import '@/assets/tailwind.css';
 import { store } from '@/state';
@@ -7,10 +7,12 @@ import { hot } from 'react-hot-loader/root';
 import { history } from '@/components/history';
 import { SiteSettings } from '@/state/settings';
 import IndexRouter from '@/routers/IndexRouter';
+import { ThemeProvider } from "styled-components";
 import earnCredits from '@/api/account/earnCredits';
 import { setupInterceptors } from '@/api/interceptors';
 import { StorefrontSettings } from '@/state/storefront';
 import GlobalStylesheet from '@/assets/css/GlobalStylesheet';
+import { Theme } from '@/theme';
 
 interface ExtendedWindow extends Window {
     SiteConfiguration?: SiteSettings;
@@ -37,7 +39,7 @@ setupInterceptors(history);
 
 const App = () => {
     const { JexactylUser, SiteConfiguration, StoreConfiguration } = window as ExtendedWindow;
-
+    const [theme, setTheme] = useState<StorefrontSettings["images"]>()
     if (JexactylUser && !store.getState().user.data) {
         store.getActions().user.setUserData({
             uuid: JexactylUser.uuid,
@@ -70,15 +72,19 @@ const App = () => {
         }
     }
     earn();
-
+    if (!theme) {
+        setTheme(Theme(store.getState().storefront.data!))
+    }
     return (
         <>
-            <GlobalStylesheet />
-            <StoreProvider store={store}>
-                <div css={tw`mx-auto w-auto`}>
-                    <IndexRouter />
-                </div>
-            </StoreProvider>
+            <ThemeProvider theme={theme}>
+                <GlobalStylesheet />
+                <StoreProvider store={store}>
+                    <div css={tw`mx-auto w-auto`}>
+                        <IndexRouter />
+                    </div>
+                </StoreProvider>
+            </ThemeProvider>
         </>
     );
 };

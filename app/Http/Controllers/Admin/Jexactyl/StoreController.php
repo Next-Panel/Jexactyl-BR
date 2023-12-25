@@ -41,6 +41,9 @@ class StoreController extends Controller
             'mpago_enabled' => $this->settings->get($prefix . 'mpago:enabled', false),
             'mpago_discord_webhook' => $this->settings->get($prefix . 'mpago:discord:webhook', 0),
             'mpago_discord_enabled' => $this->settings->get($prefix . 'mpago:discord:enabled', false),
+            'store_images_one' => $this->settings->get($prefix . 'images:one', 0),
+            'store_images_two' => $this->settings->get($prefix . 'images:two', 0),
+            'store_images_three' => $this->settings->get($prefix . 'images:three', 0),
 
             'selected_currency' => $this->settings->get($prefix . 'currency', 'BRL'),
             'currencies' => $currencies,

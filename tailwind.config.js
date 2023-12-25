@@ -7,9 +7,9 @@ module.exports = {
     theme: {
         extend: {
             backgroundImage: {
-               'storeone': "url('https://www.minecraft.net/content/dam/games/minecraft/key-art/MC-Vanilla_Block-Column-Image_Boat-Trip_800x800.jpg')",
-                'storetwo': "url('https://www.minecraft.net/content/dam/games/minecraft/key-art/MC-Vanilla_Block-Column-Image_Beach-Cabin_800x800.jpg')",
-                'storethree': "url('https://www.minecraft.net/content/dam/games/minecraft/key-art/MC-Vanilla_Block-Column-Image_Mining_800x800.jpg')",
+                'storeone': "var(--jexactyl_image_store_one)",
+                'storetwo': "var(--jexactyl_image_store_two)",
+                'storethree': "var(--jexactyl_image_store_three)",
             },
             colors: {
                 black: '#000',

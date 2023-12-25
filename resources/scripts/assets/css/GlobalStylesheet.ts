@@ -1,9 +1,15 @@
 import tw from 'twin.macro';
-import { createGlobalStyle } from 'styled-components/macro';
+import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
     body {
         ${tw`bg-neutral-900 font-sans font-medium text-gray-200`};
+    }
+
+    *{
+        --jexactyl_image_store_one: ${(props) => `url(${props.theme.one})`}
+        --jexactyl_image_store_two: ${(props) => `url(${props.theme.two})`}
+        --jexactyl_image_store_three: ${(props) => `url(${props.theme.three})`}
     }
 
     h1, h2, h3, h4, h5, h6 {

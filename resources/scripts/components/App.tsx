@@ -7,7 +7,7 @@ import { hot } from 'react-hot-loader/root';
 import { history } from '@/components/history';
 import { SiteSettings } from '@/state/settings';
 import IndexRouter from '@/routers/IndexRouter';
-import { ThemeProvider } from "styled-components";
+import { ThemeProvider } from 'styled-components';
 import earnCredits from '@/api/account/earnCredits';
 import { setupInterceptors } from '@/api/interceptors';
 import { StorefrontSettings } from '@/state/storefront';
@@ -39,7 +39,7 @@ setupInterceptors(history);
 
 const App = () => {
     const { JexactylUser, SiteConfiguration, StoreConfiguration } = window as ExtendedWindow;
-    const [theme, setTheme] = useState<StorefrontSettings["images"]>()
+    const [theme, setTheme] = useState<StorefrontSettings['images']>();
     if (JexactylUser && !store.getState().user.data) {
         store.getActions().user.setUserData({
             uuid: JexactylUser.uuid,
@@ -73,7 +73,7 @@ const App = () => {
     }
     earn();
     if (!theme) {
-        setTheme(Theme(store.getState().storefront.data!))
+        setTheme(Theme(store.getState().storefront.data!));
     }
     return (
         <>

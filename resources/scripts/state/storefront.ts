@@ -33,11 +33,6 @@ export interface StorefrontSettings {
         enabled: boolean;
         amount: number;
     };
-    images: {
-        one: string;
-        two: string;
-        three: string;
-    }
 }
 
 export interface StorefrontStore {

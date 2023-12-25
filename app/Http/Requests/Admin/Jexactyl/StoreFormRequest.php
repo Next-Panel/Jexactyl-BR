@@ -35,10 +35,6 @@ class StoreFormRequest extends AdminFormRequest
             'store:limit:port' => 'required|int|min:1',
             'store:limit:backup' => 'required|int|min:1',
             'store:limit:database' => 'required|int|min:1',
-
-            'store:images:one' => 'string|nullable',
-            'store:images:two' => 'string|nullable',
-            'store:images:three' => 'string|nullable',
         ];
     }
 }

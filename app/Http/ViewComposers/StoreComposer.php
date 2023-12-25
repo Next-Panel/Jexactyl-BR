@@ -48,11 +48,6 @@ class StoreComposer extends Composer
                 'enabled' => $this->setting('earn:enabled', Composer::TYPE_BOOL),
                 'amount' => $this->setting('earn:amount', Composer::TYPE_INT),
             ],
-            'images' => [
-                'one' => $this->setting('store:images:one', Composer::TYPE_STR),
-                'two' => $this->setting('store:images:two', Composer::TYPE_STR),
-                'three' => $this->setting('store:images:three', Composer::TYPE_STR),
-            ]
         ]);
     }
 }

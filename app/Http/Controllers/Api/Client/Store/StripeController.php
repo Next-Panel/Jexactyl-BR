@@ -35,7 +35,7 @@ class StripeController extends ClientApiController
 
         $client = new StripeClient(config('gateways.stripe.secret'));
         $amount = $request->input('amount');
-        $cost = number_format(config('gateways.stripe.cost', 1.00) / 100 * $amount, 2);
+        $cost = number_format(config('gateways.cost', 1.00) / 100 * $amount, 2);
         $currency = config('gateways.currency', 'BRL');
 
         $checkout = $client->checkout->sessions->create([

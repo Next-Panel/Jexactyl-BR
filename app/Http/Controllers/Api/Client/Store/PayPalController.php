@@ -42,7 +42,7 @@ class PayPalController extends ClientApiController
         }
 
         $amount = $request->input('amount');
-        $cost = config('gateways.paypal.cost', 1) / 100 * $amount;
+        $cost = config('gateways.cost', 1) / 100 * $amount;
         $currency = config('gateways.currency', 'USD');
 
         DB::table('paypal')->insert([

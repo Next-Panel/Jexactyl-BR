@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f9d3afde668147542dd1140aea0c0c6e",
+    "content-hash": "9ddd12fe9cab4ef15357a87ed3f23c25",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -5476,16 +5476,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v10.7.0",
+            "version": "v13.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "91876a7dd88148f8b4bac6e3202503312ae5d581"
+                "reference": "8dc58bab25f222a74d1157d4ca9e9e48451dd0c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/91876a7dd88148f8b4bac6e3202503312ae5d581",
-                "reference": "91876a7dd88148f8b4bac6e3202503312ae5d581",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/8dc58bab25f222a74d1157d4ca9e9e48451dd0c1",
+                "reference": "8dc58bab25f222a74d1157d4ca9e9e48451dd0c1",
                 "shasum": ""
             },
             "require": {
@@ -5496,10 +5496,8 @@
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "3.5.0",
-                "php-coveralls/php-coveralls": "^2.5",
                 "phpstan/phpstan": "^1.2",
-                "phpunit/phpunit": "^5.7 || ^9.0",
-                "squizlabs/php_codesniffer": "^3.3"
+                "phpunit/phpunit": "^5.7 || ^9.0"
             },
             "type": "library",
             "extra": {
@@ -5531,9 +5529,9 @@
             ],
             "support": {
                 "issues": "https://github.com/stripe/stripe-php/issues",
-                "source": "https://github.com/stripe/stripe-php/tree/v10.7.0"
+                "source": "https://github.com/stripe/stripe-php/tree/v13.13.0"
             },
-            "time": "2023-02-23T23:30:31+00:00"
+            "time": "2024-02-29T20:22:15+00:00"
         },
         {
             "name": "symfony/console",

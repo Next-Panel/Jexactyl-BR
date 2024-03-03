@@ -20,7 +20,7 @@ trait IntegrationJsonRequestAssertions
                 [
                     'code' => 'NotFoundHttpException',
                     'status' => '404',
-                    'detail' => 'The requested resource could not be found on the server.',
+                    'detail' => 'O recurso solicitado não pôde ser encontrado no servidor.',
                 ],
             ],
         ], true);
@@ -39,7 +39,7 @@ trait IntegrationJsonRequestAssertions
                 [
                     'code' => 'AccessDeniedHttpException',
                     'status' => '403',
-                    'detail' => 'This action is unauthorized.',
+                    'detail' => 'Essa ação não está autorizada.',
                 ],
             ],
         ], true);

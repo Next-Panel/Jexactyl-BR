@@ -62,7 +62,7 @@ export default ({ renderLeft, withinFileEditor, isNewFile }: Props) => {
                     <span key={index} css={tw`px-1 text-neutral-300`}>
                         {crumb.name}
                     </span>
-                ),
+                )
             )}
             {file && (
                 <React.Fragment>

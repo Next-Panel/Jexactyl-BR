@@ -1,5 +1,6 @@
 import React from 'react';
 import * as Yup from 'yup';
+import { pt } from 'yup-locales';
 import { ApplicationStore } from '@/state';
 import { httpErrorToHuman } from '@/api/http';
 import { useStoreState } from '@/state/hooks';
@@ -22,6 +23,7 @@ const schema = Yup.object().shape({
 export default () => {
     const code = useStoreState((state) => state.user.data!.referralCode);
     const { clearFlashes, addFlash } = useStoreActions((actions: Actions<ApplicationStore>) => actions.flashes);
+    Yup.setLocale(pt);
 
     const submit = (values: Values, { resetForm, setSubmitting }: FormikHelpers<Values>) => {
         clearFlashes('account:referral');
@@ -32,7 +34,7 @@ export default () => {
                     type: 'success',
                     key: 'account:referral',
                     message: 'Agora você está usando o Código de referência.',
-                }),
+                })
             )
             .catch((error) =>
                 addFlash({
@@ -40,7 +42,7 @@ export default () => {
                     key: 'account:referral',
                     title: 'Erro',
                     message: httpErrorToHuman(error),
-                }),
+                })
             )
             .then(() => {
                 resetForm();

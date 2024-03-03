@@ -1,5 +1,6 @@
 import tw from 'twin.macro';
-import { object, string } from 'yup';
+import { object, string, setLocale } from 'yup';
+import { pt } from 'yup-locales';
 import React, { useState } from 'react';
 import useFlash from '@/plugins/useFlash';
 import { httpErrorToHuman } from '@/api/http';
@@ -16,24 +17,26 @@ interface Values {
     connectionsFrom: string;
 }
 
-const schema = object().shape({
-    databaseName: string()
-        .required('Um nome de Database deve ser fornecido.')
-        .min(3, 'O nome do Database deve ter pelo menos 3 caracteres.')
-        .max(48, 'O nome do Database não deve exceder 48 caracteres.')
-        .matches(
-            /^[\w\-.]{3,48}$/,
-            'O nome do Database deve conter apenas caracteres alfanuméricos, sublinhados, traços e/ou períodos.',
-        ),
-    connectionsFrom: string().matches(/^[\w\-/.%:]+$/, 'Um endereço de host válido deve ser fornecido.'),
-});
-
 export default () => {
     const uuid = ServerContext.useStoreState((state) => state.server.data!.uuid);
     const { addError, clearFlashes } = useFlash();
     const [visible, setVisible] = useState(false);
 
+    setLocale(pt);
+
     const appendDatabase = ServerContext.useStoreActions((actions) => actions.databases.appendDatabase);
+
+    const schema = object().shape({
+        databaseName: string()
+            .required('Um nome de Database deve ser fornecido.')
+            .min(3, 'O nome do Database deve ter pelo menos 3 caracteres.')
+            .max(48, 'O nome do Database não deve exceder 48 caracteres.')
+            .matches(
+                /^[\w\-.]{3,48}$/,
+                'O nome do Database deve conter apenas caracteres alfanuméricos, sublinhados, traços e/ou períodos.'
+            ),
+        connectionsFrom: string().matches(/^[\w\-/.%:]+$/, 'Um endereço de host válido deve ser fornecido.'),
+    });
 
     const submit = (values: Values, { setSubmitting }: FormikHelpers<Values>) => {
         clearFlashes('database:create');

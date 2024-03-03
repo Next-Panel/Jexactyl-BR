@@ -1,6 +1,7 @@
 import tw from 'twin.macro';
 import Reaptcha from 'reaptcha';
-import { object, string } from 'yup';
+import { object, string, setLocale } from 'yup';
+import { pt } from 'yup-locales';
 import useFlash from '@/plugins/useFlash';
 import register from '@/api/auth/register';
 import { useStoreState } from 'easy-peasy';
@@ -24,6 +25,8 @@ const RegisterContainer = ({ history }: RouteComponentProps) => {
 
     const { clearFlashes, clearAndAddHttpError, addFlash } = useFlash();
     const { enabled: recaptchaEnabled, siteKey } = useStoreState((state) => state.settings.data!.recaptcha);
+
+    setLocale(pt);
 
     useEffect(() => {
         clearFlashes();

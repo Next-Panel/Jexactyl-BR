@@ -1,6 +1,7 @@
 import tw from 'twin.macro';
 import { join } from 'path';
-import { object, string } from 'yup';
+import { object, string, setLocale } from 'yup';
+import { pt } from 'yup-locales';
 import useFlash from '@/plugins/useFlash';
 import Code from '@/components/elements/Code';
 import { ServerContext } from '@/state/server';
@@ -36,6 +37,7 @@ const generateFileData = (name: string): FileObject => ({
 });
 
 export default ({ className }: WithClassname) => {
+    setLocale(pt);
     const [visible, setVisible] = useState(false);
 
     const uuid = ServerContext.useStoreState((state) => state.server.data!.uuid);
@@ -56,7 +58,7 @@ export default ({ className }: WithClassname) => {
     const submit = ({ url }: Values, { setSubmitting }: FormikHelpers<Values>) => {
         pullFile(uuid, directory, url)
             .then(() =>
-                mutate((data) => [...data!, generateFileData(new URL(url).pathname.split('/').pop() || '')], false),
+                mutate((data) => [...data!, generateFileData(new URL(url).pathname.split('/').pop() || '')], false)
             )
             .then(() => setVisible(false))
             .catch((error) => {
@@ -104,7 +106,7 @@ export default ({ className }: WithClassname) => {
                                         <span css={tw`text-cyan-200`}>
                                             {join(
                                                 directory,
-                                                values.url.split('/')[values.url.split('/').length - 1],
+                                                values.url.split('/')[values.url.split('/').length - 1]
                                             ).replace(/^(\.\.\/|\/)+/, '')}
                                         </span>
                                     </Code>

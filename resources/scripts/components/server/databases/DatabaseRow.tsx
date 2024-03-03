@@ -1,5 +1,6 @@
 import tw from 'twin.macro';
-import { object, string } from 'yup';
+import { object, string, setLocale } from 'yup';
+import { pt } from 'yup-locales';
 import * as Icon from 'react-feather';
 import React, { useState } from 'react';
 import useFlash from '@/plugins/useFlash';
@@ -36,6 +37,8 @@ export default ({ database, className }: Props) => {
     const jdbcConnectionString = `jdbc:mysql://${database.username}${
         database.password ? `:${encodeURIComponent(database.password)}` : ''
     }@${database.connectionString}/${database.name}`;
+
+    setLocale(pt);
 
     const schema = object().shape({
         confirm: string()

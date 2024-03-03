@@ -1,7 +1,8 @@
 import tw from 'twin.macro';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { object, ref, string } from 'yup';
+import { object, ref, string, setLocale } from 'yup';
+import { pt } from 'yup-locales';
 import { ApplicationStore } from '@/state';
 import { httpErrorToHuman } from '@/api/http';
 import { Formik, FormikHelpers } from 'formik';
@@ -27,6 +28,8 @@ export default ({ match, location }: RouteComponentProps<{ token: string }>) => 
     if (email.length === 0 && parsed.get('email')) {
         setEmail(parsed.get('email') || '');
     }
+
+    setLocale(pt);
 
     const submit = ({ password, passwordConfirmation }: Values, { setSubmitting }: FormikHelpers<Values>) => {
         clearFlashes();

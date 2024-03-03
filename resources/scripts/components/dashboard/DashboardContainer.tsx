@@ -14,11 +14,8 @@ import Pagination from '@/components/elements/Pagination';
 import { usePersistedState } from '@/plugins/usePersistedState';
 import PageContentBlock from '@/components/elements/PageContentBlock';
 
-import useWindowDimensions from '@/plugins/useWindowDimensions';
-
 export default () => {
     const { search } = useLocation();
-    const { width } = useWindowDimensions();
     const defaultPage = Number(new URLSearchParams(search).get('page') || '1');
 
     const [page, setPage] = useState(!isNaN(defaultPage) && defaultPage > 0 ? defaultPage : 1);
@@ -34,7 +31,7 @@ export default () => {
             getServers({
                 page,
                 type: showOnlyAdmin && rootAdmin ? 'admin' : undefined,
-            }),
+            })
     );
 
     useEffect(() => {

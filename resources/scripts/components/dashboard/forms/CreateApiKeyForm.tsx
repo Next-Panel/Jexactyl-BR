@@ -1,5 +1,6 @@
 import tw from 'twin.macro';
-import { object, string } from 'yup';
+import { object, string, setLocale } from 'yup';
+import { pt } from 'yup-locales';
 import React, { useState } from 'react';
 import { ApplicationStore } from '@/state';
 import styled from 'styled-components/macro';
@@ -26,6 +27,7 @@ const CustomTextarea = styled(Textarea)`
 export default ({ onKeyCreated }: { onKeyCreated: (key: ApiKey) => void }) => {
     const [apiKey, setApiKey] = useState('');
     const { addError, clearFlashes } = useStoreActions((actions: Actions<ApplicationStore>) => actions.flashes);
+    setLocale(pt);
 
     const submit = (values: Values, { setSubmitting, resetForm }: FormikHelpers<Values>) => {
         clearFlashes('account');

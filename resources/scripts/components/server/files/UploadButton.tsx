@@ -34,7 +34,7 @@ export default ({ className }: WithClassname) => {
     const uuid = ServerContext.useStoreState((state) => state.server.data!.uuid);
     const directory = ServerContext.useStoreState((state) => state.files.directory);
     const { clearFileUploads, removeFileUpload, pushFileUpload, setUploadProgress } = ServerContext.useStoreActions(
-        (actions) => actions.files,
+        (actions) => actions.files
     );
 
     useEventListener(
@@ -46,7 +46,7 @@ export default ({ className }: WithClassname) => {
                 visible.value = true;
             }
         },
-        { capture: true },
+        { capture: true }
     );
 
     useEventListener('dragexit', () => (visible.value = false), {
@@ -88,9 +88,9 @@ export default ({ className }: WithClassname) => {
                                 headers: { 'Content-Type': 'multipart/form-data' },
                                 params: { directory },
                                 onUploadProgress: (data) => onUploadProgress(data, file.name),
-                            },
+                            }
                         )
-                        .then(() => timeouts.value.push(setTimeout(() => removeFileUpload(file.name), 500))),
+                        .then(() => timeouts.value.push(setTimeout(() => removeFileUpload(file.name), 500)))
                 );
         });
 

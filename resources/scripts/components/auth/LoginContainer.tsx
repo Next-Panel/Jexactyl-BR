@@ -1,7 +1,8 @@
 import tw from 'twin.macro';
 import Reaptcha from 'reaptcha';
 import login from '@/api/auth/login';
-import { object, string } from 'yup';
+import { object, string, setLocale } from 'yup';
+import { pt } from 'yup-locales';
 import useFlash from '@/plugins/useFlash';
 import { useStoreState } from 'easy-peasy';
 import { Formik, FormikHelpers } from 'formik';
@@ -25,6 +26,8 @@ const LoginContainer = ({ history }: RouteComponentProps) => {
 
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const { enabled: recaptchaEnabled, siteKey } = useStoreState((state) => state.settings.data!.recaptcha);
+
+    setLocale(pt);
 
     useEffect(() => {
         clearFlashes();

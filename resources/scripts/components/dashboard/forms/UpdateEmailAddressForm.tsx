@@ -1,5 +1,6 @@
 import React from 'react';
 import * as Yup from 'yup';
+import { pt } from 'yup-locales';
 import tw from 'twin.macro';
 import { ApplicationStore } from '@/state';
 import { httpErrorToHuman } from '@/api/http';
@@ -25,6 +26,8 @@ export default () => {
 
     const { clearFlashes, addFlash } = useStoreActions((actions: Actions<ApplicationStore>) => actions.flashes);
 
+    Yup.setLocale(pt);
+
     const submit = (values: Values, { resetForm, setSubmitting }: FormikHelpers<Values>) => {
         clearFlashes('account:email');
 
@@ -34,7 +37,7 @@ export default () => {
                     type: 'success',
                     key: 'account:email',
                     message: 'O seu E-mail principal foi atualizado.',
-                }),
+                })
             )
             .catch((error) =>
                 addFlash({
@@ -42,7 +45,7 @@ export default () => {
                     key: 'account:email',
                     title: 'Erro',
                     message: httpErrorToHuman(error),
-                }),
+                })
             )
             .then(() => {
                 resetForm();

@@ -1,7 +1,8 @@
 import tw from 'twin.macro';
 import useFlash from '@/plugins/useFlash';
 import Can from '@/components/elements/Can';
-import { boolean, object, string } from 'yup';
+import { boolean, object, string, setLocale } from 'yup';
+import { pt } from 'yup-locales';
 import { ServerContext } from '@/state/server';
 import Field from '@/components/elements/Field';
 import React, { useEffect, useState } from 'react';
@@ -22,6 +23,7 @@ interface Values {
 }
 
 const ModalContent = ({ ...props }: RequiredModalProps) => {
+    setLocale(pt);
     const { isSubmitting } = useFormikContext<Values>();
 
     return (
@@ -87,7 +89,7 @@ export default () => {
                         items: data.items.concat(backup),
                         backupCount: data.backupCount + 1,
                     }),
-                    false,
+                    false
                 );
                 setVisible(false);
             })

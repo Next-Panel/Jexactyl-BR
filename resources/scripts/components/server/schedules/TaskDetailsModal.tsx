@@ -8,7 +8,8 @@ import Label from '@/components/elements/Label';
 import Select from '@/components/elements/Select';
 import ModalContext from '@/context/ModalContext';
 import React, { useContext, useEffect } from 'react';
-import { boolean, number, object, string } from 'yup';
+import { boolean, number, object, string, setLocale } from 'yup';
+import { pt } from 'yup-locales';
 import { Textarea } from '@/components/elements/Input';
 import { Button } from '@/components/elements/button/index';
 import FormikSwitch from '@/components/elements/FormikSwitch';
@@ -32,22 +33,8 @@ interface Values {
     continueOnFailure: boolean;
 }
 
-const schema = object().shape({
-    action: string().required().oneOf(['command', 'power', 'backup']),
-    payload: string().when('action', {
-        is: (v) => v !== 'backup',
-        then: string().required('Deve ser fornecida uma carga de trabalho.'),
-        otherwise: string(),
-    }),
-    continueOnFailure: boolean(),
-    timeOffset: number()
-        .typeError('O intervalo de tempo deve ser um número válido entre 0 e 900.')
-        .required('Deve ser fornecido um valor de intervalo de tempo.')
-        .min(0, 'O intervalo de tempo deve ser de pelo menos 0 segundos.')
-        .max(900, 'O intervalo de tempo deve ser inferior a 900 segundos.'),
-});
-
 const ActionListener = () => {
+    setLocale(pt);
     const [{ value }, { initialValue: initialAction }] = useField<string>('action');
     const [, { initialValue: initialPayload }, { setValue, setTouched }] = useField<string>('payload');
 
@@ -63,6 +50,21 @@ const ActionListener = () => {
 
     return null;
 };
+
+const schema = object().shape({
+    action: string().required().oneOf(['command', 'power', 'backup']),
+    payload: string().when('action', {
+        is: (v: string) => v !== 'backup',
+        then: () => string().required('Deve ser fornecida uma carga de trabalho.'),
+        otherwise: () => string(),
+    }),
+    continueOnFailure: boolean(),
+    timeOffset: number()
+        .typeError('O intervalo de tempo deve ser um número válido entre 0 e 900.')
+        .required('Deve ser fornecido um valor de intervalo de tempo.')
+        .min(0, 'O intervalo de tempo deve ser de pelo menos 0 segundos.')
+        .max(900, 'O intervalo de tempo deve ser inferior a 900 segundos.'),
+});
 
 const TaskDetailsModal = ({ schedule, task }: Props) => {
     const { dismiss } = useContext(ModalContext);

@@ -1,5 +1,6 @@
 import React from 'react';
 import * as Yup from 'yup';
+import { pt } from 'yup-locales';
 import tw from 'twin.macro';
 import { ApplicationStore } from '@/state';
 import { httpErrorToHuman } from '@/api/http';
@@ -24,7 +25,7 @@ const schema = Yup.object().shape({
         'A confirmação da senha não corresponde à senha que você digitou.',
         function (value) {
             return value === this.parent.password;
-        },
+        }
     ),
 });
 
@@ -35,6 +36,8 @@ export default () => {
     if (!user) {
         return null;
     }
+
+    Yup.setLocale(pt);
 
     const submit = (values: Values, { setSubmitting }: FormikHelpers<Values>) => {
         clearFlashes('account:password');
@@ -49,7 +52,7 @@ export default () => {
                     type: 'danger',
                     title: 'Error',
                     message: httpErrorToHuman(error),
-                }),
+                })
             )
             .then(() => setSubmitting(false));
     };

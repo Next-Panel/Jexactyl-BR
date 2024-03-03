@@ -1,6 +1,7 @@
 import React from 'react';
 import tw from 'twin.macro';
-import { object, string } from 'yup';
+import { object, string, setLocale } from 'yup';
+import { pt } from 'yup-locales';
 import styled from 'styled-components';
 import useFlash from '@/plugins/useFlash';
 import { httpErrorToHuman } from '@/api/http';
@@ -23,6 +24,8 @@ const CustomTextarea = styled(Textarea)`
 
 export default ({ open, onClose }: DialogProps) => {
     const { addError, clearFlashes } = useFlash();
+
+    setLocale(pt);
 
     const submit = (values: Values, { setSubmitting, resetForm }: FormikHelpers<Values>) => {
         clearFlashes('tickets');

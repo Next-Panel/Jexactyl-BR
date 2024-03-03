@@ -1,6 +1,7 @@
 import tw from 'twin.macro';
 import debounce from 'debounce';
-import { object, string } from 'yup';
+import { object, string, setLocale } from 'yup';
+import { pt } from 'yup-locales';
 import { ip } from '@/lib/formatters';
 import { Link } from 'react-router-dom';
 import getServers from '@/api/getServers';
@@ -50,8 +51,10 @@ export default ({ ...props }: Props) => {
     const isAdmin = useStoreState((state) => state.user.data!.rootAdmin);
     const [servers, setServers] = useState<Server[]>([]);
     const { clearAndAddHttpError, clearFlashes } = useStoreActions(
-        (actions: Actions<ApplicationStore>) => actions.flashes,
+        (actions: Actions<ApplicationStore>) => actions.flashes
     );
+
+    setLocale(pt);
 
     const search = debounce(({ term }: Values, { setSubmitting }: FormikHelpers<Values>) => {
         clearFlashes('search');

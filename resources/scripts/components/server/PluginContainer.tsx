@@ -1,5 +1,6 @@
 import useSWR from 'swr';
-import { object, string } from 'yup';
+import { object, string, setLocale } from 'yup';
+import { pt } from 'yup-locales';
 import * as Icon from 'react-feather';
 import useFlash from '@/plugins/useFlash';
 import { ServerContext } from '@/state/server';
@@ -25,7 +26,7 @@ export default () => {
 
     const { data, error } = useSWR<Plugin>([uuid, query, '/plugins'], (uuid, query) => getPlugins(uuid, query));
 
-    console.log(data);
+    setLocale(pt);
 
     useEffect(() => {
         if (!error) {
@@ -49,7 +50,7 @@ export default () => {
                     key: 'server:plugins',
                     type: 'success',
                     message: 'Plugin instalado com sucesso.',
-                }),
+                })
             )
             .catch((error) => clearAndAddHttpError(error));
     };

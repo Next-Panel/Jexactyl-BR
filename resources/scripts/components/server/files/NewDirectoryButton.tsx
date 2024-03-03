@@ -3,7 +3,8 @@ import { ServerContext } from '@/state/server';
 import { Form, Formik, FormikHelpers } from 'formik';
 import Field from '@/components/elements/Field';
 import { join } from 'path';
-import { object, string } from 'yup';
+import { object, string, setLocale } from 'yup';
+import { pt } from 'yup-locales';
 import createDirectory from '@/api/server/files/createDirectory';
 import tw from 'twin.macro';
 import { Button } from '@/components/elements/button/index';
@@ -48,6 +49,8 @@ const NewDirectoryDialog = asDialog({
     const { mutate } = useFileManagerSwr();
     const { close } = useContext(DialogWrapperContext);
     const { clearAndAddHttpError } = useFlashKey('files:directory-modal');
+
+    setLocale(pt);
 
     useEffect(() => {
         return () => {

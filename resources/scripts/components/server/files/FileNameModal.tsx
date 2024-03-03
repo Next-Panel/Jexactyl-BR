@@ -1,7 +1,8 @@
 import React from 'react';
 import { join } from 'path';
 import tw from 'twin.macro';
-import { object, string } from 'yup';
+import { object, string, setLocale } from 'yup';
+import { pt } from 'yup-locales';
 import { ServerContext } from '@/state/server';
 import Field from '@/components/elements/Field';
 import { Form, Formik, FormikHelpers } from 'formik';
@@ -18,6 +19,8 @@ interface Values {
 
 export default ({ onFileNamed, onDismissed, ...props }: Props) => {
     const directory = ServerContext.useStoreState((state) => state.files.directory);
+
+    setLocale(pt);
 
     const submit = (values: Values, { setSubmitting }: FormikHelpers<Values>) => {
         onFileNamed(join(directory, values.fileName));

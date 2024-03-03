@@ -1,6 +1,7 @@
 import React from 'react';
 import tw from 'twin.macro';
-import { object, string } from 'yup';
+import { object, string, setLocale } from 'yup';
+import { pt } from 'yup-locales';
 import { ApplicationStore } from '@/state';
 import { httpErrorToHuman } from '@/api/http';
 import { ServerContext } from '@/state/server';
@@ -36,6 +37,8 @@ export default () => {
     const server = ServerContext.useStoreState((state) => state.server.data!);
     const setServer = ServerContext.useStoreActions((actions) => actions.server.setServer);
     const { addError, clearFlashes } = useStoreActions((actions: Actions<ApplicationStore>) => actions.flashes);
+
+    setLocale(pt);
 
     const submit = ({ bg }: Values, { setSubmitting }: FormikHelpers<Values>) => {
         clearFlashes('settings');

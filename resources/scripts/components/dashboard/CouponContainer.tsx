@@ -3,7 +3,8 @@ import React, { Fragment } from 'react';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import ContentBox from '@/components/elements/ContentBox';
 import { Form, Formik, FormikHelpers } from 'formik';
-import { object, string } from 'yup';
+import { object, string, setLocale } from 'yup';
+import { pt } from 'yup-locales';
 import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
 import Field from '@/components/elements/Field';
 import { Button } from '@/components/elements/button';
@@ -19,6 +20,7 @@ const schema = object().shape({
 export default () => {
     const { clearFlashes, addFlash } = useStoreActions((actions: Actions<ApplicationStore>) => actions.flashes);
 
+    setLocale(pt);
     const submit = (values: { code: string }, { resetForm, setSubmitting }: FormikHelpers<{ code: string }>) => {
         clearFlashes();
         redeemCoupon(values.code)

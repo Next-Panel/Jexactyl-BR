@@ -1,6 +1,7 @@
 import React from 'react';
 import tw from 'twin.macro';
-import { object, string } from 'yup';
+import { object, string, setLocale } from 'yup';
+import { pt } from 'yup-locales';
 import styled from 'styled-components/macro';
 import { useFlashKey } from '@/plugins/useFlash';
 import { Button } from '@/components/elements/button/index';
@@ -22,6 +23,7 @@ const CustomTextarea = styled(Textarea)`
 export default () => {
     const { clearAndAddHttpError } = useFlashKey('account');
     const { mutate } = useSSHKeys();
+    setLocale(pt);
 
     const submit = (values: Values, { setSubmitting, resetForm }: FormikHelpers<Values>) => {
         clearAndAddHttpError();

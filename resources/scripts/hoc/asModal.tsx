@@ -20,7 +20,7 @@ type ExtendedComponentType<T> = (C: React.ComponentType<T>) => React.ComponentTy
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 function asModal<P extends {}>(
-    modalProps?: SettableModalProps | ((props: P) => SettableModalProps)
+    modalProps?: SettableModalProps | ((props: P) => SettableModalProps),
 ): ExtendedComponentType<P> {
     return function (Component) {
         return class extends React.PureComponent<P & AsModalProps, State> {

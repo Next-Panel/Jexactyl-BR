@@ -65,7 +65,7 @@ const EulaModalFeature = () => {
             showSpinnerOverlay={loading}
         >
             <FlashMessageRender key={'feature:eula'} css={tw`mb-4`} />
-            <h2 css={tw`text-2xl mb-4 text-neutral-100`}>Aceitar o &reg; EULA do minecraftt</h2>
+            <h2 css={tw`text-2xl mb-4 text-neutral-100`}>Aceitar o &reg; EULA do minecraft</h2>
             <p css={tw`text-neutral-200`}>
                 Pressionando {'"Eu aceito"'} Abaixo você está indicando seu acordo com o&nbsp;
                 <a

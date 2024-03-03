@@ -58,7 +58,7 @@ export default ({ className }: WithClassname) => {
     const submit = ({ url }: Values, { setSubmitting }: FormikHelpers<Values>) => {
         pullFile(uuid, directory, url)
             .then(() =>
-                mutate((data) => [...data!, generateFileData(new URL(url).pathname.split('/').pop() || '')], false)
+                mutate((data) => [...data!, generateFileData(new URL(url).pathname.split('/').pop() || '')], false),
             )
             .then(() => setVisible(false))
             .catch((error) => {
@@ -106,7 +106,7 @@ export default ({ className }: WithClassname) => {
                                         <span css={tw`text-cyan-200`}>
                                             {join(
                                                 directory,
-                                                values.url.split('/')[values.url.split('/').length - 1]
+                                                values.url.split('/')[values.url.split('/').length - 1],
                                             ).replace(/^(\.\.\/|\/)+/, '')}
                                         </span>
                                     </Code>

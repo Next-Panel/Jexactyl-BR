@@ -67,7 +67,7 @@ trait RequestMockHelpers
     {
         $this->request = m::mock($this->requestMockClass);
         if (!$this->request instanceof Request) {
-            throw new \InvalidArgumentException('A classe mock da requisição precisa ser simulada utilizando o método' . Request::class .);
+            throw new \InvalidArgumentException('A classe mock da requisição precisa ser simulada utilizando o método' . Request::class);
         }
 
         $this->request->attributes = new ParameterBag();

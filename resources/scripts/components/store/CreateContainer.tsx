@@ -2,7 +2,8 @@ import * as Icon from 'react-feather';
 import { Form, Formik } from 'formik';
 import useFlash from '@/plugins/useFlash';
 import { useStoreState } from 'easy-peasy';
-import { number, object, string } from 'yup';
+import { number, object, string, setLocale } from 'yup';
+import { pt } from 'yup-locales';
 import Field from '@/components/elements/Field';
 import Select from '@/components/elements/Select';
 import { Egg, getEggs } from '@/api/store/getEggs';
@@ -61,6 +62,7 @@ export default () => {
     const [nests, setNests] = useState<Nest[]>();
     const [node, setNode] = useState<number>(0);
     const [nodes, setNodes] = useState<Node[]>();
+    setLocale(pt);
 
     useEffect(() => {
         clearFlashes();

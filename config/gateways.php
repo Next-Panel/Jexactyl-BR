@@ -16,16 +16,16 @@ return [
     | This value determines what currency to process orders in.
     |
     */
-    'currency' => env('STORE_CURRENCY', 'BRL'),
+    'currency' => env('STORE_CURRENCY', 'CLP'),
 
     /*
     |--------------------------------------------------------------------------
     | Cost per 100 credits
     |--------------------------------------------------------------------------
-    | This value determines how much 100 credits costs. Defaults to $1 BRL.
+    | This value determines how much 100 credits costs. Defaults to $1.00 CLP.
     |
     */
-    'cost' => env('STORE_COST', 1.00),
+    'cost' => env('STORE_COST', 1.0),
 
     /*
     |--------------------------------------------------------------------------

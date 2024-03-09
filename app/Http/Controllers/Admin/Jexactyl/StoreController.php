@@ -42,7 +42,7 @@ class StoreController extends Controller
             'mpago_discord_webhook' => $this->settings->get($prefix . 'mpago:discord:webhook', 0),
             'mpago_discord_enabled' => $this->settings->get($prefix . 'mpago:discord:enabled', false),
 
-            'selected_currency' => $this->settings->get($prefix . 'currency', 'BRL'),
+            'selected_currency' => $this->settings->get($prefix . 'currency', 'CLP'),
             'currencies' => $currencies,
 
             'earn_enabled' => $this->settings->get('jexactyl::earn:enabled', false),

@@ -12,6 +12,6 @@ return [
     */
 
     'currencies' => [
-        'BRL' => 'Real Brasileiro',
+        'CLP' => 'Peso Chileno',
     ],
 ];

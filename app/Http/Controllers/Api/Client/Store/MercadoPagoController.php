@@ -45,7 +45,7 @@ class MercadoPagoController extends ClientApiController
 
         $amount = $request->input('amount');
         $cost = config('gateways.cost', 1) / 100 * $amount;
-        $currency = config('gateways.currency', 'BRL');
+        $currency = config('gateways.currency', 'CLP');
 
         $token = $this->generateToken();
 

@@ -1,6 +1,6 @@
 <div align="center">
 
-# [![Logo Image](https://raw.githubusercontent.com/Next-Panel/Jexactyl-BR/develop/public/assets/banner.jpeg)](https://nextpanel.com.br/)
+# [![Logo Image](https://raw.githubusercontent.com/Next-Panel/.github/main/profile/image/jexactyl-banner.jpeg)](https://nextpanel.com.br/)
 
 ![GitHub Stars](https://img.shields.io/github/stars/Next-Panel/Jexactyl-BR?colorA=302D41&colorB=f9e2af&style=for-the-badge)
 ![Version](https://img.shields.io/github/v/release/Next-Panel/Jexactyl-BR?colorA=302D41&colorB=f9e2af&style=for-the-badge)

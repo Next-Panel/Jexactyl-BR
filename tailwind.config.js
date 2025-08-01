@@ -1,4 +1,4 @@
-const { blue, zinc, cyan } = require('tailwindcss/colors');
+const { blue, zinc, cyan } = require('tailwindcss/colors'); 
 
 module.exports = {
     content: [

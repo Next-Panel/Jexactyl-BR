@@ -4,6 +4,7 @@ namespace Pterodactyl\Http\Controllers\Base;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Translation\Translator;
+use Pterodactyl\Http\Controllers\Controller;
 use Illuminate\Contracts\Translation\Loader;
 use Pterodactyl\Http\Requests\LocaleRequest;
 

@@ -39,6 +39,10 @@ class StoreComposer extends Composer
                 'enabled' => $this->setting('renewal:editing', Composer::TYPE_BOOL),
             ],
 
+            'deletion' => [
+                'enabled' => $this->setting('renewal:deletion', Composer::TYPE_BOOL),
+            ],
+
             'referrals' => [
                 'enabled' => $this->setting('referrals:enabled', Composer::TYPE_BOOL),
                 'reward' => $this->setting('referrals:reward', Composer::TYPE_INT),

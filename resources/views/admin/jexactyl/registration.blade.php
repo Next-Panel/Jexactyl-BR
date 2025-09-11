@@ -35,6 +35,16 @@
                                     <p class="text-muted"><small>Determina se as pessoas podem registrar contas utilizando E-mails.</small></p>
                                 </div>
                             </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Verificação de e-mail</label>
+                                <div>
+                                    <select name="registration:verification" class="form-control">
+                                        <option @if ($verification == 'false') selected @endif value="false">Desabilitado</option>
+                                        <option @if ($verification == 'true') selected @endif value="true">Habilitado</option>
+                                    </select>
+                                    <p class="text-muted"><small>Determina se as pessoas precisam verificar seu e-mail para criar servidores.</small></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -72,20 +82,6 @@
                                     <p class="text-muted"><small>O segredo do cliente para sua aplicação OAuth. Trate isto como uma senha.</small></p>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="box box-info">
-                    <div class="box-header with-border">
-                        <h3 class="box-title"><i class="fa fa-envelope"></i> Verificação de E-mail <small>Ative isto para permitir a verificação por E-mail.</small></h3>
-                    </div>
-                    <div class="box-body row">
-                        <div class="form-group col-md-4">
-                            <label for="verification" class="control-label">Status</label>
-                            <select name="registration:verification" id="verification" class="form-control">
-                                <option value="{{ 1 }}" @if ($verification) selected @endif>Habilitado</option>
-                                <option value="{{ 0 }}" @if (!$verification) selected @endif>Desabilitado</option>
-                            </select>
                         </div>
                     </div>
                 </div>

@@ -15,7 +15,7 @@ on:
 jobs:
   php:
     name: PHP
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Code Checkout
         uses: actions/checkout@v3
@@ -42,13 +42,13 @@ jobs:
 
   typescript:
     name: TypeScript
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Code Checkout
         uses: actions/checkout@v3
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: "yarn"

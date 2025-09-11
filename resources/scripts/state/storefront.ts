@@ -10,6 +10,9 @@ export interface StorefrontSettings {
     editing: {
         enabled: boolean;
     };
+    deletion: {
+        enabled: boolean;
+    };
     referrals: {
         enabled: boolean;
         reward: number;

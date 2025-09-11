@@ -3,9 +3,9 @@
 namespace Pterodactyl\Http\Controllers\Api\Client\Servers;
 
 use GuzzleHttp\Client;
+use Pterodactyl\Models\Server;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Pterodactyl\Models\Server;
 use Illuminate\Http\JsonResponse;
 use Pterodactyl\Exceptions\DisplayException;
 use Pterodactyl\Repositories\Wings\DaemonFileRepository;

@@ -9,11 +9,12 @@ import RenameServerBox from '@/components/server/settings/RenameServerBox';
 import DeleteServerBox from '@/components/server/settings/DeleteServerBox';
 import ReinstallServerBox from '@/components/server/settings/ReinstallServerBox';
 import ChangeBackgroundBox from '@/components/server/settings/ChangeBackgroundBox';
+import { useStoreState } from 'easy-peasy';
 
 export default () => {
     const uuid = ServerContext.useStoreState((state) => state.server.data!.uuid);
     const node = ServerContext.useStoreState((state) => state.server.data!.node);
-
+    const deletion = useStoreState((state) => state.storefront.data!.deletion.enabled);
     return (
         <ServerContentBlock
             title={'Configurações'}
@@ -34,7 +35,7 @@ export default () => {
                             </div>
                         </CopyOnClick>
                     </TitledGreyBox>
-                    <DeleteServerBox />
+                    {deletion && <DeleteServerBox />}
                     <ChangeBackgroundBox />
                 </div>
                 <div className={'w-full mt-6 md:flex-1 md:mt-0'}>

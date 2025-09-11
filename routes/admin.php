@@ -73,6 +73,10 @@ Route::group(['prefix' => '/'], function () {
         Route::patch('/', [Jexactyl\CouponsController::class, 'update'])->name('admin.jexactyl.coupons');
         Route::post('/store', [Jexactyl\CouponsController::class, 'store'])->name('admin.jexactyl.coupons.store');
     });
+
+    Route::group(['prefix' => '/upgrade'], function () {
+        Route::get('/', [Jexactyl\UpgradeController::class, 'index'])->name('admin.jexactyl.upgrade');
+    });
 });
 
 /*

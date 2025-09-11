@@ -14,7 +14,7 @@
         "@preact/signals-react": "^1.2.1",
         "@tailwindcss/forms": "^0.5.2",
         "@tailwindcss/line-clamp": "^0.4.0",
-        "axios": "^0.27.2",
+        "axios": "^0.30.0",
         "boring-avatars": "^1.7.0",
         "chart.js": "^3.8.0",
         "classnames": "^2.3.1",
@@ -72,7 +72,7 @@
         "@babel/preset-env": "^7.12.1",
         "@babel/preset-react": "^7.12.1",
         "@babel/preset-typescript": "^7.12.1",
-        "@babel/runtime": "^7.12.1",
+        "@babel/runtime": "^7.26.10",
         "@testing-library/dom": "^8.14.0",
         "@testing-library/jest-dom": "^5.16.4",
         "@testing-library/react": "12.1.5",
@@ -112,7 +112,7 @@
         "fork-ts-checker-webpack-plugin": "^6.2.10",
         "identity-obj-proxy": "^3.0.0",
         "jest": "^28.1.1",
-        "postcss": "^8.4.14",
+        "postcss": "^8.4.31",
         "postcss-import": "^14.1.0",
         "postcss-loader": "^4.0.0",
         "postcss-nesting": "^10.1.8",
@@ -159,5 +159,6 @@
             "displayName": true,
             "fileName": true
         }
-    }
+    },
+    "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

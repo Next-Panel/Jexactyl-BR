@@ -6,7 +6,7 @@ use Pterodactyl\Models\Server;
 use Illuminate\Console\Command;
 use Pterodactyl\Services\Servers\SuspensionService;
 use Pterodactyl\Services\Servers\ServerDeletionService;
-
+use Exception;
 class RenewalCommand extends Command
 {
     /**
@@ -49,18 +49,22 @@ class RenewalCommand extends Command
         $this->line('Processamento de renovações para ' . $servers->count() . ' servidores.');
 
         foreach ($servers as $svr) {
-            $this->line('Renovando servidor ' . $svr->name, false);
-
-            $svr->update(['renewal' => $svr->renewal - 1]);
-
-            if ($svr->renewal <= 0) {
-                $this->line('Suspensão do servidor ' . $svr->name, false);
-                $this->suspensionService->toggle($svr, 'suspend');
-            }
-
-            if ($svr->renewal <= -7) {
-                $this->line('Deletando servidor ' . $svr->name, false);
-                $this->deletionService->handle($svr);
+            try {
+                $this->line('Renovando servidor ' . $svr->name, false);
+    
+                $svr->update(['renewal' => $svr->renewal - 1]);
+    
+                if ($svr->renewal <= 0) {
+                    $this->line('Suspensão do servidor ' . $svr->name, false);
+                    $this->suspensionService->toggle($svr, 'suspend');
+                }
+    
+                if ($svr->renewal <= -7) {
+                    $this->line('Deletando servidor ' . $svr->name, false);
+                    $this->deletionService->handle($svr);
+                }
+            } catch (Exception $e) {
+                $this->line('Erro ao processar o servidor ' . $svr->name . ': ' . $e->getMessage());
             }
         }
     }

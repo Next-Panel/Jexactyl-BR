@@ -26,20 +26,20 @@ class RegisterController extends AbstractLoginController
      */
     public function register(RegisterRequest $request): JsonResponse
     {
-        $approved = false;
-        $verified = false;
+        $approved = true;
+        $verified = true;
         $prefix = 'jexactyl::registration:';
 
         if ($this->settings->get($prefix . 'enabled') != 'true') {
             throw new DisplayException('Incapaz de registrar o usuário.');
         }
 
-        if ($this->settings->get($prefix . 'verification') != 'true') {
-            $verified = true;
+        if ($this->settings->get($prefix . 'verification') === 'true') {
+            $verified = false;
         }
 
-        if ($this->settings->get('jexactyl::approvals:enabled') != 'true') {
-            $approved = true;
+        if ($this->settings->get('jexactyl::approvals:enabled') === 'true') {
+            $approved = false;
         }
 
         $this->creationService->handle([

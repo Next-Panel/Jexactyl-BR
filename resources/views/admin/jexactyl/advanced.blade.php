@@ -9,7 +9,7 @@
     <h1>Avançado<small>Configurar configurações avançadas para o Painel.</small></h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.index') }}">Admin</a></li>
-        <li class="active">Jexactyl</li>
+        <li class="active">jexactyl</li>
     </ol>
 @endsection
 

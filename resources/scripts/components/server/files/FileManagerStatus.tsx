@@ -37,7 +37,7 @@ const FileUploadList = () => {
     const cancelFileUpload = ServerContext.useStoreActions((actions) => actions.files.cancelFileUpload);
     const clearFileUploads = ServerContext.useStoreActions((actions) => actions.files.clearFileUploads);
     const uploads = ServerContext.useStoreState((state) =>
-        Object.entries(state.files.uploads).sort(([a], [b]) => a.localeCompare(b)),
+        Object.entries(state.files.uploads).sort(([a], [b]) => a.localeCompare(b))
     );
 
     return (

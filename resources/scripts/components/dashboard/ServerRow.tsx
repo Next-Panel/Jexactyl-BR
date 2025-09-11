@@ -116,10 +116,10 @@ export default ({ server, className }: { server: Server; className?: string }) =
                                     {server.isTransferring
                                         ? 'Transferindo'
                                         : server.status === 'installing'
-                                        ? 'Instalando'
-                                        : server.status === 'restoring_backup'
-                                        ? 'Restaurando Backup'
-                                        : 'Indisponível'}
+                                          ? 'Instalando'
+                                          : server.status === 'restoring_backup'
+                                            ? 'Restaurando Backup'
+                                            : 'Indisponível'}
                                 </span>
                             </div>
                         ) : (

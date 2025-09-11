@@ -19,7 +19,7 @@ const Component = forwardRef<HTMLInputElement, InputFieldProps>(({ className, va
             'form-input',
             styles.text_input,
             { [styles.loose]: variant === Variant.Loose },
-            className
+            className,
         )}
         {...props}
     />

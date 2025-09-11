@@ -31,11 +31,11 @@ const SpinnerComponent = styled.div<Props>`
         props.size === 'small'
             ? tw`w-4 h-4 border-2`
             : props.size === 'large'
-            ? css`
-                  ${tw`w-16 h-16`};
-                  border-width: 6px;
-              `
-            : null};
+              ? css`
+                    ${tw`w-16 h-16`};
+                    border-width: 6px;
+                `
+              : null};
 
     border-color: ${(props) => (!props.isBlue ? 'rgba(255, 255, 255, 0.2)' : 'hsla(212, 92%, 43%, 0.2)')};
     border-top-color: ${(props) => (!props.isBlue ? 'rgb(255, 255, 255)' : 'hsl(212, 92%, 43%)')};

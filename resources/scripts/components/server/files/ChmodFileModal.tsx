@@ -40,9 +40,9 @@ const ChmodFileModal = ({ files, ...props }: OwnProps) => {
                               mode: fileBitsToString(mode, !f.isFile),
                               modeBits: mode,
                           }
-                        : f
+                        : f,
                 ),
-            false
+            false,
         );
 
         const data = files.map((f) => ({ file: f.file, mode: mode }));

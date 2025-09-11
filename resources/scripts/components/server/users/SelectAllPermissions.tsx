@@ -20,7 +20,7 @@ const SelectAllPermissions: React.FC<Props> = memo(({ isEditable, permissions })
                 setValue(value.filter((p) => !permissions.includes(p)));
             }
         },
-        [permissions, value]
+        [permissions, value],
     );
 
     return (

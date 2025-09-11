@@ -36,8 +36,8 @@ const StatusIndicatorBox = styled(GreyRowBox)<{
             !$status || $status === 'offline'
                 ? tw`bg-red-500`
                 : $status === 'running'
-                ? tw`bg-green-500`
-                : tw`bg-yellow-500`};
+                  ? tw`bg-green-500`
+                  : tw`bg-yellow-500`};
     }
 
     &:hover .status-bar {
@@ -116,10 +116,10 @@ export default ({ server, className }: { server: Server; className?: string }) =
                                     {server.isTransferring
                                         ? 'Transferindo'
                                         : server.status === 'installing'
-                                        ? 'Instalando'
-                                        : server.status === 'restoring_backup'
-                                        ? 'Restaurando Backup'
-                                        : 'Indisponível'}
+                                          ? 'Instalando'
+                                          : server.status === 'restoring_backup'
+                                            ? 'Restaurando Backup'
+                                            : 'Indisponível'}
                                 </span>
                             </div>
                         ) : (

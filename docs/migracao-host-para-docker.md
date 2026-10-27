@@ -8,7 +8,7 @@ onde vem os dados.
 ## Instalação nova (jeito fácil)
 
 ```bash
-cp .env.example .env   # opcional; os padroes ja funcionam localmente
+cp .env.example .env   # opcional; os padrões já funcionam localmente
 docker compose up -d
 docker compose logs -f panel
 ```
@@ -22,29 +22,45 @@ Alternativa sem senha em arquivo:
 docker compose exec panel php artisan p:user:make
 ```
 
+---
+
 ## Migração de um painel existente
 
 ### 1. Inventário no host
 
 Anote do `.env` do host: `APP_KEY`, `APP_URL`, credenciais do banco,
-`MAIL_*` e qualquer variável customizada. Localize o banco
-(`mysqldump` será necessário) e `storage/app/public` (avatares e anexos).
+`MAIL_*` e qualquer variável customizada.
 
-`APP_KEY` é inegociável: tem que ser **o mesmo** no Docker. Trocar a
+`APP_KEY` e `HASHIDS_SALT` são inegociáveis: têm que ser **os mesmos** no Docker. Trocar a
 chave invalida sessões e dados criptografados (o entrypoint gera uma
 aleatória se a variável não existir).
+
+> **Aviso sobre os arquivos dos servidores (Wings):**
+> Os servidores de jogos, uploads e backups dos clientes **não ficam no painel**, eles vivem exclusivamente no daemon **Wings** (`/var/lib/pterodactyl/volumes/`). A migração transfere apenas o banco de dados e a interface web; os servidores nas Wings continuam intactos e funcionando.
 
 ### 2. Backup antes de tudo
 
 ```bash
-mysqldump -u root -p <banco_do_painel> > painel-backup.sql
-cp .env .env.host.bak
-tar -czf storage-public-backup.tar.gz -C /caminho/do/painel/storage/app public
+# 1. Pausa o worker de filas do host
+sudo systemctl stop pteroq.service
+# Caso seu serviço tenha sido configurado como panel.service:
+# sudo systemctl stop panel.service
+
+# 2. Exporta o banco de dados do painel atual
+mariadb-dump -u root -p jexactyl > painel-backup.sql
+# ou: mysqldump -u root -p jexactyl > painel-backup.sql
+
+# 3. Salva uma cópia do .env
+cp /var/www/jexactyl/.env ./env.host.bak
 ```
 
 ### 3. Preparar o `.env` do Compose
 
+Clone o repositório na pasta desejada (o Git cria o diretório automaticamente):
+
 ```bash
+git clone https://github.com/Next-Panel/Jexactyl-BR.git /var/www/jexactyl-docker
+cd /var/www/jexactyl-docker
 cp .env.example .env
 ```
 
@@ -52,72 +68,54 @@ Preencha com os valores do host:
 
 | Origem (host) | Destino (`.env` do compose) | Observação |
 |---|---|---|
-| `APP_KEY` | `APP_KEY` (adicione a linha) | **obrigatório e idêntico**; entra via `env_file` |
-| `APP_URL` | `APP_URL` | URL pública nova (usada nos retornos de pagamento) |
-| Banco | `DB_DATABASE` / `DB_USERNAME` / `DB_PASSWORD` | padrão `jexactyl` / `jexactyl` / `jexactyl_dev` |
+| `APP_KEY` | `APP_KEY` | **obrigatório e idêntico**; entra via `env_file` |
+| `HASHIDS_SALT` | `HASHIDS_SALT` | **obrigatório e idêntico** se existia no host |
+| `APP_URL` | `APP_URL` | URL pública (usada nos retornos de pagamento e links) |
+| Banco | `DB_DATABASE` / `DB_USERNAME` / `DB_PASSWORD` | credenciais do novo MariaDB no Docker |
 | `MAIL_*` | mesmas chaves no `.env` | entram via `env_file`; não precisa mexer no compose |
 | `BILLING_*` / Mercado Pago | `.env` ou tela de Configurações do admin | pode reconfigurar pela UI depois |
 
+> **Nota sobre credenciais do banco no Docker:**
+> As credenciais `DB_DATABASE`, `DB_USERNAME` e `DB_PASSWORD` pertencem ao container MariaDB criado pelo Compose. Você pode usar as mesmas credenciais da instalação antiga ou definir novas senhas; apenas garanta que coincidam com o que estiver configurado no `.env`.
+
 Não use `PANEL_ADMIN_*` na migração: o admin **já vem no banco** e o
-entrypoint pula a criação quando o e-mail existe. Para um admin extra,
-use `docker compose exec panel php artisan p:user:make`.
+entrypoint pula a criação quando o e-mail existe.
 
 ### 4. Subir o banco e importar o dump
 
 ```bash
+# Sobe banco e cache
 docker compose up -d database cache
-for tentativa in $(seq 1 30); do
-  CONTAINER_ID="$(docker compose ps -q database)"
-  [ -n "${CONTAINER_ID}" ] && [ "$(docker inspect -f '{{.State.Health.Status}}' "${CONTAINER_ID}")" = "healthy" ] && break
-  sleep 10
-done
-docker compose exec -T database mariadb -ujexactyl -pjexactyl_dev jexactyl < painel-backup.sql
+
+# Aguarda o banco ficar saudável (healthy)
+docker compose ps
 ```
 
-Troque usuário/senha/banco pelos valores do seu `.env`. Se o host rodava
-MySQL em vez de MariaDB, confira collation e grants após o import.
-
-### 5. Subir o painel e copiar os uploads
+Assim que o container `database` estiver com status `healthy`:
 
 ```bash
-docker compose up -d
-docker compose logs -f panel   # aguarde migrate --seed concluir
+docker compose exec -T database mariadb -u<DB_USERNAME> -p<DB_PASSWORD> <DB_DATABASE> < painel-backup.sql
 ```
 
-Com o painel no ar, copie os uploads para o volume `panel-storage`:
+### 5. Subir o painel (Migrações automáticas)
 
 ```bash
-docker compose cp storage-public-backup.tar.gz panel:/tmp/
-docker compose exec panel sh -c 'tar -xzf /tmp/storage-public-backup.tar.gz -C /app/storage/app/ && rm /tmp/storage-public-backup.tar.gz'
+docker compose up -d panel
+docker compose logs -f panel
 ```
 
-O boot já rodou `migrate --seed` e refez o `storage:link`; os uploads
-ficam preservados no volume `panel-storage`.
+O entrypoint executará automaticamente `php artisan migrate --force`, adaptando as tabelas importadas da versão anterior para o schema moderno da **v4** sem qualquer necessidade de comandos manuais.
 
-### 6. Verificar
+### 6. Desativar serviços antigos do host
+
+```bash
+sudo systemctl disable --now pteroq.service
+# Caso seu serviço tenha sido configurado como panel.service:
+# sudo systemctl disable --now panel.service
+```
+
+### 7. Verificar
 
 - Login com o admin migrado em `APP_URL`.
 - Faturamento: confira gateway, moeda (BRL) e chaves do Mercado Pago.
-- Nodes/daemons (Wings): ficam onde estão — garanta que o novo
-  `APP_URL` seja alcançável por eles e confira o FQDN de cada node.
-- Fila/agendador: `crond` e `supervisord` já rodam no container.
-
-### 7. Limpeza e rollback
-
-- Remova `PANEL_ADMIN_*` do `.env` se tiver usado no bootstrap.
-- Rollback: o host original continua intacto até você apontar o DNS e os
-  daemons de volta para ele; guarde o dump e o `.env.host.bak`.
-
-## Armadilhas conhecidas
-
-- **Stacks antigas deste repositório**: o nome padrão do banco mudou
-  (`jexactyl_br` → `jexactyl`) e o volume de uploads é novo
-  (`panel-storage`). Com volumes velhos na máquina, recrie do zero
-  (`docker compose down -v`) **após backup** — ou ajuste os nomes para
-  os antigos.
-- **Variáveis fora da lista**: o container só recebe o que está em
-  `environment:` no compose **mais** tudo que estiver no `.env`
-  (`env_file`). Variável customizada do host vai para o `.env`, sem
-  precisar editar o compose.
-- **HTTPS**: defina `APP_URL` com o domínio e `LE_EMAIL` para o
-  entrypoint emitir o certificado, ou mantenha o reverse proxy atual.
+- Servidores: valide se os servidores e nós continuam comunicando com as Wings normalmente.

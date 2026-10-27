@@ -1,0 +1,424 @@
+From: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+Date: Tue, 27 Oct 2026 09:53:02 -0300
+Subject: i18n: traduz barra de navegação, rotas e menus laterais do painel
+
+Description:
+Traduz os elementos globais de navegação e roteamento em App.tsx,
+NavigationBar.tsx, DashboardRouter, ServerRouter e AdminRouter, além dos
+rótulos de rotas da conta, servidor e administração. Adiciona mapas de
+categorias traduzidas nas barras laterais e localiza indicadores de 2FA,
+saudações de boas-vindas e avisos de suspensão de conta.
+
+Origin: vendor
+Forwarded: not-needed
+Applied-Upstream: no
+Last-Update: 2026-10-27
+Signed-off-by: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+
+---
+
+diff --git a/resources/scripts/components/App.tsx b/resources/scripts/components/App.tsx
+index 8b4f93685..ee141d351 100644
+--- a/resources/scripts/components/App.tsx
++++ b/resources/scripts/components/App.tsx
+@@ -81,7 +81,7 @@ function App() {
+     if (PterodactylUser?.state === 'suspended') {
+         return (
+             <div style={{ color: 'white', fontWeight: 'bold', marginTop: '10px', marginLeft: '10px' }}>
+-                Your account has been suspended and blocked by an administrator.
++                Sua conta foi suspensa e bloqueada por um administrador.
+             </div>
+         );
+     }
+diff --git a/resources/scripts/elements/NavigationBar.tsx b/resources/scripts/elements/NavigationBar.tsx
+index f1f57a1e9..8d59428b7 100644
+--- a/resources/scripts/elements/NavigationBar.tsx
++++ b/resources/scripts/elements/NavigationBar.tsx
+@@ -9,6 +9,7 @@ import { ChevronRightIcon, EyeIcon, HeartIcon, HomeIcon, IdentificationIcon } fr
+ import { useActivityLogs } from '@/api/routes/account/activity';
+ import Spinner from '@/elements/Spinner';
+ import { formatDistanceToNow } from 'date-fns';
++import { dateLocale } from '@/lib/dateLocale';
+ 
+ const RightNavigation = styled.div<{ theme: SiteTheme }>`
+     & > a,
+@@ -84,11 +85,15 @@ const NavigationBar = () => {
+                             <Spinner size="small" centered />
+                         ) : (
+                             <>
+-                                <span className="font-bold mb-1">{data.items[0]?.event}</span> -{' '}
++                                <span className="font-bold mb-1">
++                                    {data.items[0]?.description ?? data.items[0]?.event}
++                                </span>{' '}
++                                -{' '}
+                                 <span className="text-xs">
+                                     {formatDistanceToNow(data.items[0]?.timestamp ?? new Date(), {
+                                         includeSeconds: true,
+                                         addSuffix: true,
++                                        locale: dateLocale(),
+                                     })}
+                                 </span>
+                             </>
+@@ -101,14 +106,14 @@ const NavigationBar = () => {
+                         <HeartIcon
+                             className={`w-4 h-4 flex-shrink-0 ${user.useTotp ? 'text-green-400' : 'text-red-400'}`}
+                         />
+-                        2FA is {user.useTotp ? 'Enabled' : 'Disabled'}
++                        2FA está {user.useTotp ? 'ativado' : 'desativado'}
+                     </span>
+                 );
+             case 2:
+                 return (
+                     <span className={'inline-flex items-center gap-x-2'}>
+                         <IdentificationIcon className={'w-4 h-4 flex-shrink-0'} />
+-                        User ID: {user.uuid.slice(0, 8)}
++                        ID do usuário: {user.uuid.slice(0, 8)}
+                     </span>
+                 );
+             default:
+diff --git a/resources/scripts/routers/AdminRouter.tsx b/resources/scripts/routers/AdminRouter.tsx
+index b573e3e09..0cdaeb8b7 100644
+--- a/resources/scripts/routers/AdminRouter.tsx
++++ b/resources/scripts/routers/AdminRouter.tsx
+@@ -28,6 +28,13 @@ function AdminRouter() {
+     const activityEnabled: boolean = settings.activity.enabled.admin;
+ 
+     const categories = ['general', 'modules', 'appearance', 'management', 'services'] as const;
++    const categoryLabels: Record<(typeof categories)[number], string> = {
++        general: 'Geral',
++        modules: 'Módulos',
++        appearance: 'Aparência',
++        management: 'Gerenciamento',
++        services: 'Serviços',
++    };
+     const [collapsed, setCollapsed] = usePersistedState<boolean>(`sidebar_admin_${user.uuid}`, false);
+ 
+     const canAccess = (route: (typeof routes.admin)[number]): boolean =>
+@@ -75,7 +82,7 @@ function AdminRouter() {
+                 <Sidebar.Wrapper theme={theme} $admin>
+                     <NavLink to="/" className={'mb-[18px]'}>
+                         <Sidebar.Icon icon={ReplyIcon} />
+-                        <span>Return</span>
++                        <span>Voltar</span>
+                     </NavLink>
+                     {categories.map(category => {
+                         const categoryRoutes = routes.admin.filter(
+@@ -89,7 +96,7 @@ function AdminRouter() {
+ 
+                         return (
+                             <Fragment key={category}>
+-                                <Sidebar.Section>{category[0]!.toUpperCase() + category.slice(1)}</Sidebar.Section>
++                                <Sidebar.Section>{categoryLabels[category]}</Sidebar.Section>
+                                 {categoryRoutes.map(route => (
+                                     <NavLink to={route.path} key={route.path} end={route.end}>
+                                         <Sidebar.Icon icon={route.icon ?? PuzzleIcon} />
+@@ -107,9 +114,9 @@ function AdminRouter() {
+                     <div className={'flex flex-col ml-3'}>
+                         <span className={'font-sans font-normal text-xs text-gray-300 leading-tight select-none'}>
+                             <div className={'w-full flex justify-between mb-1'}>
+-                                <p className={'text-sm text-gray-400'}>Welcome,</p>
++                                <p className={'text-sm text-gray-400'}>Bem-vindo,</p>
+                                 <Pill size={'xsmall'} type={'info'}>
+-                                    {user.roleName === 'None' ? 'Root Admin' : user.roleName}
++                                    {user.roleName === 'None' ? 'Admin' : user.roleName}
+                                 </Pill>
+                             </div>
+                             {user.email}
+diff --git a/resources/scripts/routers/DashboardRouter.tsx b/resources/scripts/routers/DashboardRouter.tsx
+index 1d88e21b6..96aee4bf9 100644
+--- a/resources/scripts/routers/DashboardRouter.tsx
++++ b/resources/scripts/routers/DashboardRouter.tsx
+@@ -55,7 +55,7 @@ function DashboardRouter() {
+                         />
+                     ))}
+                 {(user.rootAdmin || user.admin_role_id) && (
+-                    <MobileSidebar.Link icon={CogIcon} text={'Admin'} linkTo={'/admin'} />
++                    <MobileSidebar.Link icon={CogIcon} text={'Administrador'} linkTo={'/admin'} />
+                 )}
+             </MobileSidebar>
+             <Sidebar className={'flex-none'} $collapsed={collapsed} theme={theme}>
+@@ -78,7 +78,7 @@ function DashboardRouter() {
+                 <Sidebar.Wrapper theme={theme}>
+                     <NavLink to={'/'} end className={'mb-[18px]'}>
+                         <DesktopComputerIcon />
+-                        <span>Dashboard</span>
++                        <span>Início</span>
+                     </NavLink>
+                     {routes.account
+                         .filter(route => route.name && (!route.condition || route.condition(flags)))
+@@ -113,12 +113,12 @@ function DashboardRouter() {
+                     {(user.rootAdmin || user.admin_role_id) && (
+                         <NavLink to={'/admin'}>
+                             <CogIcon />
+-                            <span className={collapsed ? 'hidden' : ''}>Settings</span>
++                            <span className={collapsed ? 'hidden' : ''}>Administrador</span>
+                         </NavLink>
+                     )}
+                     <NavLink to={'/'} onClick={onTriggerLogout}>
+                         <LogoutIcon />
+-                        <span className={collapsed ? 'hidden' : ''}>Logout</span>
++                        <span className={collapsed ? 'hidden' : ''}>Sair</span>
+                     </NavLink>
+                 </span>
+                 <Sidebar.User>
+@@ -131,7 +131,7 @@ function DashboardRouter() {
+                                 'font-sans font-normal text-xs text-gray-300 whitespace-nowrap leading-tight select-none'
+                             }
+                         >
+-                            <div className={'text-gray-400 text-sm'}>Welcome back,</div>
++                            <div className={'text-gray-400 text-sm'}>Bem-vindo de volta,</div>
+                             {user.email}
+                         </span>
+                     </div>
+diff --git a/resources/scripts/routers/ServerRouter.tsx b/resources/scripts/routers/ServerRouter.tsx
+index 0d925533b..bad0961f1 100644
+--- a/resources/scripts/routers/ServerRouter.tsx
++++ b/resources/scripts/routers/ServerRouter.tsx
+@@ -61,6 +61,11 @@ function ServerRouter() {
+ 
+     const categories = ['data', 'configuration'] as const;
+ 
++    const categoryLabels: Record<(typeof categories)[number], string> = {
++        data: 'Dados',
++        configuration: 'Configuração',
++    };
++
+     useEffect(() => {
+         clearServerState();
+     }, []);
+@@ -111,7 +116,7 @@ function ServerRouter() {
+                             />
+                         ))}
+                     {(user.rootAdmin || user.admin_role_id) && (
+-                        <MobileSidebar.Link icon={CogIcon} text={'Admin'} linkTo={'/admin'} />
++                        <MobileSidebar.Link icon={CogIcon} text={'Administrador'} linkTo={'/admin'} />
+                     )}
+                 </MobileSidebar>
+                 <Sidebar className={'flex-none'} $collapsed={collapsed} theme={theme}>
+@@ -134,9 +139,9 @@ function ServerRouter() {
+                     <Sidebar.Wrapper theme={theme} className={'mb-auto'}>
+                         <NavLink to={'/'} end className={'mb-[18px]'}>
+                             <DesktopComputerIcon />
+-                            <span>Dashboard</span>
++                            <span>Início</span>
+                         </NavLink>
+-                        <Sidebar.Section>Server {server?.uuid?.slice(0, 8)}</Sidebar.Section>
++                        <Sidebar.Section>Servidor {server?.uuid?.slice(0, 8)}</Sidebar.Section>
+                         {routes.server
+                             .filter(
+                                 route =>
+@@ -158,7 +163,7 @@ function ServerRouter() {
+ 
+                             return (
+                                 <Fragment key={category}>
+-                                    <Sidebar.Section>{category[0]!.toUpperCase() + category.slice(1)}</Sidebar.Section>
++                                    <Sidebar.Section>{categoryLabels[category]}</Sidebar.Section>
+                                     {categoryRoutes.map(route => (
+                                         <NavLink to={route.path} key={route.path} end={route.end}>
+                                             <Sidebar.Icon icon={route.icon ?? PuzzleIcon} />
+@@ -171,7 +176,7 @@ function ServerRouter() {
+                         {user.rootAdmin && (
+                             <NavLink to={`/admin/servers/${server?.internalId}`}>
+                                 <ReplyIcon />
+-                                <span>View as Admin</span>
++                                <span>Ver como admin</span>
+                             </NavLink>
+                         )}
+                     </Sidebar.Wrapper>
+diff --git a/resources/scripts/routers/routes/account.ts b/resources/scripts/routers/routes/account.ts
+index 18c94b931..10bf914d5 100644
+--- a/resources/scripts/routers/routes/account.ts
++++ b/resources/scripts/routers/routes/account.ts
+@@ -19,8 +19,8 @@ const account: RouteDefinition[] = [
+     /**
+      * Account - General Routes
+      */
+-    route('', AccountOverviewContainer, { name: 'Account', end: true, icon: Icon.UserIcon }),
+-    route('security/*', SecurityRouter, { name: 'Security', icon: Icon.ShieldCheckIcon }),
++    route('', AccountOverviewContainer, { name: 'Conta', end: true, icon: Icon.UserIcon }),
++    route('security/*', SecurityRouter, { name: 'Segurança', icon: Icon.ShieldCheckIcon }),
+ 
+     /**
+      * Account - Legacy Redirects
+@@ -46,13 +46,13 @@ const account: RouteDefinition[] = [
+      * Account - Billing Routes
+      */
+     route('billing/order', ProductsContainer, {
+-        name: 'Billing',
++        name: 'Faturamento',
+         icon: Icon.CashIcon,
+         condition: flags => flags.billing.enabled,
+     }),
+     route('billing/order/:id', OrderContainer),
+     route('billing/orders', OrdersContainer, {
+-        name: 'Orders',
++        name: 'Pedidos',
+         icon: Icon.ClipboardListIcon,
+         condition: flags => flags.billing.enabled,
+     }),
+diff --git a/resources/scripts/routers/routes/admin.ts b/resources/scripts/routers/routes/admin.ts
+index 8bf31b09f..bf14753c3 100644
+--- a/resources/scripts/routers/routes/admin.ts
++++ b/resources/scripts/routers/routes/admin.ts
+@@ -48,21 +48,21 @@ const admin: AdminRouteDefinition[] = [
+      * Admin - General Routes
+      */
+     route('', OverviewContainer, {
+-        name: 'Overview',
++        name: 'Visão geral',
+         end: true,
+         icon: Icon.OfficeBuildingIcon,
+         category: 'general',
+         permission: 'overview.read',
+     }),
+     route('activity', ActivityLogsContainer, {
+-        name: 'Activity',
++        name: 'Atividade',
+         icon: Icon.ClipboardListIcon,
+         category: 'general',
+         permission: 'activity.read',
+         condition: ({ activityEnabled }: { activityEnabled: boolean }) => activityEnabled,
+     }),
+     route('settings/*', SettingsRouter, {
+-        name: 'Settings',
++        name: 'Configurações',
+         icon: Icon.CogIcon,
+         category: 'general',
+         permission: 'settings.read',
+@@ -80,14 +80,14 @@ const admin: AdminRouteDefinition[] = [
+      * Admin - Module Routes
+      */
+     route('auth', AuthContainer, {
+-        name: 'Auth',
++        name: 'Autenticação',
+         icon: Icon.KeyIcon,
+         category: 'modules',
+         advanced: true,
+         permission: 'auth.read',
+     }),
+     route('billing/*', BillingRouter, {
+-        name: 'Billing',
++        name: 'Faturamento',
+         icon: Icon.CashIcon,
+         category: 'modules',
+         advanced: true,
+@@ -101,7 +101,7 @@ const admin: AdminRouteDefinition[] = [
+         permission: 'tickets.read',
+     }),
+     route('ai/*', AIRouter, {
+-        name: 'AI',
++        name: 'IA',
+         icon: Icon.SparklesIcon,
+         category: 'modules',
+         advanced: true,
+@@ -112,7 +112,7 @@ const admin: AdminRouteDefinition[] = [
+      * Admin - Appearance Routes
+      */
+     route('theme', ThemeContainer, {
+-        name: 'Theme',
++        name: 'Tema',
+         icon: Icon.PencilAltIcon,
+         category: 'appearance',
+         permission: 'theme.read',
+@@ -124,7 +124,7 @@ const admin: AdminRouteDefinition[] = [
+         permission: 'links.read',
+     }),
+     route('alerts/*', AlertRouter, {
+-        name: 'Alerts',
++        name: 'Alertas',
+         icon: Icon.ShieldExclamationIcon,
+         category: 'appearance',
+         permission: 'alerts.read',
+@@ -134,7 +134,7 @@ const admin: AdminRouteDefinition[] = [
+      * Admin - Management Routes
+      */
+     route('databases', DatabasesContainer, {
+-        name: 'Databases',
++        name: 'Bancos de dados',
+         icon: Icon.DatabaseIcon,
+         category: 'management',
+         advanced: true,
+@@ -151,7 +151,7 @@ const admin: AdminRouteDefinition[] = [
+     route('nodes/:id/*', NodeRouter, { permission: 'nodes.read' }),
+ 
+     route('servers', ServersContainer, {
+-        name: 'Servers',
++        name: 'Servidores',
+         icon: Icon.TerminalIcon,
+         category: 'management',
+         permission: 'servers.read',
+@@ -162,7 +162,7 @@ const admin: AdminRouteDefinition[] = [
+     route('servers/:id/*', ServerRouter, { permission: 'servers.read' }),
+ 
+     route('users', AdminUsersContainer, {
+-        name: 'Users',
++        name: 'Usuários',
+         icon: Icon.UserIcon,
+         category: 'management',
+         permission: 'users.read',
+diff --git a/resources/scripts/routers/routes/server.ts b/resources/scripts/routers/routes/server.ts
+index d88883f5a..00cb63c6c 100644
+--- a/resources/scripts/routers/routes/server.ts
++++ b/resources/scripts/routers/routes/server.ts
+@@ -25,27 +25,27 @@ const server: ServerRouteDefinition[] = [
+     }),
+     route('files/*', FileManagerContainer, {
+         permission: 'file.*',
+-        name: 'Files',
++        name: 'Arquivos',
+         icon: Icon.FolderOpenIcon,
+         category: 'data',
+     }),
+     route('files/:action/*', FileEditContainer, { permission: 'file.*' }),
+     route('databases/*', DatabasesContainer, {
+         permission: 'database.*',
+-        name: 'Databases',
++        name: 'Bancos de dados',
+         icon: Icon.DatabaseIcon,
+         category: 'data',
+     }),
+     route('schedules/*', ScheduleContainer, {
+         permission: 'schedule.*',
+-        name: 'Schedules',
++        name: 'Agendamentos',
+         icon: Icon.ClockIcon,
+         category: 'configuration',
+     }),
+     route('schedules/:id/*', ScheduleEditContainer, { permission: 'schedule.*', category: 'configuration' }),
+     route('users/*', UsersContainer, {
+         permission: 'user.*',
+-        name: 'Users',
++        name: 'Usuários',
+         icon: Icon.UsersIcon,
+         category: 'configuration',
+     }),
+@@ -57,25 +57,25 @@ const server: ServerRouteDefinition[] = [
+     }),
+     route('network/*', NetworkContainer, {
+         permission: 'allocation.*',
+-        name: 'Network',
++        name: 'Rede',
+         icon: Icon.WifiIcon,
+         category: 'configuration',
+     }),
+     route('startup/*', StartupContainer, {
+         permission: 'startup.*',
+-        name: 'Startup',
++        name: 'Inicialização',
+         icon: Icon.PlayIcon,
+         category: 'configuration',
+     }),
+     route('activity/*', ServerActivityLogContainer, {
+         permission: 'activity.*',
+-        name: 'Activity',
++        name: 'Atividade',
+         icon: Icon.EyeIcon,
+         condition: flags => flags.activityEnabled,
+     }),
+     route('billing', ServerBillingContainer, {
+         permission: 'billing.*',
+-        name: 'Billing',
++        name: 'Faturamento',
+         icon: Icon.CashIcon,
+         condition: flags => flags.billable,
+     }),

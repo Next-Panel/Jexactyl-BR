@@ -1,0 +1,401 @@
+From: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+Date: Tue, 27 Oct 2026 09:53:06 -0300
+Subject: i18n: traduz telas de autenticação, cadastro, recuperação e 2FA
+
+Description:
+Traduz os fluxos de autenticação do painel (LoginContainer,
+RegisterContainer, ForgotPasswordContainer, ResetPasswordContainer e
+LoginCheckpointContainer), incluindo rótulos de formulários, botões de SSO e
+passkey, verificação em duas etapas, códigos de recuperação e mensagens de
+validação Yup.
+
+Origin: vendor
+Forwarded: not-needed
+Applied-Upstream: no
+Last-Update: 2026-10-27
+Signed-off-by: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+
+---
+
+diff --git a/resources/scripts/components/auth/ForgotPasswordContainer.tsx b/resources/scripts/components/auth/ForgotPasswordContainer.tsx
+index ce9998625..df8a5376a 100644
+--- a/resources/scripts/components/auth/ForgotPasswordContainer.tsx
++++ b/resources/scripts/components/auth/ForgotPasswordContainer.tsx
+@@ -44,7 +44,7 @@ function ForgotPasswordContainer() {
+                 console.error(error);
+ 
+                 setSubmitting(false);
+-                addFlash({ type: 'error', title: 'Error', message: httpErrorToHuman(error) });
++                addFlash({ type: 'error', title: 'Erro', message: httpErrorToHuman(error) });
+             });
+ 
+             return;
+@@ -53,11 +53,11 @@ function ForgotPasswordContainer() {
+         requestPasswordReset(email, code, password, password_confirm, token.current)
+             .then(response => {
+                 resetForm();
+-                addFlash({ type: 'success', title: 'Success', message: response });
++                addFlash({ type: 'success', title: 'Sucesso', message: response });
+             })
+             .catch(error => {
+                 console.error(error);
+-                addFlash({ type: 'error', title: 'Error', message: httpErrorToHuman(error) });
++                addFlash({ type: 'error', title: 'Erro', message: httpErrorToHuman(error) });
+             })
+             .then(() => {
+                 token.current = '';
+@@ -75,26 +75,30 @@ function ForgotPasswordContainer() {
+             initialValues={{ email: '', code: '', password: '', password_confirm: '' }}
+             validationSchema={object().shape({
+                 email: string()
+-                    .email('A valid email address must be provided to continue.')
+-                    .required('A valid email address must be provided to continue.'),
+-                code: string().required('You must enter your account recovery code to continue.'),
+-                password: string().min(8).required(),
+-                password_confirm: string().min(8).required(),
++                    .email('Informe um endereço de e-mail válido para continuar.')
++                    .required('Informe um endereço de e-mail válido para continuar.'),
++                code: string().required('Informe o código de recuperação da sua conta para continuar.'),
++                password: string()
++                    .min(8, 'A nova senha deve ter pelo menos 8 caracteres.')
++                    .required('Informe uma nova senha.'),
++                password_confirm: string()
++                    .min(8, 'A confirmação deve ter pelo menos 8 caracteres.')
++                    .required('Confirme a nova senha.'),
+             })}
+         >
+             {({ isSubmitting, setSubmitting, submitForm }) => (
+-                <LoginFormContainer title={'Reset your Password'} css={tw`w-full flex`}>
++                <LoginFormContainer title={'Redefinir sua senha'} css={tw`w-full flex`}>
+                     <Field
+-                        label={'Email Address'}
+-                        description={'Enter your account email address that you use to access the Panel.'}
++                        label={'Endereço de e-mail'}
++                        description={'Informe o endereço de e-mail da sua conta usado para acessar o Painel.'}
+                         name={'email'}
+                         type={'email'}
+                     />
+                     <div className={'mt-6'}>
+                         <Field
+-                            label={'Account Recovery Code'}
++                            label={'Código de recuperação da conta'}
+                             description={
+-                                "Enter the account recovery code you were given when your account was created. Don't have this code? Contact our support for assistance."
++                                'Informe o código de recuperação da conta fornecido quando ela foi criada. Não tem esse código? Fale com o suporte para obter ajuda.'
+                             }
+                             name={'code'}
+                             type={'text'}
+@@ -102,21 +106,21 @@ function ForgotPasswordContainer() {
+                     </div>
+                     <div className={'my-6'}>
+                         <Field
+-                            label={'New Password'}
+-                            description={"Enter the new password you'd like to use for this user account."}
++                            label={'Nova senha'}
++                            description={'Informe a nova senha que você deseja usar nesta conta.'}
+                             name={'password'}
+                             type={'password'}
+                         />
+                     </div>
+                     <Field
+-                        label={'Confirm New Password'}
+-                        description={'For extra security, re-enter the above password.'}
++                        label={'Confirmar nova senha'}
++                        description={'Para maior segurança, digite novamente a senha acima.'}
+                         name={'password_confirm'}
+                         type={'password'}
+                     />
+                     <div css={tw`mt-6`}>
+                         <Button type={'submit'} className={'w-full'} size={Button.Sizes.Large} disabled={isSubmitting}>
+-                            Attempt Login
++                            Redefinir senha
+                         </Button>
+                     </div>
+                     {recaptchaEnabled && (
+@@ -139,7 +143,7 @@ function ForgotPasswordContainer() {
+                             to={'/auth/login'}
+                             css={tw`text-xs text-neutral-300 tracking-wide no-underline uppercase font-medium hover:text-neutral-600`}
+                         >
+-                            Return to Login
++                            Voltar para o login
+                         </Link>
+                     </div>
+                 </LoginFormContainer>
+diff --git a/resources/scripts/components/auth/LoginCheckpointContainer.tsx b/resources/scripts/components/auth/LoginCheckpointContainer.tsx
+index 9afc59aa7..872eb3568 100644
+--- a/resources/scripts/components/auth/LoginCheckpointContainer.tsx
++++ b/resources/scripts/components/auth/LoginCheckpointContainer.tsx
+@@ -30,15 +30,15 @@ function LoginCheckpointContainer() {
+     const [isMissingDevice, setIsMissingDevice] = useState(false);
+ 
+     return (
+-        <LoginFormContainer title={'Device Checkpoint'} css={tw`w-full flex`}>
++        <LoginFormContainer title={'Verificação de dispositivo'} css={tw`w-full flex`}>
+             <div css={tw`mt-6`}>
+                 <Field
+                     name={isMissingDevice ? 'recoveryCode' : 'code'}
+-                    title={isMissingDevice ? 'Recovery Code' : 'Authentication Code'}
++                    title={isMissingDevice ? 'Código de recuperação' : 'Código de autenticação'}
+                     description={
+                         isMissingDevice
+-                            ? 'Enter one of the recovery codes generated when you setup 2-Factor authentication on this account in order to continue.'
+-                            : 'Enter the two-factor token generated by your device.'
++                            ? 'Informe um dos códigos de recuperação gerados quando você ativou a autenticação de dois fatores nesta conta para continuar.'
++                            : 'Informe o token de dois fatores gerado pelo seu dispositivo.'
+                     }
+                     type={'text'}
+                     autoComplete={'one-time-code'}
+@@ -47,7 +47,7 @@ function LoginCheckpointContainer() {
+             </div>
+             <div css={tw`mt-6`}>
+                 <Button className={'w-full'} size={Button.Sizes.Large} type={'submit'} disabled={isSubmitting}>
+-                    Continue
++                    Continuar
+                 </Button>
+             </div>
+             <div css={tw`mt-6 text-center text-neutral-500 text-xs tracking-wide no-underline`}>
+@@ -59,11 +59,11 @@ function LoginCheckpointContainer() {
+                     }}
+                     css={tw`cursor-pointer hover:text-neutral-400 duration-300`}
+                 >
+-                    {!isMissingDevice ? "I've Lost My Device" : 'I Have My Device'}
++                    {!isMissingDevice ? 'Perdi meu dispositivo' : 'Estou com meu dispositivo'}
+                 </span>
+                 <span className={'mx-3'}>&bull;</span>
+                 <Link to={'/auth/login'} css={tw`hover:text-neutral-400 duration-300`}>
+-                    Return to Login
++                    Voltar para o login
+                 </Link>
+             </div>
+         </LoginFormContainer>
+diff --git a/resources/scripts/components/auth/LoginContainer.tsx b/resources/scripts/components/auth/LoginContainer.tsx
+index 1144c339e..b67d3bd6d 100644
+--- a/resources/scripts/components/auth/LoginContainer.tsx
++++ b/resources/scripts/components/auth/LoginContainer.tsx
+@@ -127,29 +127,29 @@ function LoginContainer() {
+             onSubmit={onSubmit}
+             initialValues={{ username: '', password: '' }}
+             validationSchema={object().shape({
+-                username: string().required('A username or email must be provided.'),
+-                password: string().required('Please enter your account password.'),
++                username: string().required('Informe um nome de usuário ou e-mail.'),
++                password: string().required('Informe a senha da sua conta.'),
+             })}
+         >
+             {({ isSubmitting, setSubmitting, submitForm }) => (
+-                <LoginFormContainer title={`Welcome to ${appName}`}>
++                <LoginFormContainer title={`Bem-vindo ao ${appName}`}>
+                     <Field
+                         icon={faAt}
+                         type={'text'}
+-                        label={'Username or Email'}
++                        label={'Nome de usuário ou e-mail'}
+                         name={'username'}
+                         disabled={isSubmitting}
+                         placeholder={'user@jexpanel.com'}
+                     />
+                     <div css={tw`mt-6`}>
+                         <Label>
+-                            Password
++                            Senha
+                             <Link
+                                 to={'/auth/password'}
+                                 tabIndex={-1}
+                                 className={'ml-1 text-green-400 hover:text-green-200 duration-300 text-xs'}
+                             >
+-                                Forgot Password?
++                                Esqueceu a senha?
+                             </Link>
+                         </Label>
+                         <Field
+@@ -168,7 +168,7 @@ function LoginContainer() {
+                             size={Button.Sizes.Large}
+                             disabled={isSubmitting}
+                         >
+-                            Login
++                            Entrar
+                         </Button>
+                     </div>
+                     {passkeysSupported() && (
+@@ -181,8 +181,8 @@ function LoginContainer() {
+                                 loading={passkeyPending}
+                                 className={'w-full'}
+                             >
+-                                <FontAwesomeIcon icon={faFingerprint} className={'mr-2 my-auto'} /> Or, Sign in with a
+-                                Passkey
++                                <FontAwesomeIcon icon={faFingerprint} className={'mr-2 my-auto'} /> Ou entre com uma
++                                passkey
+                             </Button.Text>
+                         </div>
+                     )}
+@@ -202,17 +202,17 @@ function LoginContainer() {
+                         />
+                     )}
+                     {(modules.discord.enabled || modules.google.enabled || registration) && (
+-                        <div className={'w-full text-center my-3 text-gray-400'}>OR</div>
++                        <div className={'w-full text-center my-3 text-gray-400'}>OU</div>
+                     )}
+                     <div className={'mt-4 w-full grid gap-4 grid-cols-2'}>
+                         {modules.discord.enabled && (
+                             <Button.Info type={'button'} onClick={() => useOauth('discord')} size={Button.Sizes.Small}>
+-                                <FontAwesomeIcon icon={faDiscord} className={'mr-2 my-auto'} /> Use Discord SSO
++                                <FontAwesomeIcon icon={faDiscord} className={'mr-2 my-auto'} /> Discord SSO
+                             </Button.Info>
+                         )}
+                         {modules.google.enabled && (
+                             <Button.Text type={'button'} onClick={() => useOauth('google')} size={Button.Sizes.Small}>
+-                                <FontAwesomeIcon icon={faGoogle} className={'mr-2 my-auto'} /> Use Google SSO
++                                <FontAwesomeIcon icon={faGoogle} className={'mr-2 my-auto'} /> Google SSO
+                             </Button.Text>
+                         )}
+                         {registration && (
+@@ -221,7 +221,7 @@ function LoginContainer() {
+                                 onClick={() => navigate('/auth/register')}
+                                 size={Button.Sizes.Small}
+                             >
+-                                <FontAwesomeIcon icon={faEnvelope} className={'mr-2 my-auto'} /> Register with Email
++                                <FontAwesomeIcon icon={faEnvelope} className={'mr-2 my-auto'} /> Criar conta
+                             </Button.Text>
+                         )}
+                     </div>
+diff --git a/resources/scripts/components/auth/RegisterContainer.tsx b/resources/scripts/components/auth/RegisterContainer.tsx
+index 4bebbcb37..39a02aac0 100644
+--- a/resources/scripts/components/auth/RegisterContainer.tsx
++++ b/resources/scripts/components/auth/RegisterContainer.tsx
+@@ -72,26 +72,26 @@ function RegisterContainer() {
+             onSubmit={onSubmit}
+             initialValues={{ username: '', email: '', password: '', confirm_password: '' }}
+             validationSchema={object().shape({
+-                username: string().required('A username must be provided.'),
+-                email: string().email().required('You must provide a valid email.'),
+-                password: string().required('Please enter your account password.'),
+-                confirm_password: string().required('Please enter the password confirmation.'),
++                username: string().required('Informe um nome de usuário.'),
++                email: string().email('Informe um e-mail válido.').required('Informe um e-mail.'),
++                password: string().required('Informe a senha da sua conta.'),
++                confirm_password: string().required('Confirme a senha.'),
+             })}
+         >
+             {({ isSubmitting, setSubmitting, submitForm }) => (
+-                <LoginFormContainer title={`Create an Account`}>
++                <LoginFormContainer title={`Criar uma conta`}>
+                     <Field
+                         type={'text'}
+-                        label={'Username'}
++                        label={'Nome de usuário'}
+                         icon={faIdBadge}
+                         name={'username'}
+-                        placeholder={'user_account'}
++                        placeholder={'nome_de_usuario'}
+                         disabled={isSubmitting}
+                     />
+                     <div css={tw`mt-6`}>
+                         <Field
+                             type={'text'}
+-                            label={'Email Address'}
++                            label={'Endereço de e-mail'}
+                             icon={faAt}
+                             name={'email'}
+                             placeholder={'user@jexpanel.com'}
+@@ -101,7 +101,7 @@ function RegisterContainer() {
+                     <div css={tw`mt-6`}>
+                         <Field
+                             type={'password'}
+-                            label={'Password'}
++                            label={'Senha'}
+                             icon={faKey}
+                             name={'password'}
+                             placeholder={'••••••••••••'}
+@@ -111,7 +111,7 @@ function RegisterContainer() {
+                     <div css={tw`mt-6`}>
+                         <Field
+                             type={'password'}
+-                            label={'Confirm Password'}
++                            label={'Confirmar senha'}
+                             icon={faUnlockKeyhole}
+                             name={'confirm_password'}
+                             placeholder={'••••••••••••'}
+@@ -126,7 +126,7 @@ function RegisterContainer() {
+                             size={Button.Sizes.Large}
+                             disabled={isSubmitting}
+                         >
+-                            Register
++                            Criar conta
+                         </Button>
+                     </div>
+                     {recaptchaEnabled && (
+@@ -149,7 +149,7 @@ function RegisterContainer() {
+                             to={'/auth/login'}
+                             css={tw`text-xs text-neutral-300 tracking-wide no-underline uppercase font-medium hover:text-neutral-600`}
+                         >
+-                            Return to Login
++                            Voltar para o login
+                         </Link>
+                     </div>
+                 </LoginFormContainer>
+diff --git a/resources/scripts/components/auth/ResetPasswordContainer.tsx b/resources/scripts/components/auth/ResetPasswordContainer.tsx
+index 1607f0197..6348d912c 100644
+--- a/resources/scripts/components/auth/ResetPasswordContainer.tsx
++++ b/resources/scripts/components/auth/ResetPasswordContainer.tsx
+@@ -41,7 +41,7 @@ function ResetPasswordContainer() {
+                 console.error(error);
+ 
+                 setSubmitting(false);
+-                addFlash({ type: 'error', title: 'Error', message: httpErrorToHuman(error) });
++                addFlash({ type: 'error', title: 'Erro', message: httpErrorToHuman(error) });
+             });
+     };
+ 
+@@ -54,33 +54,33 @@ function ResetPasswordContainer() {
+             }}
+             validationSchema={object().shape({
+                 password: string()
+-                    .required('A new password is required.')
+-                    .min(8, 'Your new password should be at least 8 characters in length.'),
++                    .required('Informe uma nova senha.')
++                    .min(8, 'Sua nova senha deve ter pelo menos 8 caracteres.'),
+                 passwordConfirmation: string()
+-                    .required('Your new password does not match.')
+-                    .oneOf([ref('password')], 'Your new password does not match.'),
++                    .required('Confirme a nova senha.')
++                    .oneOf([ref('password')], 'As novas senhas não coincidem.'),
+             })}
+         >
+             {({ isSubmitting }) => (
+-                <LoginFormContainer title={'Reset Password'} css={tw`w-full flex`}>
++                <LoginFormContainer title={'Redefinir senha'} css={tw`w-full flex`}>
+                     <div>
+-                        <Label>Email Address</Label>
++                        <Label>Endereço de e-mail</Label>
+                         <Input value={email} disabled />
+                     </div>
+                     <div css={tw`mt-6`}>
+                         <Field
+-                            label={'New Password'}
++                            label={'Nova senha'}
+                             name={'password'}
+                             type={'password'}
+-                            description={'Passwords must be at least 8 characters in length.'}
++                            description={'As senhas devem ter pelo menos 8 caracteres.'}
+                         />
+                     </div>
+                     <div css={tw`mt-6`}>
+-                        <Field label={'Confirm New Password'} name={'passwordConfirmation'} type={'password'} />
++                        <Field label={'Confirmar nova senha'} name={'passwordConfirmation'} type={'password'} />
+                     </div>
+                     <div css={tw`mt-6`}>
+                         <Button className={'w-full'} size={Button.Sizes.Large} type={'submit'} disabled={isSubmitting}>
+-                            Reset Password
++                            Redefinir senha
+                         </Button>
+                     </div>
+                     <div css={tw`mt-6 text-center`}>
+@@ -88,7 +88,7 @@ function ResetPasswordContainer() {
+                             to={'/auth/login'}
+                             css={tw`text-xs text-neutral-300 tracking-wide no-underline uppercase font-medium hover:text-neutral-600`}
+                         >
+-                            Return to Login
++                            Voltar para o login
+                         </Link>
+                     </div>
+                 </LoginFormContainer>

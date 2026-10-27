@@ -1,0 +1,216 @@
+From: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+Date: Tue, 27 Oct 2026 09:53:23 -0300
+Subject: i18n: traduz assistente de configuração inicial do painel administrativo
+
+Description:
+Traduz o fluxo de configuração inicial do Jexactyl (SetupContainer,
+MigrationChecker, ModeSelection e ThemeSelect), incluindo a verificação de
+migração de dados legados, escolha do modo de operação do painel e seleção da
+cor primária do tema.
+
+Origin: vendor
+Forwarded: not-needed
+Applied-Upstream: no
+Last-Update: 2026-10-27
+Signed-off-by: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+
+---
+
+diff --git a/resources/scripts/components/admin/setup/MigrationChecker.tsx b/resources/scripts/components/admin/setup/MigrationChecker.tsx
+index 1c285a4ec..cbe98ba22 100644
+--- a/resources/scripts/components/admin/setup/MigrationChecker.tsx
++++ b/resources/scripts/components/admin/setup/MigrationChecker.tsx
+@@ -22,37 +22,37 @@ export default () => {
+         <div>
+             <div className={'w-full flex flex-row items-center mb-8'}>
+                 <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
+-                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Checking for data</h2>
++                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Verificando dados</h2>
+                     <p
+                         className={
+                             'hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden'
+                         }
+                     >
+-                        We&apos;re checking the database for any old data to migrate.
++                        Estamos verificando o banco de dados em busca de dados antigos para migrar.
+                     </p>
+                 </div>
+             </div>
+             <div className={'grid lg:grid-cols-2 gap-4'}>
+-                <AdminBox title={'Users'} icon={faUser}>
++                <AdminBox title={'Usuários'} icon={faUser}>
+                     {loading ? <Spinner centered /> : data.users}
+-                    &nbsp;ready for migration
++                    &nbsp;pronto para migração
+                 </AdminBox>
+                 <AdminBox title={'Nodes'} icon={faLayerGroup}>
+                     {loading ? <Spinner centered /> : data.nodes}
+-                    &nbsp;ready for migration
++                    &nbsp;pronto para migração
+                 </AdminBox>
+-                <AdminBox title={'Servers'} icon={faServer}>
++                <AdminBox title={'Servidores'} icon={faServer}>
+                     {loading ? <Spinner centered /> : data.servers}
+-                    &nbsp;ready for migration
++                    &nbsp;pronto para migração
+                 </AdminBox>
+                 <AdminBox title={'Eggs'} icon={faPuzzlePiece}>
+                     {loading ? <Spinner centered /> : data.eggs}
+-                    &nbsp;ready for migration
++                    &nbsp;pronto para migração
+                 </AdminBox>
+             </div>
+             {!loading && data.users === 1 && (
+                 <Alert type={'warning'}>
+-                    Expecting to see data from an old installation here? Contact our Discord for support.
++                    Esperava ver dados de uma instalação antiga aqui? Fale com nosso Discord para obter suporte.
+                 </Alert>
+             )}
+         </div>
+diff --git a/resources/scripts/components/admin/setup/ModeSelection.tsx b/resources/scripts/components/admin/setup/ModeSelection.tsx
+index d510d6e1b..891cdf0d3 100644
+--- a/resources/scripts/components/admin/setup/ModeSelection.tsx
++++ b/resources/scripts/components/admin/setup/ModeSelection.tsx
+@@ -21,41 +21,42 @@ export default () => {
+         <div>
+             <div className={'w-full flex flex-row items-center mb-8'}>
+                 <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
+-                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Mode Selection</h2>
++                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Seleção de modo</h2>
+                     <p
+                         className={
+                             'hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden'
+                         }
+                     >
+-                        Select how you want to run Jexactyl.
++                        Selecione como você quer executar o Jexactyl.
+                     </p>
+                 </div>
+             </div>
+             <div className={'grid lg:grid-cols-2 gap-8'}>
+                 <div className={'bg-black/25 rounded-xl w-full p-8 relative'}>
+                     <PersonalModeSvg color={primary} />
+-                    <p className={'text-2xl lg:text-4xl font-bold mb-2'}>Personal Mode</p>
++                    <p className={'text-2xl lg:text-4xl font-bold mb-2'}>Modo pessoal</p>
+                     <p className={'text-gray-400'}>
+-                        Personal Mode allows you to run Jexpanelin standard settings, with basic features enable by
+-                        default. It gives you all the great typical features of a game hosting panel without any
+-                        business-oriented features making it a cluttered experience.
++                        O Modo pessoal permite executar o Jexpanel com configurações padrão, com recursos básicos
++                        ativados por padrão. Ele oferece todos os ótimos recursos típicos de um painel de hospedagem de
++                        jogos sem recursos voltados a negócios que poluam a experiência.
+                     </p>
+                     <div className={'absolute top-0 right-0 p-3'}>
+                         <Button.Text disabled={mode === 'personal'} onClick={() => updateMode('personal')}>
+-                            Select{mode === 'personal' && 'ed'}
++                            {mode === 'personal' ? 'Selecionado' : 'Selecionar'}
+                         </Button.Text>
+                     </div>
+                 </div>
+                 <div className={'bg-black/25 rounded-xl w-full p-8 relative'}>
+                     <StandardMoveSvg color={primary} />
+-                    <p className={'text-2xl lg:text-4xl font-bold mb-2'}>Standard Mode</p>
++                    <p className={'text-2xl lg:text-4xl font-bold mb-2'}>Modo padrão</p>
+                     <p className={'text-gray-400'}>
+-                        Standard Mode allows all of the Jexpanelfeatures by default, such as billing, tickets, webhooks
+-                        and more. It&apos;s ideal for businesses or large groups who need more control over their users.
++                        O Modo padrão inclui todos os recursos do Jexpanel por padrão, como faturamento, tickets,
++                        webhooks e mais. É ideal para empresas ou grupos grandes que precisam de mais controle sobre
++                        seus usuários.
+                     </p>
+                     <div className={'absolute top-0 right-0 p-3'}>
+                         <Button.Text disabled={mode === 'standard'} onClick={() => updateMode('standard')}>
+-                            Select{mode === 'standard' && 'ed'}
++                            {mode === 'standard' ? 'Selecionado' : 'Selecionar'}
+                         </Button.Text>
+                     </div>
+                 </div>
+diff --git a/resources/scripts/components/admin/setup/SetupContainer.tsx b/resources/scripts/components/admin/setup/SetupContainer.tsx
+index 2b6a37acd..15e181c18 100644
+--- a/resources/scripts/components/admin/setup/SetupContainer.tsx
++++ b/resources/scripts/components/admin/setup/SetupContainer.tsx
+@@ -33,11 +33,9 @@ export default () => {
+                 {stage === 1 && (
+                     <div>
+                         <h1 className={'text-5xl lg:text-8xl'}>
+-                            Welcome to <span style={{ color: primary }}>Jexactyl</span>
++                            Bem-vindo ao <span style={{ color: primary }}>Jexactyl</span>
+                         </h1>
+-                        <p className={'italic text-gray-400 text-center'}>
+-                            It&apos;s great to have you here. Let&apos;s get started.
+-                        </p>
++                        <p className={'italic text-gray-400 text-center'}>É ótimo ter você aqui. Vamos começar.</p>
+                     </div>
+                 )}
+                 {stage === 2 && <MigrationChecker />}
+@@ -46,30 +44,30 @@ export default () => {
+                 {stage === 5 && (
+                     <div>
+                         <h1 className={'text-5xl lg:text-8xl'}>
+-                            Thanks for choosing <span style={{ color: primary }}>Jexactyl</span>
++                            Obrigado por escolher <span style={{ color: primary }}>Jexactyl</span>
+                         </h1>
+                         <p className={'italic text-gray-400 text-center'}>
+-                            Your instance has been configured and is ready for use.
++                            Sua instância foi configurada e está pronta para uso.
+                         </p>
+                     </div>
+                 )}
+                 <div className={'absolute bottom-12 right-12 space-x-2'}>
+                     {stage > 1 ? (
+                         <Button.Text onClick={() => setStage(stage - 1)} variant={Button.Variants.Secondary}>
+-                            Go Back <FontAwesomeIcon icon={faArrowLeft} className={'ml-2 mt-1'} />
++                            Voltar <FontAwesomeIcon icon={faArrowLeft} className={'ml-2 mt-1'} />
+                         </Button.Text>
+                     ) : (
+                         <Button.Text onClick={doFinish} variant={Button.Variants.Secondary}>
+-                            Skip Setup <FontAwesomeIcon icon={faXmark} className={'ml-2 mt-1'} />
++                            Pular configuração inicial <FontAwesomeIcon icon={faXmark} className={'ml-2 mt-1'} />
+                         </Button.Text>
+                     )}
+                     {stage < 5 ? (
+                         <Button onClick={() => setStage(stage + 1)}>
+-                            Continue <FontAwesomeIcon icon={faArrowRight} className={'ml-2 mt-1'} />
++                            Continuar <FontAwesomeIcon icon={faArrowRight} className={'ml-2 mt-1'} />
+                         </Button>
+                     ) : (
+                         <Button onClick={doFinish}>
+-                            Finish <FontAwesomeIcon icon={faCheckCircle} className={'ml-2 mt-1'} />
++                            Concluir <FontAwesomeIcon icon={faCheckCircle} className={'ml-2 mt-1'} />
+                         </Button>
+                     )}
+                 </div>
+diff --git a/resources/scripts/components/admin/setup/ThemeSelect.tsx b/resources/scripts/components/admin/setup/ThemeSelect.tsx
+index dd3064fc0..e2d4042f4 100644
+--- a/resources/scripts/components/admin/setup/ThemeSelect.tsx
++++ b/resources/scripts/components/admin/setup/ThemeSelect.tsx
+@@ -41,17 +41,17 @@ export default ({ defaultColor }: { defaultColor: string }) => {
+         <div>
+             <div className={'w-full flex flex-row items-center mb-8'}>
+                 <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
+-                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Theme Preferences</h2>
++                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Preferências de tema</h2>
+                     <p
+                         className={
+                             'hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden'
+                         }
+                     >
+-                        Select a preferred primary color for your Panel UI.
++                        Selecione uma cor primária de preferência para a interface do seu Painel.
+                     </p>
+                 </div>
+             </div>
+-            <AdminBox status={status} title={'Set Primary Color'}>
++            <AdminBox status={status} title={'Definir cor primária'}>
+                 <div className={'grid grid-cols-4 lg:grid-cols-8 gap-4 lg:gap-8'}>
+                     {colorOptions.map(option => (
+                         <div
+@@ -75,7 +75,7 @@ export default ({ defaultColor }: { defaultColor: string }) => {
+                     ))}
+                 </div>
+             </AdminBox>
+-            <p className={'text-gray-400 mt-2 text-right'}>Select a color from the options to apply it.</p>
++            <p className={'text-gray-400 mt-2 text-right'}>Selecione uma cor nas opções para aplicá-la.</p>
+         </div>
+     );
+ };

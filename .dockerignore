@@ -1,0 +1,17 @@
+# Contexto de build do Jexactyl: so entra o necessario para montar a imagem.
+# O workspace .upstream e gerado localmente (make setup) e nunca vai para a imagem.
+.upstream/
+.br-cache/
+.opencode/
+backups/
+dist/
+docs/
+i18n/
+jx-tools/
+node_modules/
+.git/
+.github/
+.vscode/
+*.log
+.env
+CACHE.md

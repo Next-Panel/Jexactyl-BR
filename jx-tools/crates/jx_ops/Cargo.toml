@@ -1,0 +1,13 @@
+[package]
+name = "jx_ops"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+test-support = []
+
+[dependencies]
+jx_core = { path = "../jx_core" }
+jx_git = { path = "../jx_git" }
+jx_patch = { path = "../jx_patch" }
+thiserror = "1"

@@ -1,0 +1,3024 @@
+From: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+Date: Tue, 27 Oct 2026 09:53:20 -0300
+Subject: i18n: traduz módulos administrativos de IA, autenticação, loja e tickets
+
+Description:
+Traduz os quatro módulos principais do painel administrativo: Jexactyl AI
+(configuração de Gemini e Ollama e console de testes), Autenticação (SSO com
+Discord e Google, cadastro, onboarding, políticas de segurança e JGuard),
+Faturamento (visão geral, gráficos de receita, categorias, produtos, pedidos,
+faturas, cupons, prazos, importação/exportação, exceções e guia da Stripe) e
+Tickets de suporte.
+
+Origin: vendor
+Forwarded: not-needed
+Applied-Upstream: no
+Last-Update: 2026-10-27
+Signed-off-by: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+
+---
+
+diff --git a/resources/scripts/components/admin/modules/ai/AIRouter.tsx b/resources/scripts/components/admin/modules/ai/AIRouter.tsx
+index 5039a7c84..3378797de 100644
+--- a/resources/scripts/components/admin/modules/ai/AIRouter.tsx
++++ b/resources/scripts/components/admin/modules/ai/AIRouter.tsx
+@@ -27,15 +27,15 @@ export default () => {
+                             'hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden'
+                         }
+                     >
+-                        Use Artificial Intelligence to add more power to Jexactyl.
++                        Use inteligência artificial para dar mais poder ao Jexactyl.
+                     </p>
+                 </div>
+             </div>
+             <SubNavigation>
+-                <SubNavigationLink to={'/admin/ai'} name={'General'} base>
++                <SubNavigationLink to={'/admin/ai'} name={'Geral'} base>
+                     <SparklesIcon />
+                 </SubNavigationLink>
+-                <SubNavigationLink to={'/admin/ai/settings'} name={'Options'}>
++                <SubNavigationLink to={'/admin/ai/settings'} name={'Opções'}>
+                     <CogIcon />
+                 </SubNavigationLink>
+             </SubNavigation>
+diff --git a/resources/scripts/components/admin/modules/ai/ConfigureAI.tsx b/resources/scripts/components/admin/modules/ai/ConfigureAI.tsx
+index 210c68be2..4799cfaa3 100644
+--- a/resources/scripts/components/admin/modules/ai/ConfigureAI.tsx
++++ b/resources/scripts/components/admin/modules/ai/ConfigureAI.tsx
+@@ -35,14 +35,14 @@ export default () => {
+     }, [key]);
+ 
+     return (
+-        <Dialog open onClose={() => undefined} preventExternalClose hideCloseIcon title={'Configure JexpanelAI'}>
++        <Dialog open onClose={() => undefined} preventExternalClose hideCloseIcon title={'Configurar JexpanelAI'}>
+             <SpinnerOverlay visible={loading} />
+             <p className={'text-gray-400'}>
+-                In order to use <span style={{ color: theme.primary }}>JexpanelAI</span>, you must get a Gemini API key
+-                from Google.
++                Para usar <span style={{ color: theme.primary }}>JexpanelAI</span>, obtenha uma chave de API do Gemini
++                do Google.
+             </p>
+             <p className={'text-gray-400 my-2'}>
+-                You can visit the{' '}
++                Visite o{' '}
+                 <a
+                     href={'https://aistudio.google.com/'}
+                     rel={'noreferrer'}
+@@ -52,12 +52,12 @@ export default () => {
+                     AI Studio
+                     <FontAwesomeIcon icon={faExternalLink} className={'mb-1.5 ml-0.5 h-2 w-2'} />
+                 </a>
+-                &nbsp;and obtain an API key to use.
++                &nbsp;e obtenha uma chave de API para usar.
+             </p>
+             <div className={'relative'}>
+-                <Input placeholder={'Enter API key here...'} onChange={e => setKey(e.currentTarget.value)} />
++                <Input placeholder={'Digite a chave de API aqui...'} onChange={e => setKey(e.currentTarget.value)} />
+                 {!key || key.length < 30 || key.length > 60 ? (
+-                    <Tooltip placement={'right'} content={'You must enter a valid Google AI key to continue.'}>
++                    <Tooltip placement={'right'} content={'Informe uma chave de IA válida do Google para continuar.'}>
+                         <FontAwesomeIcon
+                             icon={faExclamationTriangle}
+                             className={'absolute top-1/3 right-4 text-yellow-500'}
+diff --git a/resources/scripts/components/admin/modules/ai/EnableAI.tsx b/resources/scripts/components/admin/modules/ai/EnableAI.tsx
+index 1205e00cf..8a129bc0a 100644
+--- a/resources/scripts/components/admin/modules/ai/EnableAI.tsx
++++ b/resources/scripts/components/admin/modules/ai/EnableAI.tsx
+@@ -9,9 +9,9 @@ export default () => {
+ 
+     return (
+         <FeatureContainer image={<AISvg color={primary} />} icon={faWandMagicSparkles} title={'JexpanelAI'}>
+-            Use Jexactyl&apos;s Artificial Intelligence suite to give users better insights into errors, provide instant
+-            support and help administrators take better control over their Panel. Jexpaneluses Gemini AI in order to
+-            serve intelligence requests.
++            Use a suíte de inteligência artificial do Jexactyl para dar aos usuários mais detalhes sobre erros, oferecer
++            suporte instantâneo e ajudar os administradores a ter mais controle sobre o painel. O Jexpanel usa Gemini IA
++            para atender às solicitações de inteligência.
+             <p className={'text-right mt-2'}>
+                 <ToggleFeatureButton />
+             </p>
+diff --git a/resources/scripts/components/admin/modules/ai/OverviewContainer.tsx b/resources/scripts/components/admin/modules/ai/OverviewContainer.tsx
+index 0c4fa14ed..756ca06f8 100644
+--- a/resources/scripts/components/admin/modules/ai/OverviewContainer.tsx
++++ b/resources/scripts/components/admin/modules/ai/OverviewContainer.tsx
+@@ -30,8 +30,8 @@ function DisplayMessage({ primary, result, loading }: Props) {
+     if (result && result === 'error') {
+         return (
+             <>
+-                <XCircleIcon className={'w-4 h-4 inline-flex text-red-400'} /> An error occurred. Please try again
+-                later.
++                <XCircleIcon className={'w-4 h-4 inline-flex text-red-400'} /> Ocorreu um erro. Tente novamente mais
++                tarde.
+             </>
+         );
+     }
+@@ -47,7 +47,7 @@ function DisplayMessage({ primary, result, loading }: Props) {
+ 
+     return (
+         <>
+-            <SparklesIcon className={'w-4 h-4 inline-flex'} style={{ color: primary }} /> waiting for query
++            <SparklesIcon className={'w-4 h-4 inline-flex'} style={{ color: primary }} /> aguardando consulta
+         </>
+     );
+ }
+@@ -86,21 +86,21 @@ export default () => {
+                 </div>
+                 <div className={'w-full bg-zinc-800 rounded-b px-4 py-2 inline-flex'}>
+                     <FontAwesomeIcon icon={faChevronRight} className={'my-auto mr-4'} />
+-                    <Input className={'font-mono'} placeholder={'Ask JexpanelAI a question'} onKeyDown={submit} />
++                    <Input className={'font-mono'} placeholder={'Pergunte ao JexpanelAI'} onKeyDown={submit} />
+                 </div>
+             </div>
+             <div className={'col-span-2 space-y-4'}>
+                 <Alert type={'warning'} className={'mt-16 md:mt-0'}>
+-                    JexpanelAI relies on Google Gemini models for requests. Information provided could be inaccurate or
+-                    outdated. Use with caution!
++                    O JexpanelAI usa os modelos Gemini do Google para as solicitações. As informações fornecidas podem
++                    estar imprecisas ou desatualizadas. Use com cautela!
+                 </Alert>
+                 <Alert type={'info'}>
+-                    API requests are limited on Gemini&apos;s public API to 120/second - if you experience ratelimiting,
+-                    you may need to upgrade your license.
++                    As solicitações de API são limitadas na API pública do Gemini a 120/second - se você atingir o
++                    limite de requisições, talvez seja necessário atualizar sua licença.
+                 </Alert>
+-                <AdminBox title={'Disable JexpanelAI'} className={'col-span-2 h-min'}>
+-                    Clicking the button below will disable JexpanelAI for both clients and administrators. Your API key
+-                    will remain in the database unless you choose to delete it manually.
++                <AdminBox title={'Desativar JexpanelAI'} className={'col-span-2 h-min'}>
++                    Clicar no botão abaixo desativará o JexpanelAI para clientes e administradores. Sua chave de API
++                    permanecerá no banco de dados, a menos que você opte por excluí-la manualmente.
+                     <div className={'text-right mt-2'}>
+                         <ToggleFeatureButton />
+                     </div>
+diff --git a/resources/scripts/components/admin/modules/ai/SettingsContainer.tsx b/resources/scripts/components/admin/modules/ai/SettingsContainer.tsx
+index e564103c2..d1055e3ee 100644
+--- a/resources/scripts/components/admin/modules/ai/SettingsContainer.tsx
++++ b/resources/scripts/components/admin/modules/ai/SettingsContainer.tsx
+@@ -20,7 +20,7 @@ export default () => {
+                 addFlash({
+                     type: 'success',
+                     key: 'admin:ai:settings',
+-                    message: 'Settings have been updated successfully.',
++                    message: 'Configurações atualizadas com sucesso.',
+                 });
+             })
+             .catch(error => {
+@@ -40,10 +40,10 @@ export default () => {
+         >
+             <Form>
+                 <div className={'grid lg:grid-cols-4 gap-4'}>
+-                    <AdminBox title={'Client-side AI'} icon={faUser}>
++                    <AdminBox title={'IA para clientes'} icon={faUser}>
+                         <div>
+                             <div className={'inline-flex'}>
+-                                <Label className={'mt-1 mr-2'}>Allow standard users to use AI?</Label>
++                                <Label className={'mt-1 mr-2'}>Permitir que usuários padrão usem IA?</Label>
+                                 <Field
+                                     id={'user_access'}
+                                     name={'user_access'}
+@@ -52,27 +52,27 @@ export default () => {
+                                 />
+                             </div>
+                             <p className={'text-gray-400 text-xs mt-1.5'}>
+-                                If enabled, standard Jexpanelusers will be able to interact with JexpanelAI as well as
+-                                administrators.
++                                Se ativado, os usuários padrão do Jexpanel também poderão interagir com o JexpanelAI,
++                                assim como os administradores.
+                             </p>
+                         </div>
+                     </AdminBox>
+-                    <AdminBox title={'Modify API Key'} icon={faKey}>
++                    <AdminBox title={'Alterar chave de API'} icon={faKey}>
+                         <div>
+                             <Field id={'key'} name={'key'} type={'input'} />
+                             <p className={'text-gray-400 text-xs mt-1.5'}>
+-                                If you are experiencing &apos;Invalid API Key&apos; errors, you can enter a new one here
+-                                to reset it.
++                                Se você estiver recebendo erros &apos;Invalid API Key&apos;, informe uma nova chave aqui
++                                para redefini-la.
+                             </p>
+                         </div>
+                     </AdminBox>
+                 </div>
+                 <div className={'w-full flex flex-row items-center mt-6'}>
+                     <div className={'flex text-xs text-gray-500'}>
+-                        These changes may not apply until this page is reloaded.
++                        Essas alterações podem não ser aplicadas até que esta página seja recarregada.
+                     </div>
+                     <div className={'flex ml-auto'}>
+-                        <Button type="submit">Save Changes</Button>
++                        <Button type="submit">Salvar alterações</Button>
+                     </div>
+                 </div>
+             </Form>
+diff --git a/resources/scripts/components/admin/modules/ai/ToggleFeatureButton.tsx b/resources/scripts/components/admin/modules/ai/ToggleFeatureButton.tsx
+index f71451eb0..d5c01fdab 100644
+--- a/resources/scripts/components/admin/modules/ai/ToggleFeatureButton.tsx
++++ b/resources/scripts/components/admin/modules/ai/ToggleFeatureButton.tsx
+@@ -14,7 +14,7 @@ export default () => {
+ 
+     return (
+         <div className={'mr-4'} onClick={submit}>
+-            {!ai.enabled ? <Button>Enable JexpanelAI</Button> : <Button.Danger>Disable JexpanelAI</Button.Danger>}
++            {!ai.enabled ? <Button>Ativar JexpanelAI</Button> : <Button.Danger>Desativar JexpanelAI</Button.Danger>}
+         </div>
+     );
+ };
+diff --git a/resources/scripts/components/admin/modules/auth/AuthContainer.tsx b/resources/scripts/components/admin/modules/auth/AuthContainer.tsx
+index ebe526010..985b4da5f 100644
+--- a/resources/scripts/components/admin/modules/auth/AuthContainer.tsx
++++ b/resources/scripts/components/admin/modules/auth/AuthContainer.tsx
+@@ -17,9 +17,9 @@ export default () => {
+     const modules = useStoreState(state => state.everest.data!.auth.modules);
+ 
+     return (
+-        <AdminContentBlock title={'Authentication'}>
++        <AdminContentBlock title={'Autenticação'}>
+             {visible && (
+-                <Dialog title={'Add Modules'} open={visible} onClose={() => setVisible(false)}>
++                <Dialog title={'Adicionar módulos'} open={visible} onClose={() => setVisible(false)}>
+                     <div className={'space-y-3'}>
+                         <AuthModules />
+                     </div>
+@@ -27,11 +27,11 @@ export default () => {
+             )}
+             <div css={tw`w-full flex flex-row items-center mb-8`}>
+                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
+-                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Authentication</h2>
++                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Autenticação</h2>
+                     <p
+                         css={tw`hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}
+                     >
+-                        Configure and manage the authentication flow for users.
++                        Configure e gerencie o fluxo de autenticação dos usuários.
+                     </p>
+                 </div>
+                 <div css={tw`flex ml-auto pl-4`}>
+@@ -41,7 +41,7 @@ export default () => {
+                         onClick={() => setVisible(true)}
+                         css={tw`h-10 px-4 py-0 whitespace-nowrap`}
+                     >
+-                        Add Module
++                        Adicionar módulo
+                     </Button>
+                 </div>
+             </div>
+diff --git a/resources/scripts/components/admin/modules/auth/Box.tsx b/resources/scripts/components/admin/modules/auth/Box.tsx
+index 5692a020a..61ac9c699 100644
+--- a/resources/scripts/components/admin/modules/auth/Box.tsx
++++ b/resources/scripts/components/admin/modules/auth/Box.tsx
+@@ -36,7 +36,7 @@ export default ({ name, title, disabled, recommended, description, icon }: Props
+     return (
+         <AdminBox title={title} icon={icon ?? faPuzzlePiece}>
+             <Button value={name} onClick={() => submit()} className={'h-8 absolute top-0 right-0 m-2'}>
+-                Add to Panel
++                Adicionar ao painel
+             </Button>
+             {description}
+             {recommended && (
+diff --git a/resources/scripts/components/admin/modules/auth/Modules.tsx b/resources/scripts/components/admin/modules/auth/Modules.tsx
+index e1117966b..ea39c4ebe 100644
+--- a/resources/scripts/components/admin/modules/auth/Modules.tsx
++++ b/resources/scripts/components/admin/modules/auth/Modules.tsx
+@@ -21,13 +21,13 @@ export default () => {
+             <Box
+                 icon={faDoorOpen}
+                 name={'onboarding'}
+-                title={'Onboarding'}
++                title={'Primeiros passos'}
+                 disabled={modules.onboarding.enabled}
+                 recommended={
+-                    "It is strongly recommended you use this module with OAuth modules. If you don't, users may be without a password."
++                    'É altamente recomendável usar este módulo com os módulos OAuth. Caso contrário, os usuários podem ficar sem senha.'
+                 }
+                 description={
+-                    'This module allows users to create usernames and passwords after signing up with an OAuth provider.'
++                    'Este módulo permite que os usuários criem nome de usuário e senha após se cadastrarem com um provedor OAuth.'
+                 }
+             />
+             <Box
+@@ -35,21 +35,27 @@ export default () => {
+                 icon={faShieldHalved}
+                 title={'jGuard'}
+                 disabled={modules.jguard.enabled}
+-                description={'Detects alt account signups and adds an optional access delay for new users.'}
++                description={
++                    'Detecta cadastros de contas alternativas e adiciona um atraso de acesso opcional para novos usuários.'
++                }
+             />
+             <Box
+                 name={'discord'}
+                 icon={faDiscord}
+                 title={'Discord SSO'}
+                 disabled={modules.discord.enabled}
+-                description={'This module allows users to sign up and login via the Discord Authentication API.'}
++                description={
++                    'Este módulo permite que os usuários se cadastrem e entrem pela API de autenticação do Discord.'
++                }
+             />
+             <Box
+                 name={'google'}
+                 icon={faGoogle}
+                 title={'Google SSO'}
+                 disabled={modules.google.enabled}
+-                description={'This module allows users to sign up and login via the Google Auth API.'}
++                description={
++                    'Este módulo permite que os usuários se cadastrem e entrem pela API de autenticação do Google.'
++                }
+             />
+         </>
+     );
+diff --git a/resources/scripts/components/admin/modules/auth/Registration.tsx b/resources/scripts/components/admin/modules/auth/Registration.tsx
+index 408cc8ab2..2ea310b2f 100644
+--- a/resources/scripts/components/admin/modules/auth/Registration.tsx
++++ b/resources/scripts/components/admin/modules/auth/Registration.tsx
+@@ -28,9 +28,9 @@ export default () => {
+     };
+ 
+     return (
+-        <AdminBox title={'Registration Module'} icon={faUserPlus} byKey={'auth:registration'} status={status}>
++        <AdminBox title={'Módulo de cadastro'} icon={faUserPlus} byKey={'auth:registration'} status={status}>
+             <div>
+-                <Label>Allow User Registration</Label>
++                <Label>Permitir cadastro de usuários</Label>
+                 <Select
+                     id={'enabled'}
+                     name={'enabled'}
+@@ -38,21 +38,21 @@ export default () => {
+                     autoComplete={'off'}
+                 >
+                     <option value={1} selected={settings.enabled}>
+-                        Enabled
++                        Ativado
+                     </option>
+                     <option value={0} selected={!settings.enabled}>
+-                        Disabled
++                        Desativado
+                     </option>
+                 </Select>
+                 <p className={'text-xs text-gray-400 mt-1'}>
+-                    Toggle whether users can register using the built-in pages.
++                    Defina se os usuários podem se cadastrar nas páginas integradas.
+                 </p>
+             </div>
+             {!settings.enabled && (
+                 <Alert type={'warning'} className={'mt-6'}>
+                     <span className={'text-xs'}>
+-                        Since registration is disabled, OAuth modules like Discord will only allow users to login - not
+-                        register.
++                        Como o cadastro está desativado, módulos OAuth como o Discord só permitirão que os usuários
++                        entrem, sem criar conta.
+                     </span>
+                 </Alert>
+             )}
+diff --git a/resources/scripts/components/admin/modules/auth/Security.tsx b/resources/scripts/components/admin/modules/auth/Security.tsx
+index f4f915104..cfed90739 100644
+--- a/resources/scripts/components/admin/modules/auth/Security.tsx
++++ b/resources/scripts/components/admin/modules/auth/Security.tsx
+@@ -26,9 +26,9 @@ export default () => {
+     };
+ 
+     return (
+-        <AdminBox title={'Security Module'} icon={faLock} byKey={'auth:security'} status={status}>
++        <AdminBox title={'Módulo de segurança'} icon={faLock} byKey={'auth:security'} status={status}>
+             <div>
+-                <Label>Force Two-Factor Authentication</Label>
++                <Label>Exigir autenticação de dois fatores</Label>
+                 <Select
+                     id={'force2fa'}
+                     name={'force2fa'}
+@@ -36,16 +36,18 @@ export default () => {
+                     autoComplete={'off'}
+                 >
+                     <option value={1} selected={settings.force2fa}>
+-                        Enabled
++                        Ativado
+                     </option>
+                     <option value={0} selected={!settings.force2fa}>
+-                        Disabled
++                        Desativado
+                     </option>
+                 </Select>
+-                <p className={'text-xs text-gray-400 mt-1'}>Toggle whether users must use two-factor authentication.</p>
++                <p className={'text-xs text-gray-400 mt-1'}>
++                    Defina se os usuários devem usar a autenticação de dois fatores.
++                </p>
+             </div>
+             <div className={'mt-6'}>
+-                <Label>Login Attempt Limit</Label>
++                <Label>Limite de tentativas de login</Label>
+                 <Input
+                     placeholder={`${settings.attempts ?? 3}`}
+                     id={'attempts'}
+@@ -55,7 +57,7 @@ export default () => {
+                     onChange={e => update('attempts', e.target.value)}
+                 />
+                 <p className={'text-xs text-gray-400 mt-1'}>
+-                    Set the maximum amount of attempts a user can make to login before being throttled.
++                    Defina o número máximo de tentativas de login antes de limitar temporariamente o usuário.
+                 </p>
+             </div>
+         </AdminBox>
+diff --git a/resources/scripts/components/admin/modules/auth/modules/DiscordSSO.tsx b/resources/scripts/components/admin/modules/auth/modules/DiscordSSO.tsx
+index 59f8d2c20..8472a0dae 100644
+--- a/resources/scripts/components/admin/modules/auth/modules/DiscordSSO.tsx
++++ b/resources/scripts/components/admin/modules/auth/modules/DiscordSSO.tsx
+@@ -47,7 +47,7 @@ export default () => {
+ 
+     return (
+         <AdminBox
+-            title={'Discord SSO Module'}
++            title={'Módulo Discord SSO'}
+             icon={faDiscord}
+             byKey={'auth:modules:discord'}
+             status={status}
+@@ -55,18 +55,18 @@ export default () => {
+         >
+             <Dialog.Confirm
+                 open={confirm}
+-                title={'Confirm module removal'}
++                title={'Confirmar remoção do módulo'}
+                 onConfirmed={() => doDeletion()}
+                 onClose={() => setConfirm(false)}
+             >
+-                Are you sure you wish to delete this module?
++                Tem certeza de que deseja excluir este módulo?
+             </Dialog.Confirm>
+             <TrashIcon
+                 className={'w-5 h-5 absolute top-0 right-0 m-3.5 text-red-500 hover:text-red-300 duration-300'}
+                 onClick={() => setConfirm(true)}
+             />
+             <div>
+-                <Label>Client Identifier {!settings.clientId && <RequiredFieldIcon />}</Label>
++                <Label>Identificador do cliente {!settings.clientId && <RequiredFieldIcon />}</Label>
+                 <Input
+                     autoComplete={'off'}
+                     id={'client_id'}
+@@ -76,19 +76,19 @@ export default () => {
+                     placeholder={settings.clientId ? '••••••••••••••••' : ''}
+                 />
+                 <p className={'text-xs text-gray-400 mt-1'}>
+-                    Set the Discord Client ID. You can find this in the{' '}
++                    Defina o ID do cliente do Discord. Você pode encontrá-lo no{' '}
+                     <Link
+                         to={'https://discord.com/developers/docs/intro'}
+                         style={{ color: colors.primary }}
+                         className={'hover:brightness-125 duration-300'}
+                     >
+-                        Developer Portal
++                        Portal do desenvolvedor
+                     </Link>
+                     .
+                 </p>
+             </div>
+             <div className={'my-6'}>
+-                <Label>Client Secret {!settings.clientSecret && <RequiredFieldIcon />}</Label>
++                <Label>Segredo do cliente {!settings.clientSecret && <RequiredFieldIcon />}</Label>
+                 <Input
+                     autoComplete={'off'}
+                     id={'client_secret'}
+@@ -98,20 +98,20 @@ export default () => {
+                     placeholder={settings.clientSecret ? '••••••••••••••••' : ''}
+                 />
+                 <p className={'text-xs text-gray-400 mt-1'}>
+-                    Set the Discord Client Secret. You can find this in the{' '}
++                    Defina o segredo do cliente do Discord. Você pode encontrá-lo no{' '}
+                     <Link
+                         to={'https://discord.com/developers/docs/intro'}
+                         style={{ color: colors.primary }}
+                         className={'hover:brightness-125 duration-300'}
+                     >
+-                        Developer Portal
++                        Portal do desenvolvedor
+                     </Link>
+                     .
+                 </p>
+             </div>
+             <Alert type={'info'}>
+                 <div>
+-                    Use the following Callback URL:
++                    Use a seguinte URL de retorno:
+                     <p className={'bg-black/50 p-1 rounded-lg font-mono w-fit mt-2'}>
+                         /auth/modules/discord/authenticate
+                     </p>
+diff --git a/resources/scripts/components/admin/modules/auth/modules/GoogleSSO.tsx b/resources/scripts/components/admin/modules/auth/modules/GoogleSSO.tsx
+index 22861d379..cf173bf29 100644
+--- a/resources/scripts/components/admin/modules/auth/modules/GoogleSSO.tsx
++++ b/resources/scripts/components/admin/modules/auth/modules/GoogleSSO.tsx
+@@ -44,22 +44,22 @@ export default () => {
+     };
+ 
+     return (
+-        <AdminBox title={'Google SSO Module'} icon={faGoogle} byKey={'auth:modules:google'} status={status} canDelete>
++        <AdminBox title={'Módulo Google SSO'} icon={faGoogle} byKey={'auth:modules:google'} status={status} canDelete>
+             <FlashMessageRender byKey={'auth:modules:google'} className={'my-2'} />
+             <Dialog.Confirm
+                 open={confirm}
+-                title={'Confirm module removal'}
++                title={'Confirmar remoção do módulo'}
+                 onConfirmed={() => doDeletion()}
+                 onClose={() => setConfirm(false)}
+             >
+-                Are you sure you wish to delete this module?
++                Tem certeza de que deseja excluir este módulo?
+             </Dialog.Confirm>
+             <TrashIcon
+                 className={'w-5 h-5 absolute top-0 right-0 m-3.5 text-red-500 hover:text-red-300 duration-300'}
+                 onClick={() => setConfirm(true)}
+             />
+             <div>
+-                <Label>Client Identifier {!settings.clientId && <RequiredFieldIcon />}</Label>
++                <Label>Identificador do cliente {!settings.clientId && <RequiredFieldIcon />}</Label>
+                 <Input
+                     autoComplete={'off'}
+                     id={'client_id'}
+@@ -69,10 +69,10 @@ export default () => {
+                     placeholder={settings.clientId ? '••••••••••••••••' : ''}
+                 />
+ 
+-                <p className={'text-xs text-gray-400 mt-1'}>Set the Google Client ID.</p>
++                <p className={'text-xs text-gray-400 mt-1'}>Defina o ID do cliente do Google.</p>
+             </div>
+             <div className={'my-6'}>
+-                <Label>Client Secret {!settings.clientSecret && <RequiredFieldIcon />}</Label>
++                <Label>Segredo do cliente {!settings.clientSecret && <RequiredFieldIcon />}</Label>
+                 <Input
+                     autoComplete={'off'}
+                     id={'client_secret'}
+@@ -81,11 +81,11 @@ export default () => {
+                     onChange={e => update('client_secret', e.target.value)}
+                     placeholder={settings.clientSecret ? '••••••••••••••••' : ''}
+                 />
+-                <p className={'text-xs text-gray-400 mt-1'}>Set the Google Client Secret.</p>
++                <p className={'text-xs text-gray-400 mt-1'}>Defina o segredo do cliente do Google.</p>
+             </div>
+             <Alert type={'info'}>
+                 <div>
+-                    Use the following Callback URL:
++                    Use a seguinte URL de retorno:
+                     <p className={'bg-black/50 p-1 rounded-lg font-mono w-fit mt-2'}>
+                         /auth/modules/google/authenticate
+                     </p>
+diff --git a/resources/scripts/components/admin/modules/auth/modules/JGuard.tsx b/resources/scripts/components/admin/modules/auth/modules/JGuard.tsx
+index 07ae240a5..b22d92bf4 100644
+--- a/resources/scripts/components/admin/modules/auth/modules/JGuard.tsx
++++ b/resources/scripts/components/admin/modules/auth/modules/JGuard.tsx
+@@ -54,18 +54,18 @@ export default () => {
+             {success && <CheckCircleIcon className={'w-5 h-5 absolute top-0 right-8 m-3.5 text-green-500'} />}
+             <Dialog.Confirm
+                 open={confirm}
+-                title={'Confirm module removal'}
++                title={'Confirmar remoção do módulo'}
+                 onConfirmed={() => doDeletion()}
+                 onClose={() => setConfirm(false)}
+             >
+-                Are you sure you wish to delete this module?
++                Tem certeza de que deseja excluir este módulo?
+             </Dialog.Confirm>
+             <TrashIcon
+                 className={'w-5 h-5 absolute top-0 right-0 m-3.5 text-red-500 hover:text-red-300 duration-300'}
+                 onClick={() => setConfirm(true)}
+             />
+             <div>
+-                <Label>Automatic approval delay</Label>
++                <Label>Atraso na aprovação automática</Label>
+                 <Input
+                     autoComplete={'off'}
+                     id={'delay'}
+@@ -75,12 +75,12 @@ export default () => {
+                     onChange={e => update('delay', parseInt(e.target.value))}
+                 />
+                 <p className={'text-xs text-gray-400 mt-1'}>
+-                    If you wish to automatically approve user signups, this variable can make it so that users cannot
+-                    access the Panel for a certain period of time in order to prevent bot attacks.
++                    Se você quiser aprovar cadastros automaticamente, esta opção impede que os usuários acessem o painel
++                    por um período para evitar ataques de bots.
+                 </p>
+             </div>
+             <div className={'mt-6'}>
+-                <Label>Alt account detection sensitivity</Label>
++                <Label>Sensibilidade da detecção de contas alternativas</Label>
+                 <Select
+                     id={'sensitivity'}
+                     name={'sensitivity'}
+@@ -88,14 +88,15 @@ export default () => {
+                     onChange={e => update('sensitivity', e.target.value)}
+                     autoComplete={'off'}
+                 >
+-                    <option value={'low'}>Low</option>
+-                    <option value={'medium'}>Medium</option>
+-                    <option value={'high'}>High</option>
++                    <option value={'low'}>Baixa</option>
++                    <option value={'medium'}>Média</option>
++                    <option value={'high'}>Alta</option>
+                 </Select>
+                 <p className={'text-xs text-gray-400 mt-1'}>
+-                    Controls how quickly jGuard blocks new signups from an IP address that has recently registered or
+-                    failed to log in multiple times. Higher sensitivity blocks alt accounts more aggressively, but may
+-                    also affect legitimate users signing up from a shared IP (e.g. school or office networks).
++                    Controla a rapidez com que o jGuard bloqueia novos cadastros de um endereço IP que se cadastrou
++                    recentemente ou errou o login várias vezes. Uma sensibilidade maior bloqueia contas alternativas com
++                    mais rigor, mas pode afetar usuários legítimos que se cadastram de um IP compartilhado (por exemplo,
++                    redes de escola ou escritório).
+                 </p>
+             </div>
+         </AdminBox>
+diff --git a/resources/scripts/components/admin/modules/auth/modules/Onboarding.tsx b/resources/scripts/components/admin/modules/auth/modules/Onboarding.tsx
+index bc0d304f8..605bd91ca 100644
+--- a/resources/scripts/components/admin/modules/auth/modules/Onboarding.tsx
++++ b/resources/scripts/components/admin/modules/auth/modules/Onboarding.tsx
+@@ -48,42 +48,43 @@ export default () => {
+     };
+ 
+     return (
+-        <AdminBox title={'Onboarding'} icon={faDoorOpen}>
++        <AdminBox title={'Primeiros passos'} icon={faDoorOpen}>
+             <FlashMessageRender byKey={'auth:modules:onboarding'} className={'my-2'} />
+             {loading && <Spinner className={'absolute top-0 right-8 m-3.5'} size={'small'} />}
+             {success && <CheckCircleIcon className={'w-5 h-5 absolute top-0 right-8 m-3.5 text-green-500'} />}
+             <Dialog.Confirm
+                 open={confirm}
+-                title={'Confirm module removal'}
++                title={'Confirmar remoção do módulo'}
+                 onConfirmed={() => doDeletion()}
+                 onClose={() => setConfirm(false)}
+             >
+-                Are you sure you wish to delete this module?
++                Tem certeza de que deseja excluir este módulo?
+             </Dialog.Confirm>
+             <TrashIcon
+                 className={'w-5 h-5 absolute top-0 right-0 m-3.5 text-red-500 hover:text-red-300 duration-300'}
+                 onClick={() => setConfirm(true)}
+             />
+             <div>
+-                <Label>Content</Label>
++                <Label>Conteúdo</Label>
+                 <Input
+                     autoComplete={'off'}
+                     id={'content'}
+                     type={'text'}
+                     name={'content'}
+-                    defaultValue={content || "You can change these at any time in the 'Account' tab."}
++                    defaultValue={content || "Você pode alterá-los a qualquer momento na aba 'Conta'."}
+                     onChange={e => update('content', e.target.value)}
+                 />
+                 <p className={'text-xs text-gray-400 mt-1'}>
+-                    Set the description that should be displayed in the Onboarding dialog. You can leave this empty if
+-                    you wish.
++                    Defina a descrição exibida na caixa de diálogo de primeiros passos. Você pode deixá-la vazia se
++                    quiser.
+                 </p>
+             </div>
+             {force2fa && (
+                 <Alert type={'info'} className={'mt-6'}>
+                     <span className={'text-xs'}>
+-                        Since &apos;Force 2FA&apos; is enabled, a box will be shown to users in the Onboarding dialog
+-                        which informs users they must enable two-factor to use the Panel.
++                        Como a opção &apos;Exigir 2FA&apos; está ativada, os usuários verão uma caixa na caixa de
++                        diálogo de primeiros passos informando que precisam ativar a autenticação de dois fatores para
++                        usar o painel.
+                     </span>
+                 </Alert>
+             )}
+diff --git a/resources/scripts/components/admin/modules/billing/BillingLinksForm.tsx b/resources/scripts/components/admin/modules/billing/BillingLinksForm.tsx
+index 8d0b4c614..b322f12ab 100644
+--- a/resources/scripts/components/admin/modules/billing/BillingLinksForm.tsx
++++ b/resources/scripts/components/admin/modules/billing/BillingLinksForm.tsx
+@@ -24,19 +24,19 @@ const LinksForm = () => {
+                 <Field
+                     id={'terms'}
+                     name={'terms'}
+-                    label={'Terms of Service URL'}
++                    label={'URL dos ToS'}
+                     placeholder={settings.links.terms}
+                     type={'text'}
+                 />
+                 <Field
+                     id={'privacy'}
+                     name={'privacy'}
+-                    label={'Privacy Policy URL'}
++                    label={'URL da Política de privacidade'}
+                     placeholder={settings.links.privacy}
+                     type={'text'}
+                 />
+                 <div css={tw`lg:col-span-2 flex items-center justify-end`}>
+-                    <Button type={'submit'}>Save</Button>
++                    <Button type={'submit'}>Salvar</Button>
+                 </div>
+             </Form>
+         </>
+diff --git a/resources/scripts/components/admin/modules/billing/BillingRouter.tsx b/resources/scripts/components/admin/modules/billing/BillingRouter.tsx
+index 14c77c9c8..16eca8fe2 100644
+--- a/resources/scripts/components/admin/modules/billing/BillingRouter.tsx
++++ b/resources/scripts/components/admin/modules/billing/BillingRouter.tsx
+@@ -36,9 +36,9 @@ export default () => {
+         <>
+             <div className={'w-full flex flex-row items-center mb-8'}>
+                 <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
+-                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Billing</h2>
++                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Faturamento</h2>
+                     <p className={'text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden'}>
+-                        Configure the billing settings for this panel.
++                        Configure as definições de faturamento deste painel.
+                     </p>
+                 </div>
+             </div>
+@@ -46,28 +46,28 @@ export default () => {
+             <FlashMessageRender byKey={'admin:billing'} className={'mb-4'} />
+ 
+             <SubNavigation>
+-                <SubNavigationLink to={'/admin/billing'} name={'Overview'} base>
++                <SubNavigationLink to={'/admin/billing'} name={'Visão geral'} base>
+                     <DesktopComputerIcon />
+                 </SubNavigationLink>
+-                <SubNavigationLink to={'/admin/billing/categories'} name={'Products'}>
++                <SubNavigationLink to={'/admin/billing/categories'} name={'Produtos'}>
+                     <ViewGridIcon />
+                 </SubNavigationLink>
+-                <SubNavigationLink to={'/admin/billing/orders'} name={'Orders'}>
++                <SubNavigationLink to={'/admin/billing/orders'} name={'Pedidos'}>
+                     <ShoppingCartIcon />
+                 </SubNavigationLink>
+-                <SubNavigationLink to={'/admin/billing/invoices'} name={'Invoices'}>
++                <SubNavigationLink to={'/admin/billing/invoices'} name={'Faturas'}>
+                     <DocumentTextIcon />
+                 </SubNavigationLink>
+-                <SubNavigationLink to={'/admin/billing/exceptions'} name={'Exceptions'}>
++                <SubNavigationLink to={'/admin/billing/exceptions'} name={'Exceções'}>
+                     <XCircleIcon />
+                 </SubNavigationLink>
+-                <SubNavigationLink to={'/admin/billing/renewal-dates'} name={'Renewal Dates'}>
++                <SubNavigationLink to={'/admin/billing/renewal-dates'} name={'Datas de renovação'}>
+                     <CalendarIcon />
+                 </SubNavigationLink>
+-                <SubNavigationLink to={'/admin/billing/discount-codes'} name={'Discount Codes'}>
++                <SubNavigationLink to={'/admin/billing/discount-codes'} name={'Cupons de desconto'}>
+                     <CurrencyDollarIcon />
+                 </SubNavigationLink>
+-                <SubNavigationLink to={'/admin/billing/settings'} name={'Settings'}>
++                <SubNavigationLink to={'/admin/billing/settings'} name={'Configurações'}>
+                     <CogIcon />
+                 </SubNavigationLink>
+             </SubNavigation>
+diff --git a/resources/scripts/components/admin/modules/billing/EnableBilling.tsx b/resources/scripts/components/admin/modules/billing/EnableBilling.tsx
+index 755fe865f..9566d892b 100644
+--- a/resources/scripts/components/admin/modules/billing/EnableBilling.tsx
++++ b/resources/scripts/components/admin/modules/billing/EnableBilling.tsx
+@@ -8,10 +8,14 @@ export default () => {
+     const primary = useStoreState(state => state.theme.data!.colors.primary);
+ 
+     return (
+-        <FeatureContainer image={<BillingSvg color={primary} />} icon={faMoneyBillWave} title={'Billing System'}>
+-            Use Jexactyl&apos;s billing and payment system to create subscriptions, manage customers and update
+-            balances. View PDF invoices, manually change subscription details and so much more with our easy-to-use
+-            interface and deep integration with third-party payment gateways like Stripe and PayPal.
++        <FeatureContainer
++            image={<BillingSvg color={primary} />}
++            icon={faMoneyBillWave}
++            title={'Sistema de faturamento'}
++        >
++            Use o sistema de faturamento e pagamento do Jexactyl para criar assinaturas, gerenciar clientes e atualizar
++            saldos. Veja faturas em PDF, altere detalhes da assinatura manualmente e muito mais com nossa interface
++            fácil de usar e integração profunda com gateways de pagamento de terceiros como Stripe e PayPal.
+             <p className={'text-right mt-2'}>
+                 <ToggleFeatureButton />
+             </p>
+diff --git a/resources/scripts/components/admin/modules/billing/RenewalDatesContainer.tsx b/resources/scripts/components/admin/modules/billing/RenewalDatesContainer.tsx
+index adf526347..049d262fe 100644
+--- a/resources/scripts/components/admin/modules/billing/RenewalDatesContainer.tsx
++++ b/resources/scripts/components/admin/modules/billing/RenewalDatesContainer.tsx
+@@ -41,14 +41,14 @@ export default () => {
+             addFlash({
+                 key: 'admin:billing',
+                 type: 'success',
+-                message: 'Renewal settings updated successfully.',
++                message: 'Configurações de renovação atualizadas com sucesso.',
+             });
+         } catch (error) {
+             console.error(error);
+             addFlash({
+                 key: 'admin:billing',
+                 type: 'error',
+-                message: 'Failed to update renewal settings.',
++                message: 'Falha ao atualizar as configurações de renovação.',
+             });
+         } finally {
+             setLoading(false);
+@@ -60,13 +60,13 @@ export default () => {
+             <FlashMessageRender byKey={'admin:billing'} className={'mb-4'} />
+ 
+             <div className={'grid lg:grid-cols-2 gap-4'}>
+-                <AdminBox title={'Renewal Days Addition'} icon={faCalendar}>
++                <AdminBox title={'Adição de dias de renovação'} icon={faCalendar}>
+                     <p className={'text-gray-400 mb-4'}>
+-                        Number of days that should be added to a billable server when a renewal is processed, by default
+-                        30 days.
++                        Número de dias adicionados a um servidor faturável quando uma renovação é processada, por padrão
++                        30 dias.
+                     </p>
+                     <div>
+-                        <Label>Days</Label>
++                        <Label>Dias</Label>
+                         <Input
+                             type={'number'}
+                             min={1}
+@@ -76,17 +76,18 @@ export default () => {
+                             disabled={loading}
+                         />
+                         <p className={'text-xs text-gray-500 mt-2'}>
+-                            When a billable server is purchased or renewed, it will be active for this many days.
++                            Quando um servidor faturável é comprado ou renovado, ele ficará ativo por essa quantidade de
++                            dias.
+                         </p>
+                     </div>
+                 </AdminBox>
+ 
+-                <AdminBox title={'Deletion Threshold'} icon={faClock}>
++                <AdminBox title={'Limite de exclusão'} icon={faClock}>
+                     <p className={'text-gray-400 mb-4'}>
+-                        Number of days after expiration before a billable server is automatically deleted.
++                        Número de dias após o vencimento antes que um servidor faturável seja excluído automaticamente.
+                     </p>
+                     <div>
+-                        <Label>Days</Label>
++                        <Label>Dias</Label>
+                         <Input
+                             type={'number'}
+                             min={0}
+@@ -96,7 +97,7 @@ export default () => {
+                             disabled={loading}
+                         />
+                         <p className={'text-xs text-gray-500 mt-2'}>
+-                            Billable servers will be deleted after this many days of missing the renewal.
++                            Servidores faturáveis serão excluídos após essa quantidade de dias sem renovação.
+                         </p>
+                     </div>
+                 </AdminBox>
+@@ -104,7 +105,7 @@ export default () => {
+ 
+             <div className={'flex justify-end mt-6'}>
+                 <Button onClick={handleSaveAll} disabled={loading}>
+-                    {loading ? 'Saving...' : 'Save All Settings'}
++                    {loading ? 'Salvando...' : 'Salvar todas as configurações'}
+                 </Button>
+             </div>
+         </div>
+diff --git a/resources/scripts/components/admin/modules/billing/SettingsContainer.tsx b/resources/scripts/components/admin/modules/billing/SettingsContainer.tsx
+index 70e5e60b9..86517c213 100644
+--- a/resources/scripts/components/admin/modules/billing/SettingsContainer.tsx
++++ b/resources/scripts/components/admin/modules/billing/SettingsContainer.tsx
+@@ -45,10 +45,10 @@ export default () => {
+     return (
+         <div className={'grid lg:grid-cols-3 gap-4'}>
+             {open === 'setup' && <SetupStripe extOpen />}
+-            <AdminBox title={'Primary Currency'} icon={faDollar}>
+-                Choose a primary currency to charge users.
++            <AdminBox title={'Moeda principal'} icon={faDollar}>
++                Escolha uma moeda principal para cobrar os usuários.
+                 <div className={'mt-4'}>
+-                    <Label>Currency Code / Name</Label>
++                    <Label>Código / Nome da moeda</Label>
+                     <Select onChange={handleCurrencyChange}>
+                         {Object.keys(currencyDictionary).map(code => (
+                             <option
+@@ -63,61 +63,62 @@ export default () => {
+                     </Select>
+                 </div>
+             </AdminBox>
+-            <AdminBox title={'Allow Self Upgrades'} icon={faArrowsUpDown}>
++            <AdminBox title={'Permitir upgrades próprios'} icon={faArrowsUpDown}>
+                 <p className={'text-sm'}>
+-                    Having this service enabled means users can upgrade and downgrade to different products within their
+-                    existing category. A bill will automatically be generated if users with to upgrade before their
+-                    renewal is due, to ensure that they will pay for the usage of the upgraded plan. The user will not
+-                    be able to then change their plan for another 30 days after a change to prevent abuse.
++                    Com este serviço ativado, os usuários podem fazer upgrade e downgrade para produtos diferentes
++                    dentro da categoria atual. Uma fatura será gerada automaticamente se os usuários quiserem fazer
++                    upgrade antes do vencimento da renovação, para garantir o pagamento pelo uso do plano melhorado. O
++                    usuário não poderá trocar de plano novamente por 30 dias após uma alteração para evitar abusos.
+                 </p>
+                 <p className={'text-gray-400 mt-2'}>
+-                    This service is currently&nbsp;
++                    Este serviço está atualmente&nbsp;
+                     <span className={settings.allow_upgrades ? 'text-green-500' : 'text-red-500'}>
+-                        {settings.allow_upgrades ? 'enabled' : 'disabled'}
++                        {settings.allow_upgrades ? 'ativado' : 'desativado'}
+                     </span>
+                     .
+                 </p>
+                 <div className={'text-right mt-2'}>
+                     <Button.Text onClick={() => submit('allow_upgrades', !settings.allow_upgrades)}>
+-                        {settings.allow_upgrades ? 'Disable' : 'Enable'}
++                        {settings.allow_upgrades ? 'Desativar' : 'Ativar'}
+                     </Button.Text>
+                 </div>
+             </AdminBox>
+-            <AdminBox title={'Import/Export Configuration'} icon={faExchange}>
++            <AdminBox title={'Importar/Exportar configuração'} icon={faExchange}>
+                 <FlashMessageRender byKey={'billing:config'} className={'mb-2'} />
+-                Use the below options to either export your current billing configurations, or use the Import button to
+-                import a pre-created set of categories and products to Jexactyl.
++                Use as opções abaixo para exportar suas configurações atuais de faturamento ou use o botão Importar para
++                importar um conjunto pronto de categorias e produtos para o Jexactyl.
+                 <div className={'text-right mt-3'}>
+                     <ExportConfigButton />
+                     <ImportConfigButton />
+                 </div>
+             </AdminBox>
+             {!settings.keys.secret ? (
+-                <AdminBox title={'Input Stripe API Keys'} icon={faKey}>
+-                    Without Stripe API authentication, your billing system will not work. Customers may proceed to the
+-                    checkout area but will be met with errors unless you add valid API keys which can be obtained
+-                    through the Stripe dashboard.
++                <AdminBox title={'Informar chaves de API da Stripe'} icon={faKey}>
++                    Sem a autenticação da API da Stripe, seu sistema de faturamento não funcionará. Os clientes podem
++                    prosseguir para a área de finalização da compra, mas encontrarão erros a menos que você adicione
++                    chaves de API válidas, que podem ser obtidas no painel da Stripe.
+                     <div className={'text-right mt-3'}>
+-                        <Button onClick={() => setOpen('setup')}>Add API keys</Button>
++                        <Button onClick={() => setOpen('setup')}>Adicionar chaves de API</Button>
+                     </div>
+                 </AdminBox>
+             ) : (
+-                <AdminBox title={'Reset Stripe API keys'} icon={faKey}>
+-                    By resetting the Stripe API keys saved to the panel, all billing services (such as purchasing or
+-                    renewing a product) will stop working until new API keys are entered. Are you sure you wish to
+-                    continue?
++                <AdminBox title={'Redefinir chaves de API da Stripe'} icon={faKey}>
++                    Ao redefinir as chaves de API da Stripe salvas no painel, todos os serviços de faturamento (como
++                    comprar ou renovar um produto) pararão de funcionar até que novas chaves de API sejam informadas.
++                    Tem certeza de que deseja continuar?
+                     <div className={'text-right mt-3'}>
+-                        <Button.Danger onClick={onDeleteKeys}>Yes, delete API keys</Button.Danger>
++                        <Button.Danger onClick={onDeleteKeys}>Sim, excluir chaves de API</Button.Danger>
+                     </div>
+                 </AdminBox>
+             )}
+-            <AdminBox title={'Legal Document Links'} icon={faGavel}>
+-                Provide a link to your business&apos; ToS or privacy policy that users must accept before purchase.
++            <AdminBox title={'Links de documentos legais'} icon={faGavel}>
++                Informe um link para os ToS ou para a política de privacidade da sua empresa que os usuários devem
++                aceitar antes da compra.
+                 <BillingLinksForm />
+             </AdminBox>
+-            <AdminBox title={'Disable Billing Module'} icon={faPowerOff}>
+-                Clicking the button below will disable all modules of the billing system - such as subscriptions, server
+-                purchasing and more. Make sure that this will not impact your users before disabling.
++            <AdminBox title={'Desativar módulo de faturamento'} icon={faPowerOff}>
++                Clicar no botão abaixo desativará todos os módulos do sistema de faturamento - como assinaturas, compra
++                de servidores e mais. Certifique-se de que isso não afetará seus usuários antes de desativar.
+                 <div className={'text-right mt-3'}>
+                     <ToggleFeatureButton />
+                 </div>
+diff --git a/resources/scripts/components/admin/modules/billing/ToggleFeatureButton.tsx b/resources/scripts/components/admin/modules/billing/ToggleFeatureButton.tsx
+index f744f8492..f2c1cb9df 100644
+--- a/resources/scripts/components/admin/modules/billing/ToggleFeatureButton.tsx
++++ b/resources/scripts/components/admin/modules/billing/ToggleFeatureButton.tsx
+@@ -14,7 +14,11 @@ export default () => {
+ 
+     return (
+         <div className={'mr-4'} onClick={submit}>
+-            {!enabled ? <Button>Enable Billing Module</Button> : <Button.Danger>Disable Billing Module</Button.Danger>}
++            {!enabled ? (
++                <Button>Ativar módulo de faturamento</Button>
++            ) : (
++                <Button.Danger>Desativar módulo de faturamento</Button.Danger>
++            )}
+         </div>
+     );
+ };
+diff --git a/resources/scripts/components/admin/modules/billing/config/ExportConfigButton.tsx b/resources/scripts/components/admin/modules/billing/config/ExportConfigButton.tsx
+index 16a6fd72d..0a82fa94f 100644
+--- a/resources/scripts/components/admin/modules/billing/config/ExportConfigButton.tsx
++++ b/resources/scripts/components/admin/modules/billing/config/ExportConfigButton.tsx
+@@ -15,7 +15,7 @@ export default () => {
+                 addFlash({
+                     key: 'billing:config',
+                     type: 'success',
+-                    message: 'Billing configuration exported successfully.',
++                    message: 'Configuração de faturamento exportada com sucesso.',
+                 });
+             })
+             .catch(error => clearAndAddHttpError({ key: 'billing:config', error }));
+@@ -24,7 +24,7 @@ export default () => {
+     return (
+         <>
+             <Button onClick={submit}>
+-                <FontAwesomeIcon icon={faDownload} className={'mr-1'} /> Export
++                <FontAwesomeIcon icon={faDownload} className={'mr-1'} /> Exportar
+             </Button>
+         </>
+     );
+diff --git a/resources/scripts/components/admin/modules/billing/config/ImportConfigButton.tsx b/resources/scripts/components/admin/modules/billing/config/ImportConfigButton.tsx
+index 13542d0be..87bafc314 100644
+--- a/resources/scripts/components/admin/modules/billing/config/ImportConfigButton.tsx
++++ b/resources/scripts/components/admin/modules/billing/config/ImportConfigButton.tsx
+@@ -27,7 +27,11 @@ export default () => {
+ 
+     const handleUploadClick = () => {
+         if (!file) {
+-            addFlash({ key: 'billing:config', type: 'warning', message: 'No JSON file was selected for upload.' });
++            addFlash({
++                key: 'billing:config',
++                type: 'warning',
++                message: 'Nenhum arquivo JSON foi selecionado para envio.',
++            });
+             return;
+         }
+ 
+@@ -44,7 +48,11 @@ export default () => {
+                     .then(() => {
+                         setLoading(false);
+                         setOpen(false);
+-                        addFlash({ key: 'billing:config', type: 'success', message: 'Import completed successfully' });
++                        addFlash({
++                            key: 'billing:config',
++                            type: 'success',
++                            message: 'Importação concluída com sucesso',
++                        });
+                     })
+                     .catch(error => {
+                         setLoading(false);
+@@ -65,16 +73,16 @@ export default () => {
+         <>
+             <Dialog.Confirm
+                 onConfirmed={handleUploadClick}
+-                confirm={'Import Configuration'}
++                confirm={'Importar configuração'}
+                 open={open}
+                 onClose={() => setOpen(false)}
+-                title={'Choose JSON to import'}
++                title={'Escolha o JSON para importar'}
+             >
+                 <SpinnerOverlay visible={loading} />
+                 {override && (
+                     <Alert type={'warning'}>
+-                        It is strongly recommended to export your current configuration before overriding it, as it
+-                        cannot be recovered.
++                        É altamente recomendável exportar sua configuração atual antes de substituí-la, pois ela não
++                        poderá ser recuperada.
+                     </Alert>
+                 )}
+                 <input type="file" accept=".json" onChange={handleFileChange} className={'mt-4'} />
+@@ -82,8 +90,8 @@ export default () => {
+                     <Switch
+                         onChange={() => setOverride(!override)}
+                         name={'override'}
+-                        label={'Delete existing categories and products?'}
+-                        description={'This will completely erase your existing products for sale.'}
++                        label={'Excluir categorias e produtos existentes?'}
++                        description={'Isso apagará por completo seus produtos à venda.'}
+                     />
+                 </div>
+                 {!override && (
+@@ -92,16 +100,16 @@ export default () => {
+                             onChange={() => setIgnoreDuplicates(!ignoreDuplicates)}
+                             name={'ignoreDuplicates'}
+                             defaultChecked={ignoreDuplicates}
+-                            label={'Ignore duplicate values?'}
++                            label={'Ignorar valores duplicados?'}
+                             description={
+-                                'Setting this to true will mean that products/categories with identical names will be ignored.'
++                                'Ativar essa opção fará com que produtos/categorias com nomes idênticos sejam ignorados.'
+                             }
+                         />
+                     </div>
+                 )}
+             </Dialog.Confirm>
+             <Button onClick={() => setOpen(true)} className={'ml-2'}>
+-                <FontAwesomeIcon icon={faUpload} className={'mr-1'} /> Import
++                <FontAwesomeIcon icon={faUpload} className={'mr-1'} /> Importar
+             </Button>
+         </>
+     );
+diff --git a/resources/scripts/components/admin/modules/billing/discounts/DeleteDiscountCodeButton.tsx b/resources/scripts/components/admin/modules/billing/discounts/DeleteDiscountCodeButton.tsx
+index 66d683161..608ac8bb2 100644
+--- a/resources/scripts/components/admin/modules/billing/discounts/DeleteDiscountCodeButton.tsx
++++ b/resources/scripts/components/admin/modules/billing/discounts/DeleteDiscountCodeButton.tsx
+@@ -15,7 +15,7 @@ export default ({ id }: { id: number }) => {
+             .then(() => {
+                 addFlash({
+                     key: 'admin:billing:discount-codes',
+-                    message: 'Discount code removed successfully',
++                    message: 'Cupom de desconto removido com sucesso',
+                     type: 'success',
+                 });
+             })
+@@ -27,15 +27,15 @@ export default ({ id }: { id: number }) => {
+             <Dialog.Confirm
+                 open={open}
+                 onClose={() => setOpen(false)}
+-                title={'Confirm discount code deletion'}
++                title={'Confirmar exclusão do cupom de desconto'}
+                 onConfirmed={submit}
+             >
+-                Are you sure you wish to delete this discount code? It will not be able to be used for new orders.
+-                Users` who already recieve an active discount from this code will continue to gain the discount on
+-                their` account until it runs out.
++                Tem certeza de que deseja excluir este cupom de desconto? Ele não poderá ser usado em novos pedidos.
++                Usuários que já recebem um desconto ativo deste cupom continuarão com o desconto na conta até ele
++                acabar.
+             </Dialog.Confirm>
+             <Button.Danger className={'ml-2'} type={'button'} size={Button.Sizes.Small} onClick={() => setOpen(true)}>
+-                Delete
++                Excluir
+             </Button.Danger>
+         </>
+     );
+diff --git a/resources/scripts/components/admin/modules/billing/discounts/DiscountCodeDialog.tsx b/resources/scripts/components/admin/modules/billing/discounts/DiscountCodeDialog.tsx
+index a3b4814b7..779f97dd8 100644
+--- a/resources/scripts/components/admin/modules/billing/discounts/DiscountCodeDialog.tsx
++++ b/resources/scripts/components/admin/modules/billing/discounts/DiscountCodeDialog.tsx
+@@ -32,7 +32,7 @@ export default ({ discountCode }: { discountCode?: DiscountCode }) => {
+ 
+     const { form, update } = useTypedForm<DiscountCodeValues>({
+         code: discountCode?.code ?? 'SAVE25',
+-        description: discountCode?.description ?? 'Get 25% off our products.',
++        description: discountCode?.description ?? 'Ganhe 25% de desconto em nossos produtos.',
+ 
+         type: discountCode?.type ?? type,
+         value: discountCode?.value ?? 25,
+@@ -68,14 +68,14 @@ export default ({ discountCode }: { discountCode?: DiscountCode }) => {
+             <Dialog
+                 open={open}
+                 onClose={() => setOpen(false)}
+-                title={`${edit ? 'Edit existing' : 'Create new'} discount code`}
++                title={`${edit ? 'Editar' : 'Criar novo'} cupom de desconto`}
+             >
+                 <SpinnerOverlay visible={loading} />
+                 <div className="space-y-4">
+                     <div className={'grid lg:grid-cols-2 gap-4'}>
+                         <div>
+                             <Label>
+-                                <FontAwesomeIcon icon={faTeletype} /> Discount Code
++                                <FontAwesomeIcon icon={faTeletype} /> Cupom de desconto
+                             </Label>
+                             <Input
+                                 name={'code'}
+@@ -84,13 +84,12 @@ export default ({ discountCode }: { discountCode?: DiscountCode }) => {
+                                 placeholder={'SAVE25'}
+                             />
+                             <p className={'text-xs text-gray-400'}>
+-                                Enter a discount code that clients will use. Alternatively, you can generate a random
+-                                one.
++                                Informe um cupom de desconto que os clientes usarão. Ou gere um aleatório.
+                             </p>
+                         </div>
+                         <div>
+                             <Label>
+-                                <FontAwesomeIcon icon={faClock} /> Expiration Date
++                                <FontAwesomeIcon icon={faClock} /> Data de vencimento
+                             </Label>
+                             <Input
+                                 type="date"
+@@ -102,22 +101,22 @@ export default ({ discountCode }: { discountCode?: DiscountCode }) => {
+                                 }}
+                             />
+                             <p className={'text-xs text-gray-400'}>
+-                                If you wish, you can set a date at which the discount code will become inactive.
++                                Se quiser, você pode definir uma data em que o cupom de desconto ficará inativo.
+                             </p>
+                         </div>
+                     </div>
+                     <div>
+                         <Label>
+-                            <FontAwesomeIcon icon={faFileText} /> Code Description
++                            <FontAwesomeIcon icon={faFileText} /> Descrição do cupom
+                         </Label>
+                         <Input
+                             name={'description'}
+                             value={form.description}
+                             onChange={e => update('description', e.target.value)}
+-                            placeholder={'Get 25% off our services!'}
++                            placeholder={'Ganhe 25% de desconto em nossos serviços!'}
+                         />
+                         <p className={'text-xs text-gray-400'}>
+-                            Provide a description which gives an overview of the discount being provided.
++                            Informe uma descrição com um resumo do desconto oferecido.
+                         </p>
+                     </div>
+                 </div>
+@@ -125,7 +124,7 @@ export default ({ discountCode }: { discountCode?: DiscountCode }) => {
+                 <div className={'space-y-4'}>
+                     <div>
+                         <Label>
+-                            <FontAwesomeIcon icon={faMoneyBill1Wave} /> Discount Type
++                            <FontAwesomeIcon icon={faMoneyBill1Wave} /> Tipo de desconto
+                         </Label>
+                         <button
+                             type="button"
+@@ -138,7 +137,7 @@ export default ({ discountCode }: { discountCode?: DiscountCode }) => {
+                                 'rounded-l py-3 px-6 font-bold text-white w-1/2',
+                             )}
+                         >
+-                            Percentage Reduction (%)
++                            Redução percentual (%)
+                         </button>
+                         <button
+                             type="button"
+@@ -151,18 +150,18 @@ export default ({ discountCode }: { discountCode?: DiscountCode }) => {
+                                 'rounded-r py-3 px-6 font-bold text-white w-1/2',
+                             )}
+                         >
+-                            Numeric Value ({currency})
++                            Valor fixo ({currency})
+                         </button>
+                         <p className={'text-xs text-gray-400'}>
+-                            Choose whether the discount should be a percentage discount off the original cost or a flat
+-                            amount off the cost. It is recommended to use Percentage Reduction as that is the typical
+-                            retailer discount method.
++                            Escolha se o desconto deve ser um percentual sobre o custo original ou um valor fixo de
++                            desconto. É recomendável usar Redução percentual, pois é o método mais comum no varejo.
+                         </p>
+                     </div>
+                     <div className={'grid lg:grid-cols-2 gap-4'}>
+                         <div>
+                             <Label>
+-                                <FontAwesomeIcon icon={type === 'percentage' ? faPercent : faDollar} /> Discount Value
++                                <FontAwesomeIcon icon={type === 'percentage' ? faPercent : faDollar} /> Valor do
++                                desconto
+                             </Label>
+                             <Input
+                                 name={'value'}
+@@ -170,13 +169,13 @@ export default ({ discountCode }: { discountCode?: DiscountCode }) => {
+                                 onChange={e => update('value', Number(e.target.value))}
+                             />
+                             <p className={'text-xs text-gray-400'}>
+-                                Decide how much discount this code should give to clients when used, measured in{' '}
++                                Defina quanto de desconto este cupom deve dar aos clientes quando usado, medido em{' '}
+                                 {type === 'percentage' ? '%' : currency}.
+                             </p>
+                         </div>
+                         <div>
+                             <Label>
+-                                <FontAwesomeIcon icon={faUserPlus} /> Total Uses
++                                <FontAwesomeIcon icon={faUserPlus} /> Total de usos
+                             </Label>
+                             <Input
+                                 name={'uses'}
+@@ -184,7 +183,7 @@ export default ({ discountCode }: { discountCode?: DiscountCode }) => {
+                                 onChange={e => update('uses', Number(e.target.value))}
+                             />
+                             <p className={'text-xs text-gray-400'}>
+-                                Choose how many people can use this discount code before it expires.
++                                Escolha quantas pessoas podem usar este cupom de desconto antes que ele expire.
+                             </p>
+                         </div>
+                     </div>
+@@ -192,7 +191,7 @@ export default ({ discountCode }: { discountCode?: DiscountCode }) => {
+                 <div className={'h-px rounded-full bg-black/50 my-8'} />
+                 <div className={'bg-black/50 rounded-lg p-4'}>
+                     <div className={'inline-flex'}>
+-                        <Label className={'mr-2'}>Make discount code active now?</Label>
++                        <Label className={'mr-2'}>Ativar o cupom de desconto agora?</Label>
+                         <Switch
+                             name={'active'}
+                             defaultChecked={form.active}
+@@ -200,17 +199,17 @@ export default ({ discountCode }: { discountCode?: DiscountCode }) => {
+                         />
+                     </div>
+                     <p className={'text-xs text-gray-400'}>
+-                        Choose whether this discount code will be active immediately.
++                        Escolha se este cupom de desconto ficará ativo imediatamente.
+                     </p>
+                 </div>
+                 <div className={'text-right mt-8'}>
+                     <Button onClick={submit} type={'submit'}>
+-                        {edit ? 'Update' : 'Create'}
++                        {edit ? 'Atualizar' : 'Criar'}
+                     </Button>
+                 </div>
+             </Dialog>
+             <Button size={edit ? Button.Sizes.Small : Button.Sizes.Default} onClick={() => setOpen(true)}>
+-                {edit ? 'Edit' : 'Create New'}
++                {edit ? 'Editar' : 'Criar novo'}
+             </Button>
+         </>
+     );
+diff --git a/resources/scripts/components/admin/modules/billing/discounts/DiscountCodesContainer.tsx b/resources/scripts/components/admin/modules/billing/discounts/DiscountCodesContainer.tsx
+index 0dbe13326..0b2d26a9c 100644
+--- a/resources/scripts/components/admin/modules/billing/discounts/DiscountCodesContainer.tsx
++++ b/resources/scripts/components/admin/modules/billing/discounts/DiscountCodesContainer.tsx
+@@ -4,16 +4,16 @@ import DiscountCodeDialog from './DiscountCodeDialog';
+ import FlashMessageRender from '@/elements/FlashMessageRender';
+ 
+ export default () => (
+-    <AdminContentBlock title={'Billing Orders'}>
++    <AdminContentBlock title={'Cupons de desconto'}>
+         <div className={'w-full flex flex-row items-center p-8'}>
+             <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
+-                <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Discount Codes</h2>
++                <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Cupons de desconto</h2>
+                 <p
+                     className={
+                         'hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden'
+                     }
+                 >
+-                    The available discount codes for clients to use on checkout.
++                    Os cupons de desconto disponíveis para os clientes usarem na finalização da compra.
+                 </p>
+             </div>
+             <div className={'flex ml-auto pl-4 space-x-4'}>
+diff --git a/resources/scripts/components/admin/modules/billing/discounts/DiscountCodesTable.tsx b/resources/scripts/components/admin/modules/billing/discounts/DiscountCodesTable.tsx
+index 2ce87de9c..e1224741d 100644
+--- a/resources/scripts/components/admin/modules/billing/discounts/DiscountCodesTable.tsx
++++ b/resources/scripts/components/admin/modules/billing/discounts/DiscountCodesTable.tsx
+@@ -16,6 +16,7 @@ import { useContext, useEffect } from 'react';
+ import useFlash from '@/plugins/useFlash';
+ import { DiscountCodeFilters } from '@/api/routes/admin/billing';
+ import { formatDistanceToNowStrict } from 'date-fns';
++import { dateLocale } from '@/lib/dateLocale';
+ import { useStoreState } from '@/state/hooks';
+ import DiscountCodeDialog from './DiscountCodeDialog';
+ import DeleteDiscountCodeButton from './DeleteDiscountCodeButton';
+@@ -60,11 +61,11 @@ function DiscountCodesTable() {
+                                         direction={sort === 'id' ? (sortDirection ? 1 : 2) : null}
+                                         onClick={() => setSort('id')}
+                                     />
+-                                    <TableHeader name={'Code'} />
+-                                    <TableHeader name={'Discount'} />
+-                                    <TableHeader name={'Uses Left'} />
+-                                    <TableHeader name={'Expires At'} />
+-                                    <TableHeader name={'Created At'} />
++                                    <TableHeader name={'Cupom'} />
++                                    <TableHeader name={'Desconto'} />
++                                    <TableHeader name={'Usos restantes'} />
++                                    <TableHeader name={'Expira em'} />
++                                    <TableHeader name={'Criado em'} />
+                                     <TableHeader />
+                                 </TableHead>
+                                 <TableBody>
+@@ -97,21 +98,23 @@ function DiscountCodesTable() {
+                                                 </td>
+                                                 <td className={'px-6 py-4'}>
+                                                     {discountCode.value}
+-                                                    {discountCode.type === 'percentage' ? '%' : currency} off
++                                                    {discountCode.type === 'percentage' ? '%' : currency} de desconto
+                                                 </td>
+                                                 <td className={'px-6 py-4'}>
+-                                                    {discountCode.uses ? `${discountCode.uses} remaining` : 'Unlimited'}
++                                                    {discountCode.uses ? `${discountCode.uses} restantes` : 'Ilimitado'}
+                                                 </td>
+                                                 <td className={'px-6 py-4'}>
+                                                     {discountCode.expires_at
+                                                         ? formatDistanceToNowStrict(discountCode.expires_at, {
+                                                               addSuffix: true,
++                                                              locale: dateLocale(),
+                                                           })
+-                                                        : 'No Expiration'}
++                                                        : 'Sem vencimento'}
+                                                 </td>
+                                                 <td className={'px-6 py-4'}>
+                                                     {formatDistanceToNowStrict(discountCode.created_at, {
+                                                         addSuffix: true,
++                                                        locale: dateLocale(),
+                                                     })}
+                                                 </td>
+                                                 <td className={'px-6 py-4'}>
+diff --git a/resources/scripts/components/admin/modules/billing/exceptions/BillingExceptionsContainer.tsx b/resources/scripts/components/admin/modules/billing/exceptions/BillingExceptionsContainer.tsx
+index 49610b929..ec9846db9 100644
+--- a/resources/scripts/components/admin/modules/billing/exceptions/BillingExceptionsContainer.tsx
++++ b/resources/scripts/components/admin/modules/billing/exceptions/BillingExceptionsContainer.tsx
+@@ -10,21 +10,21 @@ export default () => {
+     };
+ 
+     return (
+-        <AdminContentBlock title={'Billing Exceptions'}>
++        <AdminContentBlock title={'Exceções de faturamento'}>
+             <div className={'w-full flex flex-row items-center p-8'}>
+                 <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
+-                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Exceptions</h2>
++                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Exceções</h2>
+                     <p
+                         className={
+                             'hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden'
+                         }
+                     >
+-                        View and resolve errors generated by the billing interface.
++                        Veja e resolva os erros gerados pela interface de faturamento.
+                     </p>
+                 </div>
+                 <div className={'ml-auto pl-4'}>
+                     <Button onClick={onResolveAll}>
+-                        <CheckCircleIcon className={'inline-flex w-5 h-5 mr-1 mt-0.5'} /> Resolve All
++                        <CheckCircleIcon className={'inline-flex w-5 h-5 mr-1 mt-0.5'} /> Resolver tudo
+                     </Button>
+                 </div>
+             </div>
+diff --git a/resources/scripts/components/admin/modules/billing/exceptions/BillingExceptionsTable.tsx b/resources/scripts/components/admin/modules/billing/exceptions/BillingExceptionsTable.tsx
+index f60380d80..ae4444c14 100644
+--- a/resources/scripts/components/admin/modules/billing/exceptions/BillingExceptionsTable.tsx
++++ b/resources/scripts/components/admin/modules/billing/exceptions/BillingExceptionsTable.tsx
+@@ -15,6 +15,7 @@ import { BillingExceptionContext, resolveBillingException, useGetBillingExceptio
+ import CopyOnClick from '@/elements/CopyOnClick';
+ import tw from 'twin.macro';
+ import { formatDistanceToNowStrict } from 'date-fns';
++import { dateLocale } from '@/lib/dateLocale';
+ import { Button } from '@/elements/button';
+ import { CheckCircleIcon } from '@heroicons/react/outline';
+ import Pill, { PillStatus } from '@/elements/Pill';
+@@ -33,6 +34,21 @@ function getColor(type: BillingExceptionType): PillStatus {
+     }
+ }
+ 
++function typeLabel(type: BillingExceptionType): string {
++    switch (type) {
++        case 'deployment':
++            return 'Implantação';
++        case 'payment':
++            return 'Pagamento';
++        case 'storefront':
++            return 'Loja';
++        case 'invoice':
++            return 'Fatura';
++        default:
++            return type;
++    }
++}
++
+ function BillingExceptionTable() {
+     const { data: exceptions } = useGetBillingExceptions();
+     const [resolved, setResolved] = useState<number[]>([]);
+@@ -61,15 +77,15 @@ function BillingExceptionTable() {
+                                     direction={sort === 'id' ? (sortDirection ? 1 : 2) : null}
+                                     onClick={() => setSort('id')}
+                                 />
+-                                <TableHeader name={'Exception'} />
+-                                <TableHeader name={'Resolution'} />
++                                <TableHeader name={'Exceção'} />
++                                <TableHeader name={'Resolução'} />
+                                 <TableHeader
+-                                    name={'Type'}
++                                    name={'Tipo'}
+                                     direction={sort === 'exception_type' ? (sortDirection ? 1 : 2) : null}
+                                     onClick={() => setSort('exception_type')}
+                                 />
+                                 <TableHeader
+-                                    name={'Created At'}
++                                    name={'Criado em'}
+                                     direction={sort === 'created_at' ? (sortDirection ? 1 : 2) : null}
+                                     onClick={() => setSort('created_at')}
+                                 />
+@@ -91,11 +107,14 @@ function BillingExceptionTable() {
+                                             <td className={'px-6 py-4'}>{exception.description}</td>
+                                             <td className={'px-6 py-4'}>
+                                                 <Pill type={getColor(exception.exception_type)}>
+-                                                    {exception.exception_type}
++                                                    {typeLabel(exception.exception_type)}
+                                                 </Pill>
+                                             </td>
+                                             <td className={'px-6 py-4'}>
+-                                                {formatDistanceToNowStrict(exception.created_at, { addSuffix: true })}
++                                                {formatDistanceToNowStrict(exception.created_at, {
++                                                    addSuffix: true,
++                                                    locale: dateLocale(),
++                                                })}
+                                             </td>
+                                             <td className={'px-6 py-4'}>
+                                                 {resolved.includes(exception.id) ? (
+@@ -105,7 +124,7 @@ function BillingExceptionTable() {
+                                                         disabled
+                                                     >
+                                                         <CheckCircleIcon className={'w-4 h-4 mt-[2px] mr-0.5'} />{' '}
+-                                                        Resolved
++                                                        Resolvido
+                                                     </Button.Text>
+                                                 ) : (
+                                                     <Button
+@@ -120,7 +139,7 @@ function BillingExceptionTable() {
+                                                         }}
+                                                     >
+                                                         <CheckCircleIcon className={'w-4 h-4 mt-[2px] mr-0.5'} />{' '}
+-                                                        Resolve
++                                                        Resolver
+                                                     </Button>
+                                                 )}
+                                             </td>
+diff --git a/resources/scripts/components/admin/modules/billing/guides/SetupStripe.tsx b/resources/scripts/components/admin/modules/billing/guides/SetupStripe.tsx
+index 65f29d7f6..0de5f7d2f 100644
+--- a/resources/scripts/components/admin/modules/billing/guides/SetupStripe.tsx
++++ b/resources/scripts/components/admin/modules/billing/guides/SetupStripe.tsx
+@@ -32,35 +32,39 @@ export default ({ extOpen }: { extOpen?: boolean }) => {
+     }, [existingKeys]);
+ 
+     return (
+-        <Dialog open={open} onClose={() => setOpen(false)} title={'Configure Stripe API'}>
++        <Dialog open={open} onClose={() => setOpen(false)} title={'Configurar API da Stripe'}>
+             <div className={'p-3 bg-black/50 rounded-lg mb-4'}>
+                 <p className={'text-gray-200 font-semibold'}>
+                     <FontAwesomeIcon icon={faInfoCircle} className={'text-blue-400 mr-2'} />
+-                    Still setting up?
++                    Ainda configurando?
+                 </p>
+                 <p className={'text-gray-400 text-sm'}>
+-                    Feel free to skip this message by closing the dialog and proceed to set up your products and
+-                    categories. Once you&apos;re ready, head to the Settings tab to input your API key and secret.
++                    Fique à vontade para ignorar esta mensagem fechando o diálogo e continuar configurando seus produtos
++                    e categorias. Quando estiver pronto, vá para a aba Configurações para informar sua chave de API e o
++                    segredo.
+                 </p>
+             </div>
+-            Before you can use the Stripe API, you must provide Jexpanelwith API keys to authenticate with Stripe. Visit
+-            the Stripe dashboard
++            Antes de usar a API da Stripe, você deve fornecer ao Jexpanel chaves de API para autenticar com a Stripe.
++            Visite o painel da Stripe
+             <a
+                 target={'_blank'}
+                 rel={'noreferrer'}
+                 className={'text-blue-300 mx-1'}
+                 href={'https://dashboard.stripe.com/apikeys'}
+             >
+-                here
++                aqui
+             </a>
+-            to obtain your API key and secret key, then paste them here.
++            para obter sua chave de API e sua chave secreta, depois cole-as aqui.
+             <div className={'relative mt-4'}>
+                 <Input
+-                    placeholder={'Enter "secret" key here...'}
++                    placeholder={'Informe a chave "secret" aqui...'}
+                     onChange={e => setData({ ...data, secret: e.currentTarget.value })}
+                 />
+                 {!data?.secret || data.secret.length < 100 || data.secret.length > 120 ? (
+-                    <Tooltip placement={'right'} content={'You must enter a valid Stripe secret key to continue.'}>
++                    <Tooltip
++                        placement={'right'}
++                        content={'Você deve informar uma chave secreta válida da Stripe para continuar.'}
++                    >
+                         <FontAwesomeIcon
+                             icon={faExclamationTriangle}
+                             className={'absolute top-1/3 right-4 text-yellow-500'}
+@@ -72,7 +76,7 @@ export default ({ extOpen }: { extOpen?: boolean }) => {
+             </div>
+             <div className={'w-full text-right mt-4'}>
+                 <Button onClick={submit} disabled={!data?.secret}>
+-                    Submit
++                    Enviar
+                 </Button>
+             </div>
+         </Dialog>
+diff --git a/resources/scripts/components/admin/modules/billing/invoices/InvoicesContainer.tsx b/resources/scripts/components/admin/modules/billing/invoices/InvoicesContainer.tsx
+index b92d3a779..c43f62069 100644
+--- a/resources/scripts/components/admin/modules/billing/invoices/InvoicesContainer.tsx
++++ b/resources/scripts/components/admin/modules/billing/invoices/InvoicesContainer.tsx
+@@ -2,16 +2,16 @@ import AdminContentBlock from '@/elements/AdminContentBlock';
+ import InvoicesTable from './InvoicesTable';
+ 
+ export default () => (
+-    <AdminContentBlock title={'Billing Invoices'}>
++    <AdminContentBlock title={'Faturas'}>
+         <div className={'w-full flex flex-row items-center p-8'}>
+             <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
+-                <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Invoices</h2>
++                <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Faturas</h2>
+                 <p
+                     className={
+                         'hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden'
+                     }
+                 >
+-                    Generated PDF invoices for orders placed on this Panel.
++                    Faturas em PDF geradas para pedidos feitos neste painel.
+                 </p>
+             </div>
+         </div>
+diff --git a/resources/scripts/components/admin/modules/billing/invoices/InvoicesTable.tsx b/resources/scripts/components/admin/modules/billing/invoices/InvoicesTable.tsx
+index ced80a66c..3364cd502 100644
+--- a/resources/scripts/components/admin/modules/billing/invoices/InvoicesTable.tsx
++++ b/resources/scripts/components/admin/modules/billing/invoices/InvoicesTable.tsx
+@@ -18,6 +18,7 @@ import AdminTable, {
+ } from '@/elements/AdminTable';
+ import useFlash from '@/plugins/useFlash';
+ import { formatDistanceToNowStrict } from 'date-fns';
++import { dateLocale } from '@/lib/dateLocale';
+ import { InvoiceContext, InvoiceFilters, useGetInvoices, downloadInvoice } from '@/api/routes/admin/billing';
+ import { DownloadIcon } from '@heroicons/react/outline';
+ 
+@@ -34,6 +35,13 @@ function type(state: string | null): PillStatus {
+     }
+ }
+ 
++const statusLabels: Record<string, string> = {
++    pending: 'Pendente',
++    expired: 'Expirado',
++    failed: 'Falhou',
++    processed: 'Processado',
++};
++
+ const FilterField = ({
+     label,
+     placeholder,
+@@ -107,14 +115,14 @@ function InvoicesTable() {
+         <AdminTable>
+             <div css={tw`flex flex-wrap items-end gap-4 px-6 py-4`}>
+                 <FilterField
+-                    label={'Billed To'}
+-                    placeholder={'Filter by username or email...'}
++                    label={'Faturado para'}
++                    placeholder={'Filtrar por nome de usuário ou e-mail...'}
+                     value={filters?.user ?? ''}
+                     onChange={value => setFilters(current => ({ ...current, user: value || undefined }))}
+                 />
+                 <FilterField
+                     label={'Status'}
+-                    placeholder={'pending, processed, failed, expired...'}
++                    placeholder={'pendente, processado, falhou, expirado...'}
+                     value={filters?.status ?? ''}
+                     onChange={value => setFilters(current => ({ ...current, status: value || undefined }))}
+                 />
+@@ -125,15 +133,15 @@ function InvoicesTable() {
+                         <table css={tw`w-full table-auto`}>
+                             <TableHead>
+                                 <TableHeader
+-                                    name={'Invoice #'}
++                                    name={'Fatura nº'}
+                                     direction={sort === 'number' ? (sortDirection ? 1 : 2) : null}
+                                     onClick={() => setSort('number')}
+                                 />
+-                                <TableHeader name={'Billed To'} />
++                                <TableHeader name={'Faturado para'} />
+                                 <TableHeader name={'Total'} />
+                                 <TableHeader name={'Status'} />
+                                 <TableHeader
+-                                    name={'Generated At'}
++                                    name={'Gerado em'}
+                                     direction={sort === 'generated_at' ? (sortDirection ? 1 : 2) : null}
+                                     onClick={() => setSort('generated_at')}
+                                 />
+@@ -169,7 +177,7 @@ function InvoicesTable() {
+                                             <td css={tw`px-6 py-4 text-left`}>
+                                                 {invoice.status ? (
+                                                     <Pill size={'small'} type={type(invoice.status)}>
+-                                                        {invoice.status}
++                                                        {statusLabels[invoice.status] ?? invoice.status}
+                                                     </Pill>
+                                                 ) : (
+                                                     '—'
+@@ -179,13 +187,14 @@ function InvoicesTable() {
+                                                 {invoice.generated_at
+                                                     ? formatDistanceToNowStrict(invoice.generated_at, {
+                                                           addSuffix: true,
++                                                          locale: dateLocale(),
+                                                       })
+-                                                    : 'Pending'}
++                                                    : 'Pendente'}
+                                             </td>
+                                             <td css={tw`pr-6 py-4 text-right`}>
+                                                 <button
+                                                     type={'button'}
+-                                                    aria-label={'Download invoice'}
++                                                    aria-label={'Baixar fatura'}
+                                                     disabled={downloading === invoice.id}
+                                                     onClick={() => download(invoice.id, invoice.number)}
+                                                     css={tw`text-neutral-400 hover:text-neutral-100 transition-colors duration-150 disabled:opacity-50`}
+diff --git a/resources/scripts/components/admin/modules/billing/orders/OrdersContainer.tsx b/resources/scripts/components/admin/modules/billing/orders/OrdersContainer.tsx
+index 0284ba0f0..dc7cf5878 100644
+--- a/resources/scripts/components/admin/modules/billing/orders/OrdersContainer.tsx
++++ b/resources/scripts/components/admin/modules/billing/orders/OrdersContainer.tsx
+@@ -4,23 +4,23 @@ import TitledGreyBox from '@/elements/TitledGreyBox';
+ import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+ 
+ export default () => (
+-    <AdminContentBlock title={'Billing Orders'}>
++    <AdminContentBlock title={'Pedidos de faturamento'}>
+         <div className={'w-full flex flex-row items-center p-8'}>
+             <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
+-                <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Orders</h2>
++                <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Pedidos</h2>
+                 <p
+                     className={
+                         'hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden'
+                     }
+                 >
+-                    A list of the orders placed on this Panel.
++                    Uma lista dos pedidos feitos neste painel.
+                 </p>
+             </div>
+         </div>
+-        <TitledGreyBox icon={faExclamationTriangle} title={'Important Information'} className={'mb-8'}>
+-            Pending orders are automatically set to expired and deleted after 7 days, making them no longer visible in
+-            the admin area. If you wish to remove billing orders from Jexpanelmanually, you must make a database query
+-            to do so. Removing orders manually is not recommended.
++        <TitledGreyBox icon={faExclamationTriangle} title={'Informação importante'} className={'mb-8'}>
++            Pedidos pendentes são automaticamente marcados como expirados e excluídos após 7 dias, deixando de ficar
++            visíveis na área administrativa. Se você quiser remover pedidos de faturamento do Jexpanel manualmente, será
++            preciso fazer uma consulta ao banco de dados. Não é recomendável remover pedidos manualmente.
+         </TitledGreyBox>
+         <OrdersTable />
+     </AdminContentBlock>
+diff --git a/resources/scripts/components/admin/modules/billing/orders/OrdersTable.tsx b/resources/scripts/components/admin/modules/billing/orders/OrdersTable.tsx
+index 8e7ea291b..592a54acf 100644
+--- a/resources/scripts/components/admin/modules/billing/orders/OrdersTable.tsx
++++ b/resources/scripts/components/admin/modules/billing/orders/OrdersTable.tsx
+@@ -16,6 +16,7 @@ import tw from 'twin.macro';
+ import { useContext, useEffect } from 'react';
+ import useFlash from '@/plugins/useFlash';
+ import { formatDistanceToNowStrict } from 'date-fns';
++import { dateLocale } from '@/lib/dateLocale';
+ import Spinner from '@/elements/Spinner';
+ import { OrderFilters } from '@/api/routes/admin/billing';
+ 
+@@ -32,6 +33,21 @@ export function type(state: string): PillStatus {
+     }
+ }
+ 
++const statusLabels: Record<string, string> = {
++    pending: 'Pendente',
++    expired: 'Expirado',
++    failed: 'Falhou',
++    processed: 'Processado',
++};
++
++const orderTypeLabels: Record<string, string> = {
++    new: 'Novo',
++    upg: 'Upgrade',
++    upgrade: 'Upgrade',
++    ren: 'Renovação',
++    renewal: 'Renovação',
++};
++
+ function getColor(index: number) {
+     if (index >= 50) return 'danger';
+     if (index >= 25) return 'warn';
+@@ -79,25 +95,25 @@ function OrderTable({ minimal }: { minimal?: boolean }) {
+                                         />
+                                     )}
+                                     <TableHeader
+-                                        name={'Total Price'}
++                                        name={'Preço total'}
+                                         direction={sort === 'total' ? (sortDirection ? 1 : 2) : null}
+                                         onClick={() => setSort('total')}
+                                     />
+-                                    {!minimal && <TableHeader name={'Description'} />}
++                                    {!minimal && <TableHeader name={'Descrição'} />}
+                                     <TableHeader
+-                                        name={'Created At'}
++                                        name={'Criado em'}
+                                         direction={sort === 'created_at' ? (sortDirection ? 1 : 2) : null}
+                                         onClick={() => setSort('created_at')}
+                                     />
+-                                    <TableHeader name={'Payment State'} />
++                                    <TableHeader name={'Estado do pagamento'} />
+                                     <TableHeader
+-                                        name={'Order Type'}
++                                        name={'Tipo de pedido'}
+                                         direction={sort === 'type' ? (sortDirection ? 1 : 2) : null}
+                                         onClick={() => setSort('type')}
+                                     />
+                                     {!minimal && (
+                                         <TableHeader
+-                                            name={'Threat Index'}
++                                            name={'Índice de ameaça'}
+                                             direction={sort === 'threat_index' ? (sortDirection ? 1 : 2) : null}
+                                             onClick={() => setSort('threat_index')}
+                                         />
+@@ -127,11 +143,14 @@ function OrderTable({ minimal }: { minimal?: boolean }) {
+                                                     </td>
+                                                 )}
+                                                 <td className={'px-6 py-4'}>
+-                                                    {formatDistanceToNowStrict(order.created_at, { addSuffix: true })}
++                                                    {formatDistanceToNowStrict(order.created_at, {
++                                                        addSuffix: true,
++                                                        locale: dateLocale(),
++                                                    })}
+                                                 </td>
+                                                 <td className={'px-6 py-4 text-left'}>
+                                                     <Pill size={'small'} type={type(order.status)}>
+-                                                        {order.status}
++                                                        {statusLabels[order.status] ?? order.status}
+                                                     </Pill>
+                                                 </td>
+                                                 <td className={'pr-12 py-4 text-right'}>
+@@ -139,7 +158,7 @@ function OrderTable({ minimal }: { minimal?: boolean }) {
+                                                         size={'small'}
+                                                         type={order.type === 'new' ? 'success' : 'info'}
+                                                     >
+-                                                        {order.type.toUpperCase()}
++                                                        {orderTypeLabels[order.type] ?? order.type.toUpperCase()}
+                                                     </Pill>
+                                                 </td>
+                                                 {!minimal && (
+@@ -155,7 +174,7 @@ function OrderTable({ minimal }: { minimal?: boolean }) {
+                                                             {order.threat_index < 0 ? (
+                                                                 <span className={'text-xs inline-flex my-1'}>
+                                                                     <Spinner size={'small'} />
+-                                                                    &nbsp;Processing
++                                                                    &nbsp;Processando
+                                                                 </span>
+                                                             ) : (
+                                                                 `${order.threat_index}/100`
+diff --git a/resources/scripts/components/admin/modules/billing/overview/OverviewContainer.tsx b/resources/scripts/components/admin/modules/billing/overview/OverviewContainer.tsx
+index 91925719f..dc196d417 100644
+--- a/resources/scripts/components/admin/modules/billing/overview/OverviewContainer.tsx
++++ b/resources/scripts/components/admin/modules/billing/overview/OverviewContainer.tsx
+@@ -44,28 +44,28 @@ export default () => {
+             <SetupStripe />
+             <ol className="space-y-4 w-full">
+                 <Select onChange={e => setHistory(Number(e.currentTarget.value))}>
+-                    <option value={7}>Last 7 days</option>
++                    <option value={7}>Últimos 7 dias</option>
+                     <option selected value={14}>
+-                        Last 14 days
++                        Últimos 14 dias
+                     </option>
+-                    <option value={30}>Last month</option>
+-                    <option value={60}>Last 2 months</option>
+-                    <option value={90}>Last 3 months</option>
+-                    <option value={180}>Last 6 months</option>
+-                    <option value={360}>Last year</option>
++                    <option value={30}>Último mês</option>
++                    <option value={60}>Últimos 2 meses</option>
++                    <option value={90}>Últimos 3 meses</option>
++                    <option value={180}>Últimos 6 meses</option>
++                    <option value={360}>Último ano</option>
+                 </Select>
+-                <h2 className={'text-neutral-300 mb-4 px-4 text-2xl'}>Suggested Actions</h2>
+-                <Stepper className={'text-green-500'} icon={faCheck} content={'Enable billing module'} />
++                <h2 className={'text-neutral-300 mb-4 px-4 text-2xl'}>Ações sugeridas</h2>
++                <Stepper className={'text-green-500'} icon={faCheck} content={'Ativar módulo de faturamento'} />
+                 <Stepper
+                     className={hasProducts ? 'text-green-500' : 'text-blue-500'}
+                     icon={hasProducts ? faCheck : faArrowRight}
+-                    content={'Add your first product'}
++                    content={'Adicione seu primeiro produto'}
+                     link={'/admin/billing/categories'}
+                 />
+                 <Stepper
+                     className={hasOrders ? 'text-green-500' : hasProducts ? 'text-blue-500' : 'text-gray-500'}
+                     icon={hasOrders ? faCheck : faEllipsis}
+-                    content={'Secure your first sale'}
++                    content={'Garanta sua primeira venda'}
+                     link={'/admin/billing/orders'}
+                 />
+             </ol>
+@@ -73,21 +73,21 @@ export default () => {
+                 <div className={'w-full grid grid-cols-3 mb-auto gap-6'}>
+                     <ContentBox>
+                         <h1 className={'text-2xl font-bold'}>
+-                            <span className={'text-4xl'}>{successRate}</span>% conversion rate
++                            <span className={'text-4xl'}>{successRate}</span>% de taxa de conversão
+                         </h1>
+                         <p className={'text-gray-400 text-sm mt-2'}>
+-                            Out of {allOrders.length} orders, {successfulOrders.length} were processed.
++                            De {allOrders.length} pedidos, {successfulOrders.length} foram processados.
+                         </p>
+                         <SuccessChart data={analytics} history={history} />
+                     </ContentBox>
+                     <ContentBox className={'col-span-2'}>
+                         <h1 className={'text-2xl font-bold'}>
+                             {settings.currency.symbol}
+-                            <span className={'text-4xl'}>{revenue}</span> total revenue
++                            <span className={'text-4xl'}>{revenue}</span> de receita total
+                         </h1>
+                         <p className={'text-gray-400 text-sm mt-2'}>
+-                            Your {successfulOrders.length} successful orders have generated {settings.currency.symbol}
+-                            {revenue} {settings.currency.code} over the last {history} days.
++                            Seus {successfulOrders.length} pedidos bem-sucedidos geraram {settings.currency.symbol}
++                            {revenue} {settings.currency.code} nos últimos {history} dias.
+                         </p>
+                         <RevenueChart data={analytics} history={history} />
+                     </ContentBox>
+diff --git a/resources/scripts/components/admin/modules/billing/overview/RevenueChart.tsx b/resources/scripts/components/admin/modules/billing/overview/RevenueChart.tsx
+index 900d6228e..6e1a7f2f1 100644
+--- a/resources/scripts/components/admin/modules/billing/overview/RevenueChart.tsx
++++ b/resources/scripts/components/admin/modules/billing/overview/RevenueChart.tsx
+@@ -46,7 +46,7 @@ export default ({ data, history }: { data: BillingAnalytics; history: number })
+         labels: daysRange.map(day => format(day, 'yyyy-MM-dd')),
+         datasets: [
+             {
+-                label: 'Revenue from Successful Orders',
++                label: 'Receita de pedidos bem-sucedidos',
+                 data: dailyRevenue,
+                 fill: false,
+                 borderColor: '#36A2EB',
+@@ -73,13 +73,13 @@ export default ({ data, history }: { data: BillingAnalytics; history: number })
+             x: {
+                 title: {
+                     display: true,
+-                    text: 'Date',
++                    text: 'Data',
+                 },
+             },
+             y: {
+                 title: {
+                     display: true,
+-                    text: `Revenue in ${symbol}`,
++                    text: `Receita em ${symbol}`,
+                 },
+                 beginAtZero: true,
+             },
+diff --git a/resources/scripts/components/admin/modules/billing/overview/SuccessChart.tsx b/resources/scripts/components/admin/modules/billing/overview/SuccessChart.tsx
+index 0ccade2af..20270c709 100644
+--- a/resources/scripts/components/admin/modules/billing/overview/SuccessChart.tsx
++++ b/resources/scripts/components/admin/modules/billing/overview/SuccessChart.tsx
+@@ -25,10 +25,10 @@ export default ({ data, history }: { data: BillingAnalytics; history: number })
+     ).length;
+ 
+     const chartData = {
+-        labels: ['Successful Orders', 'Failed Orders', 'Expired Orders', 'Pending Orders'],
++        labels: ['Pedidos bem-sucedidos', 'Pedidos com falha', 'Pedidos expirados', 'Pedidos pendentes'],
+         datasets: [
+             {
+-                label: 'Order Status',
++                label: 'Status do pedido',
+                 data: [successfulOrders, failedOrders, expiredOrders, pendingOrders],
+                 backgroundColor: ['green', 'red', 'gray', 'orange'],
+                 borderWidth: 1,
+diff --git a/resources/scripts/components/admin/modules/billing/products/CategoryContainer.tsx b/resources/scripts/components/admin/modules/billing/products/CategoryContainer.tsx
+index 603458cea..6adc08b23 100644
+--- a/resources/scripts/components/admin/modules/billing/products/CategoryContainer.tsx
++++ b/resources/scripts/components/admin/modules/billing/products/CategoryContainer.tsx
+@@ -12,23 +12,23 @@ export default () => {
+     if (!data) return <Spinner size={'large'} centered />;
+ 
+     return (
+-        <AdminContentBlock title={data.name || 'View Category'}>
++        <AdminContentBlock title={data.name || 'Ver categoria'}>
+             <CategoryForm category={data} />
+             <div className={'h-px border-2 border-gray-700 rounded-full w-full mt-12 mb-4'} />
+             <div className={'w-full flex flex-row items-center p-8'}>
+                 <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
+-                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Products</h2>
++                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Produtos</h2>
+                     <p
+                         className={
+                             'hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden'
+                         }
+                     >
+-                        A list of the available products in the {data.name} category.
++                        Uma lista dos produtos disponíveis na categoria {data.name}.
+                     </p>
+                 </div>
+                 <div className={'flex ml-auto pl-4'}>
+                     <Link to={`/admin/billing/categories/${data.id}/products/new`}>
+-                        <Button>Create Product</Button>
++                        <Button>Criar produto</Button>
+                     </Link>
+                 </div>
+             </div>
+diff --git a/resources/scripts/components/admin/modules/billing/products/CategoryDeleteButton.tsx b/resources/scripts/components/admin/modules/billing/products/CategoryDeleteButton.tsx
+index 3d3f089f4..31b0c9f29 100644
+--- a/resources/scripts/components/admin/modules/billing/products/CategoryDeleteButton.tsx
++++ b/resources/scripts/components/admin/modules/billing/products/CategoryDeleteButton.tsx
+@@ -21,7 +21,7 @@ export default ({ category }: { category: Category }) => {
+             addFlash({
+                 type: 'error',
+                 key: 'admin:billing:categories:delete',
+-                message: 'The category name does not match.',
++                message: 'O nome da categoria não confere.',
+             });
+ 
+             return;
+@@ -38,16 +38,16 @@ export default ({ category }: { category: Category }) => {
+                 open={open}
+                 onConfirmed={doDeletion}
+                 onClose={() => setOpen(false)}
+-                title={'Confirm category deletion'}
++                title={'Confirmar exclusão da categoria'}
+             >
+                 <FlashMessageRender byKey={'admin:billing:categories:delete'} className={'mb-2'} />
+-                Are you sure you want to delete this category? All products under this category will also be permenantly
+-                deleted. To confirm, please type the category name&nbsp;
+-                <span className={'p-1 bg-zinc-900 rounded font-mono text-sm mx-1'}>({category.name})</span>below:
++                Tem certeza de que deseja excluir esta categoria? Todos os produtos desta categoria também serão
++                excluídos permanentemente. Para confirmar, digite o nome da categoria&nbsp;
++                <span className={'p-1 bg-zinc-900 rounded font-mono text-sm mx-1'}>({category.name})</span>abaixo:
+                 <Input onChange={e => setName(e.currentTarget.value)} className={'mt-2'} />
+             </Dialog.Confirm>
+             <Button.Danger type={'button'} onClick={() => setOpen(true)}>
+-                Delete Category & Products
++                Excluir categoria e produtos
+             </Button.Danger>
+         </>
+     );
+diff --git a/resources/scripts/components/admin/modules/billing/products/CategoryForm.tsx b/resources/scripts/components/admin/modules/billing/products/CategoryForm.tsx
+index 6f373326a..7c12a4eb8 100644
+--- a/resources/scripts/components/admin/modules/billing/products/CategoryForm.tsx
++++ b/resources/scripts/components/admin/modules/billing/products/CategoryForm.tsx
+@@ -36,33 +36,33 @@ function InternalForm({ category, visible, setVisible }: Props) {
+         <Form>
+             <div css={tw`grid grid-cols-1 lg:grid-cols-2 gap-4`}>
+                 <div css={tw`w-full flex flex-col mr-0 lg:mr-2`}>
+-                    <AdminBox title={'Category Details'} icon={faShoppingBasket} isLoading={isSubmitting}>
++                    <AdminBox title={'Detalhes da categoria'} icon={faShoppingBasket} isLoading={isSubmitting}>
+                         <FieldRow>
+                             <Field
+                                 id={'name'}
+                                 name={'name'}
+                                 type={'text'}
+                                 placeholder={'Minecraft Java'}
+-                                label={'Category Name'}
+-                                description={'A simple title for this category.'}
++                                label={'Nome da categoria'}
++                                description={'Um título simples para esta categoria.'}
+                             />
+                             <Field
+                                 id={'description'}
+                                 name={'description'}
+                                 type={'text'}
+-                                placeholder={'With support for 1.21'}
+-                                label={'Description'}
+-                                description={'A tagline or description for this product category.'}
++                                placeholder={'Com suporte para 1.21'}
++                                label={'Descrição'}
++                                description={'Um slogan ou descrição para esta categoria de produtos.'}
+                             />
+                             <Field
+                                 id={'icon'}
+                                 name={'icon'}
+                                 type={'text'}
+-                                label={'Icon'}
+-                                description={'An icon to be displayed with this category.'}
++                                label={'Ícone'}
++                                description={'Um ícone a ser exibido com esta categoria.'}
+                             />
+                             <div className={'mt-1'}>
+-                                <Label htmlFor={'visible'}>Visible on creation</Label>
++                                <Label htmlFor={'visible'}>Visível na criação</Label>
+                                 <div className={'mt-1'}>
+                                     <label css={tw`inline-flex items-center mr-2`}>
+                                         <Field
+@@ -72,7 +72,7 @@ function InternalForm({ category, visible, setVisible }: Props) {
+                                             checked={!visible}
+                                             onClick={() => setVisible(false)}
+                                         />
+-                                        <span css={tw`text-neutral-300 ml-2`}>No</span>
++                                        <span css={tw`text-neutral-300 ml-2`}>Não</span>
+                                     </label>
+ 
+                                     <label css={tw`inline-flex items-center ml-2`}>
+@@ -83,23 +83,23 @@ function InternalForm({ category, visible, setVisible }: Props) {
+                                             checked={visible}
+                                             onClick={() => setVisible(true)}
+                                         />
+-                                        <span css={tw`text-neutral-300 ml-2`}>Yes</span>
++                                        <span css={tw`text-neutral-300 ml-2`}>Sim</span>
+                                     </label>
+                                 </div>
+-                                <p className={'mt-3 text-xs'}>Should this category be visible instantly?</p>
++                                <p className={'mt-3 text-xs'}>Esta categoria deve ficar visível imediatamente?</p>
+                             </div>
+                         </FieldRow>
+                     </AdminBox>
+                 </div>
+                 <div css={tw`w-full flex flex-col mr-0 lg:mr-2`}>
+-                    <AdminBox title={'Service Configuration'} icon={faLayerGroup} isLoading={isSubmitting}>
++                    <AdminBox title={'Configuração do serviço'} icon={faLayerGroup} isLoading={isSubmitting}>
+                         <CategoryNestEggSelect />
+                     </AdminBox>
+                     <div css={tw`rounded shadow-md mt-4 py-2 pr-6`} style={{ backgroundColor: secondary }}>
+                         <div css={tw`text-right`}>
+                             {category && <CategoryDeleteButton category={category} />}
+                             <Button type={'submit'} css={tw`ml-4`}>
+-                                {category ? 'Update' : 'Create'}
++                                {category ? 'Atualizar' : 'Criar'}
+                             </Button>
+                         </div>
+                     </div>
+@@ -150,7 +150,7 @@ export default ({ category }: { category?: Category }) => {
+     };
+ 
+     return (
+-        <AdminContentBlock title={'New Category'}>
++        <AdminContentBlock title={'Nova categoria'}>
+             <div css={tw`w-full flex flex-row items-center m-8`}>
+                 {category?.icon ? (
+                     <img src={category.icon} className={'ww-8 h-8 mr-4'} />
+@@ -159,12 +159,12 @@ export default ({ category }: { category?: Category }) => {
+                 )}
+                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
+                     <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>
+-                        {category?.name ?? 'New Product Category'}
++                        {category?.name ?? 'Nova categoria de produtos'}
+                     </h2>
+                     <p
+                         css={tw`hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}
+                     >
+-                        {category?.uuid ?? 'Add a new category to the billing interface.'}
++                        {category?.uuid ?? 'Adicione uma nova categoria à interface de faturamento.'}
+                     </p>
+                 </div>
+             </div>
+@@ -184,7 +184,7 @@ export default ({ category }: { category?: Category }) => {
+                     icon: string().nullable().max(191).min(3),
+                     description: string().nullable().max(191).min(3),
+                     visible: boolean().required(),
+-                    nestId: number().nullable().required('A nest must be selected for this category.'),
++                    nestId: number().nullable().required('Um Nest deve ser selecionado para esta categoria.'),
+                     eggId: number().nullable(),
+                 })}
+             >
+diff --git a/resources/scripts/components/admin/modules/billing/products/CategoryNestEggSelect.tsx b/resources/scripts/components/admin/modules/billing/products/CategoryNestEggSelect.tsx
+index a99a96884..d085af2ec 100644
+--- a/resources/scripts/components/admin/modules/billing/products/CategoryNestEggSelect.tsx
++++ b/resources/scripts/components/admin/modules/billing/products/CategoryNestEggSelect.tsx
+@@ -34,7 +34,7 @@ const NestSelect = () => {
+                 }}
+             >
+                 {!nests ? (
+-                    <option disabled>Loading...</option>
++                    <option disabled>Carregando...</option>
+                 ) : (
+                     nests.map(v => (
+                         <option key={v.uuid} value={v.id.toString()}>
+@@ -44,7 +44,7 @@ const NestSelect = () => {
+                 )}
+             </Select>
+             <p className={'text-xs text-gray-400 mt-1'}>
+-                The nest this category&apos;s products will deploy servers from.
++                O Nest a partir do qual os produtos desta categoria implantarão servidores.
+             </p>
+         </div>
+     );
+@@ -74,7 +74,7 @@ const EggSelect = () => {
+                     setFieldValue('eggId', e.currentTarget.value === 'none' ? null : Number(e.currentTarget.value))
+                 }
+             >
+-                <option value={'none'}>Any egg in this nest (customer chooses)</option>
++                <option value={'none'}>Qualquer Egg neste Nest (o cliente escolhe)</option>
+                 {eggs?.map(v => (
+                     <option key={v.uuid} value={v.id.toString()}>
+                         {v.name}
+@@ -82,7 +82,7 @@ const EggSelect = () => {
+                 ))}
+             </Select>
+             <p className={'text-xs text-gray-400 mt-1'}>
+-                Leave unset to let customers pick which egg in this nest to deploy at checkout.
++                Deixe em branco para que os clientes escolham qual Egg deste Nest implantar na finalização da compra.
+             </p>
+         </div>
+     );
+diff --git a/resources/scripts/components/admin/modules/billing/products/CategoryTable.tsx b/resources/scripts/components/admin/modules/billing/products/CategoryTable.tsx
+index 814899364..172d8efba 100644
+--- a/resources/scripts/components/admin/modules/billing/products/CategoryTable.tsx
++++ b/resources/scripts/components/admin/modules/billing/products/CategoryTable.tsx
+@@ -12,6 +12,7 @@ import AdminTable, {
+ } from '@/elements/AdminTable';
+ import CopyOnClick from '@/elements/CopyOnClick';
+ import { differenceInHours, format, formatDistanceToNow } from 'date-fns';
++import { dateLocale } from '@/lib/dateLocale';
+ import { Link, NavLink } from 'react-router-dom';
+ import tw from 'twin.macro';
+ import { useStoreState } from '@/state/hooks';
+@@ -52,18 +53,18 @@ function CategoryTable() {
+         <>
+             <div className={'w-full flex flex-row items-center my-8 px-8'}>
+                 <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
+-                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Categories</h2>
++                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Categorias</h2>
+                     <p
+                         className={
+                             'hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden'
+                         }
+                     >
+-                        These categories are used to contain your products.
++                        Estas categorias são usadas para organizar seus produtos.
+                     </p>
+                 </div>
+                 <div className={'flex ml-auto pl-4'}>
+                     <Link to={'/admin/billing/categories/new'}>
+-                        <Button>Add Category</Button>
++                        <Button>Adicionar categoria</Button>
+                     </Link>
+                 </div>
+             </div>
+@@ -80,12 +81,12 @@ function CategoryTable() {
+                                         onClick={() => setSort('id')}
+                                     />
+                                     <TableHeader
+-                                        name={'Name'}
++                                        name={'Nome'}
+                                         direction={sort === 'name' ? (sortDirection ? 1 : 2) : null}
+                                         onClick={() => setSort('name')}
+                                     />
+-                                    <TableHeader name={'Description'} />
+-                                    <TableHeader name={'Created At'} />
++                                    <TableHeader name={'Descrição'} />
++                                    <TableHeader name={'Criado em'} />
+                                     <TableHeader />
+                                 </TableHead>
+                                 <TableBody>
+@@ -121,8 +122,8 @@ function CategoryTable() {
+                                                 </td>
+                                                 <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                     {Math.abs(differenceInHours(category.createdAt, new Date())) > 48
+-                                                        ? format(category.createdAt, 'MMM do, yyyy h:mma')
+-                                                        : formatDistanceToNow(category.createdAt, { addSuffix: true })}
++                                                        ? format(category.createdAt, 'MMM do, yyyy HH:mm', { locale: dateLocale() })
++                                                        : formatDistanceToNow(category.createdAt, { addSuffix: true, locale: dateLocale() })}
+                                                 </td>
+                                                 <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                     <span
+@@ -133,7 +134,7 @@ function CategoryTable() {
+                                                                 : 'bg-red-200 text-red-800',
+                                                         )}
+                                                     >
+-                                                        {category.visible ? 'Visible' : 'Hidden'}
++                                                        {category.visible ? 'Visível' : 'Oculta'}
+                                                     </span>
+                                                 </td>
+                                             </TableRow>
+diff --git a/resources/scripts/components/admin/modules/billing/products/ProductContainer.tsx b/resources/scripts/components/admin/modules/billing/products/ProductContainer.tsx
+index 4a41332eb..946519b16 100644
+--- a/resources/scripts/components/admin/modules/billing/products/ProductContainer.tsx
++++ b/resources/scripts/components/admin/modules/billing/products/ProductContainer.tsx
+@@ -9,7 +9,7 @@ export default () => {
+     if (!product) return <Spinner centered />;
+ 
+     return (
+-        <AdminContentBlock title={'View Product'}>
++        <AdminContentBlock title={'Ver produto'}>
+             <ProductForm product={product} />
+         </AdminContentBlock>
+     );
+diff --git a/resources/scripts/components/admin/modules/billing/products/ProductDeleteButton.tsx b/resources/scripts/components/admin/modules/billing/products/ProductDeleteButton.tsx
+index 18486dffa..abf5259cf 100644
+--- a/resources/scripts/components/admin/modules/billing/products/ProductDeleteButton.tsx
++++ b/resources/scripts/components/admin/modules/billing/products/ProductDeleteButton.tsx
+@@ -24,7 +24,7 @@ export default ({ product }: { product: Product }) => {
+             addFlash({
+                 type: 'error',
+                 key: 'admin:billing:products:delete',
+-                message: 'The product name does not match.',
++                message: 'O nome do produto não confere.',
+             });
+ 
+             return;
+@@ -41,16 +41,16 @@ export default ({ product }: { product: Product }) => {
+                 open={open}
+                 onConfirmed={doDeletion}
+                 onClose={() => setOpen(false)}
+-                title={'Confirm product deletion'}
++                title={'Confirmar exclusão do produto'}
+             >
+                 <FlashMessageRender byKey={'admin:billing:products:delete'} className={'mb-2'} />
+-                Are you sure you want to delete this product? All products under this product will also be permenantly
+-                deleted. To confirm, please type the product name&nbsp;
+-                <span className={'p-1 bg-zinc-900 rounded font-mono text-sm mx-1'}>({product.name})</span>below:
++                Tem certeza de que deseja excluir este produto? Todos os produtos deste produto também serão excluídos
++                permanentemente. Para confirmar, digite o nome do produto&nbsp;
++                <span className={'p-1 bg-zinc-900 rounded font-mono text-sm mx-1'}>({product.name})</span>abaixo:
+                 <Input onChange={e => setName(e.currentTarget.value)} className={'mt-2'} />
+             </Dialog.Confirm>
+             <Button.Danger className={'mr-4'} type={'button'} onClick={() => setOpen(true)}>
+-                <FontAwesomeIcon icon={faTrash} className={'mr-1'} /> Delete
++                <FontAwesomeIcon icon={faTrash} className={'mr-1'} /> Excluir
+             </Button.Danger>
+         </>
+     );
+diff --git a/resources/scripts/components/admin/modules/billing/products/ProductForm.tsx b/resources/scripts/components/admin/modules/billing/products/ProductForm.tsx
+index 23d8c81a5..cef9d931f 100644
+--- a/resources/scripts/components/admin/modules/billing/products/ProductForm.tsx
++++ b/resources/scripts/components/admin/modules/billing/products/ProductForm.tsx
+@@ -63,7 +63,7 @@ export default ({ product }: { product?: Product }) => {
+     }, [params.id]);
+ 
+     return (
+-        <AdminContentBlock title={product ? 'Edit Product' : 'New Product'}>
++        <AdminContentBlock title={product ? 'Editar produto' : 'Novo produto'}>
+             <div css={tw`w-full flex flex-row items-center m-8`}>
+                 {product?.icon ? (
+                     <img src={product.icon} className={'ww-8 h-8 mr-4'} />
+@@ -71,11 +71,13 @@ export default ({ product }: { product?: Product }) => {
+                     <CubeIcon className={'w-8 h-8 mr-4'} />
+                 )}
+                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
+-                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>{product?.name ?? 'New Product'}</h2>
++                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>
++                        {product?.name ?? 'Novo produto'}
++                    </h2>
+                     <p
+                         css={tw`hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}
+                     >
+-                        {product?.uuid ?? 'Add a new product to the billing interface.'}
++                        {product?.uuid ?? 'Adicione um novo produto à interface de faturamento.'}
+                     </p>
+                 </div>
+                 {product && (
+@@ -83,7 +85,7 @@ export default ({ product }: { product?: Product }) => {
+                         <Link to={`/admin/billing/categories/${Number(params.id)}`}>
+                             <Button>
+                                 <FontAwesomeIcon icon={faArrowLeft} className={'mr-2'} />
+-                                Return to Category
++                                Voltar para a categoria
+                             </Button>
+                         </Link>
+                     </div>
+@@ -93,11 +95,11 @@ export default ({ product }: { product?: Product }) => {
+                 onSubmit={submit}
+                 initialValues={{
+                     categoryUuid: uuid!,
+-                    name: product?.name ?? 'Plan Name',
++                    name: product?.name ?? 'Nome do plano',
+                     icon: product?.icon ?? undefined,
+                     // @ts-expect-error this is fine
+                     price: product?.price?.toString() ?? '9.99',
+-                    description: product?.description ?? 'This is a server plan.',
++                    description: product?.description ?? 'Este é um plano de servidor.',
+                     limits: {
+                         cpu: product?.limits.cpu ?? 100,
+                         memory: product?.limits.memory ?? 1024,
+@@ -110,7 +112,10 @@ export default ({ product }: { product?: Product }) => {
+                 validationSchema={object().shape({
+                     name: string().required().max(191).min(3),
+                     icon: string().nullable().max(191).min(3),
+-                    price: number().typeError('Price must be a number').required().min(0, 'Price cannot be negative'),
++                    price: number()
++                        .typeError('O preço deve ser um número')
++                        .required()
++                        .min(0, 'O preço não pode ser negativo'),
+                     description: string().nullable().max(191).min(3),
+                     limits: object().shape({
+                         cpu: number().required().min(10),
+@@ -126,111 +131,111 @@ export default ({ product }: { product?: Product }) => {
+                     <Form>
+                         <div css={tw`grid grid-cols-1 lg:grid-cols-2 gap-4`}>
+                             <div css={tw`w-full flex flex-col mr-0 lg:mr-2`}>
+-                                <AdminBox title={'General Details'} icon={faPuzzlePiece}>
++                                <AdminBox title={'Detalhes gerais'} icon={faPuzzlePiece}>
+                                     <FieldRow>
+                                         <Field
+                                             id={'name'}
+                                             name={'name'}
+                                             type={'text'}
+-                                            label={'Name'}
+-                                            description={'A simple name to identify this product.'}
++                                            label={'Nome'}
++                                            description={'Um nome simples para identificar este produto.'}
+                                         />
+                                         <Field
+                                             id={'description'}
+                                             name={'description'}
+                                             type={'text'}
+-                                            label={'Description'}
+-                                            description={'A tagline or description for this product.'}
++                                            label={'Descrição'}
++                                            description={'Um slogan ou descrição para este produto.'}
+                                         />
+                                         <Field
+                                             id={'icon'}
+                                             name={'icon'}
+                                             type={'text'}
+-                                            label={'Icon'}
+-                                            description={'An icon to be displayed with this product.'}
++                                            label={'Ícone'}
++                                            description={'Um ícone a ser exibido com este produto.'}
+                                         />
+                                         <Field
+                                             id={'price'}
+                                             name={'price'}
+                                             type={'text'} // changed from number to text
+                                             onChange={handleChange}
+-                                            label={'Monthly Cost'}
++                                            label={'Custo mensal'}
+                                             description={
+-                                                'The cost of this product monthly in the selected billing currency.'
++                                                'O custo mensal deste produto na moeda de faturamento selecionada.'
+                                             }
+                                         />
+                                     </FieldRow>
+                                 </AdminBox>
+-                                <AdminBox title={'Resource Limits'} className={'lg:mt-4'} icon={faMicrochip}>
++                                <AdminBox title={'Limites de recursos'} className={'lg:mt-4'} icon={faMicrochip}>
+                                     <FieldRow>
+                                         <Field
+                                             id={'limits.cpu'}
+                                             name={'limits.cpu'}
+                                             type={'text'}
+-                                            label={'CPU Limit (%)'}
+-                                            description={'The amount of a CPU thread a server can use.'}
++                                            label={'Limite de CPU (%)'}
++                                            description={'A quantidade de thread de CPU que um servidor pode usar.'}
+                                         />
+                                         <Field
+                                             id={'limits.memory'}
+                                             name={'limits.memory'}
+                                             type={'text'}
+-                                            label={'Memory Limit (MB)'}
+-                                            description={'The amount of memory a server is allowed to use.'}
++                                            label={'Limite de memória (MB)'}
++                                            description={'A quantidade de memória que um servidor pode usar.'}
+                                         />
+                                         <Field
+                                             id={'limits.disk'}
+                                             name={'limits.disk'}
+                                             type={'text'}
+-                                            label={'Disk Limit (MB)'}
+-                                            description={'The amount of disk a server is allowed to use.'}
++                                            label={'Limite de disco (MB)'}
++                                            description={'A quantidade de disco que um servidor pode usar.'}
+                                         />
+                                     </FieldRow>
+                                 </AdminBox>
+                             </div>
+                             <div css={tw`w-full flex flex-col mr-0 lg:mr-2`}>
+-                                <AdminBox title={'Feature Limits'} icon={faBell}>
++                                <AdminBox title={'Limites de funcionalidades'} icon={faBell}>
+                                     <FieldRow>
+                                         <Field
+                                             id={'limits.backup'}
+                                             name={'limits.backup'}
+                                             type={'text'}
+-                                            label={'Backup Limit'}
+-                                            description={'The amount of backups this product can have.'}
++                                            label={'Limite de backups'}
++                                            description={'A quantidade de backups que este produto pode ter.'}
+                                         />
+                                         <Field
+                                             id={'limits.database'}
+                                             name={'limits.database'}
+                                             type={'text'}
+-                                            label={'Database Limit'}
+-                                            description={'The amount of databases this product can have.'}
++                                            label={'Limite de bancos de dados'}
++                                            description={'A quantidade de bancos de dados que este produto pode ter.'}
+                                         />
+                                         <Field
+                                             id={'limits.allocation'}
+                                             name={'limits.allocation'}
+                                             type={'text'}
+-                                            label={'Allocation (Port) Limit'}
+-                                            description={'The amount of ports this product can have.'}
++                                            label={'Limite de alocações (portas)'}
++                                            description={'A quantidade de portas que este produto pode ter.'}
+                                         />
+                                     </FieldRow>
+                                 </AdminBox>
+                                 {/* Dynamic alerts based on price */}
+                                 {Number(values.price) === 0 && (
+                                     <Alert type={'warning'} className={'mt-4'}>
+-                                        You have set this product to be free. Please confirm this choice before
+-                                        proceeding, otherwise users will be able to use this plan without payment.
++                                        Você definiu este produto como gratuito. Confirme essa escolha antes de
++                                        continuar, caso contrário os usuários poderão usar este plano sem pagamento.
+                                     </Alert>
+                                 )}
+                                 {Number(values.price) === 0 && (
+                                     <Alert type={'info'} className={'mt-4'}>
+-                                        As this product is free, users will only be able to use it once to prevent
+-                                        abuse.
++                                        Como este produto é gratuito, os usuários poderão usá-lo apenas uma vez para
++                                        evitar abusos.
+                                     </Alert>
+                                 )}
+                                 <div css={tw`rounded shadow-md mt-4 py-2 pr-6`} style={{ backgroundColor: secondary }}>
+                                     <div css={tw`text-right`}>
+                                         {product && <ProductDeleteButton product={product} />}
+                                         <Button type={'submit'} disabled={isSubmitting || !isValid}>
+-                                            {product ? 'Update Product' : 'Create Product'}
++                                            {product ? 'Atualizar produto' : 'Criar produto'}
+                                         </Button>
+                                     </div>
+                                 </div>
+diff --git a/resources/scripts/components/admin/modules/billing/products/ProductTable.tsx b/resources/scripts/components/admin/modules/billing/products/ProductTable.tsx
+index eed98c301..d68df1f47 100644
+--- a/resources/scripts/components/admin/modules/billing/products/ProductTable.tsx
++++ b/resources/scripts/components/admin/modules/billing/products/ProductTable.tsx
+@@ -11,6 +11,7 @@ import AdminTable, {
+ } from '@/elements/AdminTable';
+ import CopyOnClick from '@/elements/CopyOnClick';
+ import { differenceInHours, format, formatDistanceToNow } from 'date-fns';
++import { dateLocale } from '@/lib/dateLocale';
+ import { NavLink, useParams } from 'react-router-dom';
+ import tw from 'twin.macro';
+ import { useStoreState } from '@/state/hooks';
+@@ -61,17 +62,17 @@ function ProductTable() {
+                                     onClick={() => setSort('id')}
+                                 />
+                                 <TableHeader
+-                                    name={'Name'}
++                                    name={'Nome'}
+                                     direction={sort === 'name' ? (sortDirection ? 1 : 2) : null}
+                                     onClick={() => setSort('name')}
+                                 />
+                                 <TableHeader
+-                                    name={'Price'}
++                                    name={'Preço'}
+                                     direction={sort === 'price' ? (sortDirection ? 1 : 2) : null}
+                                     onClick={() => setSort('price')}
+                                 />
+-                                <TableHeader name={'Description'} />
+-                                <TableHeader name={'Created At'} />
++                                <TableHeader name={'Descrição'} />
++                                <TableHeader name={'Criado em'} />
+                             </TableHead>
+                             <TableBody>
+                                 {products !== undefined &&
+@@ -105,7 +106,7 @@ function ProductTable() {
+                                             </td>
+                                             <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                 <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
+-                                                    ${product.price.toFixed(2)} / monthly
++                                                    ${product.price.toFixed(2)} / mensal
+                                                 </code>
+                                             </td>
+                                             <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+@@ -113,8 +114,8 @@ function ProductTable() {
+                                             </td>
+                                             <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                 {Math.abs(differenceInHours(product.createdAt, new Date())) > 48
+-                                                    ? format(product.createdAt, 'MMM do, yyyy h:mma')
+-                                                    : formatDistanceToNow(product.createdAt, { addSuffix: true })}
++                                                    ? format(product.createdAt, 'MMM do, yyyy HH:mm', { locale: dateLocale() })
++                                                    : formatDistanceToNow(product.createdAt, { addSuffix: true, locale: dateLocale() })}
+                                             </td>
+                                         </TableRow>
+                                     ))}
+diff --git a/resources/scripts/components/admin/modules/tickets/EnableTicketsContainer.tsx b/resources/scripts/components/admin/modules/tickets/EnableTicketsContainer.tsx
+index fa738508f..1dd79f7c7 100644
+--- a/resources/scripts/components/admin/modules/tickets/EnableTicketsContainer.tsx
++++ b/resources/scripts/components/admin/modules/tickets/EnableTicketsContainer.tsx
+@@ -8,10 +8,11 @@ export default () => {
+     const primary = useStoreState(state => state.theme.data!.colors.primary);
+ 
+     return (
+-        <FeatureContainer image={<SupportSvg color={primary} />} icon={faTicket} title={'Ticket System'}>
+-            Jexactyl&apos;s ticket interface allows your users to create tickets for support on the panel. Users can
+-            create, update and view tickets which admins can reply to and mark as a certain status. This feature can be
+-            toggled at anytime to suit your business&apos; needs.
++        <FeatureContainer image={<SupportSvg color={primary} />} icon={faTicket} title={'Sistema de tickets'}>
++            A interface de tickets do Jexactyl permite que seus usuários criem tickets de suporte no painel. Os usuários
++            podem criar, atualizar e visualizar tickets aos quais os administradores podem responder e marcar com um
++            determinado status. Este recurso pode ser ativado ou desativado a qualquer momento para atender às
++            necessidades do seu negócio.
+             <p className={'text-right'}>
+                 <ToggleTicketsButton />
+             </p>
+diff --git a/resources/scripts/components/admin/modules/tickets/NewTicketForm.tsx b/resources/scripts/components/admin/modules/tickets/NewTicketForm.tsx
+index 06219ce2b..0b6af6539 100644
+--- a/resources/scripts/components/admin/modules/tickets/NewTicketForm.tsx
++++ b/resources/scripts/components/admin/modules/tickets/NewTicketForm.tsx
+@@ -46,14 +46,14 @@ export default () => {
+     };
+ 
+     return (
+-        <AdminContentBlock title={'New Ticket'}>
++        <AdminContentBlock title={'Novo ticket'}>
+             <div css={tw`w-full flex flex-row items-center mb-8`}>
+                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
+-                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>New Ticket</h2>
++                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Novo ticket</h2>
+                     <p
+                         css={tw`hidden md:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}
+                     >
+-                        Add a new ticket for users to interact with.
++                        Adicione um novo ticket para os usuários interagirem.
+                     </p>
+                 </div>
+             </div>
+@@ -74,37 +74,37 @@ export default () => {
+                     <Form>
+                         <div css={tw`flex flex-col lg:flex-row`}>
+                             <div css={tw`w-full flex flex-col mr-0 lg:mr-2`}>
+-                                <AdminBox title={'Ticket Details'} icon={faTicket}>
++                                <AdminBox title={'Detalhes do ticket'} icon={faTicket}>
+                                     <FieldRow>
+                                         <Field
+                                             id={'title'}
+                                             name={'title'}
+                                             type={'text'}
+-                                            label={'Title'}
+-                                            description={'A simple title or description for this ticket.'}
++                                            label={'Título'}
++                                            description={'Um título simples ou uma descrição para este ticket.'}
+                                         />
+                                         <div>
+                                             <UserSelect />
+                                             <p className={'text-xs pt-2'}>
+-                                                This will be the user that the ticket is made for.
++                                                Este será o usuário para quem o ticket será criado.
+                                             </p>
+                                         </div>
+                                         <div>
+                                             <UserSelect isAdmin />
+                                             <p className={'text-xs pt-2'}>
+-                                                Set an assigned administrator to deal with this ticket.
++                                                Defina um administrador responsável por este ticket.
+                                             </p>
+                                         </div>
+                                         <div>
+-                                            <Label>Select ticket status</Label>
++                                            <Label>Selecione o status do ticket</Label>
+                                             <Select id={'status'} name={'status'}>
+-                                                <option value={'pending'}>Pending</option>
+-                                                <option value={'in-progress'}>In Progress</option>
+-                                                <option value={'resolved'}>Resolved</option>
+-                                                <option value={'unresolved'}>Unresolved</option>
++                                                <option value={'pending'}>Pendente</option>
++                                                <option value={'in-progress'}>Em andamento</option>
++                                                <option value={'resolved'}>Resolvido</option>
++                                                <option value={'unresolved'}>Não resolvido</option>
+                                             </Select>
+                                             <p className={'text-xs pt-2'}>
+-                                                Before the ticket is created, you can change the status.
++                                                Antes de criar o ticket, você pode alterar o status.
+                                             </p>
+                                         </div>
+                                     </FieldRow>
+@@ -112,7 +112,7 @@ export default () => {
+                                 <div css={tw`rounded shadow-md mt-4 py-2 pr-6`} style={{ backgroundColor: secondary }}>
+                                     <div css={tw`flex flex-row`}>
+                                         <Button type={'submit'} css={tw`ml-auto`} disabled={isSubmitting || !isValid}>
+-                                            Create
++                                            Criar
+                                         </Button>
+                                     </div>
+                                 </div>
+diff --git a/resources/scripts/components/admin/modules/tickets/TicketOptionsContainer.tsx b/resources/scripts/components/admin/modules/tickets/TicketOptionsContainer.tsx
+index 2614b36a8..8f728d2a3 100644
+--- a/resources/scripts/components/admin/modules/tickets/TicketOptionsContainer.tsx
++++ b/resources/scripts/components/admin/modules/tickets/TicketOptionsContainer.tsx
+@@ -30,7 +30,7 @@ export default () => {
+                 addFlash({
+                     type: 'success',
+                     key: 'admin:tickets',
+-                    message: 'Settings have been updated successfully.',
++                    message: 'Configurações atualizadas com sucesso.',
+                 });
+             })
+             .catch(error => {
+@@ -55,26 +55,26 @@ export default () => {
+             <Form>
+                 <FlashMessageRender byKey={'settings:general'} className={'mb-2'} />
+                 <div css={tw`grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-6`}>
+-                    <AdminBox title={'Maximum Ticket Count'} icon={faFirstOrder}>
++                    <AdminBox title={'Quantidade máxima de tickets'} icon={faFirstOrder}>
+                         <div>
+                             <div>
+-                                <Label className={'mt-1 mr-2'}>What should the limit be?</Label>
++                                <Label className={'mt-1 mr-2'}>Qual deve ser o limite?</Label>
+                                 <Field id={'maxCount'} name={'maxCount'} defaultValue={settings.maxCount} />
+                             </div>
+                             <p className={'text-gray-400 text-xs mt-1.5'}>
+-                                If you wish, you can set a maximum amount of tickets that a user can create.
++                                Se desejar, você pode definir a quantidade máxima de tickets que um usuário pode criar.
+                             </p>
+                         </div>
+                     </AdminBox>
+                 </div>
+                 <div css={tw`w-full flex flex-row items-center mt-6`}>
+                     <div css={tw`flex text-xs text-gray-500`}>
+-                        These changes may not apply until users refresh the page.
++                        Essas alterações podem não ser aplicadas até que os usuários atualizem a página.
+                     </div>
+ 
+                     <div css={tw`flex ml-auto`}>
+                         <ToggleTicketsButton />
+-                        <Button type="submit">Save Changes</Button>
++                        <Button type="submit">Salvar alterações</Button>
+                     </div>
+                 </div>
+             </Form>
+diff --git a/resources/scripts/components/admin/modules/tickets/TicketRouter.tsx b/resources/scripts/components/admin/modules/tickets/TicketRouter.tsx
+index 15e481634..42d8aa5fb 100644
+--- a/resources/scripts/components/admin/modules/tickets/TicketRouter.tsx
++++ b/resources/scripts/components/admin/modules/tickets/TicketRouter.tsx
+@@ -17,25 +17,25 @@ export default () => {
+     if (!enabled) return <EnableTicketsContainer />;
+ 
+     return (
+-        <AdminContentBlock title={'Ticket Dashboard'}>
++        <AdminContentBlock title={'Painel de tickets'}>
+             <FlashMessageRender byKey={'admin:tickets'} className={'mb-4'} />
+             <div className={'w-full flex flex-row items-center mb-8'}>
+                 <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
+-                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Ticket Dashboard</h2>
++                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Painel de tickets</h2>
+                     <p
+                         className={
+                             'hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden'
+                         }
+                     >
+-                        View, create and update tickets to users for support.
++                        Veja, crie e atualize tickets para dar suporte aos usuários.
+                     </p>
+                 </div>
+             </div>
+             <SubNavigation>
+-                <SubNavigationLink to={'/admin/tickets'} name={'Open Tickets'} base>
++                <SubNavigationLink to={'/admin/tickets'} name={'Tickets abertos'} base>
+                     <TicketIcon />
+                 </SubNavigationLink>
+-                <SubNavigationLink to={'/admin/tickets/options'} name={'Options'}>
++                <SubNavigationLink to={'/admin/tickets/options'} name={'Opções'}>
+                     <CogIcon />
+                 </SubNavigationLink>
+             </SubNavigation>
+diff --git a/resources/scripts/components/admin/modules/tickets/TicketsContainer.tsx b/resources/scripts/components/admin/modules/tickets/TicketsContainer.tsx
+index 57d395e56..c451c2653 100644
+--- a/resources/scripts/components/admin/modules/tickets/TicketsContainer.tsx
++++ b/resources/scripts/components/admin/modules/tickets/TicketsContainer.tsx
+@@ -16,6 +16,7 @@ import AdminTable, {
+ import { Button } from '@/elements/button';
+ import CopyOnClick from '@/elements/CopyOnClick';
+ import { differenceInHours, format, formatDistanceToNow } from 'date-fns';
++import { dateLocale } from '@/lib/dateLocale';
+ import classNames from 'classnames';
+ import { useStoreState } from '@/state/hooks';
+ import Avatar from '@/elements/Avatar';
+@@ -60,12 +61,12 @@ function TicketContainer() {
+                             'hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden'
+                         }
+                     >
+-                        Update settings and manage user tickets.
++                        Atualize as configurações e gerencie os tickets dos usuários.
+                     </p>
+                 </div>
+                 <div css={tw`flex ml-auto pl-4`}>
+                     <Link to={'/admin/tickets/new'}>
+-                        <Button>New Ticket</Button>
++                        <Button>Novo ticket</Button>
+                     </Link>
+                 </div>
+             </div>
+@@ -81,7 +82,7 @@ function TicketContainer() {
+                                         onClick={() => setSort('id')}
+                                     />
+                                     <TableHeader
+-                                        name={'Title'}
++                                        name={'Título'}
+                                         direction={sort === 'title' ? (sortDirection ? 1 : 2) : null}
+                                         onClick={() => setSort('title')}
+                                     />
+@@ -90,9 +91,9 @@ function TicketContainer() {
+                                         direction={sort === 'status' ? (sortDirection ? 1 : 2) : null}
+                                         onClick={() => setSort('status')}
+                                     />
+-                                    <TableHeader name={'Assigned To'} />
++                                    <TableHeader name={'Atribuído a'} />
+                                     <TableHeader
+-                                        name={'Created At'}
++                                        name={'Criado em'}
+                                         direction={sort === 'created_at' ? (sortDirection ? 1 : 2) : null}
+                                         onClick={() => setSort('created_at')}
+                                     />
+@@ -132,14 +133,14 @@ function TicketContainer() {
+                                                     <div className={'my-2 inline-flex'}>
+                                                         <Avatar size={24} name={ticket.assigned_to?.email ?? 'null'} />
+                                                         <div className={'ml-2'}>
+-                                                            {ticket.assigned_to?.email ?? 'Unassigned'}
++                                                            {ticket.assigned_to?.email ?? 'Não atribuído'}
+                                                         </div>
+                                                     </div>
+                                                 </td>
+                                                 <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                     {Math.abs(differenceInHours(ticket.created_at, new Date())) > 48
+-                                                        ? format(ticket.created_at, 'MMM do, yyyy h:mma')
+-                                                        : formatDistanceToNow(ticket.created_at, { addSuffix: true })}
++                                                        ? format(ticket.created_at, 'MMM do, yyyy HH:mm', { locale: dateLocale() })
++                                                        : formatDistanceToNow(ticket.created_at, { addSuffix: true, locale: dateLocale() })}
+                                                 </td>
+                                             </TableRow>
+                                         ))}
+diff --git a/resources/scripts/components/admin/modules/tickets/ToggleTicketsButton.tsx b/resources/scripts/components/admin/modules/tickets/ToggleTicketsButton.tsx
+index 2081c315f..605651c01 100644
+--- a/resources/scripts/components/admin/modules/tickets/ToggleTicketsButton.tsx
++++ b/resources/scripts/components/admin/modules/tickets/ToggleTicketsButton.tsx
+@@ -13,7 +13,7 @@ export default () => {
+ 
+     return (
+         <div className={'mr-4'} onClick={submit}>
+-            {!enabled ? <Button>Enable Tickets</Button> : <Button.Danger>Disable Tickets</Button.Danger>}
++            {!enabled ? <Button>Ativar tickets</Button> : <Button.Danger>Desativar tickets</Button.Danger>}
+         </div>
+     );
+ };
+diff --git a/resources/scripts/components/admin/modules/tickets/UserSelect.tsx b/resources/scripts/components/admin/modules/tickets/UserSelect.tsx
+index bc8b1f3cd..572944dcd 100644
+--- a/resources/scripts/components/admin/modules/tickets/UserSelect.tsx
++++ b/resources/scripts/components/admin/modules/tickets/UserSelect.tsx
+@@ -33,8 +33,8 @@ export default ({ selected, isAdmin }: { selected?: User; isAdmin?: boolean }) =
+         <SearchableSelect
+             id={isAdmin ? 'assigned_to' : 'user_id'}
+             name={isAdmin ? 'assigned_to' : 'user_id'}
+-            label={isAdmin ? 'Assign to Administrator (optional)' : 'Ticket Owner'}
+-            placeholder={'Select a user...'}
++            label={isAdmin ? 'Atribuir a administrador (opcional)' : 'Responsável pelo ticket'}
++            placeholder={'Selecione um usuário...'}
+             items={users}
+             selected={user}
+             setSelected={setUser}
+diff --git a/resources/scripts/components/admin/modules/tickets/view/DeleteTicketDialog.tsx b/resources/scripts/components/admin/modules/tickets/view/DeleteTicketDialog.tsx
+index fcdc74889..368284720 100644
+--- a/resources/scripts/components/admin/modules/tickets/view/DeleteTicketDialog.tsx
++++ b/resources/scripts/components/admin/modules/tickets/view/DeleteTicketDialog.tsx
+@@ -32,16 +32,16 @@ export default ({ ticketId }: { ticketId: number }) => {
+     return (
+         <>
+             <Button.Danger onClick={() => setOpen(true)} className={'mr-3'} type={'button'}>
+-                Delete Ticket
++                Excluir ticket
+             </Button.Danger>
+             <Dialog.Confirm
+                 open={open}
+                 onConfirmed={submit}
+                 onClose={() => setOpen(false)}
+-                title={'Confirm ticket deletion'}
++                title={'Confirmar exclusão do ticket'}
+             >
+                 <FlashMessageRender byKey={'tickets:view'} />
+-                Are you sure you want to delete this ticket and the associated messages?
++                Tem certeza de que deseja excluir este ticket e as mensagens associadas?
+             </Dialog.Confirm>
+         </>
+     );
+diff --git a/resources/scripts/components/admin/modules/tickets/view/MessageTable.tsx b/resources/scripts/components/admin/modules/tickets/view/MessageTable.tsx
+index e6506d234..31d404c4f 100644
+--- a/resources/scripts/components/admin/modules/tickets/view/MessageTable.tsx
++++ b/resources/scripts/components/admin/modules/tickets/view/MessageTable.tsx
+@@ -18,6 +18,7 @@ import {
+     TicketMessageFilters,
+ } from '@/api/routes/admin/tickets';
+ import { differenceInHours, format, formatDistanceToNow } from 'date-fns';
++import { dateLocale } from '@/lib/dateLocale';
+ import { useStoreState } from '@/state/hooks';
+ import { useContext, useState } from 'react';
+ import CopyOnClick from '@/elements/CopyOnClick';
+@@ -31,13 +32,13 @@ const MessagesTable = ({ ticketId }: { ticketId: number }) => {
+     const { colors } = useStoreState(state => state.theme.data!);
+     const { setPage, sort, setSort, sortDirection } = useContext(TicketMessageContext);
+ 
+-    if (error) return <Alert type={'danger'}>Unable to render messages: {error}</Alert>;
++    if (error) return <Alert type={'danger'}>Não foi possível exibir as mensagens: {error}</Alert>;
+ 
+     return (
+         <>
+             {/* this is a really dumb comparison but TS is dumber. */}
+             {visible !== null && (
+-                <Dialog open={Boolean(visible)} onClose={() => setVisible(null)} title={'Message Content'}>
++                <Dialog open={Boolean(visible)} onClose={() => setVisible(null)} title={'Conteúdo da mensagem'}>
+                     <p className={'text-gray-300 italic'}>{visible.toString()}</p>
+                 </Dialog>
+             )}
+@@ -52,9 +53,9 @@ const MessagesTable = ({ ticketId }: { ticketId: number }) => {
+                                         direction={sort === 'id' ? (sortDirection ? 1 : 2) : null}
+                                         onClick={() => setSort('id')}
+                                     />
+-                                    <TableHeader name={'Author'} />
+-                                    <TableHeader name={'Message'} />
+-                                    <TableHeader name={'Sent At'} />
++                                    <TableHeader name={'Autor'} />
++                                    <TableHeader name={'Mensagem'} />
++                                    <TableHeader name={'Enviado em'} />
+                                     <TableHeader />
+                                 </TableHead>
+ 
+@@ -94,7 +95,7 @@ const MessagesTable = ({ ticketId }: { ticketId: number }) => {
+                                                                 style={{ color: colors.primary }}
+                                                                 className={'hover:brightness-125 duration-300'}
+                                                             >
+-                                                                Ticket Owner
++                                                                Responsável pelo ticket
+                                                             </Link>
+                                                         </td>
+                                                     )}
+@@ -109,16 +110,17 @@ const MessagesTable = ({ ticketId }: { ticketId: number }) => {
+                                                     >
+                                                         {Math.abs(differenceInHours(message.created_at, new Date())) >
+                                                         48
+-                                                            ? format(message.created_at!, 'MMM do, yyyy h:mma')
++                                                            ? format(message.created_at!, 'MMM do, yyyy HH:mm', { locale: dateLocale() })
+                                                             : formatDistanceToNow(message.created_at!, {
+                                                                   addSuffix: true,
++                                                                  locale: dateLocale(),
+                                                               })}
+                                                     </td>
+                                                     <td
+                                                         css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}
+                                                     >
+                                                         <Button onClick={() => setVisible(message.message)}>
+-                                                            Read Message
++                                                            Ler mensagem
+                                                         </Button>
+                                                     </td>
+                                                 </TableRow>
+diff --git a/resources/scripts/components/admin/modules/tickets/view/NewMessageDialog.tsx b/resources/scripts/components/admin/modules/tickets/view/NewMessageDialog.tsx
+index 989ce29f3..70d69a17b 100644
+--- a/resources/scripts/components/admin/modules/tickets/view/NewMessageDialog.tsx
++++ b/resources/scripts/components/admin/modules/tickets/view/NewMessageDialog.tsx
+@@ -37,17 +37,17 @@ export default ({ ticketId }: { ticketId: number }) => {
+ 
+     return (
+         <>
+-            <Button.Info onClick={() => setOpen(true)}>New Message</Button.Info>
++            <Button.Info onClick={() => setOpen(true)}>Nova mensagem</Button.Info>
+             <Formik onSubmit={submit} initialValues={{ ticket_id: ticketId, message: '' }} enableReinitialize>
+                 {({ isSubmitting, isValid, submitForm }) => (
+                     <Form>
+                         <SpinnerOverlay visible={isSubmitting} />
+-                        <Dialog title={'New message'} open={open} onClose={() => setOpen(false)}>
++                        <Dialog title={'Nova mensagem'} open={open} onClose={() => setOpen(false)}>
+                             <FlashMessageRender byKey={'ticket:message:create'} />
+                             <TextareaField id={'message'} name={'message'} className={'my-4'} rows={5} />
+                             <div className={'text-right'}>
+                                 <Button type={'button'} onClick={submitForm} disabled={isSubmitting || !isValid}>
+-                                    Send
++                                    Enviar
+                                 </Button>
+                             </div>
+                         </Dialog>
+diff --git a/resources/scripts/components/admin/modules/tickets/view/ViewTicketContainer.tsx b/resources/scripts/components/admin/modules/tickets/view/ViewTicketContainer.tsx
+index b09aef6fa..9d4289400 100644
+--- a/resources/scripts/components/admin/modules/tickets/view/ViewTicketContainer.tsx
++++ b/resources/scripts/components/admin/modules/tickets/view/ViewTicketContainer.tsx
+@@ -1,6 +1,7 @@
+ import tw from 'twin.macro';
+ import AdminContentBlock from '@/elements/AdminContentBlock';
+ import { differenceInHours, format, formatDistanceToNow } from 'date-fns';
++import { dateLocale } from '@/lib/dateLocale';
+ import { statusToColor } from '@admin/modules/tickets/TicketsContainer';
+ import classNames from 'classnames';
+ import AdminBox from '@/elements/AdminBox';
+@@ -56,13 +57,13 @@ export default () => {
+     if (!ticket.user)
+         return (
+             <Alert type={'danger'}>
+-                This ticket was created without an assigned user. This ticket must be deleted.&nbsp;
++                Este ticket foi criado sem um usuário atribuído. Este ticket precisa ser excluído.&nbsp;
+                 <DeleteTicketDialog ticketId={ticket.id} />
+             </Alert>
+         );
+ 
+     return (
+-        <AdminContentBlock title={`View ticket: ${ticket.title}`}>
++        <AdminContentBlock title={`Ver ticket: ${ticket.title}`}>
+             <div className={'w-full flex flex-row items-center mb-8'}>
+                 <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
+                     <h2 className={'text-2xl font-header font-medium inline-flex'}>
+@@ -81,10 +82,10 @@ export default () => {
+                             'text-base text-sm mt-1 text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden'
+                         }
+                     >
+-                        First created&nbsp;
++                        Criado&nbsp;
+                         {Math.abs(differenceInHours(ticket.created_at, new Date())) > 48
+-                            ? format(ticket.created_at, 'MMM do, yyyy h:mma')
+-                            : formatDistanceToNow(ticket.created_at, { addSuffix: true })}
++                            ? format(ticket.created_at, 'MMM do, yyyy HH:mm', { locale: dateLocale() })
++                            : formatDistanceToNow(ticket.created_at, { addSuffix: true, locale: dateLocale() })}
+                     </p>
+                 </div>
+             </div>
+@@ -99,21 +100,21 @@ export default () => {
+             >
+                 {({ isSubmitting }) => (
+                     <Form>
+-                        <AdminBox title={'Ticket Options'} icon={faGears} status={boxStatus.status}>
++                        <AdminBox title={'Opções do ticket'} icon={faGears} status={boxStatus.status}>
+                             <div className={'grid lg:grid-cols-3 gap-4'}>
+                                 <div>
+-                                    <Label>Update ticket status</Label>
++                                    <Label>Atualizar status do ticket</Label>
+                                     <Select
+                                         defaultValue={ticket.status}
+                                         onChange={e => setStatus(String(e.target.value) as TicketStatus)}
+                                     >
+-                                        <option value={'pending'}>Pending</option>
+-                                        <option value={'in-progress'}>In Progress</option>
+-                                        <option value={'resolved'}>Resolved</option>
+-                                        <option value={'unresolved'}>Unresolved</option>
++                                        <option value={'pending'}>Pendente</option>
++                                        <option value={'in-progress'}>Em andamento</option>
++                                        <option value={'resolved'}>Resolvido</option>
++                                        <option value={'unresolved'}>Não resolvido</option>
+                                     </Select>
+                                     <p className={'text-xs mt-1 text-gray-400'}>
+-                                        Change the state of this ticket for the user.
++                                        Altere o estado deste ticket para o usuário.
+                                     </p>
+                                 </div>
+                                 <div>
+@@ -132,13 +133,13 @@ export default () => {
+                                         )}
+                                     </div>
+                                     <p className={'text-xs mt-1 text-gray-400'}>
+-                                        You may assign a Panel administrator to be responsible for this ticket.
++                                        Você pode atribuir um administrador do painel como responsável por este ticket.
+                                     </p>
+                                 </div>
+                                 <div>
+                                     <UserSelect selected={ticket.user} />
+                                     <p className={'text-xs mt-1 text-gray-400'}>
+-                                        If needed, you can re-assign this ticket to a different user.
++                                        Se necessário, você pode reatribuir este ticket a outro usuário.
+                                     </p>
+                                 </div>
+                             </div>
+@@ -146,7 +147,7 @@ export default () => {
+                                 <div className={'ml-auto mt-4'}>
+                                     <DeleteTicketDialog ticketId={ticket.id} />
+                                     <Button type={'submit'} disabled={isSubmitting}>
+-                                        Save Changes
++                                        Salvar alterações
+                                     </Button>
+                                 </div>
+                             </div>
+@@ -157,7 +158,7 @@ export default () => {
+             <div className={'border-2 border-gray-700 rounded-full my-12'} />
+             <div className={'w-full flex flex-row items-center'}>
+                 <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
+-                    <h2 className={'text-2xl font-header font-medium inline-flex'}>Ticket Messages</h2>
++                    <h2 className={'text-2xl font-header font-medium inline-flex'}>Mensagens do ticket</h2>
+                 </div>
+                 <div css={tw`flex ml-auto pl-4`}>
+                     <NewMessageDialog ticketId={ticket.id} />

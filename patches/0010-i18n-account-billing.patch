@@ -1,0 +1,629 @@
+From: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+Date: Tue, 27 Oct 2026 09:53:10 -0300
+Subject: i18n: traduz catálogo de produtos, checkout e histórico de faturamento
+
+Description:
+Traduz o fluxo de faturamento do cliente em
+resources/scripts/components/account/billing/, incluindo a vitrine de planos
+e categorias (ProductsContainer), seleção de Node e variáveis do Egg,
+aplicação de cupons de desconto, aceite de documentos legais, telas de status
+do pedido (processando, concluído e cancelado) e histórico de pedidos e
+faturas.
+
+Origin: vendor
+Forwarded: not-needed
+Applied-Upstream: no
+Last-Update: 2026-10-27
+Signed-off-by: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+
+---
+
+diff --git a/resources/scripts/components/account/billing/ProductsContainer.tsx b/resources/scripts/components/account/billing/ProductsContainer.tsx
+index 14c33c7da..f5b91cf9c 100644
+--- a/resources/scripts/components/account/billing/ProductsContainer.tsx
++++ b/resources/scripts/components/account/billing/ProductsContainer.tsx
+@@ -53,27 +53,27 @@ export default () => {
+     if (!settings.keys.secret) {
+         return (
+             <Alert type={'danger'}>
+-                Due to a configuration error, the store is currently unavailable. Please try again later, or refresh the
+-                page.
++                Devido a um erro de configuração, a loja está indisponível no momento. Tente novamente mais tarde ou
++                atualize a página.
+             </Alert>
+         );
+     }
+ 
+     return (
+-        <PageContentBlock title={'Available Products'}>
++        <PageContentBlock title={'Produtos disponíveis'}>
+             <div className={'text-3xl lg:text-5xl font-bold mt-8 mb-12'}>
+-                Order a Product
++                Pedir um produto
+                 <p className={'text-gray-400 font-normal text-sm mt-1'}>
+-                    Choose and configure any of the products below to your liking.
++                    Escolha e configure qualquer um dos produtos abaixo como preferir.
+                 </p>
+             </div>
+             <div className={'grid lg:grid-cols-4 gap-4 lg:gap-12'}>
+                 <div>
+-                    <p className={'text-2xl text-gray-300 mb-6 mt-4 font-bold'}>Categories</p>
++                    <p className={'text-2xl text-gray-300 mb-6 mt-4 font-bold'}>Categorias</p>
+                     {(!categories || categories.length < 1) && (
+                         <div className={'font-semibold my-4 text-gray-400'}>
+                             <FontAwesomeIcon icon={faExclamationTriangle} className={'w-5 h-5 mr-2 text-yellow-400'} />
+-                            No categories found.
++                            Nenhuma categoria encontrada.
+                         </div>
+                     )}
+                     <div className={'flex flex-col gap-1'}>
+@@ -123,7 +123,7 @@ export default () => {
+                                         icon={faExclamationTriangle}
+                                         className={'w-5 h-5 mr-2 text-yellow-400'}
+                                     />
+-                                    No products could be found in this category.
++                                    Nenhum produto foi encontrado nesta categoria.
+                                 </div>
+                             )}
+                             <div className={'grid grid-cols-1 xl:grid-cols-3 gap-4'}>
+@@ -159,7 +159,7 @@ export default () => {
+                                             <p className={'text-center mt-1 mb-6'}>
+                                                 <Money
+                                                     value={product.price}
+-                                                    suffix={' / mo'}
++                                                    suffix={' /mês'}
+                                                     accent
+                                                     className={'text-2xl font-bold'}
+                                                 />
+@@ -168,17 +168,17 @@ export default () => {
+                                                 <LimitBox icon={faMicrochip} limit={<>{product.limits.cpu}% CPU</>} />
+                                                 <LimitBox
+                                                     icon={faMemory}
+-                                                    limit={<>{product.limits.memory / 1024} GiB RAM</>}
++                                                    limit={<>{product.limits.memory / 1024} GiB de RAM</>}
+                                                 />
+                                                 <LimitBox
+                                                     icon={faHdd}
+-                                                    limit={<>{product.limits.disk / 1024} GiB Disk</>}
++                                                    limit={<>{product.limits.disk / 1024} GiB de disco</>}
+                                                 />
+                                                 <LimitBox
+                                                     icon={faEthernet}
+                                                     limit={
+                                                         <>
+-                                                            {product.limits.allocation} port
++                                                            {product.limits.allocation} porta
+                                                             {product.limits.allocation > 1 && 's'}
+                                                         </>
+                                                     }
+@@ -192,7 +192,7 @@ export default () => {
+                                                 {!!product.limits.database && (
+                                                     <LimitBox
+                                                         icon={faDatabase}
+-                                                        limit={<>{product.limits.database} databases</>}
++                                                        limit={<>{product.limits.database} bancos de dados</>}
+                                                     />
+                                                 )}
+                                             </div>
+@@ -203,7 +203,7 @@ export default () => {
+                                             >
+                                                 <Link to={`/account/billing/order/${product.id}`}>
+                                                     <Button size={Button.Sizes.Large} className={'w-full'}>
+-                                                        Configure
++                                                        Configurar
+                                                     </Button>
+                                                 </Link>
+                                             </div>
+diff --git a/resources/scripts/components/account/billing/order/DiscountCodeDialog.tsx b/resources/scripts/components/account/billing/order/DiscountCodeDialog.tsx
+index 5a09b1f64..d408b10d1 100644
+--- a/resources/scripts/components/account/billing/order/DiscountCodeDialog.tsx
++++ b/resources/scripts/components/account/billing/order/DiscountCodeDialog.tsx
+@@ -32,13 +32,13 @@ export default ({ discountCode, setDiscountCode }: Props) => {
+ 
+     return (
+         <>
+-            <Dialog open={open} onClose={() => setOpen(false)} title={'Apply Discount Code'}>
+-                If you have a discount code for this order, you can apply it here.
++            <Dialog open={open} onClose={() => setOpen(false)} title={'Aplicar cupom de desconto'}>
++                Se você tiver um cupom de desconto para este pedido, aplique-o aqui.
+                 {!discountCode ? (
+                     <div className={'inline-flex'}>
+                         <Input className={'mt-4'} placeholder={'SAVE20'} onChange={e => setInput(e.target.value)} />
+                         <Button size={Button.Sizes.Small} className={'my-auto mt-5 ml-2'} onClick={submit}>
+-                            Validate
++                            Validar
+                         </Button>
+                     </div>
+                 ) : (
+@@ -55,23 +55,23 @@ export default ({ discountCode, setDiscountCode }: Props) => {
+                                     <span className={'ml-4 text-sm text-green-400 font-semibold my-auto'}>
+                                         {discountCode.value}
+                                         {discountCode.type === 'percentage' ? '%' : currencySymbol}
+-                                        &nbsp;saving
++                                        &nbsp;de desconto
+                                     </span>
+                                 </p>
+                                 <p className={'mt-1 text-sm text-gray-400'}>{discountCode.description}</p>
+                             </div>
+                         </div>
+                         <div className={'text-right mt-4'}>
+-                            <Button onClick={() => setOpen(false)}>Done</Button>
++                            <Button onClick={() => setOpen(false)}>Concluir</Button>
+                         </div>
+                     </div>
+                 )}
+                 {invalid && (
+-                    <p className={'text-red-400 text-sm'}>This discount code is not valid and cannot be used.</p>
++                    <p className={'text-red-400 text-sm'}>Este cupom de desconto não é válido e não pode ser usado.</p>
+                 )}
+             </Dialog>
+             <div className={'font-semibold text-blue-400 my-auto mr-4'} onClick={() => setOpen(true)}>
+-                Add a discount code <FontAwesomeIcon icon={faPlus} className={'ml-2'} />
++                Adicionar cupom de desconto <FontAwesomeIcon icon={faPlus} className={'ml-2'} />
+             </div>
+         </>
+     );
+diff --git a/resources/scripts/components/account/billing/order/NodeBox.tsx b/resources/scripts/components/account/billing/order/NodeBox.tsx
+index 5523b5b08..6c7e3be6d 100644
+--- a/resources/scripts/components/account/billing/order/NodeBox.tsx
++++ b/resources/scripts/components/account/billing/order/NodeBox.tsx
+@@ -34,11 +34,11 @@ export default ({ node, selected, setSelected, disabled }: Props) => {
+                 <p className={'text-gray-200 font-semibold'}>
+                     {node.name}{' '}
+                     <span className={'font-medium ml-2 text-gray-400 italic text-sm'}>
+-                        <code>{node.fqdn}</code> - {disabled ? 'Available for paid servers only' : 'available'}
++                        <code>{node.fqdn}</code> - {disabled ? 'Disponível apenas para servidores pagos' : 'disponível'}
+                     </span>
+                     {!disabled && node.deploymentFee > 0 && (
+                         <span className={'block text-xs text-yellow-400 mt-0.5'}>
+-                            + <Money value={node.deploymentFee} /> one-time deployment fee
++                            + <Money value={node.deploymentFee} /> taxa única de implantação
+                         </span>
+                     )}
+                 </p>
+diff --git a/resources/scripts/components/account/billing/order/OrderContainer.tsx b/resources/scripts/components/account/billing/order/OrderContainer.tsx
+index 4ae0512e2..2aad9c680 100644
+--- a/resources/scripts/components/account/billing/order/OrderContainer.tsx
++++ b/resources/scripts/components/account/billing/order/OrderContainer.tsx
+@@ -158,34 +158,34 @@ export default () => {
+     const paymentStep = stepCounter++;
+ 
+     return (
+-        <PageContentBlock title={'Your Order'}>
++        <PageContentBlock title={'Seu pedido'}>
+             <FlashMessageRender byKey={'account:billing:order'} className={'mb-4'} />
+             <div className={'text-3xl lg:text-5xl font-bold mt-8 mb-12'}>
+-                Your Order
++                Seu pedido
+                 <p className={'text-gray-400 font-normal text-sm mt-1'}>
+-                    Customize your selected plan and submit a payment.
++                    Personalize o plano escolhido e envie o pagamento.
+                 </p>
+             </div>
+             <div className={'grid lg:grid-cols-8 gap-4 lg:gap-12'}>
+                 <div className={'lg:border-r-4 border-gray-500 lg:col-span-2'}>
+                     <p className={'text-2xl text-gray-300 my-4 font-bold'}>
+-                        Selected Plan
++                        Plano escolhido
+                         {product.icon && <img src={product.icon} className={'w-8 h-8 ml-2 inline-flex'} />}
+                     </p>
+                     <LimitBox icon={faIdBadge} limit={<>{product.name}</>} />
+                     <div className={'font-semibold text-gray-400 text-lg my-1'}>
+                         <FontAwesomeIcon icon={faCreditCard} className={'w-4 h-4 inline-flex mr-2 '} />
+                         <Money value={Number(finalPrice)} className={'mr-1'} accent />
+-                        <span className={'text-sm'}>/ mo</span>
++                        <span className={'text-sm'}>/mês</span>
+                     </div>
+                     <div className={'h-0.5 my-4 bg-gray-600 mr-8 rounded-full'} />
+                     <LimitBox icon={faMicrochip} limit={<>{product.limits.cpu}% CPU</>} />
+-                    <LimitBox icon={faMemory} limit={<>{(product.limits.memory / 1024).toFixed(1)} GiB Memory</>} />
+-                    <LimitBox icon={faHdd} limit={<>{(product.limits.disk / 1024).toFixed(1)} GiB Disk</>} />
++                    <LimitBox icon={faMemory} limit={<>{(product.limits.memory / 1024).toFixed(1)} GiB de memória</>} />
++                    <LimitBox icon={faHdd} limit={<>{(product.limits.disk / 1024).toFixed(1)} GiB de disco</>} />
+                     <div className={'h-0.5 my-4 bg-gray-600 mr-8 rounded-full'} />
+-                    <LimitBox icon={faArchive} limit={<>{product.limits.backup} Backup Slots</>} />
+-                    <LimitBox icon={faDatabase} limit={<>{product.limits.database} Database Slots</>} />
+-                    <LimitBox icon={faEthernet} limit={<>{product.limits.allocation} Network Ports</>} />
++                    <LimitBox icon={faArchive} limit={<>{product.limits.backup} Slots de backup</>} />
++                    <LimitBox icon={faDatabase} limit={<>{product.limits.database} Slots de banco de dados</>} />
++                    <LimitBox icon={faEthernet} limit={<>{product.limits.allocation} Portas de rede</>} />
+                 </div>
+                 <div className={'lg:col-span-6'}>
+                     <div>
+@@ -193,13 +193,14 @@ export default () => {
+                             <StepHeader
+                                 step={locationStep}
+                                 complete={!!selectedNode && (nodes?.length ?? 0) > 0}
+-                                title={'Choose a location'}
+-                                description={'Select a location from our list to deploy your server to.'}
++                                title={'Escolha um local'}
++                                description={'Selecione um local da nossa lista para implantar seu servidor.'}
+                             />
+                             <div className={'grid lg:grid-cols-2 gap-4'}>
+                                 {(!nodes || nodes.length < 1) && (
+                                     <Alert type={'danger'} className={'col-span-2'}>
+-                                        There are no nodes available for deployment. Please contact an administrator.
++                                        Não há Nodes disponíveis para implantação. Entre em contato com um
++                                        administrador.
+                                     </Alert>
+                                 )}
+                                 {nodes?.map(node => (
+@@ -220,16 +221,14 @@ export default () => {
+                                     <StepHeader
+                                         step={eggStep!}
+                                         complete={!!selectedEgg}
+-                                        title={'Choose your egg'}
+-                                        description={
+-                                            'Select which server type from this nest you would like to deploy.'
+-                                        }
++                                        title={'Escolha seu Egg'}
++                                        description={'Selecione qual tipo de servidor deste Nest você quer implantar.'}
+                                     />
+                                     <div className={'grid lg:grid-cols-2 gap-4'}>
+                                         {(!availableEggs || availableEggs.length < 1) && (
+                                             <Alert type={'danger'} className={'col-span-2'}>
+-                                                There are no eggs available for this product. Please contact an
+-                                                administrator.
++                                                Não há Eggs disponíveis para este produto. Entre em contato com um
++                                                administrador.
+                                             </Alert>
+                                         )}
+                                         {availableEggs?.map(egg => (
+@@ -251,9 +250,9 @@ export default () => {
+                                     <StepHeader
+                                         step={variablesStep!}
+                                         complete={!!selectedNode && (nodes?.length ?? 0) > 0}
+-                                        title={'Plan Variables'}
++                                        title={'Variáveis do plano'}
+                                         description={
+-                                            'Modify your server variables before your server is even created for ease of use.'
++                                            'Modifique as variáveis do seu servidor antes mesmo de ele ser criado para facilitar o uso.'
+                                         }
+                                     />
+                                     <div className={'grid lg:grid-cols-2 gap-4'}>
+@@ -271,20 +270,20 @@ export default () => {
+                             <StepHeader
+                                 step={legalStep}
+                                 complete={termsAgreed && privacyAgreed}
+-                                title={'Legal Documents'}
+-                                description={'Agree and sign the relevant legal documents for your new server.'}
++                                title={'Documentos legais'}
++                                description={'Concorde e assine os documentos legais do seu novo servidor.'}
+                             />
+                             <div className={'grid lg:grid-cols-2 gap-4'}>
+-                                <TitledGreyBox title={'Terms of Service agreement'} className={'relative'}>
++                                <TitledGreyBox title={'Contrato de Termos de Serviço'} className={'relative'}>
+                                     {!termsAgreed ? (
+                                         <>
+-                                            Click the checkbox to agree to our{' '}
++                                            Marque a caixa de seleção para concordar com{' '}
+                                             <a href={billing.links.terms} className={'text-blue-400 font-semibold'}>
+-                                                Terms of Service <FontAwesomeIcon icon={faExternalLinkAlt} />
++                                                Termos de Serviço <FontAwesomeIcon icon={faExternalLinkAlt} />
+                                             </a>
+                                         </>
+                                     ) : (
+-                                        <Alert type={'success'}>Terms of Service completed</Alert>
++                                        <Alert type={'success'}>Termos de Serviço aceitos</Alert>
+                                     )}
+                                     {!termsAgreed && (
+                                         <div className={'absolute top-0 right-0 p-3'}>
+@@ -296,16 +295,16 @@ export default () => {
+                                         </div>
+                                     )}
+                                 </TitledGreyBox>
+-                                <TitledGreyBox title={'Privacy Policy agreement'} className={'relative'}>
++                                <TitledGreyBox title={'Contrato de Política de Privacidade'} className={'relative'}>
+                                     {!privacyAgreed ? (
+                                         <>
+-                                            Click the checkbox to agree to our{' '}
++                                            Marque a caixa de seleção para concordar com{' '}
+                                             <a href={billing.links.privacy} className={'text-blue-400 font-semibold'}>
+-                                                Privacy Policy <FontAwesomeIcon icon={faExternalLinkAlt} />
++                                                Política de Privacidade <FontAwesomeIcon icon={faExternalLinkAlt} />
+                                             </a>
+                                         </>
+                                     ) : (
+-                                        <Alert type={'success'}>Privacy Policy completed</Alert>
++                                        <Alert type={'success'}>Política de Privacidade aceita</Alert>
+                                     )}
+                                     {!privacyAgreed && (
+                                         <div className={'absolute top-0 right-0 p-3'}>
+@@ -322,7 +321,7 @@ export default () => {
+                         <div className={'h-px bg-gray-700 rounded-full'} />
+                         {!termsAgreed || !privacyAgreed ? (
+                             <Alert type={'warning'}>
+-                                Please agree to the above legal documents before proceeding with your order.
++                                Concorde com os documentos legais acima antes de continuar com seu pedido.
+                             </Alert>
+                         ) : (
+                             <>
+@@ -333,16 +332,16 @@ export default () => {
+                                             complete={false}
+                                             title={
+                                                 <>
+-                                                    Due Today: <Money value={grandTotal} accent />
++                                                    Vencimento hoje: <Money value={grandTotal} accent />
+                                                     {deploymentFee > 0 && (
+                                                         <span className={'text-sm text-gray-400 font-normal ml-2'}>
+-                                                            (includes <Money value={deploymentFee} /> one-time
+-                                                            deployment fee)
++                                                            (inclui <Money value={deploymentFee} /> taxa única de
++                                                            implantação)
+                                                         </span>
+                                                     )}
+                                                     {discountCode && (
+                                                         <span className={'text-green-400 text-base font-normal ml-3'}>
+-                                                            ({discountCode.code} discount applied)
++                                                            ({discountCode.code} desconto aplicado)
+                                                         </span>
+                                                     )}
+                                                 </>
+@@ -350,11 +349,11 @@ export default () => {
+                                             description={
+                                                 deploymentFee > 0 ? (
+                                                     <>
+-                                                        Then <Money value={Number(finalPrice)} suffix={'/mo'} />{' '}
+-                                                        starting next billing cycle.
++                                                        Depois <Money value={Number(finalPrice)} suffix={'/mês'} /> a
++                                                        partir do próximo ciclo de cobrança.
+                                                     </>
+                                                 ) : (
+-                                                    'Press Pay Now to checkout via your preferred payment method.'
++                                                    'Clique em Pagar agora para finalizar a compra com seu método de pagamento preferido.'
+                                                 )
+                                             }
+                                         />
+@@ -378,16 +377,16 @@ export default () => {
+                                     <div className={'flex w-full mt-8'}>
+                                         {needsEggSelection && !selectedEgg ? (
+                                             <Alert type={'warning'} className={'w-full'}>
+-                                                Please select an egg above to continue.
++                                                Selecione um Egg acima para continuar.
+                                             </Alert>
+                                         ) : (
+                                             <>
+                                                 <p className={'font-semibold text-gray-400'}>
+-                                                    As this product is free, no purchase needs to be made via our
+-                                                    payment gateways.
++                                                    Como este produto é gratuito, não é necessário fazer nenhuma compra
++                                                    pelos nossos gateways de pagamento.
+                                                 </p>
+                                                 <Button className={'ml-auto'} onClick={createFree}>
+-                                                    Create Server
++                                                    Criar servidor
+                                                 </Button>
+                                             </>
+                                         )}
+diff --git a/resources/scripts/components/account/billing/order/PaymentButton.tsx b/resources/scripts/components/account/billing/order/PaymentButton.tsx
+index 7a2454a80..7e4b658e4 100644
+--- a/resources/scripts/components/account/billing/order/PaymentButton.tsx
++++ b/resources/scripts/components/account/billing/order/PaymentButton.tsx
+@@ -45,13 +45,13 @@ export default (data: Props) => {
+             <SpinnerOverlay visible={loading} />
+             <FlashMessageRender byKey={'account:billing:order'} className={'mb-4'} />
+             {isNaN(data.node) ? (
+-                <Alert type={'warning'}>A valid node must be selected to continue with your order.</Alert>
++                <Alert type={'warning'}>Um Node válido deve ser selecionado para continuar com seu pedido.</Alert>
+             ) : eggMissing ? (
+-                <Alert type={'warning'}>An egg must be selected to continue with your order.</Alert>
++                <Alert type={'warning'}>Um Egg deve ser selecionado para continuar com seu pedido.</Alert>
+             ) : (
+                 <div className={'text-right'}>
+                     <Button disabled={isNaN(data.node) || eggMissing} size={Button.Sizes.Large}>
+-                        Pay Now
++                        Pagar agora
+                     </Button>
+                 </div>
+             )}
+diff --git a/resources/scripts/components/account/billing/order/summary/Cancel.tsx b/resources/scripts/components/account/billing/order/summary/Cancel.tsx
+index 32829b71f..be66c3ec8 100644
+--- a/resources/scripts/components/account/billing/order/summary/Cancel.tsx
++++ b/resources/scripts/components/account/billing/order/summary/Cancel.tsx
+@@ -13,10 +13,10 @@ export default () => {
+                     style={{ backgroundColor: colors.secondary }}
+                 >
+                     <CancelSvg color={colors.primary} />
+-                    <h2 className={'mt-10 text-white font-bold text-4xl'}>Order Cancelled</h2>
++                    <h2 className={'mt-10 text-white font-bold text-4xl'}>Pedido cancelado</h2>
+                     <p className={'text-sm text-neutral-400 mt-2'}>
+-                        Your order was cancelled due to payment not being submitted to Stripe. You have not been
+-                        charged. If you&apos;d like to retry this order, please click &apos;Order&apos; above.
++                        Seu pedido foi cancelado porque o pagamento não foi enviado ao Stripe. Você não foi cobrado. Se
++                        quiser tentar este pedido novamente, clique em &apos;Pedido&apos; acima.
+                     </p>
+                 </div>
+             </div>
+diff --git a/resources/scripts/components/account/billing/order/summary/Processing.tsx b/resources/scripts/components/account/billing/order/summary/Processing.tsx
+index 0584563d8..9f3700f18 100644
+--- a/resources/scripts/components/account/billing/order/summary/Processing.tsx
++++ b/resources/scripts/components/account/billing/order/summary/Processing.tsx
+@@ -34,11 +34,11 @@ export default () => {
+                 >
+                     <FlashMessageRender byKey={'billing:process'} className={'mb-6'} />
+                     <h2 className={'text-white font-bold text-4xl'}>
+-                        Processing Order <Spinner centered />
++                        Processando pedido <Spinner centered />
+                     </h2>
+                     <p className={'text-sm text-neutral-200 mt-2'}>
+-                        Our systems are currently working on deploying your server to our systems. Sit tight while your
+-                        new server is deployed!
++                        Nossos sistemas estão trabalhando na implantação do seu servidor. Aguarde enquanto seu novo
++                        servidor é implantado!
+                     </p>
+                 </div>
+             </div>
+diff --git a/resources/scripts/components/account/billing/order/summary/Success.tsx b/resources/scripts/components/account/billing/order/summary/Success.tsx
+index 2bbd57eab..9172fb178 100644
+--- a/resources/scripts/components/account/billing/order/summary/Success.tsx
++++ b/resources/scripts/components/account/billing/order/summary/Success.tsx
+@@ -13,10 +13,10 @@ export default () => {
+                     style={{ backgroundColor: colors.secondary }}
+                 >
+                     <SuccessSvg color={colors.primary} />
+-                    <h2 className={'mt-10 text-white font-bold text-4xl'}>Order Processed</h2>
++                    <h2 className={'mt-10 text-white font-bold text-4xl'}>Pedido processado</h2>
+                     <p className={'text-sm text-neutral-400 mt-2'}>
+-                        Thank you for your payment - your server has now been created. Navigate to the
+-                        &apos;Dashboard&apos; tab at the top-left of your screen to view your new server.
++                        Obrigado pelo seu pagamento - seu servidor foi criado. Navegue até a aba &apos;Início&apos; no
++                        canto superior esquerdo da tela para ver seu novo servidor.
+                     </p>
+                 </div>
+             </div>
+diff --git a/resources/scripts/components/account/billing/orders/InvoiceIcon.tsx b/resources/scripts/components/account/billing/orders/InvoiceIcon.tsx
+index 7af7c6da5..c7750eeb7 100644
+--- a/resources/scripts/components/account/billing/orders/InvoiceIcon.tsx
++++ b/resources/scripts/components/account/billing/orders/InvoiceIcon.tsx
+@@ -14,7 +14,7 @@ export default ({ order }: { order: Order }) => {
+ 
+     if (!invoice) {
+         return (
+-            <Tooltip content={'Your invoice is still being generated — check back shortly.'}>
++            <Tooltip content={'Sua fatura ainda está sendo gerada — volte em breve.'}>
+                 <FontAwesomeIcon icon={faReceipt} className={'text-gray-500 cursor-default'} />
+             </Tooltip>
+         );
+@@ -29,10 +29,10 @@ export default ({ order }: { order: Order }) => {
+     };
+ 
+     return (
+-        <Tooltip content={'Download invoice'}>
++        <Tooltip content={'Baixar fatura'}>
+             <button
+                 type={'button'}
+-                aria-label={'Download invoice'}
++                aria-label={'Baixar fatura'}
+                 onClick={download}
+                 disabled={downloading}
+                 className={'text-gray-400 hover:text-neutral-100 transition-colors duration-150 disabled:opacity-50'}
+diff --git a/resources/scripts/components/account/billing/orders/OrdersContainer.tsx b/resources/scripts/components/account/billing/orders/OrdersContainer.tsx
+index c83f62747..7ccdd8697 100644
+--- a/resources/scripts/components/account/billing/orders/OrdersContainer.tsx
++++ b/resources/scripts/components/account/billing/orders/OrdersContainer.tsx
+@@ -15,6 +15,7 @@ import AdminTable, {
+ } from '@/elements/AdminTable';
+ import CopyOnClick from '@/elements/CopyOnClick';
+ import { formatDistanceToNowStrict } from 'date-fns';
++import { dateLocale } from '@/lib/dateLocale';
+ import { getAllOrders, useGetOrders } from '@/api/routes/account/billing/orders';
+ import { Context as OrderContext } from '@/api/routes/account/billing/orders/index';
+ import { OrderFilters } from '@/api/routes/account/billing/orders/types';
+@@ -45,6 +46,21 @@ export function type(state: string): PillStatus {
+     }
+ }
+ 
++const statusLabels: Record<string, string> = {
++    pending: 'Pendente',
++    expired: 'Expirado',
++    failed: 'Falhou',
++    processed: 'Processado',
++};
++
++const orderTypeLabels: Record<string, string> = {
++    new: 'Novo',
++    upg: 'Upgrade',
++    upgrade: 'Upgrade',
++    ren: 'Renovação',
++    renewal: 'Renovação',
++};
++
+ function OrderTable({ server_id }: { server_id?: number }) {
+     const { data: orders, error } = useGetOrders();
+     const { clearFlashes, clearAndAddHttpError } = useFlash();
+@@ -88,24 +104,24 @@ function OrderTable({ server_id }: { server_id?: number }) {
+                                     onClick={() => setSort('id')}
+                                 />
+                                 <TableHeader
+-                                    name={'Total Price'}
++                                    name={'Preço total'}
+                                     direction={sort === 'total' ? (sortDirection ? 1 : 2) : null}
+                                     onClick={() => setSort('total')}
+                                 />
+-                                <TableHeader name={'Description'} />
++                                <TableHeader name={'Descrição'} />
+                                 <TableHeader
+-                                    name={'Created At'}
++                                    name={'Criado em'}
+                                     direction={sort === 'created_at' ? (sortDirection ? 1 : 2) : null}
+                                     onClick={() => setSort('created_at')}
+                                 />
+-                                <TableHeader name={'Payment State'} />
++                                <TableHeader name={'Estado do pagamento'} />
+                                 <TableHeader
+-                                    name={'Order Type'}
++                                    name={'Tipo de pedido'}
+                                     direction={sort === 'type' ? (sortDirection ? 1 : 2) : null}
+                                     onClick={() => setSort('type')}
+                                 />
+-                                {!server_id && <TableHeader name={'Active Service'} />}
+-                                <TableHeader name={'Invoice'} />
++                                {!server_id && <TableHeader name={'Serviço ativo'} />}
++                                <TableHeader name={'Fatura'} />
+                             </TableHead>
+                             <TableBody>
+                                 {orders !== undefined &&
+@@ -120,20 +136,20 @@ function OrderTable({ server_id }: { server_id?: number }) {
+                                                 </CopyOnClick>
+                                             </td>
+                                             <td className={'px-6 py-4 text-white font-bold'}>
+-                                                <Money value={order.total} suffix={'/mo'} />
++                                                <Money value={order.total} suffix={'/mês'} />
+                                             </td>
+                                             <td className={'px-6 py-4'}>{order.description}</td>
+                                             <td className={'px-6 py-4'}>
+-                                                {formatDistanceToNowStrict(order.created_at, { addSuffix: true })}
++                                                {formatDistanceToNowStrict(order.created_at, { addSuffix: true, locale: dateLocale() })}
+                                             </td>
+                                             <td className={'px-6 py-4 text-left'}>
+                                                 <Pill size={'small'} type={type(order.status)}>
+-                                                    {order.status}
++                                                    {statusLabels[order.status] ?? order.status}
+                                                 </Pill>
+                                             </td>
+                                             <td className={'pr-12 py-4 text-center'}>
+                                                 <Pill size={'small'} type={order.type === 'new' ? 'success' : 'info'}>
+-                                                    {order.type.toUpperCase()}
++                                                    {orderTypeLabels[order.type] ?? order.type.toUpperCase()}
+                                                 </Pill>
+                                             </td>
+                                             {!server_id && (
+@@ -194,22 +210,22 @@ function BillingStats() {
+         <div className={'grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8'}>
+             <StatTile
+                 icon={faServer}
+-                label={'Active Services'}
++                label={'Serviços ativos'}
+                 value={orders === undefined ? '...' : activeServerIds.size}
+             />
+             <StatTile
+                 icon={faWallet}
+-                label={'Monthly Recurring'}
++                label={'Mensalidade recorrente'}
+                 value={orders === undefined ? '...' : <Money value={monthlyRecurring} />}
+             />
+             <StatTile
+                 icon={faReceipt}
+-                label={'Lifetime Spend'}
++                label={'Total gasto'}
+                 value={orders === undefined ? '...' : <Money value={lifetimeSpend} />}
+             />
+             <StatTile
+                 icon={faClockRotateLeft}
+-                label={'Pending Orders'}
++                label={'Pedidos pendentes'}
+                 value={orders === undefined ? '...' : pending}
+             />
+         </div>
+@@ -221,9 +237,9 @@ export default ({ server_id }: { server_id?: number }) => {
+ 
+     return !server_id ? (
+         <PageContentBlock
+-            title={'Billing Activity'}
++            title={'Atividade de faturamento'}
+             header
+-            description={"View and manage the active and previous subscriptions you've created."}
++            description={'Veja e gerencie as assinaturas ativas e anteriores que você criou.'}
+             showFlashKey={'billing:orders'}
+         >
+             <BillingStats />

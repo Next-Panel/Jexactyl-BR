@@ -1,0 +1,31 @@
+From: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+Date: Tue, 27 Oct 2026 09:53:26 -0300
+Subject: core: altera X-Frame-Options para SAMEORIGIN no pré-visualizador de tema
+
+Description:
+Substitui o valor do cabeçalho HTTP X-Frame-Options de DENY para SAMEORIGIN
+no middleware SetSecurityHeaders, permitindo que o iframe de pré-visualização
+da página administrativa de temas renderize telas da mesma origem sem ser
+bloqueado pelo navegador.
+
+Origin: vendor
+Forwarded: not-needed
+Applied-Upstream: no
+Last-Update: 2026-10-27
+Signed-off-by: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+
+---
+
+diff --git a/app/Http/Middleware/SetSecurityHeaders.php b/app/Http/Middleware/SetSecurityHeaders.php
+index 1a9c5ddd3..afc2bf543 100644
+--- a/app/Http/Middleware/SetSecurityHeaders.php
++++ b/app/Http/Middleware/SetSecurityHeaders.php
+@@ -15,7 +15,7 @@ class SetSecurityHeaders
+      * by the admin to support those cases without too much trouble.
+      */
+     private static array $headers = [
+-        'X-Frame-Options' => 'DENY',
++        'X-Frame-Options' => 'SAMEORIGIN',
+         'X-Content-Type-Options' => 'nosniff',
+         'X-XSS-Protection' => '1; mode=block',
+         'Referrer-Policy' => 'no-referrer-when-downgrade',

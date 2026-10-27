@@ -1,0 +1,703 @@
+From: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+Date: Tue, 27 Oct 2026 09:53:22 -0300
+Subject: i18n: traduz gerenciamento administrativo de Nests, Eggs e variáveis
+
+Description:
+Traduz a seção de Serviços (Nests e Eggs) do painel administrativo, incluindo
+criação, edição e exclusão de Nests, importação e exportação de Eggs em JSON,
+configuração de imagens Docker, comandos de inicialização e parada, scripts
+de instalação e gerenciamento de variáveis de ambiente dos Eggs.
+
+Origin: vendor
+Forwarded: not-needed
+Applied-Upstream: no
+Last-Update: 2026-10-27
+Signed-off-by: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+
+---
+
+diff --git a/resources/scripts/components/admin/service/nests/ImportEggButton.tsx b/resources/scripts/components/admin/service/nests/ImportEggButton.tsx
+index 4632ef661..04d4cd0c0 100644
+--- a/resources/scripts/components/admin/service/nests/ImportEggButton.tsx
++++ b/resources/scripts/components/admin/service/nests/ImportEggButton.tsx
+@@ -75,7 +75,7 @@ export default ({ className }: { className?: string }) => {
+             <Modal visible={visible} onDismissed={() => setVisible(false)}>
+                 <FlashMessageRender byKey={'egg:import'} css={tw`mb-6`} />
+ 
+-                <h2 css={tw`mb-6 text-2xl text-neutral-100`}>Import Egg</h2>
++                <h2 css={tw`mb-6 text-2xl text-neutral-100`}>Importar Egg</h2>
+ 
+                 <Editor
+                     childClassName={tw`h-64 rounded`}
+@@ -93,13 +93,13 @@ export default ({ className }: { className?: string }) => {
+                         css={tw`w-full sm:w-auto sm:mr-2`}
+                         onClick={() => setVisible(false)}
+                     >
+-                        Cancel
++                        Cancelar
+                     </Button.Text>
+ 
+                     <input type="file" accept=".json" onChange={handleFileChange} className={'mt-4'} />
+ 
+                     <Button css={tw`w-full sm:w-auto mt-4 sm:mt-0`} onClick={submit}>
+-                        Import Egg
++                        Importar Egg
+                     </Button>
+                 </div>
+             </Modal>
+@@ -112,7 +112,7 @@ export default ({ className }: { className?: string }) => {
+                 className={className}
+                 onClick={() => setVisible(true)}
+             >
+-                Import
++                Importar
+             </Button>
+         </>
+     );
+diff --git a/resources/scripts/components/admin/service/nests/NestDeleteButton.tsx b/resources/scripts/components/admin/service/nests/NestDeleteButton.tsx
+index 0b61db740..147c76e7e 100644
+--- a/resources/scripts/components/admin/service/nests/NestDeleteButton.tsx
++++ b/resources/scripts/components/admin/service/nests/NestDeleteButton.tsx
+@@ -44,13 +44,13 @@ export default ({ nestId, onDeleted }: Props) => {
+         <>
+             <ConfirmationModal
+                 visible={visible}
+-                title={'Delete nest?'}
+-                buttonText={'Yes, delete nest'}
++                title={'Excluir Nest?'}
++                buttonText={'Sim, excluir Nest'}
+                 onConfirmed={onDelete}
+                 showSpinnerOverlay={loading}
+                 onModalDismissed={() => setVisible(false)}
+             >
+-                Are you sure you want to delete this nest? Deleting a nest will delete all eggs assigned to it.
++                Tem certeza de que deseja excluir este Nest? Excluir um Nest excluirá todos os Eggs atribuídos a ele.
+             </ConfirmationModal>
+ 
+             <Button.Danger type="button" shape={Shape.IconSquare} onClick={() => setVisible(true)}>
+diff --git a/resources/scripts/components/admin/service/nests/NestEditContainer.tsx b/resources/scripts/components/admin/service/nests/NestEditContainer.tsx
+index 66db7e439..82033f394 100644
+--- a/resources/scripts/components/admin/service/nests/NestEditContainer.tsx
++++ b/resources/scripts/components/admin/service/nests/NestEditContainer.tsx
+@@ -105,13 +105,16 @@ const EditInformationContainer = () => {
+         >
+             {({ isSubmitting, isValid }) => (
+                 <>
+-                    <AdminBox title={'Edit Nest'} css={tw`flex-1 self-start w-full relative mb-8 lg:mb-0 mr-0 lg:mr-4`}>
++                    <AdminBox
++                        title={'Editar Nest'}
++                        css={tw`flex-1 self-start w-full relative mb-8 lg:mb-0 mr-0 lg:mr-4`}
++                    >
+                         <SpinnerOverlay visible={isSubmitting} />
+ 
+                         <Form>
+-                            <Field id={'name'} name={'name'} label={'Name'} type={'text'} css={tw`mb-6`} />
++                            <Field id={'name'} name={'name'} label={'Nome'} type={'text'} css={tw`mb-6`} />
+ 
+-                            <Field id={'description'} name={'description'} label={'Description'} type={'text'} />
++                            <Field id={'description'} name={'description'} label={'Descrição'} type={'text'} />
+ 
+                             <div css={tw`w-full flex flex-row items-center mt-6`}>
+                                 <div css={tw`flex`}>
+@@ -120,7 +123,7 @@ const EditInformationContainer = () => {
+ 
+                                 <div css={tw`flex ml-auto`}>
+                                     <Button type="submit" disabled={isSubmitting || !isValid}>
+-                                        Save Changes
++                                        Salvar alterações
+                                     </Button>
+                                 </div>
+                             </div>
+@@ -140,7 +143,7 @@ const ViewDetailsContainer = () => {
+     }
+ 
+     return (
+-        <AdminBox title={'Nest Details'} css={tw`flex-1 w-full relative ml-0 lg:ml-4`}>
++        <AdminBox title={'Detalhes do Nest'} css={tw`flex-1 w-full relative ml-0 lg:ml-4`}>
+             <div>
+                 <div>
+                     <div>
+@@ -158,7 +161,7 @@ const ViewDetailsContainer = () => {
+                     </div>
+ 
+                     <div css={tw`mt-6 mb-2`}>
+-                        <Label>Author</Label>
++                        <Label>Autor</Label>
+                         <CopyOnClick text={nest.author}>
+                             <Input type={'text'} value={nest.author} readOnly />
+                         </CopyOnClick>
+@@ -211,7 +214,7 @@ const NestEditContainer = () => {
+                     <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>{nest.name}</h2>
+                     {(nest.description || '').length < 1 ? (
+                         <p css={tw`text-base text-neutral-400`}>
+-                            <span css={tw`italic`}>No description</span>
++                            <span css={tw`italic`}>Sem descrição</span>
+                         </p>
+                     ) : (
+                         <p
+@@ -225,14 +228,14 @@ const NestEditContainer = () => {
+                 <div css={tw`flex flex-row ml-auto pl-4`}>
+                     <Link to={'/admin/nests'} className={'mr-4'}>
+                         <Button.Text>
+-                            <FontAwesomeIcon icon={faArrowLeft} className={'mr-2'} /> Go Back
++                            <FontAwesomeIcon icon={faArrowLeft} className={'mr-2'} /> Voltar
+                         </Button.Text>
+                     </Link>
+                     <ImportEggButton css={tw`mr-4`} />
+ 
+                     <NavLink to={`/admin/nests/${params.nestId}/new`}>
+                         <Button type={'button'} size={Size.Large} css={tw`h-10 px-4 py-0 whitespace-nowrap`}>
+-                            New Egg
++                            Novo Egg
+                         </Button>
+                     </NavLink>
+                 </div>
+diff --git a/resources/scripts/components/admin/service/nests/NestEggTable.tsx b/resources/scripts/components/admin/service/nests/NestEggTable.tsx
+index 4258b8ed2..acfbf6df2 100644
+--- a/resources/scripts/components/admin/service/nests/NestEggTable.tsx
++++ b/resources/scripts/components/admin/service/nests/NestEggTable.tsx
+@@ -61,11 +61,11 @@ const EggsTable = () => {
+                                     onClick={() => setSort('id')}
+                                 />
+                                 <TableHeader
+-                                    name={'Name'}
++                                    name={'Nome'}
+                                     direction={sort === 'name' ? (sortDirection ? 1 : 2) : null}
+                                     onClick={() => setSort('name')}
+                                 />
+-                                <TableHeader name={'Description'} />
++                                <TableHeader name={'Descrição'} />
+                             </TableHead>
+ 
+                             <TableBody>
+diff --git a/resources/scripts/components/admin/service/nests/NestsContainer.tsx b/resources/scripts/components/admin/service/nests/NestsContainer.tsx
+index 6f077f894..e464aa7c4 100644
+--- a/resources/scripts/components/admin/service/nests/NestsContainer.tsx
++++ b/resources/scripts/components/admin/service/nests/NestsContainer.tsx
+@@ -59,7 +59,7 @@ const NestsContainer = () => {
+                     <p
+                         css={tw`hidden md:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}
+                     >
+-                        All nests currently available on this system.
++                        Todos os Nests disponíveis atualmente neste sistema.
+                     </p>
+                 </div>
+ 
+@@ -69,7 +69,7 @@ const NestsContainer = () => {
+             </div>
+ 
+             <SubNavigation>
+-                <SubNavigationLink to="/admin/servers" name="All Servers" base>
++                <SubNavigationLink to="/admin/servers" name="Todos os servidores" base>
+                     <TerminalIcon />
+                 </SubNavigationLink>
+                 <SubNavigationLink to="/admin/servers/presets" name="Presets">
+@@ -94,11 +94,11 @@ const NestsContainer = () => {
+                                         onClick={() => setSort('id')}
+                                     />
+                                     <TableHeader
+-                                        name={'Name'}
++                                        name={'Nome'}
+                                         direction={sort === 'name' ? (sortDirection ? 1 : 2) : null}
+                                         onClick={() => setSort('name')}
+                                     />
+-                                    <TableHeader name={'Description'} />
++                                    <TableHeader name={'Descrição'} />
+                                 </TableHead>
+ 
+                                 <TableBody>
+diff --git a/resources/scripts/components/admin/service/nests/NewEggContainer.tsx b/resources/scripts/components/admin/service/nests/NewEggContainer.tsx
+index 0ed1172f5..7e0a2db06 100644
+--- a/resources/scripts/components/admin/service/nests/NewEggContainer.tsx
++++ b/resources/scripts/components/admin/service/nests/NewEggContainer.tsx
+@@ -64,14 +64,14 @@ export default () => {
+     };
+ 
+     return (
+-        <AdminContentBlock title={'New Egg'}>
++        <AdminContentBlock title={'Novo Egg'}>
+             <div css={tw`w-full flex flex-row items-center mb-8`}>
+                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
+-                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>New Egg</h2>
++                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Novo Egg</h2>
+                     <p
+                         css={tw`hidden md:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}
+                     >
+-                        Add a new egg to the panel.
++                        Adicione um novo Egg ao painel.
+                     </p>
+                 </div>
+             </div>
+@@ -109,7 +109,7 @@ export default () => {
+                         <div css={tw`bg-zinc-800 rounded shadow-md py-2 px-6 mb-16`}>
+                             <div css={tw`flex flex-row`}>
+                                 <Button type="submit" css={tw`ml-auto`} disabled={isSubmitting || !isValid}>
+-                                    Create
++                                    Criar
+                                 </Button>
+                             </div>
+                         </div>
+diff --git a/resources/scripts/components/admin/service/nests/NewNestButton.tsx b/resources/scripts/components/admin/service/nests/NewNestButton.tsx
+index 66a9f41dd..0814b042a 100644
+--- a/resources/scripts/components/admin/service/nests/NewNestButton.tsx
++++ b/resources/scripts/components/admin/service/nests/NewNestButton.tsx
+@@ -19,9 +19,9 @@ interface Values {
+ }
+ 
+ const schema = object().shape({
+-    name: string().required('A nest name must be provided.').max(32, 'Nest name must not exceed 32 characters.'),
+-    description: string().max(255, 'Nest description must not exceed 255 characters.'),
+-    author: string().email().required('You must enter an author email to continue.'),
++    name: string().required('Informe o nome do Nest.').max(32, 'O nome do Nest deve ter no máximo 32 caracteres.'),
++    description: string().max(255, 'A descrição do Nest deve ter no máximo 255 caracteres.'),
++    author: string().email().required('Informe o e-mail do autor para continuar.'),
+ });
+ 
+ export default () => {
+@@ -63,15 +63,15 @@ export default () => {
+                     >
+                         <FlashMessageRender byKey={'nest:create'} css={tw`mb-6`} />
+ 
+-                        <h2 css={tw`mb-6 text-2xl text-neutral-100`}>New Nest</h2>
++                        <h2 css={tw`mb-6 text-2xl text-neutral-100`}>Novo Nest</h2>
+ 
+                         <Form css={tw`m-0`}>
+                             <Field
+                                 type={'text'}
+                                 id={'name'}
+                                 name={'name'}
+-                                label={'Name'}
+-                                description={'A short name used to identify this nest.'}
++                                label={'Nome'}
++                                description={'Um nome curto usado para identificar este Nest.'}
+                                 autoFocus
+                             />
+ 
+@@ -80,8 +80,8 @@ export default () => {
+                                     type={'text'}
+                                     id={'description'}
+                                     name={'description'}
+-                                    label={'Description'}
+-                                    description={'A description for this nest.'}
++                                    label={'Descrição'}
++                                    description={'Uma descrição para este Nest.'}
+                                 />
+                             </div>
+ 
+@@ -90,8 +90,8 @@ export default () => {
+                                     type={'text'}
+                                     id={'author'}
+                                     name={'author'}
+-                                    label={'Author email'}
+-                                    description={'An email to identify who made this nest.'}
++                                    label={'E-mail do autor'}
++                                    description={'Um e-mail para identificar quem criou este Nest.'}
+                                 />
+                             </div>
+ 
+@@ -102,11 +102,11 @@ export default () => {
+                                     className="w-full sm:mr-2 sm:w-auto"
+                                     onClick={() => setVisible(false)}
+                                 >
+-                                    Cancel
++                                    Cancelar
+                                 </Button.Text>
+ 
+                                 <Button type="submit" className="mt-4 w-full sm:mt-0 sm:w-auto">
+-                                    Create Nest
++                                    Criar Nest
+                                 </Button>
+                             </div>
+                         </Form>
+@@ -120,7 +120,7 @@ export default () => {
+                 className="h-10 whitespace-nowrap px-4 py-0"
+                 onClick={() => setVisible(true)}
+             >
+-                New Nest
++                Novo Nest
+             </Button>
+         </>
+     );
+diff --git a/resources/scripts/components/admin/service/nests/eggs/EggDeleteButton.tsx b/resources/scripts/components/admin/service/nests/eggs/EggDeleteButton.tsx
+index 64d7c09ce..45521fa90 100644
+--- a/resources/scripts/components/admin/service/nests/eggs/EggDeleteButton.tsx
++++ b/resources/scripts/components/admin/service/nests/eggs/EggDeleteButton.tsx
+@@ -44,13 +44,13 @@ export default ({ eggId, onDeleted }: Props) => {
+         <>
+             <ConfirmationModal
+                 visible={visible}
+-                title={'Delete egg?'}
+-                buttonText={'Yes, delete egg'}
++                title={'Excluir Egg?'}
++                buttonText={'Sim, excluir Egg'}
+                 onConfirmed={onDelete}
+                 showSpinnerOverlay={loading}
+                 onModalDismissed={() => setVisible(false)}
+             >
+-                Are you sure you want to delete this egg? You may only delete an egg with no servers using it.
++                Tem certeza de que deseja excluir este Egg? Você só pode excluir um Egg sem servidores usando-o.
+             </ConfirmationModal>
+ 
+             <Button.Danger type="button" shape={Shape.IconSquare} onClick={() => setVisible(true)}>
+diff --git a/resources/scripts/components/admin/service/nests/eggs/EggExportButton.tsx b/resources/scripts/components/admin/service/nests/eggs/EggExportButton.tsx
+index 1708ce461..d3bfa10ed 100644
+--- a/resources/scripts/components/admin/service/nests/eggs/EggExportButton.tsx
++++ b/resources/scripts/components/admin/service/nests/eggs/EggExportButton.tsx
+@@ -45,7 +45,7 @@ export default ({ className }: { className?: string }) => {
+                 css={tw`relative`}
+             >
+                 <SpinnerOverlay visible={loading} />
+-                <h2 css={tw`mb-6 text-2xl text-neutral-100`}>Export Egg</h2>
++                <h2 css={tw`mb-6 text-2xl text-neutral-100`}>Exportar Egg</h2>
+                 <FlashMessageRender byKey={'egg:export'} css={tw`mb-6`} />
+ 
+                 <Editor
+@@ -61,7 +61,7 @@ export default ({ className }: { className?: string }) => {
+                         css={tw`w-full sm:w-auto sm:mr-2`}
+                         onClick={() => setVisible(false)}
+                     >
+-                        Close
++                        Fechar
+                     </Button.Text>
+ 
+                     <Button
+@@ -69,7 +69,7 @@ export default ({ className }: { className?: string }) => {
+                         // onClick={submit}
+                         // TODO: When clicked, save as a JSON file.
+                     >
+-                        Save
++                        Salvar
+                     </Button>
+                 </div>
+             </Modal>
+@@ -80,7 +80,7 @@ export default ({ className }: { className?: string }) => {
+                 className={className}
+                 onClick={() => setVisible(true)}
+             >
+-                Export
++                Exportar
+             </Button.Text>
+         </>
+     );
+diff --git a/resources/scripts/components/admin/service/nests/eggs/EggInstallContainer.tsx b/resources/scripts/components/admin/service/nests/eggs/EggInstallContainer.tsx
+index cd134407f..6426991c7 100644
+--- a/resources/scripts/components/admin/service/nests/eggs/EggInstallContainer.tsx
++++ b/resources/scripts/components/admin/service/nests/eggs/EggInstallContainer.tsx
+@@ -58,7 +58,7 @@ export default function EggInstallContainer() {
+             }}
+         >
+             {({ isSubmitting, isValid }) => (
+-                <AdminBox icon={faScroll} title={'Install Script'} noPadding>
++                <AdminBox icon={faScroll} title={'Script de instalação'} noPadding>
+                     <div css={tw`relative pb-4`}>
+                         <SpinnerOverlay visible={isSubmitting} />
+ 
+@@ -81,18 +81,20 @@ export default function EggInstallContainer() {
+                                     <Field
+                                         id={'scriptContainer'}
+                                         name={'scriptContainer'}
+-                                        label={'Install Container'}
++                                        label={'Contêiner de instalação'}
+                                         type={'text'}
+-                                        description={'The Docker image to use for running this installation script.'}
++                                        description={
++                                            'A imagem Docker a ser usada para executar este script de instalação.'
++                                        }
+                                     />
+ 
+                                     <Field
+                                         id={'scriptEntry'}
+                                         name={'scriptEntry'}
+-                                        label={'Install Entrypoint'}
++                                        label={'Ponto de entrada da instalação'}
+                                         type={'text'}
+                                         description={
+-                                            'The command that should be used to run this script inside of the installation container.'
++                                            'O comando que deve ser usado para executar este script dentro do contêiner de instalação.'
+                                         }
+                                     />
+                                 </div>
+@@ -100,7 +102,7 @@ export default function EggInstallContainer() {
+ 
+                             <div css={tw`flex flex-row border-t border-neutral-600`}>
+                                 <Button type="submit" css={tw`ml-auto mr-6 mt-4`} disabled={isSubmitting || !isValid}>
+-                                    Save Changes
++                                    Salvar alterações
+                                 </Button>
+                             </div>
+                         </Form>
+diff --git a/resources/scripts/components/admin/service/nests/eggs/EggRouter.tsx b/resources/scripts/components/admin/service/nests/eggs/EggRouter.tsx
+index 80eb01d71..9c4eb6580 100644
+--- a/resources/scripts/components/admin/service/nests/eggs/EggRouter.tsx
++++ b/resources/scripts/components/admin/service/nests/eggs/EggRouter.tsx
+@@ -52,7 +52,7 @@ const EggRouter = () => {
+                 <div css={tw`flex flex-row ml-auto pl-4`}>
+                     <Link to={`/admin/nests/${egg.nestId}`} className={'mr-4'}>
+                         <Button.Text>
+-                            <FontAwesomeIcon icon={faArrowLeft} className={'mr-2'} /> Go Back
++                            <FontAwesomeIcon icon={faArrowLeft} className={'mr-2'} /> Voltar
+                         </Button.Text>
+                     </Link>
+                 </div>
+@@ -61,7 +61,7 @@ const EggRouter = () => {
+             <FlashMessageRender byKey={'egg'} css={tw`mb-4`} />
+ 
+             <SubNavigation>
+-                <SubNavigationLink to={`/admin/nests/${nestId ?? ''}/eggs/${id ?? ''}`} name={'About'} base>
++                <SubNavigationLink to={`/admin/nests/${nestId ?? ''}/eggs/${id ?? ''}`} name={'Sobre'} base>
+                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                         <path
+                             clipRule="evenodd"
+@@ -71,13 +71,16 @@ const EggRouter = () => {
+                     </svg>
+                 </SubNavigationLink>
+ 
+-                <SubNavigationLink to={`/admin/nests/${nestId ?? ''}/eggs/${id ?? ''}/variables`} name={'Variables'}>
++                <SubNavigationLink to={`/admin/nests/${nestId ?? ''}/eggs/${id ?? ''}/variables`} name={'Variáveis'}>
+                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                         <path d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z" />
+                     </svg>
+                 </SubNavigationLink>
+ 
+-                <SubNavigationLink to={`/admin/nests/${nestId ?? ''}/eggs/${id ?? ''}/install`} name={'Install Script'}>
++                <SubNavigationLink
++                    to={`/admin/nests/${nestId ?? ''}/eggs/${id ?? ''}/install`}
++                    name={'Script de instalação'}
++                >
+                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                         <path
+                             clipRule="evenodd"
+diff --git a/resources/scripts/components/admin/service/nests/eggs/EggSettingsContainer.tsx b/resources/scripts/components/admin/service/nests/eggs/EggSettingsContainer.tsx
+index 8184e0330..bd14f659c 100644
+--- a/resources/scripts/components/admin/service/nests/eggs/EggSettingsContainer.tsx
++++ b/resources/scripts/components/admin/service/nests/eggs/EggSettingsContainer.tsx
+@@ -27,12 +27,12 @@ export function EggInformationContainer() {
+     const { isSubmitting } = useFormikContext();
+ 
+     return (
+-        <AdminBox icon={faEgg} title={'Egg Information'} css={tw`relative`}>
++        <AdminBox icon={faEgg} title={'Informações do Egg'} css={tw`relative`}>
+             <SpinnerOverlay visible={isSubmitting} />
+ 
+-            <Field id={'name'} name={'name'} label={'Name'} type={'text'} css={tw`mb-6`} />
++            <Field id={'name'} name={'name'} label={'Nome'} type={'text'} css={tw`mb-6`} />
+ 
+-            <Field id={'description'} name={'description'} label={'Description'} type={'text'} css={tw`mb-2`} />
++            <Field id={'description'} name={'description'} label={'Descrição'} type={'text'} css={tw`mb-2`} />
+         </AdminBox>
+     );
+ }
+@@ -45,14 +45,14 @@ function EggDetailsContainer() {
+     }
+ 
+     return (
+-        <AdminBox icon={faEgg} title={'Egg Details'} css={tw`relative`}>
++        <AdminBox icon={faEgg} title={'Detalhes do Egg'} css={tw`relative`}>
+             <div css={tw`mb-6`}>
+                 <Label>UUID</Label>
+                 <Input id={'uuid'} name={'uuid'} type={'text'} value={egg.uuid} readOnly />
+             </div>
+ 
+             <div css={tw`mb-2`}>
+-                <Label>Author</Label>
++                <Label>Autor</Label>
+                 <Input id={'author'} name={'author'} type={'text'} value={egg.author} readOnly />
+             </div>
+         </AdminBox>
+@@ -63,10 +63,10 @@ export function EggStartupContainer({ className }: { className?: string }) {
+     const { isSubmitting } = useFormikContext();
+ 
+     return (
+-        <AdminBox icon={faTerminal} title={'Startup Command'} css={tw`relative`} className={className}>
++        <AdminBox icon={faTerminal} title={'Comando de inicialização'} css={tw`relative`} className={className}>
+             <SpinnerOverlay visible={isSubmitting} />
+ 
+-            <Field id={'startup'} name={'startup'} label={'Startup Command'} type={'text'} css={tw`mb-1`} />
++            <Field id={'startup'} name={'startup'} label={'Comando de inicialização'} type={'text'} css={tw`mb-1`} />
+         </AdminBox>
+     );
+ }
+@@ -78,7 +78,7 @@ export function EggImageContainer() {
+         <AdminBox icon={faDocker} title={'Docker'} css={tw`relative`}>
+             <SpinnerOverlay visible={isSubmitting} />
+ 
+-            <TextareaField id={'dockerImages'} name={'dockerImages'} label={'Docker Images'} rows={5} />
++            <TextareaField id={'dockerImages'} name={'dockerImages'} label={'Imagens Docker'} rows={5} />
+         </AdminBox>
+     );
+ }
+@@ -87,10 +87,10 @@ export function EggLifecycleContainer() {
+     const { isSubmitting } = useFormikContext();
+ 
+     return (
+-        <AdminBox icon={faFireAlt} title={'Lifecycle'} css={tw`relative`}>
++        <AdminBox icon={faFireAlt} title={'Ciclo de vida'} css={tw`relative`}>
+             <SpinnerOverlay visible={isSubmitting} />
+ 
+-            <Field id={'configStop'} name={'configStop'} label={'Stop Command'} type={'text'} css={tw`mb-1`} />
++            <Field id={'configStop'} name={'configStop'} label={'Comando de parada'} type={'text'} css={tw`mb-1`} />
+         </AdminBox>
+     );
+ }
+@@ -136,11 +136,11 @@ export const EggProcessContainer = forwardRef<any, EggProcessContainerProps>(fun
+     );
+ 
+     return (
+-        <AdminBox icon={faMicrochip} title={'Process Configuration'} css={tw`relative`} className={className}>
++        <AdminBox icon={faMicrochip} title={'Configuração do processo'} css={tw`relative`} className={className}>
+             <SpinnerOverlay visible={isSubmitting} />
+ 
+             <div css={tw`mb-5`}>
+-                <Label>Startup Configuration</Label>
++                <Label>Configuração de inicialização</Label>
+                 <Editor
+                     childClassName={tw`h-32 rounded`}
+                     initialContent={values.configStartup}
+@@ -152,7 +152,7 @@ export const EggProcessContainer = forwardRef<any, EggProcessContainerProps>(fun
+             </div>
+ 
+             <div css={tw`mb-1`}>
+-                <Label>Configuration Files</Label>
++                <Label>Arquivos de configuração</Label>
+                 <Editor
+                     childClassName={tw`h-48 rounded`}
+                     initialContent={values.configFiles}
+@@ -256,7 +256,7 @@ export default function EggSettingsContainer() {
+                             <EggDeleteButton eggId={egg.id} onDeleted={() => navigate('/admin/nests')} />
+                             <EggExportButton css={tw`ml-auto mr-4`} />
+                             <Button type="submit" disabled={isSubmitting || !isValid}>
+-                                Save Changes
++                                Salvar alterações
+                             </Button>
+                         </div>
+                     </div>
+diff --git a/resources/scripts/components/admin/service/nests/eggs/EggVariablesContainer.tsx b/resources/scripts/components/admin/service/nests/eggs/EggVariablesContainer.tsx
+index ccc81e48d..1e36b5317 100644
+--- a/resources/scripts/components/admin/service/nests/eggs/EggVariablesContainer.tsx
++++ b/resources/scripts/components/admin/service/nests/eggs/EggVariablesContainer.tsx
+@@ -35,12 +35,12 @@ export function EggVariableForm({ prefix, variable }: { prefix: string; variable
+ 
+     return (
+         <>
+-            <Field id={`${prefix}name`} name={`${prefix}name`} label={'Name'} type={'text'} css={tw`mb-6`} />
++            <Field id={`${prefix}name`} name={`${prefix}name`} label={'Nome'} type={'text'} css={tw`mb-6`} />
+ 
+             <TextareaField
+                 id={`${prefix}description`}
+                 name={`${prefix}description`}
+-                label={'Description'}
++                label={'Descrição'}
+                 rows={3}
+                 css={tw`mb-4`}
+             />
+@@ -49,14 +49,14 @@ export function EggVariableForm({ prefix, variable }: { prefix: string; variable
+                 <Field
+                     id={`${prefix}environmentVariable`}
+                     name={`${prefix}environmentVariable`}
+-                    label={'Environment Variable'}
++                    label={'Variável de ambiente'}
+                     type={'text'}
+                 />
+ 
+                 <Field
+                     id={`${prefix}defaultValue`}
+                     name={`${prefix}defaultValue`}
+-                    label={'Default Value'}
++                    label={'Valor padrão'}
+                     type={'text'}
+                 />
+             </FieldRow>
+@@ -72,7 +72,7 @@ export function EggVariableForm({ prefix, variable }: { prefix: string; variable
+                         name={`${prefix}isUserViewable`}
+                     />
+                     <div css={tw`flex-1 ml-4`}>
+-                        <Label>User Viewable</Label>
++                        <Label>Visível ao usuário</Label>
+                     </div>
+                 </div>
+ 
+@@ -86,7 +86,7 @@ export function EggVariableForm({ prefix, variable }: { prefix: string; variable
+                         name={`${prefix}isUserEditable`}
+                     />
+                     <div css={tw`flex-1 ml-4`}>
+-                        <Label>User Editable</Label>
++                        <Label>Editável pelo usuário</Label>
+                     </div>
+                 </div>
+             </div>
+@@ -94,7 +94,7 @@ export function EggVariableForm({ prefix, variable }: { prefix: string; variable
+             <Field
+                 id={`${prefix}rules`}
+                 name={`${prefix}rules`}
+-                label={'Validation Rules'}
++                label={'Regras de validação'}
+                 type={'text'}
+                 css={tw`mb-2`}
+             />
+@@ -118,14 +118,14 @@ function EggVariableDeleteButton({ onClick }: { onClick: (success: () => void) =
+         <>
+             <ConfirmationModal
+                 visible={visible}
+-                title={'Delete variable?'}
+-                buttonText={'Yes, delete variable'}
++                title={'Excluir variável?'}
++                buttonText={'Sim, excluir variável'}
+                 onConfirmed={onDelete}
+                 showSpinnerOverlay={loading}
+                 onModalDismissed={() => setVisible(false)}
+             >
+-                Are you sure you want to delete this variable? Deleting this variable will delete it from every server
+-                using this egg.
++                Tem certeza de que deseja excluir esta variável? Excluir esta variável vai removê-la de todos os
++                servidores que usam este Egg.
+             </ConfirmationModal>
+ 
+             <button
+@@ -225,7 +225,7 @@ export default function EggVariablesContainer() {
+                                 <NewVariableButton />
+ 
+                                 <Button type="submit" className="ml-auto" disabled={isSubmitting || !isValid}>
+-                                    Save Changes
++                                    Salvar alterações
+                                 </Button>
+                             </div>
+                         </div>
+diff --git a/resources/scripts/components/admin/service/nests/eggs/NewVariableButton.tsx b/resources/scripts/components/admin/service/nests/eggs/NewVariableButton.tsx
+index 7f6a15bc3..52cf268f4 100644
+--- a/resources/scripts/components/admin/service/nests/eggs/NewVariableButton.tsx
++++ b/resources/scripts/components/admin/service/nests/eggs/NewVariableButton.tsx
+@@ -69,7 +69,7 @@ export default function NewVariableButton() {
+                     >
+                         <FlashMessageRender byKey={'variable:create'} css={tw`mb-6`} />
+ 
+-                        <h2 css={tw`mb-6 text-2xl text-neutral-100`}>New Variable</h2>
++                        <h2 css={tw`mb-6 text-2xl text-neutral-100`}>Nova variável</h2>
+ 
+                         <Form css={tw`m-0`}>
+                             <EggVariableForm prefix={''} />
+@@ -81,14 +81,14 @@ export default function NewVariableButton() {
+                                     css={tw`w-full sm:w-auto sm:mr-2`}
+                                     onClick={() => setVisible(false)}
+                                 >
+-                                    Cancel
++                                    Cancelar
+                                 </Button>
+                                 <Button
+                                     type="submit"
+                                     css={tw`w-full mt-4 sm:w-auto sm:mt-0`}
+                                     disabled={isSubmitting || !isValid}
+                                 >
+-                                    Create Variable
++                                    Criar variável
+                                 </Button>
+                             </div>
+                         </Form>
+@@ -98,7 +98,7 @@ export default function NewVariableButton() {
+ 
+             {/* TODO: make button green */}
+             <Button type="button" onClick={() => setVisible(true)}>
+-                New Variable
++                Nova variável
+             </Button>
+         </>
+     );

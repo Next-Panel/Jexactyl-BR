@@ -1,0 +1,45 @@
+From: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+Date: Tue, 27 Oct 2026 09:53:01 -0300
+Subject: i18n: registra os idiomas suportados pelo painel em config/app.php
+
+Description:
+Registra o mapa de locales suportados em config/app.php, incluindo pt-BR
+(Português do Brasil) como tradução mantida pelo overlay Jexactyl-BR ao lado
+do idioma padrão en (English). Chaves ausentes no catálogo ativo utilizam
+automaticamente o fallback_locale configurado.
+
+Origin: vendor
+Forwarded: not-needed
+Applied-Upstream: no
+Last-Update: 2026-10-27
+Signed-off-by: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+
+---
+
+diff --git a/config/app.php b/config/app.php
+index 5ad102bf6..aee086bb0 100644
+--- a/config/app.php
++++ b/config/app.php
+@@ -150,6 +150,22 @@ return [
+ 
+     'fallback_locale' => 'en',
+ 
++    /*
++    |--------------------------------------------------------------------------
++    | Supported Locales
++    |--------------------------------------------------------------------------
++    |
++    | Locales offered by the panel. The Brazilian Portuguese translation is
++    | maintained by the Jexactyl-BR overlay and falls back to "en" whenever a
++    | key is missing from the translation file.
++    |
++    */
++
++    'locales' => [
++        'en' => 'English',
++        'pt-BR' => 'Português (Brasil)',
++    ],
++
+     /*
+     |--------------------------------------------------------------------------
+     | Encryption Key

@@ -1,0 +1,400 @@
+From: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+Date: Tue, 27 Oct 2026 09:53:12 -0300
+Subject: i18n: traduz console do servidor, controles de energia e métricas
+
+Description:
+Traduz o terminal e o painel de controle do servidor (ServerConsoleContainer
+e Console), os botões de ação de energia e confirmação de parada forçada, o
+assistente de inteligência artificial (Jexactyl AI), os diálogos de edição e
+reinstalação do servidor, os cartões de métricas em tempo real e os gráficos
+de uso de CPU, memória e rede.
+
+Origin: vendor
+Forwarded: not-needed
+Applied-Upstream: no
+Last-Update: 2026-10-27
+Signed-off-by: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+
+---
+
+diff --git a/resources/scripts/components/server/console/Console.tsx b/resources/scripts/components/server/console/Console.tsx
+index 0eb136cd1..48b46f584 100644
+--- a/resources/scripts/components/server/console/Console.tsx
++++ b/resources/scripts/components/server/console/Console.tsx
+@@ -96,7 +96,7 @@ export default ({ expand, setExpand }: Props) => {
+         switch (status) {
+             // Sent by either the source or target node if a failure occurs.
+             case 'failure':
+-                terminal.writeln(TERMINAL_PRELUDE + 'Transfer has failed.\u001b[0m\n');
++                terminal.writeln(TERMINAL_PRELUDE + 'A transferência falhou.\u001b[0m\n');
+                 return;
+         }
+     };
+@@ -107,7 +107,7 @@ export default ({ expand, setExpand }: Props) => {
+         );
+ 
+     const handlePowerChangeEvent = (state: string) =>
+-        terminal.writeln(TERMINAL_PRELUDE + 'Server marked as ' + state + '...\u001b[0m\n');
++        terminal.writeln(TERMINAL_PRELUDE + 'Servidor marcado como ' + state + '...\u001b[0m\n');
+ 
+     const handleCommandKeyDown = (e: ReactKeyboardEvent<HTMLInputElement>) => {
+         if (e.key === 'ArrowUp') {
+@@ -252,8 +252,8 @@ export default ({ expand, setExpand }: Props) => {
+                     <input
+                         className={classNames('peer', styles.command_input)}
+                         type={'text'}
+-                        placeholder={'Type a command...'}
+-                        aria-label={'Console command input.'}
++                        placeholder={'Digite um comando...'}
++                        aria-label={'Entrada de comando do Console.'}
+                         disabled={!instance || !connected}
+                         onKeyDown={handleCommandKeyDown}
+                         autoCorrect={'off'}
+diff --git a/resources/scripts/components/server/console/EditServerDialog.tsx b/resources/scripts/components/server/console/EditServerDialog.tsx
+index 8dd37bf4e..93f3efd9b 100644
+--- a/resources/scripts/components/server/console/EditServerDialog.tsx
++++ b/resources/scripts/components/server/console/EditServerDialog.tsx
+@@ -31,16 +31,16 @@ const RenameServerForm = () => {
+         <>
+             <SpinnerOverlay visible={isSubmitting} />
+             <Form css={tw`mb-0`}>
+-                <Field id={'name'} name={'name'} label={'Server Name'} type={'text'} />
++                <Field id={'name'} name={'name'} label={'Nome do servidor'} type={'text'} />
+                 <div css={tw`mt-6`}>
+-                    <Label>Server Description</Label>
++                    <Label>Descrição do servidor</Label>
+                     <FormikFieldWrapper name={'description'}>
+                         <FormikField as={Textarea} name={'description'} rows={3} />
+                     </FormikFieldWrapper>
+                 </div>
+                 <div css={tw`mt-6 flex items-center justify-between`}>
+                     <ReinstallServerDialog />
+-                    <Button type={'submit'}>Save</Button>
++                    <Button type={'submit'}>Salvar</Button>
+                 </div>
+             </Form>
+         </>
+@@ -66,7 +66,7 @@ export default () => {
+ 
+     return (
+         <>
+-            <Dialog open={open} onClose={() => setOpen(false)} title={'Edit Server Details'}>
++            <Dialog open={open} onClose={() => setOpen(false)} title={'Editar detalhes do servidor'}>
+                 <Can action={'settings.rename'}>
+                     <Formik
+                         onSubmit={submit}
+diff --git a/resources/scripts/components/server/console/IntelligenceButton.tsx b/resources/scripts/components/server/console/IntelligenceButton.tsx
+index ee46c46fb..9ea779830 100644
+--- a/resources/scripts/components/server/console/IntelligenceButton.tsx
++++ b/resources/scripts/components/server/console/IntelligenceButton.tsx
+@@ -57,13 +57,13 @@ export default () => {
+ 
+     return visible === 'button' ? (
+         <Button onClick={submit}>
+-            <SparklesIcon className={'w-5 mr-1'} /> Ask AI
++            <SparklesIcon className={'w-5 mr-1'} /> Perguntar à IA
+         </Button>
+     ) : visible === 'dialog' ? (
+         <Dialog
+             open={visible === 'dialog'}
+             onClose={() => setVisible('none')}
+-            title={'Server Assistant'}
++            title={'Assistente do servidor'}
+             preventExternalClose
+         >
+             {loading ? (
+@@ -71,7 +71,7 @@ export default () => {
+             ) : response ? (
+                 <div className={'overflow-x-hidden bg-black/50 rounded-lg p-3'}>{response}</div>
+             ) : (
+-                'Error'
++                'Erro'
+             )}
+         </Dialog>
+     ) : (
+diff --git a/resources/scripts/components/server/console/PowerButtons.tsx b/resources/scripts/components/server/console/PowerButtons.tsx
+index a80bdd4ab..5ca14e29a 100644
+--- a/resources/scripts/components/server/console/PowerButtons.tsx
++++ b/resources/scripts/components/server/console/PowerButtons.tsx
+@@ -45,21 +45,21 @@ export default ({ className }: PowerButtonProps) => {
+                 open={open}
+                 hideCloseIcon
+                 onClose={() => setOpen(false)}
+-                title={'Forcibly Stop Process'}
+-                confirm={'Continue'}
++                title={'Parar processo à força'}
++                confirm={'Continuar'}
+                 onConfirmed={onButtonClick.bind(this, 'kill-confirmed')}
+             >
+-                Forcibly stopping a server can lead to data corruption.
++                Parar um servidor à força pode causar corrupção de dados.
+             </Dialog.Confirm>
+             <SaveButton />
+             <Can action={'control.start'}>
+                 <Button.Success disabled={status !== 'offline'} onClick={onButtonClick.bind(this, 'start')}>
+-                    <PlayIcon className={'w-5 mr-1'} /> Start
++                    <PlayIcon className={'w-5 mr-1'} /> Iniciar
+                 </Button.Success>
+             </Can>
+             <Can action={'control.restart'}>
+                 <Button.Dark disabled={!status} onClick={onButtonClick.bind(this, 'restart')}>
+-                    <RefreshIcon className={'w-5 mr-1'} /> Restart
++                    <RefreshIcon className={'w-5 mr-1'} /> Reiniciar
+                 </Button.Dark>
+             </Can>
+             <Can action={'control.stop'}>
+@@ -69,11 +69,11 @@ export default ({ className }: PowerButtonProps) => {
+                 >
+                     {killable ? (
+                         <>
+-                            <BanIcon className={'w-5 mr-1'} /> Kill
++                            <BanIcon className={'w-5 mr-1'} /> Matar
+                         </>
+                     ) : (
+                         <>
+-                            <StopIcon className={'w-5 mr-1'} /> Stop
++                            <StopIcon className={'w-5 mr-1'} /> Parar
+                         </>
+                     )}
+                 </Button.Danger>
+diff --git a/resources/scripts/components/server/console/ReinstallServerDialog.tsx b/resources/scripts/components/server/console/ReinstallServerDialog.tsx
+index cd2c80ae9..6352fac78 100644
+--- a/resources/scripts/components/server/console/ReinstallServerDialog.tsx
++++ b/resources/scripts/components/server/console/ReinstallServerDialog.tsx
+@@ -20,7 +20,7 @@ export default () => {
+                 addFlash({
+                     key: 'settings',
+                     type: 'success',
+-                    message: 'Your server has begun the reinstallation process.',
++                    message: 'Seu servidor iniciou o processo de reinstalação.',
+                 });
+             })
+             .catch(error => {
+@@ -39,24 +39,24 @@ export default () => {
+         <>
+             <Dialog.Confirm
+                 open={modalVisible}
+-                title={'Confirm server reinstallation'}
+-                confirm={'Yes, reinstall server'}
++                title={'Confirmar reinstalação do servidor'}
++                confirm={'Sim, reinstalar servidor'}
+                 onClose={() => setModalVisible(false)}
+                 onConfirmed={reinstall}
+             >
+                 <div css={tw`text-sm rounded-lg p-4 bg-yellow-500/25 mb-4`}>
+-                    Reinstalling your server will stop it, and then re-run the installation script that initially set it
+-                    up.&nbsp;
++                    Reinstalar seu servidor vai pará-lo e executar novamente o script de instalação que o configurou
++                    inicialmente.&nbsp;
+                     <strong css={tw`font-medium`}>
+-                        Some files may be deleted or modified during this process, please back up your data before
+-                        continuing.
++                        Alguns arquivos podem ser excluídos ou modificados durante esse processo, faça backup dos seus
++                        dados antes de continuar.
+                     </strong>
+                 </div>
+-                Your server will be stopped and some files may be deleted or modified during this process, are you sure
+-                you wish to continue?
++                Seu servidor será parado e alguns arquivos podem ser excluídos ou modificados durante esse processo. Tem
++                certeza de que deseja continuar?
+             </Dialog.Confirm>
+             <Button.Danger type={'button'} variant={Button.Variants.Secondary} onClick={() => setModalVisible(true)}>
+-                Reinstall Server
++                Reinstalar servidor
+             </Button.Danger>
+         </>
+     );
+diff --git a/resources/scripts/components/server/console/SaveButton.tsx b/resources/scripts/components/server/console/SaveButton.tsx
+index f4f77bfb1..3d0e65a28 100644
+--- a/resources/scripts/components/server/console/SaveButton.tsx
++++ b/resources/scripts/components/server/console/SaveButton.tsx
+@@ -28,7 +28,7 @@ export default () => {
+                 addFlash({
+                     key: 'console:share',
+                     type: 'success',
+-                    message: 'Your server logs have been saved to the .console-logs folder.',
++                    message: 'Os logs do seu servidor foram salvos na pasta .console-logs.',
+                 });
+             })
+             .catch(error => {
+@@ -54,7 +54,7 @@ export default () => {
+             )}
+             onClick={submit}
+         >
+-            <DownloadIcon className={'w-5 mr-1'} /> Save
++            <DownloadIcon className={'w-5 mr-1'} /> Salvar
+         </div>
+     );
+ };
+diff --git a/resources/scripts/components/server/console/ServerConsoleContainer.tsx b/resources/scripts/components/server/console/ServerConsoleContainer.tsx
+index 9429fbe3c..9e2597576 100644
+--- a/resources/scripts/components/server/console/ServerConsoleContainer.tsx
++++ b/resources/scripts/components/server/console/ServerConsoleContainer.tsx
+@@ -60,21 +60,21 @@ function ServerConsoleContainer() {
+         Math.abs(daysUntilRenewal) <= freeGraceDays;
+ 
+     return (
+-        <PageContentBlock title={'Server Console'} showFlashKey={'console:share'}>
++        <PageContentBlock title={'Console do servidor'} showFlashKey={'console:share'}>
+             {showRenewalWarning && (
+                 <Alert type={'warning'} className={'mb-4'}>
+-                    Your server is {Math.abs(daysUntilRenewal!)} day{Math.abs(daysUntilRenewal!) !== 1 ? 's' : ''}{' '}
+-                    overdue for renewal. Please renew within {freeGraceDays} days to avoid permanent suspension. Your
+-                    server files and data will be preserved.
++                    Seu servidor está {Math.abs(daysUntilRenewal!)} dia{Math.abs(daysUntilRenewal!) !== 1 ? 's' : ''} em
++                    atraso para renovação. Renove dentro de {freeGraceDays} dias para evitar suspensão permanente. Os
++                    arquivos e dados do seu servidor serão preservados.
+                 </Alert>
+             )}
+             {(isNodeUnderMaintenance || isInstalling || isTransferring) && (
+                 <Alert type={'warning'} className={'mb-4'}>
+                     {isNodeUnderMaintenance
+-                        ? 'The node of this server is currently under maintenance and all actions are unavailable.'
++                        ? 'O Node deste servidor está em manutenção e todas as ações estão indisponíveis.'
+                         : isInstalling
+-                        ? 'This server is currently running its installation process and most actions are unavailable.'
+-                        : 'This server is currently being transferred to another node and all actions are unavailable.'}
++                        ? 'Este servidor está executando o processo de instalação e a maioria das ações está indisponível.'
++                        : 'Este servidor está sendo transferido para outro Node e todas as ações estão indisponíveis.'}
+                 </Alert>
+             )}
+             <div className={'mb-4 flex justify-between gap-4 bg-black/50 rounded-lg p-5'}>
+@@ -85,13 +85,13 @@ function ServerConsoleContainer() {
+                             {isInstalling && (
+                                 <>
+                                     <FontAwesomeIcon icon={faDownload} className={'my-auto mr-1'} />
+-                                    Installing
++                                    Instalando
+                                 </>
+                             )}
+                             {isTransferring && (
+                                 <>
+                                     <FontAwesomeIcon icon={faSpinner} className={'animate-spin my-auto mr-1'} />
+-                                    Transferring
++                                    Transferindo
+                                 </>
+                             )}
+                             {!isInstalling && !isTransferring && (
+@@ -109,7 +109,7 @@ function ServerConsoleContainer() {
+                     <p className={'text-sm line-clamp-2'}>
+                         {description ?? uuid}
+                         {renewalDate && (
+-                            <span className={'ml-1'}>&bull; {timeUntil(renewalDate!).days} days until renewal</span>
++                            <span className={'ml-1'}>&bull; {timeUntil(renewalDate!).days} dias até a renovação</span>
+                         )}
+                     </p>
+                 </div>
+diff --git a/resources/scripts/components/server/console/ServerDetailsBlock.tsx b/resources/scripts/components/server/console/ServerDetailsBlock.tsx
+index c0feb0b9a..6237bf426 100644
+--- a/resources/scripts/components/server/console/ServerDetailsBlock.tsx
++++ b/resources/scripts/components/server/console/ServerDetailsBlock.tsx
+@@ -6,7 +6,6 @@ import { SocketEvent, SocketRequest } from '@server/events';
+ import UptimeDuration from '@server/UptimeDuration';
+ import StatBlock from '@server/console/StatBlock';
+ import { bytesToString, ip, mbToBytes } from '@/lib/formatters';
+-import { capitalize } from '@/lib/strings';
+ import { ServerContext } from '@/state/server';
+ import useWebsocketEvent from '@/plugins/useWebsocketEvent';
+ 
+@@ -54,7 +53,7 @@ function ServerDetailsBlock({ className }: { className?: string }) {
+     const allocation = ServerContext.useStoreState(state => {
+         const match = state.server.data!.allocations.find(allocation => allocation.isDefault);
+ 
+-        return !match ? 'n/a' : `${match.alias || ip(match.ip)}:${match.port}`;
++        return !match ? 'Nenhuma' : `${match.alias || ip(match.ip)}:${match.port}`;
+     });
+ 
+     const allocationDisplay = ServerContext.useStoreState(state => {
+@@ -91,12 +90,12 @@ function ServerDetailsBlock({ className }: { className?: string }) {
+ 
+     return (
+         <div className={classNames('grid grid-cols-10 gap-2 md:gap-4 mb-6', className)}>
+-            <StatBlock icon={faWifi} title={'Address'} className={'col-span-5 lg:col-span-2'} copyOnClick={allocation}>
++            <StatBlock icon={faWifi} title={'Endereço'} className={'col-span-5 lg:col-span-2'} copyOnClick={allocation}>
+                 {allocationDisplay}
+             </StatBlock>
+             <StatBlock
+                 icon={faClock}
+-                title={'Uptime'}
++                title={'Tempo de atividade'}
+                 className={'col-span-5 lg:col-span-2'}
+                 color={getBackgroundColor(status === 'running' ? 0 : status !== 'offline' ? 9 : 10, 10)}
+             >
+@@ -105,12 +104,12 @@ function ServerDetailsBlock({ className }: { className?: string }) {
+                 ) : stats.uptime > 0 ? (
+                     <UptimeDuration uptime={stats.uptime / 1000} />
+                 ) : (
+-                    capitalize(status)
++                    status === 'running' ? 'Online' : status === 'starting' ? 'Iniciando' : status === 'stopping' ? 'Parando' : 'Offline'
+                 )}
+             </StatBlock>
+             <StatBlock
+                 icon={faMicrochip}
+-                title={'CPU Load'}
++                title={'Carga de CPU'}
+                 className={'col-span-5 lg:col-span-2'}
+                 color={getBackgroundColor(stats.cpu, limits.cpu)}
+             >
+@@ -122,7 +121,7 @@ function ServerDetailsBlock({ className }: { className?: string }) {
+             </StatBlock>
+             <StatBlock
+                 icon={faMemory}
+-                title={'Memory'}
++                title={'Memória'}
+                 className={'col-span-5 lg:col-span-2'}
+                 color={getBackgroundColor(stats.memory / 1024, limits.memory * 1024)}
+             >
+@@ -134,7 +133,7 @@ function ServerDetailsBlock({ className }: { className?: string }) {
+             </StatBlock>
+             <StatBlock
+                 icon={faHdd}
+-                title={'Disk'}
++                title={'Disco'}
+                 className={'col-span-5 lg:col-span-2'}
+                 color={getBackgroundColor(stats.disk / 1024, limits.disk * 1024)}
+             >
+diff --git a/resources/scripts/components/server/console/SidebarControls.tsx b/resources/scripts/components/server/console/SidebarControls.tsx
+index f23bbf3bb..4787412dd 100644
+--- a/resources/scripts/components/server/console/SidebarControls.tsx
++++ b/resources/scripts/components/server/console/SidebarControls.tsx
+@@ -44,11 +44,11 @@ export default ({ className }: PowerButtonProps) => {
+                 open={open}
+                 hideCloseIcon
+                 onClose={() => setOpen(false)}
+-                title={'Forcibly Stop Process'}
+-                confirm={'Continue'}
++                title={'Parar processo à força'}
++                confirm={'Continuar'}
+                 onConfirmed={onButtonClick.bind(this, 'kill-confirmed')}
+             >
+-                Forcibly stopping a server can lead to data corruption.
++                Parar um servidor à força pode causar corrupção de dados.
+             </Dialog.Confirm>
+             <div className={'mx-6'}>
+                 <div className={'grid grid-cols-3 gap-4'}>
+diff --git a/resources/scripts/components/server/console/StatGraphs.tsx b/resources/scripts/components/server/console/StatGraphs.tsx
+index d3e3a13b1..f6d83e622 100644
+--- a/resources/scripts/components/server/console/StatGraphs.tsx
++++ b/resources/scripts/components/server/console/StatGraphs.tsx
+@@ -73,17 +73,17 @@ export default () => {
+             <ChartBlock title={'CPU'}>
+                 <Line {...cpu.props} />
+             </ChartBlock>
+-            <ChartBlock title={'Memory'}>
++            <ChartBlock title={'Memória'}>
+                 <Line {...memory.props} />
+             </ChartBlock>
+             <ChartBlock
+-                title={'Network'}
++                title={'Rede'}
+                 legend={
+                     <>
+-                        <Tooltip arrow content={'Inbound'}>
++                        <Tooltip arrow content={'Entrada'}>
+                             <CloudDownloadIcon className={'mr-2 h-4 w-4 text-green-400'} />
+                         </Tooltip>
+-                        <Tooltip arrow content={'Outbound'}>
++                        <Tooltip arrow content={'Saída'}>
+                             <CloudUploadIcon className={'h-4 w-4 text-cyan-400'} />
+                         </Tooltip>
+                     </>

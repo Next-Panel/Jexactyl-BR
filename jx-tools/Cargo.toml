@@ -1,0 +1,3 @@
+[workspace]
+members = ["crates/jx_core", "crates/jx_cli", "crates/jx_patch", "crates/jx_git", "crates/jx_ops", "crates/jx_workspace", "crates/jx_i18n"]
+resolver = "2"

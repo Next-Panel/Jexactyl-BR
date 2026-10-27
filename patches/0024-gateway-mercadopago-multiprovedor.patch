@@ -1,0 +1,633 @@
+From: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+Date: Tue, 27 Oct 2026 09:53:24 -0300
+Subject: gateway: integra Mercado Pago multiprovedor, seletor de checkout e BRL
+
+Description:
+Integra o gateway Mercado Pago (Checkout Pro) ao módulo de faturamento em
+arquitetura multiprovedor ao lado da Stripe e adiciona o Real brasileiro
+(BRL / R$) ao catálogo de moedas. Expõe configurações, rotas de criação,
+processamento e webhook de pagamentos no backend, adiciona o diálogo de
+escolha de provedor no checkout do cliente e unifica a gestão de provedores e
+gateway padrão no painel administrativo.
+
+Origin: vendor
+Forwarded: not-needed
+Applied-Upstream: no
+Last-Update: 2026-10-27
+Signed-off-by: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+
+---
+
+diff --git a/app/Http/Controllers/Api/Application/Billing/BillingController.php b/app/Http/Controllers/Api/Application/Billing/BillingController.php
+index 286864325..f9556b864 100644
+--- a/app/Http/Controllers/Api/Application/Billing/BillingController.php
++++ b/app/Http/Controllers/Api/Application/Billing/BillingController.php
+@@ -68,4 +68,19 @@ class BillingController extends ApplicationApiController
+ 
+         return $this->returnNoContent();
+     }
++
++    /**
++     * Delete all Mercado Pago credentials saved to the Panel.
++     */
++    public function resetMercadoPagoKeys(DeleteStripeKeysRequest $request): Response
++    {
++        Setting::forget('settings::modules:billing:mercadopago:access_token');
++        Setting::forget('settings::modules:billing:mercadopago:webhook_secret');
++
++        Activity::event('admin:billing:reset-keys')
++            ->description('Mercado Pago credentials for billing were reset')
++            ->log();
++
++        return $this->returnNoContent();
++    }
+ }
+diff --git a/app/Http/ViewComposers/EverestComposer.php b/app/Http/ViewComposers/EverestComposer.php
+index aad9964dc..70c433092 100644
+--- a/app/Http/ViewComposers/EverestComposer.php
++++ b/app/Http/ViewComposers/EverestComposer.php
+@@ -48,9 +48,13 @@ class EverestComposer
+             ],
+             'billing' => [
+                 'enabled' => boolval(config('modules.billing.enabled', false)),
++                'gateway' => config('modules.billing.gateway', 'stripe'),
+                 'keys' => [
+                     'secret' => boolval(config('modules.billing.keys.secret')),
+                 ],
++                'mercadopago' => [
++                    'access_token' => boolval(config('modules.billing.mercadopago.access_token')),
++                ],
+                 'currency' => [
+                     'symbol' => config('modules.billing.currency.symbol'),
+                     'code' => config('modules.billing.currency.code'),
+diff --git a/app/Providers/SettingsServiceProvider.php b/app/Providers/SettingsServiceProvider.php
+index 6f04bcd60..64bfbda6c 100644
+--- a/app/Providers/SettingsServiceProvider.php
++++ b/app/Providers/SettingsServiceProvider.php
+@@ -48,7 +48,11 @@ class SettingsServiceProvider extends ServiceProvider
+ 
+         // Billing module settings
+         'modules:billing:enabled',
++        'modules:billing:gateway',
+         'modules:billing:keys:secret',
++        'modules:billing:mercadopago:access_token',
++        'modules:billing:mercadopago:webhook_secret',
++        'modules:billing:mercadopago:sandbox',
+         'modules:billing:currency:code',
+         'modules:billing:currency:symbol',
+         'modules:billing:links:terms',
+diff --git a/config/modules/billing.php b/config/modules/billing.php
+index beaceefaf..0045056ac 100644
+--- a/config/modules/billing.php
++++ b/config/modules/billing.php
+@@ -6,6 +6,12 @@ return [
+      */
+     'enabled' => env('BILLING_ENABLED', false),
+ 
++    /*
++     * Default checkout gateway: stripe or mercadopago. The storefront
++     * offers every configured gateway; this selects the preselected one.
++     */
++    'gateway' => env('BILLING_GATEWAY', 'stripe'),
++
+     /*
+      * Configure the secret API key for Stripe.
+      */
+@@ -13,6 +19,15 @@ return [
+         'secret' => env('BILLING_SECRET_KEY', ''),
+     ],
+ 
++    /*
++     * Configure the Mercado Pago credentials (Checkout Pro).
++     */
++    'mercadopago' => [
++        'access_token' => env('MP_ACCESS_TOKEN', ''),
++        'webhook_secret' => env('MP_WEBHOOK_SECRET', ''),
++        'sandbox' => env('MP_SANDBOX', false),
++    ],
++
+     /*
+      * Set a currency code and symbol to use for billing.
+      */
+diff --git a/resources/scripts/api/routes/account/billing/orders/process.ts b/resources/scripts/api/routes/account/billing/orders/process.ts
+index c0bb437c1..b572f0d99 100644
+--- a/resources/scripts/api/routes/account/billing/orders/process.ts
++++ b/resources/scripts/api/routes/account/billing/orders/process.ts
+@@ -33,6 +33,41 @@ export const processCheckoutSession = (session: string): Promise<Server> => {
+     });
+ };
+ 
++export interface MercadoPagoCheckout {
++    url: string;
++    preference_id: string;
++}
++
++export const createMercadoPagoCheckoutSession = (
++    product_id: number,
++    node_id?: number,
++    server_id?: number,
++    variables?: BillingServerVariables[],
++    discount_code?: string,
++    egg_id?: number,
++): Promise<MercadoPagoCheckout> => {
++    return new Promise((resolve, reject) => {
++        http.post(`/api/client/billing/mercadopago/create`, {
++            node_id,
++            server_id,
++            product_id,
++            variables,
++            discount_code,
++            egg_id,
++        })
++            .then(({ data }) => resolve(data))
++            .catch(reject);
++    });
++};
++
++export const processMercadoPagoCheckoutSession = (preference_id: string): Promise<Server> => {
++    return new Promise((resolve, reject) => {
++        http.post(`/api/client/billing/mercadopago/process`, { preference_id })
++            .then(({ data }) => resolve(Transformers.toServer(data)))
++            .catch(reject);
++    });
++};
++
+ export const processFreeCheckoutSession = (
+     product_id: number,
+     node_id?: number,
+diff --git a/resources/scripts/api/routes/admin/billing.ts b/resources/scripts/api/routes/admin/billing.ts
+index a869df986..2d043f1a5 100644
+--- a/resources/scripts/api/routes/admin/billing.ts
++++ b/resources/scripts/api/routes/admin/billing.ts
+@@ -105,6 +105,14 @@ export const deleteStripeKeys = (): Promise<void> => {
+     });
+ };
+ 
++export const deleteMercadoPagoKeys = (): Promise<void> => {
++    return new Promise((resolve, reject) => {
++        http.delete(`/api/application/billing/mercadopago-keys`)
++            .then(() => resolve())
++            .catch(reject);
++    });
++};
++
+ export const updateSettings = (key: string, value: any): Promise<void> => {
+     return new Promise((resolve, reject) => {
+         http.put(`/api/application/billing/settings`, { key, value })
+diff --git a/resources/scripts/assets/currency.ts b/resources/scripts/assets/currency.ts
+index a03a364b6..a8e4424b1 100644
+--- a/resources/scripts/assets/currency.ts
++++ b/resources/scripts/assets/currency.ts
+@@ -6,6 +6,7 @@ interface Currency {
+ const currencyDictionary: Record<string, Currency> = {
+     AED: { symbol: 'د.إ', name: 'United Arab Emirates Dirham' },
+     AUD: { symbol: 'A$', name: 'Australian Dollar' },
++    BRL: { symbol: 'R$', name: 'Brazilian Real' },
+     CAD: { symbol: 'C$', name: 'Canadian Dollar' },
+     CHF: { symbol: 'CHF', name: 'Swiss Franc' },
+     CNY: { symbol: '¥', name: 'Chinese Yuan' },
+diff --git a/resources/scripts/components/account/billing/ProductsContainer.tsx b/resources/scripts/components/account/billing/ProductsContainer.tsx
+index f5b91cf9c..b764378dc 100644
+--- a/resources/scripts/components/account/billing/ProductsContainer.tsx
++++ b/resources/scripts/components/account/billing/ProductsContainer.tsx
+@@ -50,7 +50,7 @@ export default () => {
+         });
+     }, [category]);
+ 
+-    if (!settings.keys.secret) {
++    if (!settings.keys.secret && !settings.mercadopago?.access_token) {
+         return (
+             <Alert type={'danger'}>
+                 Devido a um erro de configuração, a loja está indisponível no momento. Tente novamente mais tarde ou
+diff --git a/resources/scripts/components/account/billing/order/PaymentButton.tsx b/resources/scripts/components/account/billing/order/PaymentButton.tsx
+index 7e4b658e4..e1ffcd1c6 100644
+--- a/resources/scripts/components/account/billing/order/PaymentButton.tsx
++++ b/resources/scripts/components/account/billing/order/PaymentButton.tsx
+@@ -4,8 +4,9 @@ import { Button } from '@/elements/button';
+ import FlashMessageRender from '@/elements/FlashMessageRender';
+ import SpinnerOverlay from '@/elements/SpinnerOverlay';
+ import { Product } from '@definitions/account/billing';
+-import { createCheckoutSession } from '@/api/routes/account/billing/orders/process';
++import { createCheckoutSession, createMercadoPagoCheckoutSession } from '@/api/routes/account/billing/orders/process';
+ import { Alert } from '@/elements/alert';
++import { useStoreState } from '@/state/hooks';
+ 
+ interface Props {
+     node: number;
+@@ -20,10 +21,21 @@ export interface BillingServerVariables {
+     value: string;
+ }
+ 
++type Gateway = 'stripe' | 'mercadopago';
++
++const PREFERENCE_STORAGE_KEY = 'mercadopago:preference_id';
++
+ export default (data: Props) => {
+     const [loading, setLoading] = useState(false);
+     const { clearFlashes, clearAndAddHttpError } = useFlash();
+     const eggMissing = data.product.eggId === null && !data.egg;
++    const billing = useStoreState(state => state.everest.data!.billing);
++
++    const stripeAvailable = Boolean(billing.keys.secret);
++    const mercadoPagoAvailable = Boolean(billing.mercadopago?.access_token);
++    const defaultGateway: Gateway =
++        mercadoPagoAvailable && (!stripeAvailable || billing.gateway === 'mercadopago') ? 'mercadopago' : 'stripe';
++    const [gateway, setGateway] = useState<Gateway>(defaultGateway);
+ 
+     const handleSubmit = async (event: FormEvent) => {
+         clearFlashes();
+@@ -32,6 +44,24 @@ export default (data: Props) => {
+ 
+         const variables: BillingServerVariables[] = Array.from(data.vars, ([key, value]) => ({ key, value }));
+ 
++        if (gateway === 'mercadopago') {
++            createMercadoPagoCheckoutSession(
++                data.product.id,
++                data.node,
++                undefined,
++                variables,
++                data.discount_code,
++                data.egg,
++            )
++                .then(({ url, preference_id }) => {
++                    window.localStorage.setItem(PREFERENCE_STORAGE_KEY, preference_id);
++                    window.location.assign(url);
++                })
++                .catch(error => clearAndAddHttpError({ key: 'account:billing:order', error }))
++                .finally(() => setLoading(false));
++            return;
++        }
++
+         createCheckoutSession(data.product.id, data.node, undefined, variables, data.discount_code, data.egg)
+             .then(url => {
+                 window.location.assign(url);
+@@ -50,8 +80,30 @@ export default (data: Props) => {
+                 <Alert type={'warning'}>Um Egg deve ser selecionado para continuar com seu pedido.</Alert>
+             ) : (
+                 <div className={'text-right'}>
++                    {stripeAvailable && mercadoPagoAvailable && (
++                        <div className={'mb-4 flex justify-end gap-2 text-sm text-neutral-300'}>
++                            <label className={'flex items-center gap-1'}>
++                                <input
++                                    type={'radio'}
++                                    name={'gateway'}
++                                    checked={gateway === 'stripe'}
++                                    onChange={() => setGateway('stripe')}
++                                />
++                                Stripe
++                            </label>
++                            <label className={'flex items-center gap-1'}>
++                                <input
++                                    type={'radio'}
++                                    name={'gateway'}
++                                    checked={gateway === 'mercadopago'}
++                                    onChange={() => setGateway('mercadopago')}
++                                />
++                                Mercado Pago
++                            </label>
++                        </div>
++                    )}
+                     <Button disabled={isNaN(data.node) || eggMissing} size={Button.Sizes.Large}>
+-                        Pagar agora
++                        {gateway === 'mercadopago' ? 'Pagar com Mercado Pago' : 'Pagar agora'}
+                     </Button>
+                 </div>
+             )}
+diff --git a/resources/scripts/components/account/billing/order/summary/Cancel.tsx b/resources/scripts/components/account/billing/order/summary/Cancel.tsx
+index be66c3ec8..858f16e8e 100644
+--- a/resources/scripts/components/account/billing/order/summary/Cancel.tsx
++++ b/resources/scripts/components/account/billing/order/summary/Cancel.tsx
+@@ -15,8 +15,8 @@ export default () => {
+                     <CancelSvg color={colors.primary} />
+                     <h2 className={'mt-10 text-white font-bold text-4xl'}>Pedido cancelado</h2>
+                     <p className={'text-sm text-neutral-400 mt-2'}>
+-                        Seu pedido foi cancelado porque o pagamento não foi enviado ao Stripe. Você não foi cobrado. Se
+-                        quiser tentar este pedido novamente, clique em &apos;Pedido&apos; acima.
++                        Seu pedido foi cancelado porque o pagamento não foi concluído junto ao gateway. Você não foi
++                        cobrado. Se quiser tentar este pedido novamente, clique em &apos;Pedido&apos; acima.
+                     </p>
+                 </div>
+             </div>
+diff --git a/resources/scripts/components/account/billing/order/summary/Processing.tsx b/resources/scripts/components/account/billing/order/summary/Processing.tsx
+index 9f3700f18..a278281c7 100644
+--- a/resources/scripts/components/account/billing/order/summary/Processing.tsx
++++ b/resources/scripts/components/account/billing/order/summary/Processing.tsx
+@@ -3,25 +3,42 @@ import { useEffect } from 'react';
+ import FlashMessageRender from '@/elements/FlashMessageRender';
+ import PageContentBlock from '@/elements/PageContentBlock';
+ import Spinner from '@/elements/Spinner';
+-import { processCheckoutSession } from '@/api/routes/account/billing/orders/process';
++import { processCheckoutSession, processMercadoPagoCheckoutSession } from '@/api/routes/account/billing/orders/process';
+ import { useStoreState } from '@/state/hooks';
+ 
++const PREFERENCE_STORAGE_KEY = 'mercadopago:preference_id';
++
+ export default () => {
+     const navigate = useNavigate();
+     const { colors } = useStoreState(state => state.theme.data!);
+ 
+     const params = new URLSearchParams(window.location.search);
+     const session = params.get('session');
++    const gateway = params.get('gateway');
+ 
+     useEffect(() => {
+-        if (session) {
++        if (gateway === 'mercadopago') {
++            const preferenceId = window.localStorage.getItem(PREFERENCE_STORAGE_KEY);
++            if (preferenceId) {
++                processMercadoPagoCheckoutSession(preferenceId)
++                    .then(server => {
++                        window.localStorage.removeItem(PREFERENCE_STORAGE_KEY);
++                        navigate(`/server/${server.id}`);
++                    })
++                    .catch(() => {
++                        navigate('/account/billing/cancel');
++                    });
++            } else {
++                navigate('/account/billing/cancel');
++            }
++        } else if (session) {
+             processCheckoutSession(session)
+                 .then(server => navigate(`/server/${server.id}`))
+                 .catch(() => {
+                     navigate('/account/billing/cancel');
+                 });
+         } else {
+-            navigate('/acccount/billing/cancel');
++            navigate('/account/billing/cancel');
+         }
+     }, []);
+ 
+diff --git a/resources/scripts/components/admin/modules/billing/SettingsContainer.tsx b/resources/scripts/components/admin/modules/billing/SettingsContainer.tsx
+index 86517c213..fae777de7 100644
+--- a/resources/scripts/components/admin/modules/billing/SettingsContainer.tsx
++++ b/resources/scripts/components/admin/modules/billing/SettingsContainer.tsx
+@@ -1,4 +1,4 @@
+-import { useState } from 'react';
++import { useEffect, useState } from 'react';
+ import AdminBox from '@/elements/AdminBox';
+ import { Button } from '@/elements/button';
+ import ToggleFeatureButton from './ToggleFeatureButton';
+@@ -8,19 +8,29 @@ import Label from '@/elements/Label';
+ import Select from '@/elements/Select';
+ import currencyDictionary from '@/assets/currency';
+ import SetupStripe from './guides/SetupStripe';
++import SetupMercadoPago from './guides/SetupMercadoPago';
++import ChooseGatewayDialog from './guides/ChooseGatewayDialog';
+ import ExportConfigButton from './config/ExportConfigButton';
+ import FlashMessageRender from '@/elements/FlashMessageRender';
+ import ImportConfigButton from './config/ImportConfigButton';
+-import { deleteStripeKeys, updateSettings } from '@/api/routes/admin/billing';
++import { deleteStripeKeys, deleteMercadoPagoKeys, updateSettings } from '@/api/routes/admin/billing';
+ import BillingLinksForm from '@admin/modules/billing/BillingLinksForm';
+ 
+-export type BillingSetupDialog = 'setup' | 'none';
++export type BillingSetupDialog = 'setup' | 'mercadopago' | 'choose' | 'none';
+ 
+ export default () => {
+     const settings = useStoreState(s => s.everest.data!.billing);
+     const updateEverest = useStoreActions(s => s.everest.updateEverest);
+     const [open, setOpen] = useState<BillingSetupDialog>('none');
+ 
++    // Sem nenhum provedor configurado, sugere a escolha em vez de abrir
++    // direto o formulário de um provedor específico.
++    useEffect(() => {
++        if (!settings.keys.secret && !settings.mercadopago?.access_token) {
++            setOpen('choose');
++        }
++    }, []);
++
+     const submit = async (key: string, value: boolean | string) => {
+         await updateSettings(key, value).then(() => {
+             updateEverest({ billing: { ...settings, [key]: value } });
+@@ -42,9 +52,22 @@ export default () => {
+             .catch(error => console.log(error));
+     };
+ 
++    const onDeleteMercadoPagoKeys = () => {
++        deleteMercadoPagoKeys()
++            .then(() => window.location.reload())
++            .catch(error => console.log(error));
++    };
++
+     return (
+         <div className={'grid lg:grid-cols-3 gap-4'}>
+-            {open === 'setup' && <SetupStripe extOpen />}
++            {open === 'choose' && (
++                <ChooseGatewayDialog
++                    onClose={() => setOpen('none')}
++                    onSelect={gateway => setOpen(gateway === 'stripe' ? 'setup' : 'mercadopago')}
++                />
++            )}
++            {open === 'setup' && <SetupStripe onClose={() => setOpen('none')} />}
++            {open === 'mercadopago' && <SetupMercadoPago onClose={() => setOpen('none')} />}
+             <AdminBox title={'Moeda principal'} icon={faDollar}>
+                 Escolha uma moeda principal para cobrar os usuários.
+                 <div className={'mt-4'}>
+@@ -92,25 +115,63 @@ export default () => {
+                     <ImportConfigButton />
+                 </div>
+             </AdminBox>
+-            {!settings.keys.secret ? (
+-                <AdminBox title={'Informar chaves de API da Stripe'} icon={faKey}>
+-                    Sem a autenticação da API da Stripe, seu sistema de faturamento não funcionará. Os clientes podem
+-                    prosseguir para a área de finalização da compra, mas encontrarão erros a menos que você adicione
+-                    chaves de API válidas, que podem ser obtidas no painel da Stripe.
+-                    <div className={'text-right mt-3'}>
+-                        <Button onClick={() => setOpen('setup')}>Adicionar chaves de API</Button>
++            <AdminBox title={'Provedores de pagamento'} icon={faKey}>
++                Configure os gateways que os clientes podem usar para pagar. Pelo menos um provedor precisa estar
++                configurado para vender.
++                <div className={'mt-4 flex flex-col gap-4'}>
++                    <div className={'flex items-center justify-between gap-2'}>
++                        <div>
++                            <p className={'font-semibold'}>Stripe</p>
++                            <p className={'text-sm'}>
++                                Status:&nbsp;
++                                <span className={settings.keys.secret ? 'text-green-500' : 'text-red-500'}>
++                                    {settings.keys.secret ? 'configurado' : 'não configurado'}
++                                </span>
++                            </p>
++                        </div>
++                        {!settings.keys.secret ? (
++                            <Button onClick={() => setOpen('setup')}>Configurar</Button>
++                        ) : (
++                            <Button.Danger onClick={onDeleteKeys}>Redefinir</Button.Danger>
++                        )}
+                     </div>
+-                </AdminBox>
+-            ) : (
+-                <AdminBox title={'Redefinir chaves de API da Stripe'} icon={faKey}>
+-                    Ao redefinir as chaves de API da Stripe salvas no painel, todos os serviços de faturamento (como
+-                    comprar ou renovar um produto) pararão de funcionar até que novas chaves de API sejam informadas.
+-                    Tem certeza de que deseja continuar?
+-                    <div className={'text-right mt-3'}>
+-                        <Button.Danger onClick={onDeleteKeys}>Sim, excluir chaves de API</Button.Danger>
++                    <div className={'flex items-center justify-between gap-2'}>
++                        <div>
++                            <p className={'font-semibold'}>Mercado Pago</p>
++                            <p className={'text-sm'}>
++                                Status:&nbsp;
++                                <span
++                                    className={settings.mercadopago?.access_token ? 'text-green-500' : 'text-red-500'}
++                                >
++                                    {settings.mercadopago?.access_token ? 'configurado' : 'não configurado'}
++                                </span>
++                            </p>
++                        </div>
++                        {!settings.mercadopago?.access_token ? (
++                            <Button onClick={() => setOpen('mercadopago')}>Configurar</Button>
++                        ) : (
++                            <Button.Danger onClick={onDeleteMercadoPagoKeys}>Redefinir</Button.Danger>
++                        )}
+                     </div>
+-                </AdminBox>
+-            )}
++                </div>
++                <div className={'mt-4'}>
++                    <Label>Gateway padrão</Label>
++                    <Select
++                        onChange={e => submit('gateway', e.currentTarget.value)}
++                        value={settings.gateway === 'mercadopago' ? 'mercadopago' : 'stripe'}
++                    >
++                        <option value={'stripe'} disabled={!settings.keys.secret}>
++                            Stripe
++                        </option>
++                        <option value={'mercadopago'} disabled={!settings.mercadopago?.access_token}>
++                            Mercado Pago
++                        </option>
++                    </Select>
++                    <p className={'text-sm text-gray-400 mt-1'}>
++                        Usado como pré-seleção na tela de pagamento quando ambos estiverem configurados.
++                    </p>
++                </div>
++            </AdminBox>
+             <AdminBox title={'Links de documentos legais'} icon={faGavel}>
+                 Informe um link para os ToS ou para a política de privacidade da sua empresa que os usuários devem
+                 aceitar antes da compra.
+diff --git a/resources/scripts/components/admin/modules/billing/guides/SetupStripe.tsx b/resources/scripts/components/admin/modules/billing/guides/SetupStripe.tsx
+index 0de5f7d2f..c4a8e8ce6 100644
+--- a/resources/scripts/components/admin/modules/billing/guides/SetupStripe.tsx
++++ b/resources/scripts/components/admin/modules/billing/guides/SetupStripe.tsx
+@@ -4,7 +4,7 @@ import { Dialog } from '@/elements/dialog';
+ import { faExclamationTriangle, faCheckCircle, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+ import Tooltip from '@/elements/tooltip/Tooltip';
+-import { useEffect, useState } from 'react';
++import { useState } from 'react';
+ import { Button } from '@/elements/button';
+ import { updateSettings } from '@/api/routes/admin/billing';
+ 
+@@ -12,9 +12,9 @@ interface StripeKeys {
+     secret?: string;
+ }
+ 
+-export default ({ extOpen }: { extOpen?: boolean }) => {
++export default ({ onClose }: { onClose?: () => void }) => {
+     const [data, setData] = useState<StripeKeys>();
+-    const [open, setOpen] = useState<boolean>(extOpen ?? false);
++    const [dismissed, setDismissed] = useState(false);
+     const existingKeys = useStoreState(s => s.everest.data!.billing.keys);
+ 
+     const submit = async () => {
+@@ -25,14 +25,12 @@ export default ({ extOpen }: { extOpen?: boolean }) => {
+         });
+     };
+ 
+-    useEffect(() => {
+-        if (existingKeys && !existingKeys.secret) {
+-            setOpen(true);
+-        }
+-    }, [existingKeys]);
++    // Sem onClose (ex. Overview), abre sozinho quando nao ha chave, como antes.
++    const open = onClose ? true : !dismissed && !!existingKeys && !existingKeys.secret;
++    const handleClose = onClose ?? (() => setDismissed(true));
+ 
+     return (
+-        <Dialog open={open} onClose={() => setOpen(false)} title={'Configurar API da Stripe'}>
++        <Dialog open={open} onClose={handleClose} title={'Configurar API da Stripe'}>
+             <div className={'p-3 bg-black/50 rounded-lg mb-4'}>
+                 <p className={'text-gray-200 font-semibold'}>
+                     <FontAwesomeIcon icon={faInfoCircle} className={'text-blue-400 mr-2'} />
+diff --git a/resources/scripts/components/admin/modules/billing/overview/OverviewContainer.tsx b/resources/scripts/components/admin/modules/billing/overview/OverviewContainer.tsx
+index dc196d417..c731b2d65 100644
+--- a/resources/scripts/components/admin/modules/billing/overview/OverviewContainer.tsx
++++ b/resources/scripts/components/admin/modules/billing/overview/OverviewContainer.tsx
+@@ -8,7 +8,7 @@ import { differenceInDays, parseISO } from 'date-fns';
+ import SuccessChart from './SuccessChart';
+ import RevenueChart from './RevenueChart';
+ import Select from '@/elements/Select';
+-import SetupStripe from '@admin/modules/billing/guides/SetupStripe';
++import BillingSetupFlow from '@admin/modules/billing/guides/BillingSetupFlow';
+ import { getBillingAnalytics } from '@/api/routes/admin/billing';
+ import { BillingAnalytics, Order } from '@definitions/admin';
+ 
+@@ -41,7 +41,7 @@ export default () => {
+ 
+     return (
+         <div className={'grid lg:grid-cols-5 gap-4'}>
+-            <SetupStripe />
++            <BillingSetupFlow />
+             <ol className="space-y-4 w-full">
+                 <Select onChange={e => setHistory(Number(e.currentTarget.value))}>
+                     <option value={7}>Últimos 7 dias</option>
+diff --git a/resources/scripts/state/everest.ts b/resources/scripts/state/everest.ts
+index cbe3c2903..49cc96b5f 100644
+--- a/resources/scripts/state/everest.ts
++++ b/resources/scripts/state/everest.ts
+@@ -40,9 +40,13 @@ export interface EverestSettings {
+     };
+     billing: {
+         enabled: boolean;
++        gateway: string;
+         keys: {
+             secret: boolean;
+         };
++        mercadopago: {
++            access_token: boolean;
++        };
+         currency: {
+             symbol: string;
+             code: string;
+diff --git a/routes/api-application.php b/routes/api-application.php
+index ef78ea728..8cd099a0f 100644
+--- a/routes/api-application.php
++++ b/routes/api-application.php
+@@ -66,6 +66,7 @@ Route::middleware([AdminSubject::class])->group(function () {
+         Route::put('/settings', [Application\Billing\BillingController::class, 'settings']);
+ 
+         Route::delete('/keys', [Application\Billing\BillingController::class, 'resetKeys']);
++        Route::delete('/mercadopago-keys', [Application\Billing\BillingController::class, 'resetMercadoPagoKeys']);
+ 
+         Route::get('/products/{product:id}', [Application\Billing\ProductController::class, 'view']);
+ 
+diff --git a/routes/api-client.php b/routes/api-client.php
+index 09dfa0bca..d25517003 100644
+--- a/routes/api-client.php
++++ b/routes/api-client.php
+@@ -7,6 +7,7 @@ use Everest\Http\Middleware\SuspendedAccount;
+ use Everest\Http\Middleware\Activity\ServerSubject;
+ use Everest\Http\Middleware\Activity\AccountSubject;
+ use Everest\Http\Middleware\RequireTwoFactorAuthentication;
++use Everest\Http\Middleware\Api\AuthenticateIPAccess;
+ use Everest\Http\Middleware\Api\Client\Server\BillingUpgradesEnabled;
+ use Everest\Http\Middleware\Api\Client\Server\ResourceBelongsToServer;
+ use Everest\Http\Middleware\Api\Client\Server\AuthenticateServerAccess;
+@@ -105,6 +106,17 @@ Route::prefix('/')->middleware([SuspendedAccount::class])->group(function () {
+         Route::post('/stripe/create', [Client\Billing\StripeController::class, 'create']);
+         Route::post('/stripe/process', [Client\Billing\StripeController::class, 'process']);
+ 
++        Route::post('/mercadopago/create', [Client\Billing\MercadoPagoController::class, 'create']);
++        Route::post('/mercadopago/process', [Client\Billing\MercadoPagoController::class, 'process']);
++        Route::post('/mercadopago/webhook', [Client\Billing\MercadoPagoController::class, 'webhook'])
++            ->withoutMiddleware([
++                'client-api',
++                'auth:sanctum',
++                SuspendedAccount::class,
++                RequireTwoFactorAuthentication::class,
++                AuthenticateIPAccess::class,
++            ]);
++
+         Route::post('/free/process', [Client\Billing\FreeProductController::class, 'process']);
+     });
+ 

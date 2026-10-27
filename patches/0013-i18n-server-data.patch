@@ -1,0 +1,1049 @@
+From: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+Date: Tue, 27 Oct 2026 09:53:13 -0300
+Subject: i18n: traduz gerenciador de arquivos, bancos de dados e backups
+
+Description:
+Traduz as abas de dados do servidor: gerenciador de arquivos (listagem,
+ordenação, editor de texto, criação de diretórios, upload, renomeação,
+permissões chmod, compactação e ações em massa), bancos de dados (criação,
+credenciais, string JDBC e rotação de senha) e backups (criação, bloqueio,
+restauração, download e exclusão).
+
+Origin: vendor
+Forwarded: not-needed
+Applied-Upstream: no
+Last-Update: 2026-10-27
+Signed-off-by: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+
+---
+
+diff --git a/resources/scripts/components/server/backups/BackupContainer.tsx b/resources/scripts/components/server/backups/BackupContainer.tsx
+index 49b8c89a1..b5cef5db2 100644
+--- a/resources/scripts/components/server/backups/BackupContainer.tsx
++++ b/resources/scripts/components/server/backups/BackupContainer.tsx
+@@ -33,7 +33,7 @@ const BackupContainer = () => {
+     }
+ 
+     return (
+-        <PageContentBlock title={'Backups'} header description={'Keep your data safe with backups.'}>
++        <PageContentBlock title={'Backups'} header description={'Mantenha seus dados protegidos com backups.'}>
+             <FlashMessageRender byKey={'backups'} css={tw`mb-4`} />
+             <Pagination data={backups} onPageSelect={setPage}>
+                 {({ items }) =>
+@@ -43,8 +43,8 @@ const BackupContainer = () => {
+                         !backupLimit ? null : (
+                             <p css={tw`text-center text-sm text-neutral-300`}>
+                                 {page > 1
+-                                    ? "Looks like we've run out of backups to show you, try going back a page."
+-                                    : 'It looks like there are no backups currently stored for this server.'}
++                                    ? 'Parece que não há mais backups para mostrar, volte uma página.'
++                                    : 'Parece que não há backups armazenados para este servidor no momento.'}
+                             </p>
+                         )
+                     ) : (
+@@ -56,14 +56,14 @@ const BackupContainer = () => {
+             </Pagination>
+             {backupLimit === 0 && (
+                 <p css={tw`text-center text-sm text-neutral-300`}>
+-                    Backups cannot be created for this server because the backup limit is set to 0.
++                    Backups não podem ser criados para este servidor porque o limite de backups está definido como 0.
+                 </p>
+             )}
+             <Can action={'backup.create'}>
+                 <div css={tw`mt-6 sm:flex items-center justify-end`}>
+                     {backupLimit > 0 && backups.backupCount > 0 && (
+                         <p css={tw`text-sm text-neutral-300 mb-4 sm:mr-6 sm:mb-0`}>
+-                            {backups.backupCount} of {backupLimit} backups have been created for this server.
++                            {backups.backupCount} de {backupLimit} backups foram criados para este servidor.
+                         </p>
+                     )}
+                     {backupLimit > 0 && backupLimit > backups.backupCount && (
+diff --git a/resources/scripts/components/server/backups/BackupContextMenu.tsx b/resources/scripts/components/server/backups/BackupContextMenu.tsx
+index 4ea228291..5c213ab24 100644
+--- a/resources/scripts/components/server/backups/BackupContextMenu.tsx
++++ b/resources/scripts/components/server/backups/BackupContextMenu.tsx
+@@ -124,21 +124,21 @@ export default ({ backup, visible, setVisible }: Props) => {
+             <Dialog.Confirm
+                 open={modal === 'unlock'}
+                 onClose={() => setModal('')}
+-                title={`Unlock "${backup.name}"`}
++                title={`Desbloquear "${backup.name}"`}
+                 onConfirmed={onLockToggle}
+             >
+-                This backup will no longer be protected from automated or accidental deletions.
++                Este backup não ficará mais protegido contra exclusões automáticas ou acidentais.
+             </Dialog.Confirm>
+             <Dialog.Confirm
+                 open={modal === 'restore'}
+                 onClose={() => setModal('')}
+-                confirm={'Restore'}
+-                title={`Restore "${backup.name}"`}
++                confirm={'Restaurar'}
++                title={`Restaurar "${backup.name}"`}
+                 onConfirmed={() => doRestorationAction()}
+             >
+                 <p>
+-                    Your server will be stopped. You will not be able to control the power state, access the file
+-                    manager, or create additional backups until completed.
++                    Seu servidor será parado. Você não poderá controlar o estado de energia, acessar o gerenciador de
++                    arquivos ou criar backups adicionais até a conclusão.
+                 </p>
+                 <p css={tw`mt-4 -mb-2 bg-slate-700 p-3 rounded`}>
+                     <label htmlFor={'restore_truncate'} css={tw`text-base flex items-center cursor-pointer`}>
+@@ -150,18 +150,18 @@ export default ({ backup, visible, setVisible }: Props) => {
+                             checked={truncate}
+                             onChange={() => setTruncate(s => !s)}
+                         />
+-                        Delete all files before restoring backup.
++                        Excluir todos os arquivos antes de restaurar o backup.
+                     </label>
+                 </p>
+             </Dialog.Confirm>
+             <Dialog.Confirm
+-                title={`Delete "${backup.name}"`}
+-                confirm={'Continue'}
++                title={`Excluir "${backup.name}"`}
++                confirm={'Continuar'}
+                 open={modal === 'delete'}
+                 onClose={() => setModal('')}
+                 onConfirmed={doDeletion}
+             >
+-                This is a permanent operation. The backup cannot be recovered once deleted.
++                Esta é uma operação permanente. O backup não poderá ser recuperado após a exclusão.
+             </Dialog.Confirm>
+             {!backup.completedAt ? (
+                 <FontAwesomeIcon
+@@ -173,19 +173,19 @@ export default ({ backup, visible, setVisible }: Props) => {
+             ) : (
+                 <FontAwesomeIcon icon={faEllipsisH} onClick={() => setVisible(visible => !visible)} size={'lg'} />
+             )}
+-            <Dialog open={visible} onClose={() => setVisible(false)} title={'Edit Backup'}>
++            <Dialog open={visible} onClose={() => setVisible(false)} title={'Editar backup'}>
+                 <SpinnerOverlay visible={loading} />
+                 <div css={tw`text-sm grid grid-cols-2 lg:grid-cols-3 gap-4`}>
+                     <Can action={'backup.download'}>
+                         <Button onClick={doDownload}>
+                             <FontAwesomeIcon fixedWidth icon={faCloudDownloadAlt} css={tw`text-xs`} />
+-                            <span css={tw`ml-2`}>Download</span>
++                            <span css={tw`ml-2`}>Baixar</span>
+                         </Button>
+                     </Can>
+                     <Can action={'backup.restore'}>
+                         <Button onClick={() => setModal('restore')}>
+                             <FontAwesomeIcon fixedWidth icon={faBoxOpen} css={tw`text-xs`} />
+-                            <span css={tw`ml-2`}>Restore</span>
++                            <span css={tw`ml-2`}>Restaurar</span>
+                         </Button>
+                     </Can>
+                     <Can action={'backup.delete'}>
+@@ -196,12 +196,12 @@ export default ({ backup, visible, setVisible }: Props) => {
+                                     icon={backup.isLocked ? faUnlock : faLock}
+                                     css={tw`text-xs mr-2`}
+                                 />
+-                                {backup.isLocked ? 'Unlock' : 'Lock'}
++                                {backup.isLocked ? 'Desbloquear' : 'Bloquear'}
+                             </Button>
+                             {!backup.isLocked && (
+                                 <Button.Danger onClick={() => setModal('delete')}>
+                                     <FontAwesomeIcon fixedWidth icon={faTrashAlt} css={tw`text-xs`} />
+-                                    <span css={tw`ml-2`}>Delete</span>
++                                    <span css={tw`ml-2`}>Excluir</span>
+                                 </Button.Danger>
+                             )}
+                         </>
+diff --git a/resources/scripts/components/server/backups/BackupRow.tsx b/resources/scripts/components/server/backups/BackupRow.tsx
+index 2d1cb4870..290424c16 100644
+--- a/resources/scripts/components/server/backups/BackupRow.tsx
++++ b/resources/scripts/components/server/backups/BackupRow.tsx
+@@ -1,6 +1,7 @@
+ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+ import { faArchive, faLock } from '@fortawesome/free-solid-svg-icons';
+ import { format, formatDistanceToNow } from 'date-fns';
++import { dateLocale } from '@/lib/dateLocale';
+ import Spinner from '@/elements/Spinner';
+ import { bytesToString } from '@/lib/formatters';
+ import Can from '@/elements/Can';
+@@ -68,7 +69,7 @@ export default ({ backup }: Props) => {
+                             <span
+                                 css={tw`bg-red-500 py-px px-2 rounded-full text-white text-xs uppercase border border-red-600 mr-2`}
+                             >
+-                                Failed
++                                Falhou
+                             </span>
+                         )}
+                         <p css={tw`break-words truncate font-semibold`}>{backup.name}</p>
+@@ -82,10 +83,10 @@ export default ({ backup }: Props) => {
+                 </div>
+             </div>
+             <div css={tw`flex-1 md:flex-none md:w-48 mt-4 md:mt-0 md:ml-8 md:text-center`}>
+-                <p title={format(backup.createdAt, 'ddd, MMMM do, yyyy HH:mm:ss')} css={tw`text-sm`}>
+-                    {formatDistanceToNow(backup.createdAt, { includeSeconds: true, addSuffix: true })}
++                <p title={format(backup.createdAt, 'ddd, MMMM do, yyyy HH:mm:ss', { locale: dateLocale() })} css={tw`text-sm`}>
++                    {formatDistanceToNow(backup.createdAt, { includeSeconds: true, addSuffix: true, locale: dateLocale() })}
+                 </p>
+-                <p css={tw`text-2xs text-neutral-500 uppercase mt-1`}>Created</p>
++                <p css={tw`text-2xs text-neutral-500 uppercase mt-1`}>Criado</p>
+             </div>
+             <Can action={['backup.download', 'backup.restore', 'backup.delete']} matchAny>
+                 <div css={tw`mr-3 text-gray-400 hover:text-white duration-300`}>
+diff --git a/resources/scripts/components/server/backups/CreateBackupButton.tsx b/resources/scripts/components/server/backups/CreateBackupButton.tsx
+index f441bc223..a4b59f26b 100644
+--- a/resources/scripts/components/server/backups/CreateBackupButton.tsx
++++ b/resources/scripts/components/server/backups/CreateBackupButton.tsx
+@@ -27,21 +27,21 @@ const ModalContent = ({ ...props }: RequiredModalProps) => {
+         <Modal {...props} showSpinnerOverlay={isSubmitting}>
+             <Form>
+                 <FlashMessageRender byKey={'backups:create'} css={tw`mb-4`} />
+-                <h2 css={tw`text-2xl mb-6`}>Create server backup</h2>
++                <h2 css={tw`text-2xl mb-6`}>Criar backup do servidor</h2>
+                 <Field
+                     name={'name'}
+-                    label={'Backup name'}
+-                    description={'If provided, the name that should be used to reference this backup.'}
++                    label={'Nome do backup'}
++                    description={'Se informado, o nome que deve ser usado para identificar este backup.'}
+                 />
+                 <div css={tw`mt-6`}>
+                     <FormikFieldWrapper
+                         name={'ignored'}
+-                        label={'Ignored Files & Directories'}
++                        label={'Arquivos e diretórios ignorados'}
+                         description={`
+-                            Enter the files or folders to ignore while generating this backup. Leave blank to use
+-                            the contents of the .pteroignore file in the root of the server directory if present.
+-                            Wildcard matching of files and folders is supported in addition to negating a rule by
+-                            prefixing the path with an exclamation point.
++                            Informe os arquivos ou pastas a ignorar ao gerar este backup. Deixe em branco para usar
++                            o conteúdo do arquivo .pteroignore na raiz do diretório do servidor, se existir.
++                            A correspondência de arquivos e pastas com curingas é suportada, além de negar uma regra
++                            ao prefixar o caminho com um ponto de exclamação.
+                         `}
+                     >
+                         <FormikField as={Textarea} name={'ignored'} rows={6} />
+@@ -51,14 +51,14 @@ const ModalContent = ({ ...props }: RequiredModalProps) => {
+                     <div css={tw`bg-black/25 mt-6 border-2 border-black/25 shadow-inner p-4 rounded`}>
+                         <FormikSwitch
+                             name={'isLocked'}
+-                            label={'Locked'}
+-                            description={'Prevents this backup from being deleted until explicitly unlocked.'}
++                            label={'Bloqueado'}
++                            description={'Impede que este backup seja excluído até ser desbloqueado explicitamente.'}
+                         />
+                     </div>
+                 </Can>
+                 <div css={tw`flex justify-end mt-6`}>
+                     <Button type={'submit'} disabled={isSubmitting}>
+-                        Start backup
++                        Iniciar backup
+                     </Button>
+                 </div>
+             </Form>
+@@ -108,7 +108,7 @@ export default () => {
+                 </Formik>
+             )}
+             <Button css={tw`w-full sm:w-auto`} onClick={() => setVisible(true)}>
+-                Create backup
++                Criar backup
+             </Button>
+         </>
+     );
+diff --git a/resources/scripts/components/server/databases/CreateDatabaseButton.tsx b/resources/scripts/components/server/databases/CreateDatabaseButton.tsx
+index 809a07cfd..b4716d99d 100644
+--- a/resources/scripts/components/server/databases/CreateDatabaseButton.tsx
++++ b/resources/scripts/components/server/databases/CreateDatabaseButton.tsx
+@@ -18,14 +18,14 @@ interface Values {
+ 
+ const schema = object().shape({
+     databaseName: string()
+-        .required('A database name must be provided.')
+-        .min(3, 'Database name must be at least 3 characters.')
+-        .max(48, 'Database name must not exceed 48 characters.')
++        .required('Informe o nome do banco de dados.')
++        .min(3, 'O nome do banco de dados deve ter pelo menos 3 caracteres.')
++        .max(48, 'O nome do banco de dados não deve exceder 48 caracteres.')
+         .matches(
+             /^[\w\-.]{3,48}$/,
+-            'Database name should only contain alphanumeric characters, underscores, dashes, and/or periods.',
++            'O nome do banco de dados deve conter apenas letras, números, sublinhados, hífens e/ou pontos.',
+         ),
+-    connectionsFrom: string().matches(/^[\w\-/.%:]+$/, 'A valid host address must be provided.'),
++    connectionsFrom: string().matches(/^[\w\-/.%:]+$/, 'Informe um endereço de host válido.'),
+ });
+ 
+ export default () => {
+@@ -69,23 +69,23 @@ export default () => {
+                         }}
+                     >
+                         <FlashMessageRender byKey={'database:create'} css={tw`mb-6`} />
+-                        <h2 css={tw`text-2xl mb-6`}>Create new database</h2>
++                        <h2 css={tw`text-2xl mb-6`}>Criar novo banco de dados</h2>
+                         <Form css={tw`m-0`}>
+                             <Field
+                                 type={'string'}
+                                 id={'database_name'}
+                                 name={'databaseName'}
+-                                label={'Database Name'}
+-                                description={'A descriptive name for your database instance.'}
++                                label={'Nome do banco de dados'}
++                                description={'Um nome descritivo para a sua instância de banco de dados.'}
+                             />
+                             <div css={tw`mt-6`}>
+                                 <Field
+                                     type={'string'}
+                                     id={'connections_from'}
+                                     name={'connectionsFrom'}
+-                                    label={'Connections From'}
++                                    label={'Conexões de origem'}
+                                     description={
+-                                        'Where connections should be allowed from. Leave blank to allow connections from anywhere.'
++                                        'De onde as conexões devem ser permitidas. Deixe em branco para permitir conexões de qualquer lugar.'
+                                     }
+                                 />
+                             </div>
+@@ -95,17 +95,17 @@ export default () => {
+                                     css={tw`w-full sm:w-auto sm:mr-2`}
+                                     onClick={() => setVisible(false)}
+                                 >
+-                                    Cancel
++                                    Cancelar
+                                 </Button>
+                                 <Button css={tw`w-full mt-4 sm:w-auto sm:mt-0`} type={'submit'}>
+-                                    Create Database
++                                    Criar banco de dados
+                                 </Button>
+                             </div>
+                         </Form>
+                     </Modal>
+                 )}
+             </Formik>
+-            <Button onClick={() => setVisible(true)}>New Database</Button>
++            <Button onClick={() => setVisible(true)}>Novo banco de dados</Button>
+         </>
+     );
+ };
+diff --git a/resources/scripts/components/server/databases/DatabaseRow.tsx b/resources/scripts/components/server/databases/DatabaseRow.tsx
+index ec28dfaa8..893dd2ed6 100644
+--- a/resources/scripts/components/server/databases/DatabaseRow.tsx
++++ b/resources/scripts/components/server/databases/DatabaseRow.tsx
+@@ -40,8 +40,8 @@ export default ({ database, className }: Props) => {
+ 
+     const schema = object().shape({
+         confirm: string()
+-            .required('The database name must be provided.')
+-            .oneOf([database.name!.split('_', 2)[1] ?? '', database.name], 'The database name must be provided.'),
++            .required('Informe o nome do banco de dados.')
++            .oneOf([database.name!.split('_', 2)[1] ?? '', database.name], 'Informe o nome do banco de dados.'),
+     });
+ 
+     const submit = (_: { confirm: string }, { setSubmitting }: FormikHelpers<{ confirm: string }>) => {
+@@ -72,25 +72,26 @@ export default ({ database, className }: Props) => {
+                         }}
+                     >
+                         <FlashMessageRender byKey={'database:delete'} css={tw`mb-6`} />
+-                        <h2 css={tw`text-2xl mb-6`}>Confirm database deletion</h2>
++                        <h2 css={tw`text-2xl mb-6`}>Confirmar exclusão do banco de dados</h2>
+                         <p css={tw`text-sm`}>
+-                            Deleting a database is a permanent action, it cannot be undone. This will permanently delete
+-                            the <strong>{database.name}</strong> database and remove all associated data.
++                            Excluir um banco de dados é uma ação permanente, não pode ser desfeita. Isso excluirá
++                            permanentemente o banco de dados <strong>{database.name}</strong> e removerá todos os dados
++                            associados.
+                         </p>
+                         <Form css={tw`m-0 mt-6`}>
+                             <Field
+                                 type={'text'}
+                                 id={'confirm_name'}
+                                 name={'confirm'}
+-                                label={'Confirm Database Name'}
+-                                description={'Enter the database name to confirm deletion.'}
++                                label={'Confirmar nome do banco de dados'}
++                                description={'Informe o nome do banco de dados para confirmar a exclusão.'}
+                             />
+                             <div css={tw`mt-6 text-right`}>
+                                 <Button type={'button'} css={tw`mr-2`} onClick={() => setVisible(false)}>
+-                                    Cancel
++                                    Cancelar
+                                 </Button>
+                                 <Button type={'submit'} color={'red'} disabled={!isValid}>
+-                                    Delete Database
++                                    Excluir banco de dados
+                                 </Button>
+                             </div>
+                         </Form>
+@@ -99,7 +100,7 @@ export default ({ database, className }: Props) => {
+             </Formik>
+             <Modal visible={connectionVisible} onDismissed={() => setConnectionVisible(false)}>
+                 <FlashMessageRender byKey={'database-connection-modal'} css={tw`mb-6`} />
+-                <h3 css={tw`mb-6 text-2xl`}>Database connection details</h3>
++                <h3 css={tw`mb-6 text-2xl`}>Detalhes de conexão do banco de dados</h3>
+                 <div>
+                     <Label>Endpoint</Label>
+                     <CopyOnClick text={database.connectionString}>
+@@ -107,25 +108,25 @@ export default ({ database, className }: Props) => {
+                     </CopyOnClick>
+                 </div>
+                 <div css={tw`mt-6`}>
+-                    <Label>Connections from</Label>
++                    <Label>Conexões de origem</Label>
+                     <Input type={'text'} readOnly value={database.allowConnectionsFrom} />
+                 </div>
+                 <div css={tw`mt-6`}>
+-                    <Label>Username</Label>
++                    <Label>Nome de usuário</Label>
+                     <CopyOnClick text={database.username}>
+                         <Input type={'text'} readOnly value={database.username} />
+                     </CopyOnClick>
+                 </div>
+                 <Can action={'database.view_password'}>
+                     <div css={tw`mt-6`}>
+-                        <Label>Password</Label>
++                        <Label>Senha</Label>
+                         <CopyOnClick text={database.password} showInNotification={false}>
+                             <Input type={'text'} readOnly value={database.password} />
+                         </CopyOnClick>
+                     </div>
+                 </Can>
+                 <div css={tw`mt-6`}>
+-                    <Label>JDBC Connection String</Label>
++                    <Label>String de conexão JDBC</Label>
+                     <CopyOnClick text={jdbcConnectionString} showInNotification={false}>
+                         <Input type={'text'} readOnly value={jdbcConnectionString} />
+                     </CopyOnClick>
+@@ -134,7 +135,7 @@ export default ({ database, className }: Props) => {
+                     <Can action={'database.update'}>
+                         <RotatePasswordButton databaseId={database.id} onUpdate={appendDatabase} />
+                     </Can>
+-                    <Button onClick={() => setConnectionVisible(false)}>Close</Button>
++                    <Button onClick={() => setConnectionVisible(false)}>Fechar</Button>
+                 </div>
+             </Modal>
+             <GreyRowBox $hoverable={false} className={className} css={tw`mb-2`}>
+@@ -154,13 +155,13 @@ export default ({ database, className }: Props) => {
+                 </div>
+                 <div css={tw`ml-8 text-center hidden md:block`}>
+                     <p css={tw`text-sm`}>{database.allowConnectionsFrom}</p>
+-                    <p css={tw`mt-1 text-2xs text-neutral-500 uppercase select-none`}>Connections from</p>
++                    <p css={tw`mt-1 text-2xs text-neutral-500 uppercase select-none`}>Conexões de origem</p>
+                 </div>
+                 <div css={tw`ml-8 text-center hidden md:block`}>
+                     <CopyOnClick text={database.username}>
+                         <p css={tw`text-sm`}>{database.username}</p>
+                     </CopyOnClick>
+-                    <p css={tw`mt-1 text-2xs text-neutral-500 uppercase select-none`}>Username</p>
++                    <p css={tw`mt-1 text-2xs text-neutral-500 uppercase select-none`}>Nome de usuário</p>
+                 </div>
+                 <div css={tw`ml-8`}>
+                     <Button css={tw`mr-2`} onClick={() => setConnectionVisible(true)}>
+diff --git a/resources/scripts/components/server/databases/DatabasesContainer.tsx b/resources/scripts/components/server/databases/DatabasesContainer.tsx
+index 05282b2a5..7e7654c3d 100644
+--- a/resources/scripts/components/server/databases/DatabasesContainer.tsx
++++ b/resources/scripts/components/server/databases/DatabasesContainer.tsx
+@@ -37,7 +37,11 @@ export default () => {
+     }, []);
+ 
+     return (
+-        <PageContentBlock title={'Databases'} header description={'Assign databases directly to your server.'}>
++        <PageContentBlock
++            title={'Bancos de dados'}
++            header
++            description={'Atribua bancos de dados diretamente ao seu servidor.'}
++        >
+             <FlashMessageRender byKey={'databases'} css={tw`mb-4`} />
+             {!databases.length && loading ? (
+                 <Spinner size={'large'} centered />
+@@ -55,16 +59,16 @@ export default () => {
+                         ) : (
+                             <p css={tw`text-center text-sm text-neutral-300`}>
+                                 {databaseLimit > 0
+-                                    ? 'It looks like you have no databases.'
+-                                    : 'Databases cannot be created for this server.'}
++                                    ? 'Parece que você não tem nenhum banco de dados.'
++                                    : 'Não é possível criar bancos de dados para este servidor.'}
+                             </p>
+                         )}
+                         <Can action={'database.create'}>
+                             <div css={tw`mt-6 flex items-center justify-end`}>
+                                 {databaseLimit > 0 && databases.length > 0 && (
+                                     <p css={tw`text-sm text-neutral-300 mb-4 sm:mr-6 sm:mb-0`}>
+-                                        {databases.length} of {databaseLimit} databases have been allocated to this
+-                                        server.
++                                        {databases.length} de {databaseLimit} bancos de dados foram alocados para este
++                                        servidor.
+                                     </p>
+                                 )}
+                                 {databaseLimit > 0 && databaseLimit !== databases.length && (
+diff --git a/resources/scripts/components/server/databases/RotatePasswordButton.tsx b/resources/scripts/components/server/databases/RotatePasswordButton.tsx
+index 598aff727..1726f1ca0 100644
+--- a/resources/scripts/components/server/databases/RotatePasswordButton.tsx
++++ b/resources/scripts/components/server/databases/RotatePasswordButton.tsx
+@@ -27,7 +27,7 @@ export default ({ databaseId, onUpdate }: { databaseId: string; onUpdate: (datab
+                 console.error(error);
+                 addFlash({
+                     type: 'error',
+-                    title: 'Error',
++                    title: 'Erro',
+                     message: httpErrorToHuman(error),
+                     key: 'database-connection-modal',
+                 });
+@@ -37,7 +37,7 @@ export default ({ databaseId, onUpdate }: { databaseId: string; onUpdate: (datab
+ 
+     return (
+         <Button color={'primary'} css={tw`mr-2`} onClick={rotate} disabled={loading}>
+-            Rotate Password
++            Girar senha
+         </Button>
+     );
+ };
+diff --git a/resources/scripts/components/server/files/ChmodFileModal.tsx b/resources/scripts/components/server/files/ChmodFileModal.tsx
+index c63023d88..65b897a9a 100644
+--- a/resources/scripts/components/server/files/ChmodFileModal.tsx
++++ b/resources/scripts/components/server/files/ChmodFileModal.tsx
+@@ -58,10 +58,16 @@ const ChmodFileModal = ({ files, ...props }: OwnProps) => {
+                     <Form css={tw`m-0`}>
+                         <div css={tw`flex flex-wrap items-end`}>
+                             <div css={tw`w-full sm:flex-1 sm:mr-4`}>
+-                                <Field type={'string'} id={'file_mode'} name={'mode'} label={'File Mode'} autoFocus />
++                                <Field
++                                    type={'string'}
++                                    id={'file_mode'}
++                                    name={'mode'}
++                                    label={'Modo do arquivo'}
++                                    autoFocus
++                                />
+                             </div>
+                             <div css={tw`w-full sm:w-auto mt-4 sm:mt-0`}>
+-                                <Button css={tw`w-full`}>Update</Button>
++                                <Button css={tw`w-full`}>Atualizar</Button>
+                             </div>
+                         </div>
+                     </Form>
+diff --git a/resources/scripts/components/server/files/FileDropdownMenu.tsx b/resources/scripts/components/server/files/FileDropdownMenu.tsx
+index 363552efb..a28f3058f 100644
+--- a/resources/scripts/components/server/files/FileDropdownMenu.tsx
++++ b/resources/scripts/components/server/files/FileDropdownMenu.tsx
+@@ -132,12 +132,12 @@ const FileDropdownMenu = ({ file }: { file: FileObject }) => {
+             <Dialog.Confirm
+                 open={showConfirmation}
+                 onClose={() => setShowConfirmation(false)}
+-                title={`Delete ${file.isFile ? 'File' : 'Directory'}`}
+-                confirm={'Delete'}
++                title={`Excluir ${file.isFile ? 'arquivo' : 'diretório'}`}
++                confirm={'Excluir'}
+                 onConfirmed={doDeletion}
+             >
+-                You will not be able to recover the contents of&nbsp;
+-                <span className={'font-semibold text-slate-50'}>{file.name}</span> once deleted.
++                Você não poderá recuperar o conteúdo de&nbsp;
++                <span className={'font-semibold text-slate-50'}>{file.name}</span> após a exclusão.
+             </Dialog.Confirm>
+             <div
+                 css={tw`absolute top-0 right-0 p-2 hover:text-white text-gray-400 duration-250`}
+@@ -146,27 +146,27 @@ const FileDropdownMenu = ({ file }: { file: FileObject }) => {
+                 <FontAwesomeIcon icon={faEllipsisH} className={'p-1 bg-black/25 rounded'} />
+             </div>
+             {visible && (
+-                <Dialog open={visible} onClose={() => setVisible(false)} title={'File Options'}>
++                <Dialog open={visible} onClose={() => setVisible(false)} title={'Opções do arquivo'}>
+                     <div className={'grid grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-4 mt-6'}>
+                         <Can action={'file.update'}>
+                             <Button.Text onClick={() => setModal('rename')} className={'w-full'}>
+                                 <PencilIcon className={'w-4 mt-0.5 mr-2'} />
+-                                Rename
++                                Renomear
+                             </Button.Text>
+                             <Button.Text onClick={() => setModal('move')} className={'w-full'}>
+                                 <ArrowUpIcon className={'w-4 mt-0.5 mr-2'} />
+-                                Move
++                                Mover
+                             </Button.Text>
+                             <Button.Text onClick={() => setModal('chmod')} className={'w-full'}>
+                                 <CogIcon className={'w-4 mt-0.5 mr-2'} />
+-                                Permissions
++                                Permissões
+                             </Button.Text>
+                         </Can>
+                         {file.isFile && (
+                             <Can action={'file.create'}>
+                                 <Button.Text onClick={doCopy}>
+                                     <ClipboardCopyIcon className={'w-4 mt-0.5 mr-2'} />
+-                                    Copy File
++                                    Copiar arquivo
+                                 </Button.Text>
+                             </Can>
+                         )}
+@@ -174,27 +174,27 @@ const FileDropdownMenu = ({ file }: { file: FileObject }) => {
+                             <Can action={'file.create'}>
+                                 <Button.Text onClick={doUnarchive}>
+                                     <InboxIcon className={'w-4 mt-0.5 mr-2'} />
+-                                    Extract Files
++                                    Extrair arquivos
+                                 </Button.Text>
+                             </Can>
+                         ) : (
+                             <Can action={'file.archive'}>
+                                 <Button.Text onClick={doArchive}>
+                                     <ArchiveIcon className={'w-4 mt-0.5 mr-2'} />
+-                                    Archive File
++                                    Arquivar arquivo
+                                 </Button.Text>
+                             </Can>
+                         )}
+                         {file.isFile && (
+                             <Button.Text onClick={doDownload}>
+                                 <DownloadIcon className={'w-4 mt-0.5 mr-2'} />
+-                                Download
++                                Baixar
+                             </Button.Text>
+                         )}
+                         <Can action={'file.archive'}>
+                             <Button.Danger onClick={() => setShowConfirmation(true)}>
+                                 <TrashIcon className={'w-4 mt-0.5 mr-2'} />
+-                                Delete
++                                Excluir
+                             </Button.Danger>
+                         </Can>
+                     </div>
+diff --git a/resources/scripts/components/server/files/FileEditContainer.tsx b/resources/scripts/components/server/files/FileEditContainer.tsx
+index 6f112fea4..e729358d7 100644
+--- a/resources/scripts/components/server/files/FileEditContainer.tsx
++++ b/resources/scripts/components/server/files/FileEditContainer.tsx
+@@ -108,10 +108,11 @@ export default () => {
+             {filename === '.pteroignore' ? (
+                 <div css={tw`mb-4 p-4 border-l-4 bg-neutral-900 rounded border-cyan-400`}>
+                     <p css={tw`text-neutral-300 text-sm`}>
+-                        You&apos;re editing a <code css={tw`font-mono bg-black rounded py-px px-1`}>.pteroignore</code>{' '}
+-                        file. Any files or directories listed in here will be excluded from backups. Wildcards are
+-                        supported by using an asterisk (<code css={tw`font-mono bg-black rounded py-px px-1`}>*</code>).
+-                        You can negate a prior rule by prepending an exclamation point (
++                        Você está editando um arquivo{' '}
++                        <code css={tw`font-mono bg-black rounded py-px px-1`}>.pteroignore</code>. Qualquer arquivo ou
++                        diretório listado aqui será excluído dos backups. Curingas são suportados usando um asterisco (
++                        <code css={tw`font-mono bg-black rounded py-px px-1`}>*</code>). Você pode negar uma regra
++                        anterior antepondo um ponto de exclamação (
+                         <code css={tw`font-mono bg-black rounded py-px px-1`}>!</code>).
+                     </p>
+                 </div>
+@@ -169,13 +170,13 @@ export default () => {
+                 {action === 'edit' ? (
+                     <Can action={'file.update'}>
+                         <Button css={tw`flex-1 sm:flex-none`} onClick={() => save()}>
+-                            Save Content
++                            Salvar conteúdo
+                         </Button>
+                     </Can>
+                 ) : (
+                     <Can action={'file.create'}>
+                         <Button css={tw`flex-1 sm:flex-none`} onClick={() => setModalVisible(true)}>
+-                            Create File
++                            Criar arquivo
+                         </Button>
+                     </Can>
+                 )}
+diff --git a/resources/scripts/components/server/files/FileManagerBreadcrumbs.tsx b/resources/scripts/components/server/files/FileManagerBreadcrumbs.tsx
+index 08d3449c4..31be7529e 100644
+--- a/resources/scripts/components/server/files/FileManagerBreadcrumbs.tsx
++++ b/resources/scripts/components/server/files/FileManagerBreadcrumbs.tsx
+@@ -50,7 +50,7 @@ export default ({ renderLeft, withinFileEditor, isNewFile }: Props) => {
+         <div css={tw`flex flex-grow-0 items-center text-sm text-neutral-500 overflow-x-hidden`}>
+             {renderLeft || <div css={tw`w-12`} />}/
+             <NavLink to={`/server/${id}/files`} css={tw`px-1 text-neutral-200 no-underline hover:text-neutral-100`}>
+-                root
++                raiz
+             </NavLink>
+             /
+             {breadcrumbs().map((crumb, index) =>
+diff --git a/resources/scripts/components/server/files/FileManagerContainer.tsx b/resources/scripts/components/server/files/FileManagerContainer.tsx
+index a9e4b9d00..1c19a58f7 100644
+--- a/resources/scripts/components/server/files/FileManagerContainer.tsx
++++ b/resources/scripts/components/server/files/FileManagerContainer.tsx
+@@ -154,9 +154,9 @@ export default () => {
+ 
+     return (
+         <PageContentBlock
+-            title={'File Manager'}
++            title={'Gerenciador de arquivos'}
+             header
+-            description={'Control your files and folders via the UI.'}
++            description={'Controle seus arquivos e pastas pela interface.'}
+             showFlashKey={'files'}
+         >
+             <ErrorBoundary>
+@@ -177,7 +177,7 @@ export default () => {
+                             <NewDirectoryButton />
+                             <UploadButton />
+                             <NavLink to={`/server/${id}/files/new${window.location.hash}`}>
+-                                <Button>New File</Button>
++                                <Button>Novo arquivo</Button>
+                             </NavLink>
+                             <Button onClick={() => setGridView(!gridView)}>
+                                 <FontAwesomeIcon icon={gridView ? faList : faBorderAll} fixedWidth />
+@@ -198,8 +198,8 @@ export default () => {
+                             {!filteredFiles.length ? (
+                                 <p css={tw`text-sm text-neutral-400 text-center`}>
+                                     {searchTerm
+-                                        ? 'No files found matching your search.'
+-                                        : 'This directory seems to be empty.'}
++                                        ? 'Nenhum arquivo encontrado para a sua busca.'
++                                        : 'Este diretório parece estar vazio.'}
+                                 </p>
+                             ) : (
+                                 <FadeTransition duration="duration-150" appear show>
+@@ -208,8 +208,8 @@ export default () => {
+                                             <div css={tw`rounded bg-yellow-400 mb-px p-3`}>
+                                                 <p css={tw`text-yellow-900 text-sm text-center`}>
+                                                     {searchTerm
+-                                                        ? `Found ${filteredFiles.length} files matching your search, showing first 250.`
+-                                                        : 'This directory is too large to display in the browser, limiting the output to the first 250 files.'}
++                                                        ? `Encontrados ${filteredFiles.length} arquivos para a sua busca, exibindo os 250 primeiros.`
++                                                        : 'Este diretório é grande demais para exibir no navegador, limitando a exibição aos 250 primeiros arquivos.'}
+                                                 </p>
+                                             </div>
+                                         )}
+@@ -219,8 +219,8 @@ export default () => {
+                                                 style={{ backgroundColor: colors.primary }}
+                                             >
+                                                 <p css={tw`text-white text-sm text-center`}>
+-                                                    Found {filteredFiles.length}{' '}
+-                                                    {filteredFiles.length === 1 ? 'file' : 'files'} matching &quot;
++                                                    Encontrados {filteredFiles.length}{' '}
++                                                    {filteredFiles.length === 1 ? 'arquivo' : 'arquivos'} para &quot;
+                                                     {searchTerm}&quot;
+                                                 </p>
+                                             </div>
+@@ -246,15 +246,15 @@ export default () => {
+                     )}
+                 </div>
+                 <Can action={'file.sftp'}>
+-                    <TitledGreyBox title={'SFTP Details'} icon={faFolderPlus} css={tw`xl:mt-0 mt-6 h-auto`}>
++                    <TitledGreyBox title={'Detalhes do SFTP'} icon={faFolderPlus} css={tw`xl:mt-0 mt-6 h-auto`}>
+                         <div>
+-                            <Label>Server Address</Label>
++                            <Label>Endereço do servidor</Label>
+                             <CopyOnClick text={`sftp://${ip(sftp.ip)}:${sftp.port}`}>
+                                 <Input type={'text'} value={`sftp://${ip(sftp.ip)}:${sftp.port}`} readOnly />
+                             </CopyOnClick>
+                         </div>
+                         <div css={tw`mt-6`}>
+-                            <Label>Username</Label>
++                            <Label>Nome de usuário</Label>
+                             <CopyOnClick text={`${username}.${id}`}>
+                                 <Input type={'text'} value={`${username}.${id}`} readOnly />
+                             </CopyOnClick>
+@@ -263,13 +263,13 @@ export default () => {
+                             <div css={tw`flex-1`}>
+                                 <div css={tw`border-l-4 border-cyan-500 p-3`}>
+                                     <p css={tw`text-xs text-neutral-200`}>
+-                                        Your SFTP password is the same as the password you use to access this panel.
++                                        Sua senha SFTP é a mesma senha que você usa para acessar este painel.
+                                     </p>
+                                 </div>
+                             </div>
+                             <div css={tw`ml-4`}>
+                                 <a href={`sftp://${username}.${id}@${ip(sftp.ip)}:${sftp.port}`}>
+-                                    <Button.Text variant={Button.Variants.Secondary}>Launch SFTP</Button.Text>
++                                    <Button.Text variant={Button.Variants.Secondary}>Abrir SFTP</Button.Text>
+                                 </a>
+                             </div>
+                         </div>
+diff --git a/resources/scripts/components/server/files/FileManagerStatus.tsx b/resources/scripts/components/server/files/FileManagerStatus.tsx
+index d0ede1632..049368491 100644
+--- a/resources/scripts/components/server/files/FileManagerStatus.tsx
++++ b/resources/scripts/components/server/files/FileManagerStatus.tsx
+@@ -58,17 +58,17 @@ const FileUploadList = () => {
+             ))}
+             <Dialog.Footer>
+                 <Button.Danger variant={Button.Variants.Secondary} onClick={() => clearFileUploads()}>
+-                    Cancel Uploads
++                    Cancelar envios
+                 </Button.Danger>
+-                <Button.Text onClick={close}>Close</Button.Text>
++                <Button.Text onClick={close}>Fechar</Button.Text>
+             </Dialog.Footer>
+         </div>
+     );
+ };
+ 
+ const FileUploadListDialog = asDialog({
+-    title: 'File Uploads',
+-    description: 'The following files are being uploaded to your server.',
++    title: 'Envios de arquivos',
++    description: 'Os arquivos a seguir estão sendo enviados para o seu servidor.',
+ })(FileUploadList);
+ 
+ export default () => {
+@@ -89,7 +89,7 @@ export default () => {
+     return (
+         <>
+             {count > 0 && (
+-                <Tooltip content={`${count} files are uploading, click to view`}>
++                <Tooltip content={`${count} arquivos estão sendo enviados, clique para ver`}>
+                     <button className={'flex h-10 w-10 items-center justify-center'} onClick={() => setOpen(true)}>
+                         <Spinner progress={(progress.uploaded / progress.total) * 100} className={'h-8 w-8'} />
+                         <CloudUploadIcon className={'absolute mx-auto h-3 animate-pulse'} />
+diff --git a/resources/scripts/components/server/files/FileNameModal.tsx b/resources/scripts/components/server/files/FileNameModal.tsx
+index 25fea96ce..70dde0ac7 100644
+--- a/resources/scripts/components/server/files/FileNameModal.tsx
++++ b/resources/scripts/components/server/files/FileNameModal.tsx
+@@ -46,12 +46,12 @@ export default ({ onFileNamed, onDismissed, ...props }: Props) => {
+                         <Field
+                             id={'fileName'}
+                             name={'fileName'}
+-                            label={'File Name'}
+-                            description={'Enter the name that this file should be saved as.'}
++                            label={'Nome do arquivo'}
++                            description={'Informe o nome com que este arquivo deve ser salvo.'}
+                             autoFocus
+                         />
+                         <div css={tw`mt-6 text-right`}>
+-                            <Button>Create File</Button>
++                            <Button>Criar arquivo</Button>
+                         </div>
+                     </Form>
+                 </Modal>
+diff --git a/resources/scripts/components/server/files/FileObjectList.tsx b/resources/scripts/components/server/files/FileObjectList.tsx
+index 1b5443594..fc9f65bff 100644
+--- a/resources/scripts/components/server/files/FileObjectList.tsx
++++ b/resources/scripts/components/server/files/FileObjectList.tsx
+@@ -1,6 +1,7 @@
+ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+ import { faFileAlt, faFileArchive, faFileImport, faFolder } from '@fortawesome/free-solid-svg-icons';
+ import { differenceInHours, format, formatDistanceToNow } from 'date-fns';
++import { dateLocale } from '@/lib/dateLocale';
+ import { memo, ReactNode } from 'react';
+ import FileDropdownMenu from '@server/files/FileDropdownMenu';
+ import { ServerContext } from '@/state/server';
+@@ -62,8 +63,8 @@ const FileObjectRow = ({ file }: { file: FileObject }) => {
+                 {file.isFile && <div css={tw`w-1/6 text-right mr-4 hidden sm:block`}>{bytesToString(file.size)}</div>}
+                 <div css={tw`w-1/5 text-right mr-6 hidden md:block text-white/50`} title={file.modifiedAt.toString()}>
+                     {Math.abs(differenceInHours(file.modifiedAt, new Date())) > 48
+-                        ? format(file.modifiedAt, 'MMM do, yyyy h:mma')
+-                        : formatDistanceToNow(file.modifiedAt, { addSuffix: true })}
++                        ? format(file.modifiedAt, 'MMM do, yyyy HH:mm', { locale: dateLocale() })
++                        : formatDistanceToNow(file.modifiedAt, { addSuffix: true, locale: dateLocale() })}
+                 </div>
+             </Clickable>
+             <FileDropdownMenu file={file} />
+diff --git a/resources/scripts/components/server/files/FileSortControls.tsx b/resources/scripts/components/server/files/FileSortControls.tsx
+index 805da47e2..3c97474b8 100644
+--- a/resources/scripts/components/server/files/FileSortControls.tsx
++++ b/resources/scripts/components/server/files/FileSortControls.tsx
+@@ -10,10 +10,10 @@ import Tooltip from '@/elements/tooltip/Tooltip';
+ import Input from '@/elements/Input';
+ 
+ const sortOptions: Array<{ value: SortField; label: string; tooltip: string }> = [
+-    { value: 'name', label: 'Name', tooltip: 'Sort by file/folder name' },
+-    { value: 'modified', label: 'Modified', tooltip: 'Sort by last modified date' },
+-    { value: 'size', label: 'Size', tooltip: 'Sort by file size' },
+-    { value: 'type', label: 'Type', tooltip: 'Sort by file type/extension' },
++    { value: 'name', label: 'Nome', tooltip: 'Ordenar por nome de arquivo/pasta' },
++    { value: 'modified', label: 'Modificado', tooltip: 'Ordenar por data da última modificação' },
++    { value: 'size', label: 'Tamanho', tooltip: 'Ordenar por tamanho do arquivo' },
++    { value: 'type', label: 'Tipo', tooltip: 'Ordenar por tipo/extensão do arquivo' },
+ ];
+ 
+ const FileSortControls = () => {
+@@ -39,7 +39,7 @@ const FileSortControls = () => {
+     return (
+         <div css={tw`flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4`}>
+             <div css={tw`flex flex-wrap items-center gap-2 sm:gap-3`}>
+-                <span css={tw`text-sm text-neutral-400 font-medium`}>Sort by:</span>
++                <span css={tw`text-sm text-neutral-400 font-medium`}>Ordenar por:</span>
+                 <div css={tw`flex flex-wrap gap-2`}>
+                     {sortOptions.map(option => (
+                         <Tooltip key={option.value} content={option.tooltip} placement="top">
+@@ -78,11 +78,11 @@ const FileSortControls = () => {
+                     />
+                     <Input
+                         type="text"
+-                        placeholder="Search files..."
++                        placeholder="Buscar arquivos..."
+                         value={searchTerm}
+                         onChange={e => setSearchTerm(e.target.value)}
+                         style={{ paddingLeft: '2.5rem', fontSize: '0.875rem' }}
+-                        aria-label="Search files by name"
++                        aria-label="Buscar arquivos por nome"
+                         role="searchbox"
+                     />
+                 </div>
+diff --git a/resources/scripts/components/server/files/MassActionsBar.tsx b/resources/scripts/components/server/files/MassActionsBar.tsx
+index 3521b7fbd..841d70706 100644
+--- a/resources/scripts/components/server/files/MassActionsBar.tsx
++++ b/resources/scripts/components/server/files/MassActionsBar.tsx
+@@ -32,7 +32,7 @@ const MassActionsBar = () => {
+     const onClickCompress = () => {
+         setLoading(true);
+         clearFlashes('files');
+-        setLoadingMessage('Archiving files...');
++        setLoadingMessage('Arquivando arquivos...');
+ 
+         compressFiles(uuid, directory, selectedFiles)
+             .then(() => mutate())
+@@ -45,7 +45,7 @@ const MassActionsBar = () => {
+         setLoading(true);
+         setShowConfirm(false);
+         clearFlashes('files');
+-        setLoadingMessage('Deleting files...');
++        setLoadingMessage('Excluindo arquivos...');
+ 
+         deleteFiles(uuid, directory, selectedFiles)
+             .then(async () => {
+@@ -66,21 +66,21 @@ const MassActionsBar = () => {
+                     {loadingMessage}
+                 </SpinnerOverlay>
+                 <Dialog.Confirm
+-                    title={'Delete Files'}
++                    title={'Excluir arquivos'}
+                     open={showConfirm}
+-                    confirm={'Delete'}
++                    confirm={'Excluir'}
+                     onClose={() => setShowConfirm(false)}
+                     onConfirmed={onClickConfirmDeletion}
+                 >
+                     <p className="mb-2">
+-                        Are you sure you want to delete&nbsp;
+-                        <span className="font-semibold text-slate-50">{selectedFiles.length} files</span>? This is a
+-                        permanent action and the files cannot be recovered.
++                        Você tem certeza que deseja excluir&nbsp;
++                        <span className="font-semibold text-slate-50">{selectedFiles.length} arquivos</span>? Esta é uma
++                        ação permanente e os arquivos não poderão ser recuperados.
+                     </p>
+                     {selectedFiles.slice(0, 15).map(file => (
+                         <li key={file}>{file}</li>
+                     ))}
+-                    {selectedFiles.length > 15 && <li>and {selectedFiles.length - 15} others</li>}
++                    {selectedFiles.length > 15 && <li>e {selectedFiles.length - 15} outros</li>}
+                 </Dialog.Confirm>
+                 {showMove && (
+                     <RenameFileModal
+@@ -95,10 +95,10 @@ const MassActionsBar = () => {
+                     <div className="pointer-events-none fixed bottom-0 z-50 mb-6 flex w-full justify-center">
+                         <FadeTransition duration="duration-75" show={selectedFiles.length > 0} appear unmount>
+                             <div className="pointer-events-auto flex items-center space-x-4 rounded bg-black/50 p-4">
+-                                <Button onClick={() => setShowMove(true)}>Move</Button>
+-                                <Button onClick={onClickCompress}>Archive</Button>
++                                <Button onClick={() => setShowMove(true)}>Mover</Button>
++                                <Button onClick={onClickCompress}>Arquivar</Button>
+                                 <Button.Danger variant={Button.Variants.Secondary} onClick={() => setShowConfirm(true)}>
+-                                    Delete
++                                    Excluir
+                                 </Button.Danger>
+                             </div>
+                         </FadeTransition>
+diff --git a/resources/scripts/components/server/files/NewDirectoryButton.tsx b/resources/scripts/components/server/files/NewDirectoryButton.tsx
+index 26cc30eb6..e05d19eb6 100644
+--- a/resources/scripts/components/server/files/NewDirectoryButton.tsx
++++ b/resources/scripts/components/server/files/NewDirectoryButton.tsx
+@@ -20,7 +20,7 @@ interface Values {
+ }
+ 
+ const schema = object().shape({
+-    directoryName: string().required('A valid directory name must be provided.'),
++    directoryName: string().required('Informe um nome de diretório válido.'),
+ });
+ 
+ const generateDirectoryData = (name: string): FileObject => ({
+@@ -39,7 +39,7 @@ const generateDirectoryData = (name: string): FileObject => ({
+ });
+ 
+ const NewDirectoryDialog = asDialog({
+-    title: 'Create Directory',
++    title: 'Criar diretório',
+ })(() => {
+     const uuid = ServerContext.useStoreState(state => state.server.data!.uuid);
+     const directory = ServerContext.useStoreState(state => state.files.directory);
+@@ -70,9 +70,9 @@ const NewDirectoryDialog = asDialog({
+                 <>
+                     <FlashMessageRender key={'files:directory-modal'} />
+                     <Form css={tw`m-0`}>
+-                        <Field autoFocus id={'directoryName'} name={'directoryName'} label={'Name'} />
++                        <Field autoFocus id={'directoryName'} name={'directoryName'} label={'Nome'} />
+                         <p css={tw`mt-2 text-sm md:text-base break-all`}>
+-                            <span css={tw`text-neutral-200`}>This directory will be created as&nbsp;</span>
++                            <span css={tw`text-neutral-200`}>Este diretório será criado como&nbsp;</span>
+                             <Code>
+                                 /home/container/
+                                 <span css={tw`text-cyan-200`}>
+@@ -83,10 +83,10 @@ const NewDirectoryDialog = asDialog({
+                     </Form>
+                     <Dialog.Footer>
+                         <Button.Text className={'w-full sm:w-auto'} onClick={close}>
+-                            Cancel
++                            Cancelar
+                         </Button.Text>
+                         <Button className={'w-full sm:w-auto'} onClick={submitForm}>
+-                            Create
++                            Criar
+                         </Button>
+                     </Dialog.Footer>
+                 </>
+@@ -102,7 +102,7 @@ export default ({ className }: { className?: string }) => {
+         <>
+             <NewDirectoryDialog open={open} onClose={setOpen.bind(this, false)} />
+             <Button.Text onClick={setOpen.bind(this, true)} className={className}>
+-                Create Directory
++                Criar diretório
+             </Button.Text>
+         </>
+     );
+diff --git a/resources/scripts/components/server/files/RenameFileModal.tsx b/resources/scripts/components/server/files/RenameFileModal.tsx
+index 50f21897c..d10642098 100644
+--- a/resources/scripts/components/server/files/RenameFileModal.tsx
++++ b/resources/scripts/components/server/files/RenameFileModal.tsx
+@@ -65,22 +65,22 @@ const RenameFileModal = ({ files, useMoveTerminology, ...props }: OwnProps) => {
+                                     type={'string'}
+                                     id={'file_name'}
+                                     name={'name'}
+-                                    label={'File Name'}
++                                    label={'Nome do arquivo'}
+                                     description={
+                                         useMoveTerminology
+-                                            ? 'Enter the new name and directory of this file or folder, relative to the current directory.'
++                                            ? 'Informe o novo nome e diretório deste arquivo ou pasta, relativo ao diretório atual.'
+                                             : undefined
+                                     }
+                                     autoFocus
+                                 />
+                             </div>
+                             <div css={tw`w-full sm:w-auto mt-4 sm:mt-0`}>
+-                                <Button css={tw`w-full`}>{useMoveTerminology ? 'Move' : 'Rename'}</Button>
++                                <Button css={tw`w-full`}>{useMoveTerminology ? 'Mover' : 'Renomear'}</Button>
+                             </div>
+                         </div>
+                         {useMoveTerminology && (
+                             <p css={tw`text-xs mt-2 text-neutral-400`}>
+-                                <strong css={tw`text-neutral-200`}>New location:</strong>
++                                <strong css={tw`text-neutral-200`}>Novo local:</strong>
+                                 &nbsp;/home/container/{join(directory, values.name).replace(/^(\.\.\/|\/)+/, '')}
+                             </p>
+                         )}
+diff --git a/resources/scripts/components/server/files/UploadButton.tsx b/resources/scripts/components/server/files/UploadButton.tsx
+index ea71a423b..968ed6090 100644
+--- a/resources/scripts/components/server/files/UploadButton.tsx
++++ b/resources/scripts/components/server/files/UploadButton.tsx
+@@ -63,7 +63,7 @@ export default ({ className }: { className?: string }) => {
+         clearAndAddHttpError();
+         const list = Array.from(files);
+         if (list.some(file => !file.type && (!file.size || file.size === 4096))) {
+-            return addError('Folder uploads are not supported.', 'Error');
++            return addError('O envio de pastas não é suportado.', 'Erro');
+         }
+ 
+         const uploads = list.map(file => {
+@@ -126,7 +126,7 @@ export default ({ className }: { className?: string }) => {
+                             >
+                                 <CloudUploadIcon className={'h-10 w-10 flex-shrink-0'} />
+                                 <p className={'flex-1 text-center font-header text-lg text-neutral-100'}>
+-                                    Drag and drop files to upload.
++                                    Arraste e solte arquivos para enviar.
+                                 </p>
+                             </div>
+                         </div>
+@@ -148,7 +148,7 @@ export default ({ className }: { className?: string }) => {
+                 multiple
+             />
+             <Button className={className} onClick={() => fileUploadInput.current && fileUploadInput.current.click()}>
+-                Upload
++                Enviar
+             </Button>
+         </>
+     );

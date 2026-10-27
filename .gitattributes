@@ -1,0 +1,11 @@
+# Keep the patch series and the scripts with stable line endings.
+* text=auto eol=lf
+
+*.patch text eol=lf
+*.sh text eol=lf
+Makefile text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.md text eol=lf
+
+*.php text eol=lf

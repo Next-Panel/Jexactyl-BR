@@ -1,0 +1,201 @@
+name: docker
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+      - master
+    tags:
+      - "v*"
+    paths:
+      - docker/**
+      - patches/**
+      - overlays/**
+      - docker-compose.yml
+      - config.toml
+      - .env.example
+      - Makefile
+      - .github/workflows/docker.yml
+  pull_request:
+    branches:
+      - develop
+      - main
+      - master
+    paths:
+      - docker/**
+      - patches/**
+      - overlays/**
+      - docker-compose.yml
+      - config.toml
+      - .env.example
+      - Makefile
+      - .github/workflows/docker.yml
+  workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * 1"
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: docker-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  build:
+    name: Build and Publish Image
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    outputs:
+      smoke-tag: ${{ steps.names.outputs.smoke_tag }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Lowercase image name
+        id: names
+        run: |
+          set -euo pipefail
+          image_lc="$(printf '%s' "${GITHUB_REPOSITORY}" | tr '[:upper:]' '[:lower:]')"
+          echo "image=${{ env.REGISTRY }}/${image_lc}" >>"${GITHUB_OUTPUT}"
+          echo "smoke_tag=${{ env.REGISTRY }}/${image_lc}:sha-${GITHUB_SHA::7}" >>"${GITHUB_OUTPUT}"
+
+      - name: Upstream pin from config.toml
+        id: upstream
+        run: |
+          set -euo pipefail
+          {
+            echo "url=$(python3 -c "import sys,tomllib; print(tomllib.load(open('config.toml','rb'))['upstream']['url'])")"
+            echo "ref=$(python3 -c "import sys,tomllib; print(tomllib.load(open('config.toml','rb'))['upstream']['ref'])")"
+            echo "sha=$(python3 -c "import sys,tomllib; print(tomllib.load(open('config.toml','rb'))['upstream']['sha'])")"
+          } >>"${GITHUB_OUTPUT}"
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ steps.names.outputs.image }}
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=ref,event=branch
+            type=ref,event=tag
+            type=sha,prefix=sha-,format=short
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/Dockerfile
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            UPSTREAM_URL=${{ steps.upstream.outputs.url }}
+            UPSTREAM_REF=${{ steps.upstream.outputs.ref }}
+            UPSTREAM_SHA=${{ steps.upstream.outputs.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  pin-drift:
+    name: Check Upstream Pin Drift
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Compare config.toml with Dockerfile
+        run: |
+          set -euo pipefail
+          python3 - <<'EOF'
+          import sys, tomllib
+          u = tomllib.load(open('config.toml', 'rb'))['upstream']
+          want = {'URL': u['url'], 'REF': u['ref'], 'SHA': u['sha']}
+          d = {l.split('=', 1)[0].strip(): l.split('=', 1)[1].strip()
+               for l in open('docker/Dockerfile') if l.startswith('ARG UPSTREAM_') and '=' in l}
+          bad = ['Dockerfile:' + k for k, v in want.items() if d.get('ARG UPSTREAM_' + k) != v]
+          if bad:
+              sys.exit(f"drift do pin em: {','.join(bad)}")
+          print('pin em sincronia (config.toml = Dockerfile)')
+          EOF
+
+  smoke:
+    name: Smoke Test Docker Compose
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    needs: build
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Validate Docker Compose configuration
+        run: |
+          set -euo pipefail
+          image_lc="$(printf '%s' "${GITHUB_REPOSITORY}" | tr '[:upper:]' '[:lower:]')"
+          docker compose config >/dev/null
+          PANEL_IMAGE="${{ env.REGISTRY }}/${image_lc}:teste" docker compose config | grep -q "image: ${{ env.REGISTRY }}/${image_lc}:teste"
+
+      - name: Start panel container
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            make build
+            docker compose up -d
+          else
+            PANEL_IMAGE='${{ needs.build.outputs.smoke-tag }}' docker compose up -d
+          fi
+
+      - name: Await panel healthcheck
+        run: |
+          set -euo pipefail
+          panel_id="$(docker compose ps -q panel)"
+          for tentativa in $(seq 1 40); do
+            estado="$(docker inspect -f '{{.State.Health.Status}}' "${panel_id}" 2>/dev/null || true)"
+            if [ "${estado}" = "healthy" ]; then
+              echo "healthy after ~$((tentativa * 15))s"
+              exit 0
+            fi
+            sleep 15
+          done
+          echo "panel failed health check (last state: ${estado:-unknown})"
+          docker compose logs panel
+          exit 1
+
+      - name: Verify HTTP 200 and pt-BR response
+        run: |
+          set -euo pipefail
+          codigo="$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8085/)"
+          case "${codigo}" in 200|301|302) ;; *) echo "Unexpected HTTP code: ${codigo}"; exit 1;; esac
+          test "$(docker compose exec -T panel printenv APP_LOCALE)" = "pt-BR"
+          docker compose exec -T panel sh -c 'grep -rl "Escolha qual provedor" public/build/assets/*.js' | grep -q .
+
+      - name: Teardown environment
+        if: always()
+        run: docker compose down -v

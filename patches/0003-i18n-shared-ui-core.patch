@@ -1,0 +1,504 @@
+From: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+Date: Tue, 27 Oct 2026 09:53:03 -0300
+Subject: i18n: traduz componentes visuais reutilizáveis e blocos de estado
+
+Description:
+Traduz os componentes compartilhados em resources/scripts/elements/,
+abrangendo tabelas, paginação, busca, modais de confirmação, limites de erro
+(ErrorBoundary), proteção de rotas por permissão, menu rápido (SpeedDial),
+entradas de log de atividade, editor de código e telas de bloqueio e
+suspensão de servidores gratuitos ou pagos (ScreenBlock).
+
+Origin: vendor
+Forwarded: not-needed
+Applied-Upstream: no
+Last-Update: 2026-10-27
+Signed-off-by: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+
+---
+
+diff --git a/resources/scripts/elements/AdminPermissionRoute.tsx b/resources/scripts/elements/AdminPermissionRoute.tsx
+index 560c0bfbe..ca6e965df 100644
+--- a/resources/scripts/elements/AdminPermissionRoute.tsx
++++ b/resources/scripts/elements/AdminPermissionRoute.tsx
+@@ -17,7 +17,7 @@ function AdminPermissionRoute({ children, permission }: Props): JSX.Element {
+         return <>{children}</>;
+     }
+ 
+-    return <ServerError title="Access Denied" message="You do not have permission to access this page." />;
++    return <ServerError title="Acesso negado" message="Você não tem permissão para acessar esta página." />;
+ }
+ 
+ export default AdminPermissionRoute;
+diff --git a/resources/scripts/elements/AdminTable.tsx b/resources/scripts/elements/AdminTable.tsx
+index 56fa78916..357cff3b0 100644
+--- a/resources/scripts/elements/AdminTable.tsx
++++ b/resources/scripts/elements/AdminTable.tsx
+@@ -184,15 +184,15 @@ export function Pagination<T>({ data, onPageSelect, children }: Props<T>) {
+ 
+             <div css={tw`h-12 flex flex-row items-center w-full px-6 py-3 border-t border-neutral-500`}>
+                 <p css={tw`text-sm leading-5 text-neutral-400`}>
+-                    Showing{' '}
++                    Exibindo{' '}
+                     <span css={tw`text-neutral-300`}>
+                         {(pagination.currentPage - 1) * pagination.perPage + (pagination.total > 0 ? 1 : 0)}
+                     </span>{' '}
+-                    to{' '}
++                    a{' '}
+                     <span css={tw`text-neutral-300`}>
+                         {(pagination.currentPage - 1) * pagination.perPage + pagination.count}
+                     </span>{' '}
+-                    of <span css={tw`text-neutral-300`}>{pagination.total}</span> results
++                    de <span css={tw`text-neutral-300`}>{pagination.total}</span> resultados
+                 </p>
+ 
+                 {isFirstPage && isLastPage ? null : (
+@@ -201,7 +201,7 @@ export function Pagination<T>({ data, onPageSelect, children }: Props<T>) {
+                             <PaginationArrow
+                                 type="button"
+                                 css={tw`rounded-l-md`}
+-                                aria-label="Previous"
++                                aria-label="Anterior"
+                                 disabled={pagination.currentPage === 1}
+                                 onClick={() => setPage(pagination.currentPage - 1)}
+                             >
+@@ -233,7 +233,7 @@ export function Pagination<T>({ data, onPageSelect, children }: Props<T>) {
+                             <PaginationArrow
+                                 type="button"
+                                 css={tw`-ml-px rounded-r-md`}
+-                                aria-label="Next"
++                                aria-label="Próximo"
+                                 disabled={pagination.currentPage === pagination.totalPages}
+                                 onClick={() => setPage(pagination.currentPage + 1)}
+                             >
+@@ -276,11 +276,11 @@ export const NoItems = ({ className }: { className?: string }) => {
+             style={{ backgroundColor: colors.secondary }}
+         >
+             <div css={tw`h-48 flex`}>
+-                <img src={'/assets/svgs/not_found.svg'} alt={'No Items'} css={tw`h-full select-none`} />
++                <img src={'/assets/svgs/not_found.svg'} alt={'Nenhum item'} css={tw`h-full select-none`} />
+             </div>
+ 
+             <p css={tw`text-lg text-neutral-300 text-center font-normal sm:mt-8`}>
+-                No items could be found, it&apos;s almost like they are hiding.
++                Nenhum item foi encontrado. Parece até que estão se escondendo.
+             </p>
+         </div>
+     );
+@@ -316,7 +316,7 @@ export const ContentWrapper = ({ onSearch, children }: Params) => {
+                         <Input
+                             value={inputText}
+                             css={tw`h-8`}
+-                            placeholder="Search..."
++                            placeholder="Buscar..."
+                             onChange={e => {
+                                 setInputText(e.currentTarget.value);
+                                 search(e.currentTarget.value);
+diff --git a/resources/scripts/elements/ConfirmationModal.tsx b/resources/scripts/elements/ConfirmationModal.tsx
+index a8f46270a..32698d289 100644
+--- a/resources/scripts/elements/ConfirmationModal.tsx
++++ b/resources/scripts/elements/ConfirmationModal.tsx
+@@ -25,7 +25,7 @@ function ConfirmationModal({ title, children, buttonText, onConfirmed }: Props)
+ 
+             <div css={tw`flex flex-wrap items-center justify-end mt-8`}>
+                 <Button onClick={() => dismiss()} css={tw`w-full sm:w-auto border-transparent`}>
+-                    Cancel
++                    Cancelar
+                 </Button>
+                 <Button color={'red'} css={tw`w-full sm:w-auto mt-4 sm:mt-0 sm:ml-4`} onClick={() => onConfirmed()}>
+                     {buttonText}
+diff --git a/resources/scripts/elements/CopyOnClick.tsx b/resources/scripts/elements/CopyOnClick.tsx
+index a4a69908c..47b693c43 100644
+--- a/resources/scripts/elements/CopyOnClick.tsx
++++ b/resources/scripts/elements/CopyOnClick.tsx
+@@ -54,8 +54,8 @@ const CopyOnClick = ({ text, showInNotification = true, children }: CopyOnClickP
+                             <div className="rounded-xl bg-neutral-600/90 backdrop-blur-md py-3 px-4 text-slate-200 shadow-xl ring-1 ring-white/10">
+                                 <p>
+                                     {showInNotification
+-                                        ? `Copied "${String(text)}" to clipboard.`
+-                                        : 'Copied text to clipboard.'}
++                                        ? `Texto "${String(text)}" copiado para a área de transferência.`
++                                        : 'Texto copiado para a área de transferência.'}
+                                 </p>
+                             </div>
+                         </div>
+diff --git a/resources/scripts/elements/ErrorBoundary.tsx b/resources/scripts/elements/ErrorBoundary.tsx
+index 9bfff6475..c3a4892af 100644
+--- a/resources/scripts/elements/ErrorBoundary.tsx
++++ b/resources/scripts/elements/ErrorBoundary.tsx
+@@ -33,7 +33,7 @@ class ErrorBoundary extends Component<Props, State> {
+                     <ExclamationIcon css={tw`h-4 w-4 flex-shrink-0 mr-2`} />
+ 
+                     <p css={tw`text-sm text-neutral-100`}>
+-                        An error was encountered by the application while rendering this view. Try refreshing the page.
++                        Ocorreu um erro na aplicação ao renderizar esta visualização. Tente atualizar a página.
+                     </p>
+                 </div>
+             </div>
+diff --git a/resources/scripts/elements/MessageBox.tsx b/resources/scripts/elements/MessageBox.tsx
+index fee0f1afd..4650aa0f3 100644
+--- a/resources/scripts/elements/MessageBox.tsx
++++ b/resources/scripts/elements/MessageBox.tsx
+@@ -75,7 +75,7 @@ const MessageBox = ({ title, children, type }: Props) => {
+                         <span css={tw`mr-2 text-left flex-auto`}>{children}</span>
+                         <button
+                             type={'button'}
+-                            aria-label={'Dismiss'}
++                            aria-label={'Dispensar'}
+                             onClick={() => setOpen(false)}
+                             className={
+                                 'inline-flex items-center justify-center flex-shrink-0 text-gray-400 hover:text-gray-200 duration-150 hover:rotate-90 transition-transform'
+diff --git a/resources/scripts/elements/PageContentBlock.tsx b/resources/scripts/elements/PageContentBlock.tsx
+index 5acdd50f5..873acaf7a 100644
+--- a/resources/scripts/elements/PageContentBlock.tsx
++++ b/resources/scripts/elements/PageContentBlock.tsx
+@@ -36,7 +36,7 @@ function PageContentBlock({ title, header, description, showFlashKey, className,
+ 
+             <ContentContainer css={tw`mb-4`}>
+                 <p css={tw`text-center text-neutral-500 text-xs`}>
+-                    Powered by&nbsp;
++                    Desenvolvido por&nbsp;
+                     <a
+                         rel={'noopener nofollow noreferrer'}
+                         href={'https://jexpanel.com'}
+diff --git a/resources/scripts/elements/PermissionRoute.tsx b/resources/scripts/elements/PermissionRoute.tsx
+index bc3c8fb50..85b6005a6 100644
+--- a/resources/scripts/elements/PermissionRoute.tsx
++++ b/resources/scripts/elements/PermissionRoute.tsx
+@@ -20,7 +20,7 @@ function PermissionRoute({ children, permission }: Props): JSX.Element {
+         return <>{children}</>;
+     }
+ 
+-    return <ServerError title="Access Denied" message="You do not have permission to access this page." />;
++    return <ServerError title="Acesso negado" message="Você não tem permissão para acessar esta página." />;
+ }
+ 
+ export default PermissionRoute;
+diff --git a/resources/scripts/elements/RequiredFieldIcon.tsx b/resources/scripts/elements/RequiredFieldIcon.tsx
+index c3f09dd9e..d4d0b2715 100644
+--- a/resources/scripts/elements/RequiredFieldIcon.tsx
++++ b/resources/scripts/elements/RequiredFieldIcon.tsx
+@@ -2,7 +2,7 @@ import Tooltip from '@/elements/tooltip/Tooltip';
+ import { ExclamationIcon } from '@heroicons/react/solid';
+ 
+ export default () => (
+-    <Tooltip content={'You must enter a value for this field for this module to work.'}>
++    <Tooltip content={'Informe um valor neste campo para que este módulo funcione.'}>
+         <span className={'inline-flex align-middle ml-1'}>
+             <ExclamationIcon className={'w-4 h-4 text-yellow-500 hover:text-yellow-300 duration-300'} />
+         </span>
+diff --git a/resources/scripts/elements/ScreenBlock.tsx b/resources/scripts/elements/ScreenBlock.tsx
+index 2a1ed0901..5f54c3dd3 100644
+--- a/resources/scripts/elements/ScreenBlock.tsx
++++ b/resources/scripts/elements/ScreenBlock.tsx
+@@ -86,14 +86,14 @@ type ServerErrorProps = (Omit<PropsWithBack, 'image' | 'title'> | Omit<PropsWith
+ };
+ 
+ const ServerError = ({ title, ...props }: ServerErrorProps) => (
+-    <ScreenBlock title={title || 'Something went wrong'} image={ServerErrorSvg} {...props} />
++    <ScreenBlock title={title || 'Algo deu errado'} image={ServerErrorSvg} {...props} />
+ );
+ 
+ const NotFound = ({ title, message, onBack }: Partial<Pick<ScreenBlockProps, 'title' | 'message' | 'onBack'>>) => (
+     <ScreenBlock
+         title={title || '404'}
+         image={NotFoundSvg}
+-        message={message || 'The requested resource was not found.'}
++        message={message || 'O recurso solicitado não foi encontrado.'}
+         onBack={onBack}
+     />
+ );
+@@ -167,25 +167,28 @@ const Suspended = ({
+                             <ArrowLeftIcon className={'w-4 h-4'} />
+                         </ActionButton>
+                     </div>
+-                    <h2 css={tw`text-white font-bold text-4xl`}>{isFree ? 'Suspended' : 'Suspended - No Payment'}</h2>
++                    <h2 css={tw`text-white font-bold text-4xl`}>
++                        {isFree ? 'Suspenso' : 'Suspenso - falta de pagamento'}
++                    </h2>
+                     <p css={tw`text-sm text-neutral-400 mt-2`}>
+                         {isFree ? (
+                             <>
+                                 {isLongOverdue ? (
+                                     <>
+-                                        Your free server has been suspended for more than {suspensionThreshold} days due
+-                                        to non-renewal.{' '}
++                                        Seu servidor gratuito foi suspenso por mais de {suspensionThreshold} dias por
++                                        falta de renovação.{' '}
+                                         <span className={'font-bold text-red-400'}>
+-                                            Please create a support ticket to restore access.
++                                            Abra um ticket de suporte para restaurar o acesso.
+                                         </span>{' '}
+-                                        Self-service renewal is no longer available after {suspensionThreshold} days.
++                                        A renovação por autoatendimento não está mais disponível após{' '}
++                                        {suspensionThreshold} dias.
+                                     </>
+                                 ) : (
+                                     <>
+-                                        Your free server has been suspended because the renewal date has passed. Please
+-                                        renew to restore access.
++                                        Seu servidor gratuito foi suspenso porque a data de renovação passou. Renove
++                                        para restaurar o acesso.
+                                         <div className={'mt-2 text-yellow-400 font-semibold'}>
+-                                            Days overdue: {daysOverdue}
++                                            Dias em atraso: {daysOverdue}
+                                         </div>
+                                     </>
+                                 )}
+@@ -194,26 +197,26 @@ const Suspended = ({
+                             <>
+                                 {isLongOverdue ? (
+                                     <>
+-                                        Your server has been suspended for more than {suspensionThreshold} days due to
+-                                        non-payment.{' '}
++                                        Seu servidor foi suspenso por mais de {suspensionThreshold} dias por falta de
++                                        pagamento.{' '}
+                                         <span className={'font-bold text-red-400'}>
+-                                            Please create a support ticket to restore access.
++                                            Abra um ticket de suporte para restaurar o acesso.
+                                         </span>{' '}
+-                                        Self-service payment is no longer available after {suspensionThreshold} days.
++                                        O pagamento por autoatendimento não está mais disponível após{' '}
++                                        {suspensionThreshold} dias.
+                                     </>
+                                 ) : (
+                                     <>
+-                                        Your server has been suspended due to a lack of payment. Please pay to restore
+-                                        access.
++                                        Seu servidor foi suspenso por falta de pagamento. Pague para restaurar o acesso.
+                                         <div className={'mt-2 text-gray-300 font-semibold'}>
+-                                            Your outstanding balance is:
++                                            Seu saldo devedor é:
+                                             <span className={'text-white ml-2 font-bold'}>
+                                                 {currency}
+                                                 {product.price}
+                                             </span>
+                                         </div>
+                                         <div className={'mt-2 text-yellow-400 font-semibold'}>
+-                                            Days overdue: {daysOverdue}
++                                            Dias em atraso: {daysOverdue}
+                                         </div>
+                                     </>
+                                 )}
+@@ -225,15 +228,15 @@ const Suspended = ({
+                         {isLongOverdue ? (
+                             <div css={tw`text-center p-4 bg-red-900/30 rounded border border-red-500`}>
+                                 <p css={tw`text-red-300 font-semibold`}>
+-                                    Self-service renewal/payment is no longer available. Please create a support ticket
+-                                    to restore your server.
++                                    A renovação e o pagamento por autoatendimento não estão mais disponíveis. Abra um
++                                    ticket de suporte para restaurar seu servidor.
+                                 </p>
+                             </div>
+                         ) : (
+                             <>
+                                 {isFree ? (
+                                     <Button onClick={handleFreeRenewal} disabled={renewing} size={Button.Sizes.Large}>
+-                                        {renewing ? 'Renewing...' : 'Renew Free Server'}
++                                        {renewing ? 'Renovando...' : 'Renovar servidor gratuito'}
+                                     </Button>
+                                 ) : (
+                                     <ServerPaymentButton product={product} />
+diff --git a/resources/scripts/elements/SearchableSelect.tsx b/resources/scripts/elements/SearchableSelect.tsx
+index 896932cdb..65c318588 100644
+--- a/resources/scripts/elements/SearchableSelect.tsx
++++ b/resources/scripts/elements/SearchableSelect.tsx
+@@ -370,11 +370,11 @@ export const SearchableSelect = <T extends IdObj>({
+                     {items === null || items.length < 1 ? (
+                         items === null || inputText.length < 2 ? (
+                             <div css={tw`flex flex-row items-center h-10 px-3`}>
+-                                <p css={tw`text-sm`}>Please type 2 or more characters.</p>
++                                <p css={tw`text-sm`}>Digite pelo menos 2 caracteres.</p>
+                             </div>
+                         ) : (
+                             <div css={tw`flex flex-row items-center h-10 px-3`}>
+-                                <p css={tw`text-sm`}>No results found.</p>
++                                <p css={tw`text-sm`}>Nenhum resultado encontrado.</p>
+                             </div>
+                         )
+                     ) : (
+diff --git a/resources/scripts/elements/SpeedDial.tsx b/resources/scripts/elements/SpeedDial.tsx
+index 0e8ef3884..94eecdb3e 100644
+--- a/resources/scripts/elements/SpeedDial.tsx
++++ b/resources/scripts/elements/SpeedDial.tsx
+@@ -45,11 +45,11 @@ export default () => {
+                         }}
+                     >
+                         {[
+-                            ai && { icon: SparklesIcon, link: '/admin/ai', tooltip: 'Ask AI' },
+-                            { icon: ViewGridAddIcon, link: '/admin/nodes/new', tooltip: 'Create Node' },
+-                            { icon: ServerIcon, link: '/admin/servers/new', tooltip: 'Create Server' },
+-                            { icon: UserAddIcon, link: '/admin/users/new', tooltip: 'New User' },
+-                            tickets && { icon: TicketIcon, link: '/admin/tickets', tooltip: 'View Tickets' },
++                            ai && { icon: SparklesIcon, link: '/admin/ai', tooltip: 'Perguntar à IA' },
++                            { icon: ViewGridAddIcon, link: '/admin/nodes/new', tooltip: 'Criar Node' },
++                            { icon: ServerIcon, link: '/admin/servers/new', tooltip: 'Criar servidor' },
++                            { icon: UserAddIcon, link: '/admin/users/new', tooltip: 'Novo usuário' },
++                            tickets && { icon: TicketIcon, link: '/admin/tickets', tooltip: 'Ver tickets' },
+                         ]
+                             .filter(Boolean)
+                             .map((action, index) => {
+diff --git a/resources/scripts/elements/Table.tsx b/resources/scripts/elements/Table.tsx
+index a06cfc1b7..53cb78142 100644
+--- a/resources/scripts/elements/Table.tsx
++++ b/resources/scripts/elements/Table.tsx
+@@ -19,13 +19,13 @@ const PaginatedFooter = ({
+         >
+             <div className={'flex justify-between space-x-2'}>
+                 <p className={'text-xs font-bold text-gray-400 my-auto'}>
+-                    Showing <span className={'text-white'}>{pagination.startIndex + 1}</span> to{' '}
+-                    <span className={'text-white'}>{pagination.endIndex}</span> of{' '}
+-                    <span className={'text-white'}>{pagination.totalItems}</span> results
++                    Exibindo <span className={'text-white'}>{pagination.startIndex + 1}</span> a{' '}
++                    <span className={'text-white'}>{pagination.endIndex}</span> de{' '}
++                    <span className={'text-white'}>{pagination.totalItems}</span> resultados
+                 </p>
+                 <div className={'inline-flex'}>
+                     <p className={'text-xs font-bold text-gray-400 my-auto mr-2'}>
+-                        Page <span className={'text-white'}>{pagination.currentPage}</span> of{' '}
++                        Página <span className={'text-white'}>{pagination.currentPage}</span> de{' '}
+                         <span className={'text-white'}>{pagination.totalPages}</span>
+                     </p>
+                     <Button.Text
+diff --git a/resources/scripts/elements/activity/ActivityLogEntry.tsx b/resources/scripts/elements/activity/ActivityLogEntry.tsx
+index 95818b753..afabedc6f 100644
+--- a/resources/scripts/elements/activity/ActivityLogEntry.tsx
++++ b/resources/scripts/elements/activity/ActivityLogEntry.tsx
+@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
+ import Tooltip from '@/elements/tooltip/Tooltip';
+ import Translate from '@/elements/Translate';
+ import { format, formatDistanceToNowStrict } from 'date-fns';
++import { dateLocale } from '@/lib/dateLocale';
+ import { ActivityLog } from '@definitions/account';
+ import ActivityLogMetaButton from '@/elements/activity/ActivityLogMetaButton';
+ import { FolderOpenIcon, TerminalIcon } from '@heroicons/react/solid';
+@@ -60,8 +61,8 @@ export default ({ activity, children }: Props) => {
+             <div className={'col-span-10 flex sm:col-span-9'}>
+                 <div className={'flex-1 px-4 sm:px-0'}>
+                     <div className={'flex items-center text-slate-50'}>
+-                        <Tooltip placement={'top'} content={actor?.email || 'System User'}>
+-                            <span className={'font-bold'}>{actor?.username || 'System'}</span>
++                        <Tooltip placement={'top'} content={actor?.email || 'Usuário do sistema'}>
++                            <span className={'font-bold'}>{actor?.username || 'Sistema'}</span>
+                         </Tooltip>
+                         <span className={'text-slate-400 mx-2'}>&bull;</span>
+                         <Link
+@@ -74,12 +75,12 @@ export default ({ activity, children }: Props) => {
+                         </Link>
+                         <div className={classNames(style.icons, 'group-hover:text-slate-300')}>
+                             {activity.isApi && (
+-                                <Tooltip placement={'top'} content={'Using API Key'}>
++                                <Tooltip placement={'top'} content={'Usando chave de API'}>
+                                     <TerminalIcon />
+                                 </Tooltip>
+                             )}
+                             {activity.event.startsWith('server:sftp.') && (
+-                                <Tooltip placement={'top'} content={'Using SFTP'}>
++                                <Tooltip placement={'top'} content={'Usando SFTP'}>
+                                     <FolderOpenIcon />
+                                 </Tooltip>
+                             )}
+@@ -87,7 +88,7 @@ export default ({ activity, children }: Props) => {
+                         </div>
+                     </div>
+                     <p className={style.description}>
+-                        <Translate ns={'activity'} values={properties} i18nKey={activity.event.replace(':', '.')} />
++                        <Translate ns={'activity'} values={properties} i18nKey={activity.event.split(':').join('.')} />
+                     </p>
+                     <div className={'mt-1 flex items-center text-sm'}>
+                         {activity.ip && (
+@@ -101,8 +102,16 @@ export default ({ activity, children }: Props) => {
+                                 <span className={'text-slate-400'}>&nbsp;|&nbsp;</span>
+                             </span>
+                         )}
+-                        <Tooltip placement={'right'} content={format(activity.timestamp, 'MMM do, yyyy H:mm:ss')}>
+-                            <span>{formatDistanceToNowStrict(activity.timestamp, { addSuffix: true })}</span>
++                        <Tooltip
++                            placement={'right'}
++                            content={format(activity.timestamp, 'MMM do, yyyy H:mm:ss', { locale: dateLocale() })}
++                        >
++                            <span>
++                                {formatDistanceToNowStrict(activity.timestamp, {
++                                    addSuffix: true,
++                                    locale: dateLocale(),
++                                })}
++                            </span>
+                         </Tooltip>
+                     </div>
+                 </div>
+diff --git a/resources/scripts/elements/activity/ActivityLogMetaButton.tsx b/resources/scripts/elements/activity/ActivityLogMetaButton.tsx
+index 1e67db566..722f22837 100644
+--- a/resources/scripts/elements/activity/ActivityLogMetaButton.tsx
++++ b/resources/scripts/elements/activity/ActivityLogMetaButton.tsx
+@@ -8,7 +8,7 @@ export default ({ meta }: { meta: Record<string, unknown> }) => {
+ 
+     return (
+         <div className={'self-center md:px-4'}>
+-            <Dialog open={open} onClose={() => setOpen(false)} hideCloseIcon title={'Metadata'}>
++            <Dialog open={open} onClose={() => setOpen(false)} hideCloseIcon title={'Metadados'}>
+                 <pre
+                     className={
+                         'overflow-x-scroll whitespace-pre-wrap rounded bg-slate-900 p-2 font-mono text-sm leading-relaxed'
+@@ -17,7 +17,7 @@ export default ({ meta }: { meta: Record<string, unknown> }) => {
+                     {JSON.stringify(meta, null, 2)}
+                 </pre>
+                 <Dialog.Footer>
+-                    <Button.Text onClick={() => setOpen(false)}>Close</Button.Text>
++                    <Button.Text onClick={() => setOpen(false)}>Fechar</Button.Text>
+                 </Dialog.Footer>
+             </Dialog>
+             <button
+diff --git a/resources/scripts/elements/dialog/ConfirmationDialog.tsx b/resources/scripts/elements/dialog/ConfirmationDialog.tsx
+index 8d3e7a589..745a30e42 100644
+--- a/resources/scripts/elements/dialog/ConfirmationDialog.tsx
++++ b/resources/scripts/elements/dialog/ConfirmationDialog.tsx
+@@ -9,12 +9,12 @@ type ConfirmationProps = Omit<RenderDialogProps, 'description' | 'children'> & {
+     onConfirmed: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+ };
+ 
+-export default ({ confirm = 'Okay', children, onConfirmed, buttonType, ...props }: ConfirmationProps) => {
++export default ({ confirm = 'OK', children, onConfirmed, buttonType, ...props }: ConfirmationProps) => {
+     return (
+         <Dialog {...props} description={typeof children === 'string' ? children : undefined}>
+             {typeof children !== 'string' && children}
+             <Dialog.Footer>
+-                <Button.Text onClick={props.onClose}>Cancel</Button.Text>
++                <Button.Text onClick={props.onClose}>Cancelar</Button.Text>
+                 {(!buttonType || buttonType === 'info') && <Button.Info onClick={onConfirmed}>{confirm}</Button.Info>}
+                 {buttonType === 'danger' && <Button.Danger onClick={onConfirmed}>{confirm}</Button.Danger>}
+                 {buttonType === 'warning' && <Button.Warn onClick={onConfirmed}>{confirm}</Button.Warn>}
+diff --git a/resources/scripts/elements/editor/Editor.tsx b/resources/scripts/elements/editor/Editor.tsx
+index 89c04ae7f..c116e2010 100644
+--- a/resources/scripts/elements/editor/Editor.tsx
++++ b/resources/scripts/elements/editor/Editor.tsx
+@@ -202,7 +202,7 @@ export function Editor(props: EditorProps) {
+ 
+         if (!view) {
+             props.fetchContent(async () => {
+-                throw new Error('no editor session has been configured');
++                throw new Error('Nenhuma sessão do editor foi configurada.');
+             });
+             return;
+         }
+diff --git a/resources/scripts/elements/table/PaginationFooter.tsx b/resources/scripts/elements/table/PaginationFooter.tsx
+index 715c1ec18..f18bd4ace 100644
+--- a/resources/scripts/elements/table/PaginationFooter.tsx
++++ b/resources/scripts/elements/table/PaginationFooter.tsx
+@@ -39,13 +39,13 @@ const PaginationFooter = ({ pagination, className, onPageSelect }: Props) => {
+     return (
+         <div className={classNames('my-2 flex items-center justify-between', className)}>
+             <p className={'text-sm text-neutral-500'}>
+-                Showing&nbsp;
++                Exibindo&nbsp;
+                 <span className={'font-semibold text-neutral-400'}>
+                     {Math.max(start, Math.min(pagination.total, 1))}
+                 </span>
+-                &nbsp;to&nbsp;
+-                <span className={'font-semibold text-neutral-400'}>{end}</span> of&nbsp;
+-                <span className={'font-semibold text-neutral-400'}>{pagination.total}</span> results.
++                &nbsp;a&nbsp;
++                <span className={'font-semibold text-neutral-400'}>{end}</span> de&nbsp;
++                <span className={'font-semibold text-neutral-400'}>{pagination.total}</span> resultados
+             </p>
+             {pagination.totalPages > 1 && (
+                 <div className={'flex space-x-1'}>

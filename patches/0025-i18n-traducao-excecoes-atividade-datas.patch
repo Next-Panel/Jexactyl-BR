@@ -1,0 +1,263 @@
+From: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+Date: Tue, 27 Oct 2026 09:53:25 -0300
+Subject: i18n: internacionaliza exceções de cobrança e transformers de atividade
+
+Description:
+Internacionaliza as mensagens de exceções de faturamento nos controladores,
+jobs e serviços do backend via chaves de tradução (__('exceptions.billing.*')),
+traduz e interpola descrições de eventos nos transformers de logs de
+atividade (cliente e admin) e expõe o campo description tipado no modelo
+administrativo de ActivityLog.
+
+Origin: vendor
+Forwarded: not-needed
+Applied-Upstream: no
+Last-Update: 2026-10-27
+Signed-off-by: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+
+---
+
+diff --git a/app/Http/Controllers/Api/Client/Billing/StoreController.php b/app/Http/Controllers/Api/Client/Billing/StoreController.php
+index 6ea4e5614..a9bfa9561 100644
+--- a/app/Http/Controllers/Api/Client/Billing/StoreController.php
++++ b/app/Http/Controllers/Api/Client/Billing/StoreController.php
+@@ -32,9 +32,9 @@ class StoreController extends ClientApiController
+ 
+         if ($categories->count() == 0) {
+             BillingException::create([
+-                'title' => 'No product categories are visible',
++                'title' => __('exceptions.billing.no_visible_categories_title'),
+                 'exception_type' => BillingException::TYPE_STOREFRONT,
+-                'description' => 'Create a category and set the visibility to true',
++                'description' => __('exceptions.billing.no_visible_categories_description'),
+             ]);
+         }
+ 
+@@ -50,9 +50,9 @@ class StoreController extends ClientApiController
+ 
+         if ($products->count() == 0) {
+             BillingException::create([
+-                'title' => 'No products in category ' . $category->name . ' are visible',
++                'title' => __('exceptions.billing.no_products_in_category_title', ['category' => $category->name]),
+                 'exception_type' => BillingException::TYPE_STOREFRONT,
+-                'description' => 'Go to this category and create a visible product',
++                'description' => __('exceptions.billing.no_products_in_category_description'),
+             ]);
+         }
+ 
+diff --git a/app/Http/Controllers/Api/Client/Billing/StripeController.php b/app/Http/Controllers/Api/Client/Billing/StripeController.php
+index 775a99ca5..e4770d4e7 100644
+--- a/app/Http/Controllers/Api/Client/Billing/StripeController.php
++++ b/app/Http/Controllers/Api/Client/Billing/StripeController.php
+@@ -201,7 +201,7 @@ class StripeController extends ClientApiController
+             BillingException::create([
+                 'order_id' => $order->id,
+                 'exception_type' => BillingException::TYPE_DEPLOYMENT,
+-                'title' => 'Deployment or renewal of server failed',
++                'title' => __('exceptions.billing.deployment_renewal_failed_title'),
+                 'description' => $exception->getMessage(),
+             ]);
+         }
+diff --git a/app/Jobs/Billing/GenerateInvoiceJob.php b/app/Jobs/Billing/GenerateInvoiceJob.php
+index acba2da2c..3b0ab8b4b 100644
+--- a/app/Jobs/Billing/GenerateInvoiceJob.php
++++ b/app/Jobs/Billing/GenerateInvoiceJob.php
+@@ -41,7 +41,7 @@ class GenerateInvoiceJob extends Job implements ShouldQueue
+             BillingException::create([
+                 'order_id' => $this->order->id,
+                 'exception_type' => BillingException::TYPE_INVOICE,
+-                'title' => 'Failed to generate invoice',
++                'title' => __('exceptions.billing.failed_generate_invoice_title'),
+                 'description' => $e->getMessage(),
+             ]);
+ 
+diff --git a/app/Services/Billing/FreeServerDeploymentService.php b/app/Services/Billing/FreeServerDeploymentService.php
+index 1a2088013..366426051 100644
+--- a/app/Services/Billing/FreeServerDeploymentService.php
++++ b/app/Services/Billing/FreeServerDeploymentService.php
+@@ -57,7 +57,7 @@ class FreeServerDeploymentService extends ServerDeploymentService
+             BillingException::create([
+                 'order_id' => $order->id,
+                 'exception_type' => BillingException::TYPE_DEPLOYMENT,
+-                'title' => 'Failed to create free server',
++                'title' => __('exceptions.billing.failed_create_free_server_title'),
+                 'description' => $ex->getMessage(),
+             ]);
+ 
+diff --git a/app/Services/Billing/NodeCollectionService.php b/app/Services/Billing/NodeCollectionService.php
+index 1864d1f05..368c013b5 100644
+--- a/app/Services/Billing/NodeCollectionService.php
++++ b/app/Services/Billing/NodeCollectionService.php
+@@ -29,9 +29,9 @@ class NodeCollectionService
+ 
+         if ($nodes->isEmpty()) {
+             BillingException::create([
+-                'title' => 'No deployable nodes found',
++                'title' => __('exceptions.billing.no_deployable_nodes_title'),
+                 'exception_type' => BillingException::TYPE_DEPLOYMENT,
+-                'description' => 'Ensure at least one node has the "deployable" box checked',
++                'description' => __('exceptions.billing.no_deployable_nodes_description'),
+             ]);
+ 
+             return $available->all();
+@@ -55,9 +55,9 @@ class NodeCollectionService
+ 
+         if ($available->count() == 0) {
+             BillingException::create([
+-                'title' => 'No nodes satisfy requirements',
++                'title' => __('exceptions.billing.no_nodes_satisfy_requirements_title'),
+                 'exception_type' => BillingException::TYPE_DEPLOYMENT,
+-                'description' => 'Available nodes are offline or have no free allocations',
++                'description' => __('exceptions.billing.no_nodes_satisfy_requirements_description'),
+             ]);
+         }
+ 
+diff --git a/app/Services/Billing/ServerDeploymentService.php b/app/Services/Billing/ServerDeploymentService.php
+index ea6c7b43c..8a0ede500 100644
+--- a/app/Services/Billing/ServerDeploymentService.php
++++ b/app/Services/Billing/ServerDeploymentService.php
+@@ -65,7 +65,7 @@ class ServerDeploymentService
+             BillingException::create([
+                 'order_id' => $order->id,
+                 'exception_type' => BillingException::TYPE_DEPLOYMENT,
+-                'title' => 'Failed to create billable server',
++                'title' => __('exceptions.billing.failed_create_billable_server_title'),
+                 'description' => $ex->getMessage(),
+             ]);
+ 
+@@ -137,8 +137,8 @@ class ServerDeploymentService
+             BillingException::create([
+                 'order_id' => $orderId,
+                 'exception_type' => BillingException::TYPE_DEPLOYMENT,
+-                'title' => 'Failed to find allocation to assign to server',
+-                'description' => 'Create more allocations (ports) for node ' . $nodeId,
++                'title' => __('exceptions.billing.failed_find_allocation_title'),
++                'description' => __('exceptions.billing.failed_find_allocation_description', ['node' => $nodeId]),
+             ]);
+ 
+             throw new NoViableAllocationException('No allocations are available for deployment.');
+diff --git a/app/Transformers/Api/Application/ActivityLogTransformer.php b/app/Transformers/Api/Application/ActivityLogTransformer.php
+index be02df1ce..dc3f951e1 100644
+--- a/app/Transformers/Api/Application/ActivityLogTransformer.php
++++ b/app/Transformers/Api/Application/ActivityLogTransformer.php
+@@ -5,6 +5,8 @@ namespace Everest\Transformers\Api\Application;
+ use Everest\Models\User;
+ use Illuminate\Support\Str;
+ use Everest\Models\ActivityLog;
++use Illuminate\Support\Collection;
++use Illuminate\Support\Facades\Lang;
+ use League\Fractal\Resource\Item;
+ use Illuminate\Database\Eloquent\Model;
+ use Everest\Transformers\Api\Transformer;
+@@ -31,7 +33,7 @@ class ActivityLogTransformer extends Transformer
+             'event' => $model->event,
+             'is_api' => !is_null($model->api_key_id),
+             'ip' => $model->ip,
+-            'description' => $model->description,
++            'description' => $this->translatedDescription($model),
+             'properties' => $this->properties($model),
+             'has_additional_metadata' => $this->hasAdditionalMetadata($model),
+             'subjects' => $this->subjects($model),
+@@ -127,6 +129,33 @@ class ActivityLogTransformer extends Transformer
+         return (object) $properties->toArray();
+     }
+ 
++    /**
++     * Resolve a descricao no idioma do solicitante a partir dos arquivos
++     * de lang (activity.*). Cai para o texto gravado quando nao ha chave.
++     */
++    protected function translatedDescription(ActivityLog $model): ?string
++    {
++        $key = 'activity.' . str_replace(':', '.', $model->event);
++
++        if (!Lang::has($key)) {
++            return $model->description;
++        }
++
++        $raw = $model->properties;
++        $props = $raw instanceof Collection ? $raw->toArray() : (array) $raw;
++
++        $replacements = [];
++        foreach ($props as $name => $value) {
++            if (is_scalar($value) && preg_match('/^[A-Za-z0-9_]+$/', (string) $name)) {
++                $replacements[$name] = $value;
++            }
++        }
++
++        $translated = trans($key, $replacements);
++
++        return is_string($translated) ? $translated : $model->description;
++    }
++
+     /**
+      * Determines if there are any log properties that we've not already exposed
+      * in the response language string and that are not just the IP address or
+diff --git a/app/Transformers/Api/Client/ActivityLogTransformer.php b/app/Transformers/Api/Client/ActivityLogTransformer.php
+index c079c1ee7..f27a27947 100644
+--- a/app/Transformers/Api/Client/ActivityLogTransformer.php
++++ b/app/Transformers/Api/Client/ActivityLogTransformer.php
+@@ -5,6 +5,8 @@ namespace Everest\Transformers\Api\Client;
+ use Everest\Models\User;
+ use Illuminate\Support\Str;
+ use Everest\Models\ActivityLog;
++use Illuminate\Support\Collection;
++use Illuminate\Support\Facades\Lang;
+ use League\Fractal\Resource\Item;
+ use Illuminate\Database\Eloquent\Model;
+ use Everest\Transformers\Api\Transformer;
+@@ -30,7 +32,7 @@ class ActivityLogTransformer extends Transformer
+             'event' => $model->event,
+             'is_api' => !is_null($model->api_key_id),
+             'ip' => $this->canViewIP($model->actor) ? $model->ip : null,
+-            'description' => $model->description,
++            'description' => $this->translatedDescription($model),
+             'properties' => $this->properties($model),
+             'has_additional_metadata' => $this->hasAdditionalMetadata($model),
+             'timestamp' => $model->timestamp,
+@@ -82,6 +84,33 @@ class ActivityLogTransformer extends Transformer
+         return (object) $properties->toArray();
+     }
+ 
++    /**
++     * Resolve a descricao no idioma do solicitante a partir dos arquivos
++     * de lang (activity.*). Cai para o texto gravado quando nao ha chave.
++     */
++    protected function translatedDescription(ActivityLog $model): ?string
++    {
++        $key = 'activity.' . str_replace(':', '.', $model->event);
++
++        if (!Lang::has($key)) {
++            return $model->description;
++        }
++
++        $raw = $model->properties;
++        $props = $raw instanceof Collection ? $raw->toArray() : (array) $raw;
++
++        $replacements = [];
++        foreach ($props as $name => $value) {
++            if (is_scalar($value) && preg_match('/^[A-Za-z0-9_]+$/', (string) $name)) {
++                $replacements[$name] = $value;
++            }
++        }
++
++        $translated = trans($key, $replacements);
++
++        return is_string($translated) ? $translated : $model->description;
++    }
++
+     /**
+      * Determines if there are any log properties that we've not already exposed
+      * in the response language string and that are not just the IP address or
+diff --git a/resources/scripts/api/definitions/admin/models.d.ts b/resources/scripts/api/definitions/admin/models.d.ts
+index 9139a6ffb..579c15de4 100644
+--- a/resources/scripts/api/definitions/admin/models.d.ts
++++ b/resources/scripts/api/definitions/admin/models.d.ts
+@@ -2,7 +2,7 @@ import { ModelWithRelationships, Model, UUID } from '@definitions';
+ import { OrderType } from '@/api/routes/account/billing/orders/types';
+ import { type Database } from '@definitions/server';
+ 
+-type BillingExceptionType = 'payment' | 'deployment' | 'storefront';
++type BillingExceptionType = 'payment' | 'deployment' | 'storefront' | 'invoice';
+ type OrderStatus = 'pending' | 'expired' | 'failed' | 'processed';
+ export type DiscountCodeType = 'percentage' | 'numeric';
+ 

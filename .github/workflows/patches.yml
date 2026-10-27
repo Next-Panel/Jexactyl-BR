@@ -1,0 +1,121 @@
+name: patches
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+      - master
+  pull_request:
+    branches:
+      - develop
+      - main
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: patches-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Patch Series Lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Validate patch series
+        run: cargo run --quiet --manifest-path jx-tools/Cargo.toml -p jx_cli -- --config config.toml lint
+
+  i18n:
+    name: i18n Unit Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Run i18n unit tests
+        run: cargo test --manifest-path jx-tools/Cargo.toml -p jx_i18n
+
+  catalog:
+    name: i18n Catalog Validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Prepare pinned upstream
+        run: cargo run --quiet --manifest-path jx-tools/Cargo.toml -p jx_cli -- --config config.toml setup
+
+      - name: Verify i18n catalog lock
+        run: cargo run --quiet --manifest-path jx-tools/Cargo.toml -p jx_cli -- --config config.toml i18n-catalog --check
+
+  test:
+    name: Rust Workspace Test Suite
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: lint
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Check code formatting and clippy lints
+        run: |
+          cargo fmt --manifest-path jx-tools/Cargo.toml --all --check
+          cargo clippy --manifest-path jx-tools/Cargo.toml --workspace --all-targets -- -D warnings
+
+      - name: Run workspace unit tests
+        run: cargo test --manifest-path jx-tools/Cargo.toml --workspace
+
+  package:
+    name: Release Package Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: lint
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Prepare pinned upstream
+        run: cargo run --quiet --manifest-path jx-tools/Cargo.toml -p jx_cli -- --config config.toml setup
+
+      - name: Build release package
+        run: cargo run --quiet --manifest-path jx-tools/Cargo.toml -p jx_cli -- --config config.toml package --version ci
+
+      - name: Verify package contents
+        run: |
+          set -euo pipefail
+          tarball="$(ls dist/*.tar.gz | head -n 1)"
+          mkdir -p /tmp/pkg
+          tar -xzf "${tarball}" -C /tmp/pkg
+          root="$(ls -d /tmp/pkg/*/)"
+          test -f "${root}overlay/release.json"
+          test -f "${root}overlay/patches/series"
+          python3 -c "import json,sys; json.load(open(sys.argv[1]))" "${root}overlay/release.json"

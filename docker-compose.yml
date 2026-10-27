@@ -1,0 +1,137 @@
+# Jexactyl — sobe o painel com traducao pt-BR e banco configurados.
+#
+# Uso:
+#   cp .env.example .env
+#   docker compose up -d
+#   docker compose logs -f panel
+#
+# O servico `panel` baixa automaticamente a imagem oficial pre-compilada
+# (ghcr.io/next-panel/jexactyl-br:latest) no primeiro `docker compose up -d`.
+# O banco (MariaDB) e o cache (Redis) sobem junto, ja ligados no painel.
+
+name: jexactyl
+
+services:
+  database:
+    image: mariadb:11
+    restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password
+    networks:
+      - jexactyl
+    volumes:
+      - db-data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-jexactyl}
+      MYSQL_USER: ${DB_USERNAME:-jexactyl}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-jexactyl_dev}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-jexactyl_root_dev}
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  cache:
+    image: redis:alpine
+    restart: unless-stopped
+    networks:
+      - jexactyl
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  panel:
+    image: ${PANEL_IMAGE:-ghcr.io/next-panel/jexactyl-br:latest}
+    # Variaveis extras do .env (ex.: MAIL_*, APP_KEY de migracao) entram
+    # automaticamente; as declaradas em `environment:` abaixo prevalecem.
+    env_file:
+      - path: .env
+        required: false
+    restart: unless-stopped
+    stop_grace_period: 30s
+    networks:
+      - jexactyl
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    ports:
+      - "${PANEL_PORT:-8085}:80"
+    depends_on:
+      database:
+        condition: service_healthy
+      cache:
+        condition: service_healthy
+    volumes:
+      - panel-var:/app/var/
+      - panel-nginx:/etc/nginx/http.d/
+      - panel-certs:/etc/letsencrypt/
+      - panel-logs:/app/storage/logs
+      - panel-storage:/app/storage/app/public
+    environment:
+      APP_URL: ${APP_URL:-http://localhost:8085}
+      TRUSTED_PROXIES: ${TRUSTED_PROXIES:-*}
+      # Traducao: pt-BR ja vem embutida na imagem (patches + overlays).
+      APP_LOCALE: ${APP_LOCALE:-pt-BR}
+      APP_TIMEZONE: ${APP_TIMEZONE:-America/Sao_Paulo}
+      APP_ENV: production
+      APP_ENVIRONMENT_ONLY: "false"
+      # Banco ja ligado no servico `database` acima.
+      DB_HOST: database
+      DB_PORT: "3306"
+      DB_DATABASE: ${DB_DATABASE:-jexactyl}
+      DB_USERNAME: ${DB_USERNAME:-jexactyl}
+      DB_PASSWORD: ${DB_PASSWORD:-jexactyl_dev}
+      # Cache/sessao/fila no Redis local.
+      CACHE_DRIVER: redis
+      SESSION_DRIVER: redis
+      QUEUE_DRIVER: redis
+      REDIS_HOST: cache
+      REDIS_PORT: "6379"
+      HASHIDS_LENGTH: 8
+      # Faturamento (opcional; stripe|mercadopago).
+      BILLING_ENABLED: ${BILLING_ENABLED:-true}
+      BILLING_GATEWAY: ${BILLING_GATEWAY:-stripe}
+      BILLING_SECRET_KEY: ${BILLING_SECRET_KEY:-}
+      MP_ACCESS_TOKEN: ${MP_ACCESS_TOKEN:-}
+      MP_WEBHOOK_SECRET: ${MP_WEBHOOK_SECRET:-}
+      MP_SANDBOX: ${MP_SANDBOX:-true}
+      # Admin inicial (opcional; criado no primeiro boot quando definidos).
+      PANEL_ADMIN_EMAIL: ${PANEL_ADMIN_EMAIL:-}
+      PANEL_ADMIN_PASSWORD: ${PANEL_ADMIN_PASSWORD:-}
+      PANEL_ADMIN_USERNAME: ${PANEL_ADMIN_USERNAME:-admin}
+      # HTTPS via Let's Encrypt (opcional; exige dominio publico).
+      # LE_EMAIL: ""
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1/ | grep -qE '^(200|301|302)$'"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 60s
+
+networks:
+  jexactyl:
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+
+volumes:
+  db-data:
+  panel-var:
+  panel-nginx:
+  panel-certs:
+  panel-logs:
+  panel-storage:

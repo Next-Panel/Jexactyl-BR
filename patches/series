@@ -1,0 +1,40 @@
+# Ordem de aplicacao dos patches do Jexactyl.
+#
+# Um patch por linha, caminho relativo a raiz do repositorio.
+# Linhas em branco e comentarios com '#' sao ignorados.
+#
+# Numeracao global de quatro digitos: a ordem de criacao e a ordem de
+# aplicacao (0001, 0002, 0003, ...). O dominio vira o rotulo do arquivo,
+# nao um prefixo numerico separado. Um patch so pode depender dos anteriores.
+#
+#   01   i18n e locales
+#   02   gateways de pagamento (Mercado Pago)
+#   03   billing e faturas
+#   04-09 comportamento geral do painel
+#   10+  interface, marca e templates
+patches/0001-i18n-add-supported-locales.patch
+patches/0002-i18n-shared-navigation.patch
+patches/0003-i18n-shared-ui-core.patch
+patches/0004-i18n-shared-runtime.patch
+patches/0005-i18n-backend-messages-views.patch
+patches/0006-i18n-auth.patch
+patches/0007-i18n-account-overview.patch
+patches/0008-i18n-account-security.patch
+patches/0009-i18n-account-tickets.patch
+patches/0010-i18n-account-billing.patch
+patches/0011-i18n-server-shared.patch
+patches/0012-i18n-server-console.patch
+patches/0013-i18n-server-data.patch
+patches/0014-i18n-server-configuration.patch
+patches/0015-i18n-server-billing.patch
+patches/0016-i18n-server-activity.patch
+patches/0017-i18n-admin-shared.patch
+patches/0018-i18n-admin-general.patch
+patches/0019-i18n-admin-management.patch
+patches/0020-i18n-admin-modules.patch
+patches/0021-i18n-admin-appearance.patch
+patches/0022-i18n-admin-services.patch
+patches/0023-i18n-admin-setup.patch
+patches/0024-gateway-mercadopago-multiprovedor.patch
+patches/0025-i18n-traducao-excecoes-atividade-datas.patch
+patches/0026-core-corrige-preview-tema-x-frame.patch

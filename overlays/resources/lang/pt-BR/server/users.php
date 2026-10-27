@@ -1,0 +1,33 @@
+<?php
+
+return [
+    'permissions' => [
+        'websocket_*' => 'Permite acesso ao WebSocket deste servidor.',
+        'control_console' => 'Permite ao usuário enviar dados para o console do servidor.',
+        'control_start' => 'Permite ao usuário iniciar a instância do servidor.',
+        'control_stop' => 'Permite ao usuário parar a instância do servidor.',
+        'control_restart' => 'Permite ao usuário reiniciar a instância do servidor.',
+        'control_kill' => 'Permite ao usuário forçar o encerramento da instância do servidor.',
+        'user_create' => 'Permite ao usuário criar novas contas de usuário para o servidor.',
+        'user_read' => 'Permite ao usuário visualizar os usuários associados a este servidor.',
+        'user_update' => 'Permite ao usuário modificar outros usuários associados a este servidor.',
+        'user_delete' => 'Permite ao usuário excluir outros usuários associados a este servidor.',
+        'file_create' => 'Permite ao usuário criar novos arquivos e diretórios.',
+        'file_read' => 'Permite ao usuário ver os arquivos e pastas associados a esta instância de servidor, bem como visualizar seu conteúdo.',
+        'file_update' => 'Permite ao usuário atualizar arquivos e pastas associados ao servidor.',
+        'file_delete' => 'Permite ao usuário excluir arquivos e diretórios.',
+        'file_archive' => 'Permite ao usuário criar arquivos compactados e descompactar arquivos existentes.',
+        'file_sftp' => 'Permite ao usuário realizar as ações de arquivo acima usando um cliente SFTP.',
+        'allocation_read' => 'Permite acesso às páginas de gerenciamento de alocações do servidor.',
+        'allocation_update' => 'Permite ao usuário fazer modificações nas alocações do servidor.',
+        'database_create' => 'Permite ao usuário criar um novo banco de dados para o servidor.',
+        'database_read' => 'Permite ao usuário visualizar os bancos de dados do servidor.',
+        'database_update' => 'Permite ao usuário fazer modificações em um banco de dados. Se o usuário também não tiver a permissão "Ver senha", não poderá modificar a senha.',
+        'database_delete' => 'Permite ao usuário excluir uma instância de banco de dados.',
+        'database_view_password' => 'Permite ao usuário visualizar a senha de um banco de dados no sistema.',
+        'schedule_create' => 'Permite ao usuário criar um novo agendamento para o servidor.',
+        'schedule_read' => 'Permite ao usuário visualizar os agendamentos de um servidor.',
+        'schedule_update' => 'Permite ao usuário fazer modificações em um agendamento existente do servidor.',
+        'schedule_delete' => 'Permite ao usuário excluir um agendamento do servidor.',
+    ],
+];

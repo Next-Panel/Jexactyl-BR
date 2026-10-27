@@ -1,0 +1,345 @@
+From: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+Date: Tue, 27 Oct 2026 09:53:11 -0300
+Subject: i18n: traduz estados de bloqueio, alertas WebSocket e modais de Eggs
+
+Description:
+Traduz os estados de conflito do servidor (instalação, suspensão, manutenção
+do Node, transferência e restauração de backup), os alertas de falha de
+conexão WebSocket e os modais interativos de recursos de Eggs (EULA do
+Minecraft, autenticação OAuth do Hytale, versão do Java, token GSL, limite de
+PID e aviso de espaço em disco da Steam).
+
+Origin: vendor
+Forwarded: not-needed
+Applied-Upstream: no
+Last-Update: 2026-10-27
+Signed-off-by: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+
+---
+
+diff --git a/resources/scripts/components/server/ConflictStateRenderer.tsx b/resources/scripts/components/server/ConflictStateRenderer.tsx
+index ce679f702..172e48803 100644
+--- a/resources/scripts/components/server/ConflictStateRenderer.tsx
++++ b/resources/scripts/components/server/ConflictStateRenderer.tsx
+@@ -13,30 +13,30 @@ export default () => {
+ 
+     return status === 'installing' || status === 'install_failed' || status === 'reinstall_failed' ? (
+         <ScreenBlock
+-            title={'Running Installer'}
++            title={'Instalando servidor'}
+             image={ServerInstallSvg}
+-            message={'Your server should be ready soon, please try again in a few minutes.'}
++            message={'Seu servidor deve ficar pronto em breve, tente novamente em alguns minutos.'}
+         />
+     ) : status === 'suspended' ? (
+         <ScreenBlock
+-            title={'Server Suspended'}
++            title={'Servidor suspenso'}
+             image={ServerErrorSvg}
+-            message={'This server is suspended and cannot be accessed.'}
++            message={'Este servidor está suspenso e não pode ser acessado.'}
+         />
+     ) : isNodeUnderMaintenance ? (
+         <ScreenBlock
+-            title={'Node under Maintenance'}
++            title={'Node em manutenção'}
+             image={ServerErrorSvg}
+-            message={'The node of this server is currently under maintenance.'}
++            message={'O Node deste servidor está em manutenção no momento.'}
+         />
+     ) : (
+         <ScreenBlock
+-            title={isTransferring ? 'Transferring' : 'Restoring from Backup'}
++            title={isTransferring ? 'Transferindo' : 'Restaurando backup'}
+             image={ServerRestoreSvg}
+             message={
+                 isTransferring
+-                    ? 'Your server is being transferred to a new node, please check back later.'
+-                    : 'Your server is currently being restored from a backup, please check back in a few minutes.'
++                    ? 'Seu servidor está sendo transferido para um novo Node, volte mais tarde.'
++                    : 'Seu servidor está sendo restaurado de um backup, volte em alguns minutos.'
+             }
+         />
+     );
+diff --git a/resources/scripts/components/server/WebsocketHandler.tsx b/resources/scripts/components/server/WebsocketHandler.tsx
+index a0b9baeee..c1626d928 100644
+--- a/resources/scripts/components/server/WebsocketHandler.tsx
++++ b/resources/scripts/components/server/WebsocketHandler.tsx
+@@ -37,7 +37,9 @@ function WebsocketHandler() {
+         socket.on('auth success', () => setConnectionState(true));
+         socket.on('SOCKET_CLOSE', () => setConnectionState(false));
+         socket.on('SOCKET_CONNECT_ERROR', () => {
+-            setError('Failed to connect to websocket instance after multiple attempts: try refreshing the page.');
++            setError(
++                'Não foi possível conectar à instância do WebSocket após várias tentativas: tente atualizar a página.',
++            );
+         });
+         socket.on('SOCKET_ERROR', () => {
+             setError('connecting');
+@@ -58,9 +60,7 @@ function WebsocketHandler() {
+             if (reconnectErrors.find(v => error.toLowerCase().indexOf(v) >= 0)) {
+                 updateToken(uuid, socket);
+             } else {
+-                setError(
+-                    'There was an error validating the credentials provided for the websocket. Please refresh the page.',
+-                );
++                setError('Ocorreu um erro ao validar as credenciais do WebSocket. Atualize a página.');
+             }
+         });
+ 
+@@ -117,7 +117,7 @@ function WebsocketHandler() {
+                         <>
+                             <Spinner size={'small'} />
+                             <p css={tw`ml-2 text-sm text-red-100`}>
+-                                We&apos;re having some trouble connecting to your server, please wait...
++                                Estamos com dificuldade para conectar ao seu servidor, aguarde...
+                             </p>
+                         </>
+                     ) : (
+diff --git a/resources/scripts/components/server/features/GSLTokenModalFeature.tsx b/resources/scripts/components/server/features/GSLTokenModalFeature.tsx
+index f8de694f3..171d88055 100644
+--- a/resources/scripts/components/server/features/GSLTokenModalFeature.tsx
++++ b/resources/scripts/components/server/features/GSLTokenModalFeature.tsx
+@@ -75,25 +75,23 @@ const GSLTokenModalFeature = () => {
+             >
+                 <FlashMessageRender key={'feature:gslToken'} css={tw`mb-4`} />
+                 <Form>
+-                    <h2 css={tw`text-2xl mb-4 text-neutral-100`}>Invalid GSL token!</h2>
++                    <h2 css={tw`text-2xl mb-4 text-neutral-100`}>Token GSL inválido!</h2>
++                    <p css={tw`mt-4`}>Parece que seu Gameserver Login Token (token GSL) é inválido ou expirou.</p>
+                     <p css={tw`mt-4`}>
+-                        It seems like your Gameserver Login Token (GSL token) is invalid or has expired.
+-                    </p>
+-                    <p css={tw`mt-4`}>
+-                        You can either generate a new one and enter it below or leave the field blank to remove it
+-                        completely.
++                        Você pode gerar um novo e digitá-lo abaixo ou deixar o campo em branco para removê-lo
++                        completamente.
+                     </p>
+                     <div css={tw`sm:flex items-center mt-4`}>
+                         <Field
+                             name={'gslToken'}
+-                            label={'GSL Token'}
+-                            description={'Visit https://steamcommunity.com/dev/managegameservers to generate a token.'}
++                            label={'Token GSL'}
++                            description={'Acesse https://steamcommunity.com/dev/managegameservers para gerar um token.'}
+                             autoFocus
+                         />
+                     </div>
+                     <div css={tw`mt-8 sm:flex items-center justify-end`}>
+                         <Button type={'submit'} css={tw`mt-4 sm:mt-0 sm:ml-4 w-full sm:w-auto`}>
+-                            Update GSL Token
++                            Atualizar token GSL
+                         </Button>
+                     </div>
+                 </Form>
+diff --git a/resources/scripts/components/server/features/HytaleOauthRequireFeature.tsx b/resources/scripts/components/server/features/HytaleOauthRequireFeature.tsx
+index 3631e9f5c..d264f84bc 100644
+--- a/resources/scripts/components/server/features/HytaleOauthRequireFeature.tsx
++++ b/resources/scripts/components/server/features/HytaleOauthRequireFeature.tsx
+@@ -56,10 +56,10 @@ const HytaleOauthRequireFeature = () => {
+             showSpinnerOverlay={false}
+         >
+             <FlashMessageRender key={'feature:hytaleOauth'} css={tw`mb-4`} />
+-            <h2 css={tw`text-2xl mb-4 text-neutral-100`}>Authentication Required</h2>
++            <h2 css={tw`text-2xl mb-4 text-neutral-100`}>Autenticação necessária</h2>
+             <p css={tw`text-neutral-200`}>
+-                You need to authenticate with your Hytale account to download or update server files. Please log in to
+-                continue.
++                Você precisa se autenticar com sua conta Hytale para baixar ou atualizar os arquivos do servidor. Entre
++                para continuar.
+             </p>
+             <div css={tw`mt-8 sm:flex items-center justify-end`}>
+                 <Button
+@@ -67,10 +67,10 @@ const HytaleOauthRequireFeature = () => {
+                     onClick={() => setVisible(false)}
+                     css={tw`w-full sm:w-auto border-transparent`}
+                 >
+-                    Cancel
++                    Cancelar
+                 </Button>
+                 <Button onClick={handleLogin} css={tw`mt-4 sm:mt-0 sm:ml-4 w-full sm:w-auto`}>
+-                    Log in
++                    Entrar
+                 </Button>
+             </div>
+         </Modal>
+diff --git a/resources/scripts/components/server/features/JavaVersionModalFeature.tsx b/resources/scripts/components/server/features/JavaVersionModalFeature.tsx
+index 8904688d3..911d47dde 100644
+--- a/resources/scripts/components/server/features/JavaVersionModalFeature.tsx
++++ b/resources/scripts/components/server/features/JavaVersionModalFeature.tsx
+@@ -75,11 +75,11 @@ const JavaVersionModalFeature = () => {
+             showSpinnerOverlay={loading}
+         >
+             <FlashMessageRender key={'feature:javaVersion'} css={tw`mb-4`} />
+-            <h2 css={tw`text-2xl mb-4 text-neutral-100`}>Unsupported Java Version</h2>
++            <h2 css={tw`text-2xl mb-4 text-neutral-100`}>Versão do Java não suportada</h2>
+             <p css={tw`mt-4`}>
+-                This server is currently running an unsupported version of Java and cannot be started.
++                Este servidor está executando uma versão não suportada do Java e não pode ser iniciado.
+                 <Can action={'startup.docker-image'}>
+-                    &nbsp;Please select a supported version from the list below to continue starting the server.
++                    &nbsp;Selecione uma versão suportada na lista abaixo para continuar iniciando o servidor.
+                 </Can>
+             </p>
+             <Can action={'startup.docker-image'}>
+@@ -101,11 +101,11 @@ const JavaVersionModalFeature = () => {
+             </Can>
+             <div css={tw`mt-8 flex flex-col sm:flex-row justify-end sm:space-x-4 space-y-4 sm:space-y-0`}>
+                 <Button onClick={() => setVisible(false)} css={tw`w-full sm:w-auto`}>
+-                    Cancel
++                    Cancelar
+                 </Button>
+                 <Can action={'startup.docker-image'}>
+                     <Button onClick={updateJava} css={tw`w-full sm:w-auto`}>
+-                        Update Docker Image
++                        Atualizar imagem Docker
+                     </Button>
+                 </Can>
+             </div>
+diff --git a/resources/scripts/components/server/features/PIDLimitModalFeature.tsx b/resources/scripts/components/server/features/PIDLimitModalFeature.tsx
+index d7fe38c56..2b95f2958 100644
+--- a/resources/scripts/components/server/features/PIDLimitModalFeature.tsx
++++ b/resources/scripts/components/server/features/PIDLimitModalFeature.tsx
+@@ -60,20 +60,23 @@ const PIDLimitModalFeature = () => {
+                 <>
+                     <div css={tw`mt-4 sm:flex items-center`}>
+                         <FontAwesomeIcon css={tw`pr-4`} icon={faExclamationTriangle} color={'orange'} size={'4x'} />
+-                        <h2 css={tw`text-2xl mb-4 text-neutral-100 `}>Memory or process limit reached...</h2>
++                        <h2 css={tw`text-2xl mb-4 text-neutral-100 `}>Limite de memória ou de processos atingido...</h2>
+                     </div>
+-                    <p css={tw`mt-4`}>This server has reached the maximum process or memory limit.</p>
++                    <p css={tw`mt-4`}>Este servidor atingiu o limite máximo de processos ou de memória.</p>
+                     <p css={tw`mt-4`}>
+-                        Increasing <code css={tw`font-mono bg-neutral-900`}>container_pid_limit</code> in the wings
+-                        configuration, <code css={tw`font-mono bg-neutral-900`}>config.yml</code>, might help resolve
+-                        this issue.
++                        Aumentar <code css={tw`font-mono bg-neutral-900`}>container_pid_limit</code> na configuração do
++                        wings, <code css={tw`font-mono bg-neutral-900`}>config.yml</code>, pode ajudar a resolver este
++                        problema.
+                     </p>
+                     <p css={tw`mt-4`}>
+-                        <b>Note: Wings must be restarted for the configuration file changes to take effect</b>
++                        <b>
++                            Observação: o Wings precisa ser reiniciado para que as alterações no arquivo de configuração
++                            entrem em vigor
++                        </b>
+                     </p>
+                     <div css={tw`mt-8 sm:flex items-center justify-end`}>
+                         <Button onClick={() => setVisible(false)} css={tw`w-full sm:w-auto border-transparent`}>
+-                            Close
++                            Fechar
+                         </Button>
+                     </div>
+                 </>
+@@ -81,11 +84,11 @@ const PIDLimitModalFeature = () => {
+                 <>
+                     <div css={tw`mt-4 sm:flex items-center`}>
+                         <FontAwesomeIcon css={tw`pr-4`} icon={faExclamationTriangle} color={'orange'} size={'4x'} />
+-                        <h2 css={tw`text-2xl mb-4 text-neutral-100`}>Possible resource limit reached...</h2>
++                        <h2 css={tw`text-2xl mb-4 text-neutral-100`}>Possível limite de recursos atingido...</h2>
+                     </div>
+                     <p css={tw`mt-4`}>
+-                        This server is attempting to use more resources than allocated. Please contact the administrator
+-                        and give them the error below.
++                        Este servidor está tentando usar mais recursos do que o alocado. Entre em contato com o
++                        administrador e informe o erro abaixo.
+                     </p>
+                     <p css={tw`mt-4`}>
+                         <code css={tw`font-mono bg-neutral-900`}>
+@@ -94,7 +97,7 @@ const PIDLimitModalFeature = () => {
+                     </p>
+                     <div css={tw`mt-8 sm:flex items-center justify-end`}>
+                         <Button onClick={() => setVisible(false)} css={tw`w-full sm:w-auto border-transparent`}>
+-                            Close
++                            Fechar
+                         </Button>
+                     </div>
+                 </>
+diff --git a/resources/scripts/components/server/features/SteamDiskSpaceFeature.tsx b/resources/scripts/components/server/features/SteamDiskSpaceFeature.tsx
+index 46ce610d1..84f044409 100644
+--- a/resources/scripts/components/server/features/SteamDiskSpaceFeature.tsx
++++ b/resources/scripts/components/server/features/SteamDiskSpaceFeature.tsx
+@@ -50,35 +50,36 @@ const SteamDiskSpaceFeature = () => {
+             {isAdmin ? (
+                 <>
+                     <div css={tw`mt-4 sm:flex items-center`}>
+-                        <h2 css={tw`text-2xl mb-4 text-neutral-100 `}>Out of available disk space...</h2>
++                        <h2 css={tw`text-2xl mb-4 text-neutral-100 `}>Sem espaço em disco disponível...</h2>
+                     </div>
+                     <p css={tw`mt-4`}>
+-                        This server has run out of available disk space and cannot complete the install or update
+-                        process.
++                        Este servidor ficou sem espaço em disco disponível e não consegue concluir o processo de
++                        instalação ou atualização.
+                     </p>
+                     <p css={tw`mt-4`}>
+-                        Ensure the machine has enough disk space by typing{' '}
+-                        <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>df -h</code> on the machine hosting
+-                        this server. Delete files or increase the available disk space to resolve the issue.
++                        Verifique se a máquina tem espaço em disco suficiente digitando{' '}
++                        <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>df -h</code> na máquina que hospeda
++                        este servidor. Exclua arquivos ou aumente o espaço em disco disponível para resolver o problema.
+                     </p>
+                     <div css={tw`mt-8 sm:flex items-center justify-end`}>
+                         <Button onClick={() => setVisible(false)} css={tw`w-full sm:w-auto border-transparent`}>
+-                            Close
++                            Fechar
+                         </Button>
+                     </div>
+                 </>
+             ) : (
+                 <>
+                     <div css={tw`mt-4 sm:flex items-center`}>
+-                        <h2 css={tw`text-2xl mb-4 text-neutral-100`}>Out of available disk space...</h2>
++                        <h2 css={tw`text-2xl mb-4 text-neutral-100`}>Sem espaço em disco disponível...</h2>
+                     </div>
+                     <p css={tw`mt-4`}>
+-                        This server has run out of available disk space and cannot complete the install or update
+-                        process. Please get in touch with the administrator(s) and inform them of disk space issues.
++                        Este servidor ficou sem espaço em disco disponível e não consegue concluir o processo de
++                        instalação ou atualização. Entre em contato com o(s) administrador(es) e informe o problema de
++                        espaço em disco.
+                     </p>
+                     <div css={tw`mt-8 sm:flex items-center justify-end`}>
+                         <Button onClick={() => setVisible(false)} css={tw`w-full sm:w-auto border-transparent`}>
+-                            Close
++                            Fechar
+                         </Button>
+                     </div>
+                 </>
+diff --git a/resources/scripts/components/server/features/eula/EulaModalFeature.tsx b/resources/scripts/components/server/features/eula/EulaModalFeature.tsx
+index 166ffdd97..b26c472f1 100644
+--- a/resources/scripts/components/server/features/eula/EulaModalFeature.tsx
++++ b/resources/scripts/components/server/features/eula/EulaModalFeature.tsx
+@@ -65,25 +65,25 @@ const EulaModalFeature = () => {
+             showSpinnerOverlay={loading}
+         >
+             <FlashMessageRender key={'feature:eula'} css={tw`mb-4`} />
+-            <h2 css={tw`text-2xl mb-4 text-neutral-100`}>Accept Minecraft&reg; EULA</h2>
++            <h2 css={tw`text-2xl mb-4 text-neutral-100`}>Aceitar EULA do Minecraft&reg;</h2>
+             <p css={tw`text-neutral-200`}>
+-                By pressing {'"I Accept"'} below you are indicating your agreement to the&nbsp;
++                Ao pressionar {'"Eu aceito"'} abaixo, você indica que concorda com a&nbsp;
+                 <a
+                     target={'_blank'}
+                     css={tw`text-primary-300 underline transition-colors duration-150 hover:text-primary-400`}
+                     rel={'noreferrer noopener'}
+                     href="https://account.mojang.com/documents/minecraft_eula"
+                 >
+-                    Minecraft&reg; EULA
++                    EULA do Minecraft&reg;
+                 </a>
+                 .
+             </p>
+             <div css={tw`mt-8 sm:flex items-center justify-end`}>
+                 <Button onClick={() => setVisible(false)} css={tw`w-full sm:w-auto border-transparent`}>
+-                    Cancel
++                    Cancelar
+                 </Button>
+                 <Button onClick={onAcceptEULA} css={tw`mt-4 sm:mt-0 sm:ml-4 w-full sm:w-auto`}>
+-                    I Accept
++                    Eu aceito
+                 </Button>
+             </div>
+         </Modal>

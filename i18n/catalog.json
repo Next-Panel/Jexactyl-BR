@@ -1,0 +1,808 @@
+{
+  "version": 1,
+  "policy": {
+    "max_agents": 3,
+    "max_active_categories": 1,
+    "lease_minutes": 120,
+    "pass_score": 10,
+    "max_rounds": 3
+  },
+  "categories": [
+    {
+      "id": "shared-navigation",
+      "order": 1,
+      "title": "Navegacao compartilhada",
+      "depends_on": [],
+      "units": [
+        {
+          "id": "shared/navigation-shell",
+          "title": "Sidebar e navegacao",
+          "globs": [
+            "resources/scripts/elements/Sidebar.tsx",
+            "resources/scripts/elements/NavigationBar.tsx",
+            "resources/scripts/elements/SubNavigation.tsx",
+            "resources/scripts/elements/MobileSidebar.tsx"
+          ]
+        },
+        {
+          "id": "shared/routers-shell",
+          "title": "Shell dos routers",
+          "globs": [
+            "resources/scripts/components/App.tsx",
+            "resources/scripts/routers/DashboardRouter.tsx",
+            "resources/scripts/routers/AdminRouter.tsx",
+            "resources/scripts/routers/ServerRouter.tsx",
+            "resources/scripts/routers/AuthenticationRouter.tsx"
+          ]
+        },
+        {
+          "id": "shared/route-labels",
+          "title": "Labels de navegacao",
+          "globs": [
+            "resources/scripts/routers/routes/index.ts",
+            "resources/scripts/routers/routes/utils.ts",
+            "resources/scripts/routers/routes/admin.ts",
+            "resources/scripts/routers/routes/server.ts",
+            "resources/scripts/routers/routes/account.ts"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shared-ui-core",
+      "order": 2,
+      "title": "Elementos de interface",
+      "depends_on": [
+        "shared-navigation"
+      ],
+      "units": [
+        {
+          "id": "shared/elements-controls",
+          "title": "Controles de formulario",
+          "globs": [
+            "resources/scripts/elements/button/**",
+            "resources/scripts/elements/inputs/**",
+            "resources/scripts/elements/AdminBox.tsx",
+            "resources/scripts/elements/AdminCheckbox.tsx",
+            "resources/scripts/elements/AdminContentBlock.tsx",
+            "resources/scripts/elements/Checkbox.tsx",
+            "resources/scripts/elements/Field.tsx",
+            "resources/scripts/elements/FormikFieldWrapper.tsx",
+            "resources/scripts/elements/FormikSwitch.tsx",
+            "resources/scripts/elements/Input.tsx",
+            "resources/scripts/elements/InputError.tsx",
+            "resources/scripts/elements/InputSpinner.tsx",
+            "resources/scripts/elements/Label.tsx",
+            "resources/scripts/elements/RequiredFieldIcon.tsx",
+            "resources/scripts/elements/SearchableSelect.tsx",
+            "resources/scripts/elements/Select.tsx",
+            "resources/scripts/elements/SelectField.tsx",
+            "resources/scripts/elements/Switch.tsx"
+          ]
+        },
+        {
+          "id": "shared/elements-overlays",
+          "title": "Modais, dialogos e tooltips",
+          "globs": [
+            "resources/scripts/elements/dialog/**",
+            "resources/scripts/elements/Modal.tsx",
+            "resources/scripts/elements/ConfirmationModal.tsx",
+            "resources/scripts/elements/DropdownMenu.tsx",
+            "resources/scripts/elements/Portal.tsx",
+            "resources/scripts/elements/tooltip/**",
+            "resources/scripts/hoc/**"
+          ]
+        },
+        {
+          "id": "shared/elements-data",
+          "title": "Tabelas, paginacao e indicadores",
+          "globs": [
+            "resources/scripts/elements/table/**",
+            "resources/scripts/elements/Table.tsx",
+            "resources/scripts/elements/AdminTable.tsx",
+            "resources/scripts/elements/Pagination.tsx",
+            "resources/scripts/elements/ProgressBar.tsx",
+            "resources/scripts/elements/Pill.tsx",
+            "resources/scripts/elements/Stepper.tsx",
+            "resources/scripts/elements/Icon.tsx",
+            "resources/scripts/elements/Code.tsx",
+            "resources/scripts/elements/CopyOnClick.tsx"
+          ]
+        },
+        {
+          "id": "shared/elements-feedback",
+          "title": "Alertas, erros e estados vazios",
+          "globs": [
+            "resources/scripts/elements/alert/**",
+            "resources/scripts/elements/activity/**",
+            "resources/scripts/elements/FlashMessageRender.tsx",
+            "resources/scripts/elements/MessageBox.tsx",
+            "resources/scripts/elements/ScreenBlock.tsx",
+            "resources/scripts/elements/ErrorBoundary.tsx",
+            "resources/scripts/elements/Spinner.tsx",
+            "resources/scripts/elements/SpinnerOverlay.tsx",
+            "resources/scripts/elements/Translate.tsx",
+            "resources/scripts/elements/AdminPermissionRoute.tsx",
+            "resources/scripts/elements/PermissionRoute.tsx",
+            "resources/scripts/elements/AuthenticatedRoute.tsx",
+            "resources/scripts/elements/Can.tsx"
+          ]
+        },
+        {
+          "id": "shared/elements-layout",
+          "title": "Layout e elementos restantes",
+          "catch_all": true,
+          "globs": [
+            "resources/scripts/elements/**"
+          ],
+          "exclude": [
+            "resources/scripts/elements/billing/**",
+            "resources/scripts/elements/Sidebar.tsx",
+            "resources/scripts/elements/NavigationBar.tsx",
+            "resources/scripts/elements/SubNavigation.tsx",
+            "resources/scripts/elements/MobileSidebar.tsx",
+            "resources/scripts/elements/button/**",
+            "resources/scripts/elements/inputs/**",
+            "resources/scripts/elements/dialog/**",
+            "resources/scripts/elements/tooltip/**",
+            "resources/scripts/elements/table/**",
+            "resources/scripts/elements/alert/**",
+            "resources/scripts/elements/activity/**",
+            "resources/scripts/elements/AdminBox.tsx",
+            "resources/scripts/elements/AdminCheckbox.tsx",
+            "resources/scripts/elements/AdminContentBlock.tsx",
+            "resources/scripts/elements/AdminPermissionRoute.tsx",
+            "resources/scripts/elements/AuthenticatedRoute.tsx",
+            "resources/scripts/elements/Can.tsx",
+            "resources/scripts/elements/Checkbox.tsx",
+            "resources/scripts/elements/Code.tsx",
+            "resources/scripts/elements/ConfirmationModal.tsx",
+            "resources/scripts/elements/CopyOnClick.tsx",
+            "resources/scripts/elements/DropdownMenu.tsx",
+            "resources/scripts/elements/ErrorBoundary.tsx",
+            "resources/scripts/elements/Field.tsx",
+            "resources/scripts/elements/FlashMessageRender.tsx",
+            "resources/scripts/elements/FormikFieldWrapper.tsx",
+            "resources/scripts/elements/FormikSwitch.tsx",
+            "resources/scripts/elements/Icon.tsx",
+            "resources/scripts/elements/Input.tsx",
+            "resources/scripts/elements/InputError.tsx",
+            "resources/scripts/elements/InputSpinner.tsx",
+            "resources/scripts/elements/Label.tsx",
+            "resources/scripts/elements/MessageBox.tsx",
+            "resources/scripts/elements/Modal.tsx",
+            "resources/scripts/elements/Pagination.tsx",
+            "resources/scripts/elements/PermissionRoute.tsx",
+            "resources/scripts/elements/Pill.tsx",
+            "resources/scripts/elements/Portal.tsx",
+            "resources/scripts/elements/ProgressBar.tsx",
+            "resources/scripts/elements/RequiredFieldIcon.tsx",
+            "resources/scripts/elements/ScreenBlock.tsx",
+            "resources/scripts/elements/SearchableSelect.tsx",
+            "resources/scripts/elements/Select.tsx",
+            "resources/scripts/elements/SelectField.tsx",
+            "resources/scripts/elements/Spinner.tsx",
+            "resources/scripts/elements/SpinnerOverlay.tsx",
+            "resources/scripts/elements/Stepper.tsx",
+            "resources/scripts/elements/Switch.tsx",
+            "resources/scripts/elements/Table.tsx",
+            "resources/scripts/elements/Translate.tsx"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shared-billing",
+      "order": 3,
+      "title": "Elementos de billing",
+      "depends_on": [
+        "shared-ui-core"
+      ],
+      "units": [
+        {
+          "id": "shared/billing",
+          "title": "Elementos de billing",
+          "globs": [
+            "resources/scripts/elements/billing/**"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shared-runtime",
+      "order": 4,
+      "title": "Mensagens de runtime",
+      "depends_on": [
+        "shared-ui-core"
+      ],
+      "units": [
+        {
+          "id": "shared/runtime-errors",
+          "title": "Erros visiveis do cliente",
+          "globs": [
+            "resources/scripts/api/http.ts",
+            "resources/scripts/api/routes/auth/login.ts",
+            "resources/scripts/api/routes/server/files.ts"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "backend-messages",
+      "order": 5,
+      "title": "Mensagens do backend",
+      "depends_on": [
+        "shared-runtime"
+      ],
+      "units": [
+        {
+          "id": "backend/lang-auth",
+          "title": "Autenticacao e validacao",
+          "globs": [
+            "resources/lang/en/auth.php",
+            "resources/lang/en/passwords.php",
+            "resources/lang/en/validation.php",
+            "resources/lang/en/pagination.php"
+          ]
+        },
+        {
+          "id": "backend/lang-domain",
+          "title": "Atividade, excecoes e comandos",
+          "globs": [
+            "resources/lang/en/activity.php",
+            "resources/lang/en/exceptions.php",
+            "resources/lang/en/strings.php",
+            "resources/lang/en/command/**",
+            "resources/lang/en/dashboard/**",
+            "resources/lang/en/server/**"
+          ]
+        },
+        {
+          "id": "backend/lang-admin",
+          "title": "Mensagens administrativas",
+          "globs": [
+            "resources/lang/en/admin/**"
+          ]
+        },
+        {
+          "id": "backend/views",
+          "title": "Templates Blade e PDF",
+          "globs": [
+            "resources/views/**"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auth",
+      "order": 6,
+      "title": "Autenticacao",
+      "depends_on": [
+        "backend-messages",
+        "shared-ui-core"
+      ],
+      "units": [
+        {
+          "id": "auth/pages",
+          "title": "Login, cadastro e recuperacao de senha",
+          "globs": [
+            "resources/scripts/components/auth/**"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "account-overview",
+      "order": 7,
+      "title": "Conta - visao geral",
+      "depends_on": [
+        "auth"
+      ],
+      "units": [
+        {
+          "id": "account/overview",
+          "title": "Dashboard e busca",
+          "globs": [
+            "resources/scripts/components/account/AccountOverviewContainer.tsx",
+            "resources/scripts/components/account/DashboardContainer.tsx",
+            "resources/scripts/components/account/DashboardAlert.tsx",
+            "resources/scripts/components/account/Onboarding.tsx",
+            "resources/scripts/components/account/ServerRow.tsx",
+            "resources/scripts/components/account/search/**"
+          ]
+        },
+        {
+          "id": "account/groups",
+          "title": "Grupos de servidores",
+          "globs": [
+            "resources/scripts/components/account/groups/**"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "account-security",
+      "order": 8,
+      "title": "Conta - seguranca",
+      "depends_on": [
+        "account-overview"
+      ],
+      "units": [
+        {
+          "id": "account/security-forms",
+          "title": "Credenciais e dois fatores",
+          "globs": [
+            "resources/scripts/components/account/forms/**",
+            "resources/scripts/components/account/security/**"
+          ]
+        },
+        {
+          "id": "account/security-keys",
+          "title": "API keys, SSH e passkeys",
+          "globs": [
+            "resources/scripts/components/account/passkeys/**",
+            "resources/scripts/components/account/ssh/**",
+            "resources/scripts/components/account/AccountApiContainer.tsx",
+            "resources/scripts/components/account/ApiKeyModal.tsx"
+          ]
+        },
+        {
+          "id": "account/security-activity",
+          "title": "Atividade da conta",
+          "globs": [
+            "resources/scripts/components/account/activity/**"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "account-tickets",
+      "order": 9,
+      "title": "Conta - tickets",
+      "depends_on": [
+        "account-overview"
+      ],
+      "units": [
+        {
+          "id": "account/tickets",
+          "title": "Tickets do usuario",
+          "globs": [
+            "resources/scripts/components/account/tickets/**"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "account-billing",
+      "order": 10,
+      "title": "Conta - billing",
+      "depends_on": [
+        "account-overview",
+        "shared-billing"
+      ],
+      "units": [
+        {
+          "id": "account/billing-products",
+          "title": "Produtos e fluxo de pedido",
+          "globs": [
+            "resources/scripts/components/account/billing/ProductsContainer.tsx",
+            "resources/scripts/components/account/billing/order/**"
+          ]
+        },
+        {
+          "id": "account/billing-orders",
+          "title": "Pedidos e faturas",
+          "globs": [
+            "resources/scripts/components/account/billing/orders/**"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "server-shared",
+      "order": 11,
+      "title": "Servidor - compartilhado",
+      "depends_on": [
+        "shared-ui-core"
+      ],
+      "units": [
+        {
+          "id": "server/shared-shell",
+          "title": "Listeners e estado do servidor",
+          "globs": [
+            "resources/scripts/components/server/*.tsx",
+            "resources/scripts/components/server/*.ts"
+          ],
+          "exclude": [
+            "resources/scripts/components/server/ServerActivityLogContainer.tsx"
+          ]
+        },
+        {
+          "id": "server/features",
+          "title": "Features de inicializacao",
+          "globs": [
+            "resources/scripts/components/server/features/**"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "server-console",
+      "order": 12,
+      "title": "Servidor - console",
+      "depends_on": [
+        "server-shared"
+      ],
+      "units": [
+        {
+          "id": "server/console",
+          "title": "Console, energia e estatisticas",
+          "globs": [
+            "resources/scripts/components/server/console/**"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "server-data",
+      "order": 13,
+      "title": "Servidor - dados",
+      "depends_on": [
+        "server-shared"
+      ],
+      "units": [
+        {
+          "id": "server/files",
+          "title": "Gerenciador de arquivos",
+          "globs": [
+            "resources/scripts/components/server/files/**"
+          ]
+        },
+        {
+          "id": "server/databases",
+          "title": "Bancos de dados do servidor",
+          "globs": [
+            "resources/scripts/components/server/databases/**"
+          ]
+        },
+        {
+          "id": "server/backups",
+          "title": "Backups do servidor",
+          "globs": [
+            "resources/scripts/components/server/backups/**"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "server-configuration",
+      "order": 14,
+      "title": "Servidor - configuracao",
+      "depends_on": [
+        "server-shared"
+      ],
+      "units": [
+        {
+          "id": "server/schedules",
+          "title": "Agendamentos",
+          "globs": [
+            "resources/scripts/components/server/schedules/**"
+          ]
+        },
+        {
+          "id": "server/users",
+          "title": "Subusuarios",
+          "globs": [
+            "resources/scripts/components/server/users/**"
+          ]
+        },
+        {
+          "id": "server/network",
+          "title": "Rede e alocacoes",
+          "globs": [
+            "resources/scripts/components/server/network/**"
+          ]
+        },
+        {
+          "id": "server/startup",
+          "title": "Inicializacao e variaveis",
+          "globs": [
+            "resources/scripts/components/server/startup/**"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "server-billing",
+      "order": 15,
+      "title": "Servidor - billing",
+      "depends_on": [
+        "server-shared",
+        "shared-billing"
+      ],
+      "units": [
+        {
+          "id": "server/billing",
+          "title": "Billing do servidor",
+          "globs": [
+            "resources/scripts/components/server/billing/**"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "server-activity",
+      "order": 16,
+      "title": "Servidor - atividade",
+      "depends_on": [
+        "server-shared"
+      ],
+      "units": [
+        {
+          "id": "server/activity",
+          "title": "Log de atividades do servidor",
+          "globs": [
+            "resources/scripts/components/server/ServerActivityLogContainer.tsx"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "admin-shared",
+      "order": 17,
+      "title": "Admin - compartilhado",
+      "depends_on": [
+        "shared-navigation"
+      ],
+      "units": [
+        {
+          "id": "admin/indicators",
+          "title": "Indicadores e subnavegacao",
+          "globs": [
+            "resources/scripts/components/admin/AdminIndicators.tsx",
+            "resources/scripts/components/admin/SubNavigation.tsx"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "admin-general",
+      "order": 18,
+      "title": "Admin - geral",
+      "depends_on": [
+        "admin-shared"
+      ],
+      "units": [
+        {
+          "id": "admin/overview",
+          "title": "Visao geral administrativa",
+          "globs": [
+            "resources/scripts/components/admin/general/overview/**"
+          ]
+        },
+        {
+          "id": "admin/activity",
+          "title": "Atividade administrativa",
+          "globs": [
+            "resources/scripts/components/admin/general/activity/**"
+          ]
+        },
+        {
+          "id": "admin/settings",
+          "title": "Configuracoes e webhooks",
+          "globs": [
+            "resources/scripts/components/admin/general/settings/**"
+          ]
+        },
+        {
+          "id": "admin/api",
+          "title": "API de aplicacao",
+          "globs": [
+            "resources/scripts/components/admin/general/api/**"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "admin-management",
+      "order": 19,
+      "title": "Admin - gerenciamento",
+      "depends_on": [
+        "admin-shared"
+      ],
+      "units": [
+        {
+          "id": "admin/users",
+          "title": "Usuarios",
+          "globs": [
+            "resources/scripts/components/admin/management/users/**"
+          ],
+          "exclude": [
+            "resources/scripts/components/admin/management/users/roles/**"
+          ]
+        },
+        {
+          "id": "admin/roles",
+          "title": "Funcoes e permissoes",
+          "globs": [
+            "resources/scripts/components/admin/management/users/roles/**"
+          ]
+        },
+        {
+          "id": "admin/servers",
+          "title": "Servidores",
+          "globs": [
+            "resources/scripts/components/admin/management/servers/**"
+          ],
+          "exclude": [
+            "resources/scripts/components/admin/management/servers/presets/**"
+          ]
+        },
+        {
+          "id": "admin/presets",
+          "title": "Presets de servidor",
+          "globs": [
+            "resources/scripts/components/admin/management/servers/presets/**"
+          ]
+        },
+        {
+          "id": "admin/nodes",
+          "title": "Nodes e alocacoes",
+          "globs": [
+            "resources/scripts/components/admin/management/nodes/**"
+          ]
+        },
+        {
+          "id": "admin/databases",
+          "title": "Bancos de dados administrativos",
+          "globs": [
+            "resources/scripts/components/admin/management/databases/**"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "admin-modules",
+      "order": 20,
+      "title": "Admin - modulos",
+      "depends_on": [
+        "admin-shared"
+      ],
+      "units": [
+        {
+          "id": "admin/auth-modules",
+          "title": "Modulos de autenticacao",
+          "globs": [
+            "resources/scripts/components/admin/modules/auth/**"
+          ]
+        },
+        {
+          "id": "admin/billing-modules",
+          "title": "Modulo de billing",
+          "globs": [
+            "resources/scripts/components/admin/modules/billing/**"
+          ]
+        },
+        {
+          "id": "admin/ticket-modules",
+          "title": "Modulo de tickets",
+          "globs": [
+            "resources/scripts/components/admin/modules/tickets/**"
+          ]
+        },
+        {
+          "id": "admin/ai-modules",
+          "title": "Modulo de IA",
+          "globs": [
+            "resources/scripts/components/admin/modules/ai/**"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "admin-appearance",
+      "order": 21,
+      "title": "Admin - aparencia",
+      "depends_on": [
+        "admin-shared"
+      ],
+      "units": [
+        {
+          "id": "admin/theme",
+          "title": "Tema",
+          "globs": [
+            "resources/scripts/components/admin/modules/theme/**"
+          ]
+        },
+        {
+          "id": "admin/links",
+          "title": "Links customizados",
+          "globs": [
+            "resources/scripts/components/admin/modules/links/**"
+          ]
+        },
+        {
+          "id": "admin/alerts",
+          "title": "Alertas",
+          "globs": [
+            "resources/scripts/components/admin/modules/alert/**"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "admin-services",
+      "order": 22,
+      "title": "Admin - servicos",
+      "depends_on": [
+        "admin-shared"
+      ],
+      "units": [
+        {
+          "id": "admin/nests",
+          "title": "Nests",
+          "globs": [
+            "resources/scripts/components/admin/service/nests/**"
+          ],
+          "exclude": [
+            "resources/scripts/components/admin/service/nests/eggs/**"
+          ]
+        },
+        {
+          "id": "admin/eggs",
+          "title": "Eggs",
+          "globs": [
+            "resources/scripts/components/admin/service/nests/eggs/**"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "admin-setup",
+      "order": 23,
+      "title": "Admin - setup",
+      "depends_on": [
+        "admin-shared"
+      ],
+      "units": [
+        {
+          "id": "admin/setup",
+          "title": "Assistente de configuracao",
+          "globs": [
+            "resources/scripts/components/admin/setup/**"
+          ]
+        }
+      ]
+    }
+  ],
+  "excluded": [
+    {
+      "glob": "resources/scripts/api/**",
+      "reason": "Cliente HTTP e tipos; nao contem labels visiveis (as excecoes estao em shared/runtime-errors)."
+    },
+    {
+      "glob": "resources/scripts/state/**",
+      "reason": "Estado da aplicacao; nao contem labels visiveis."
+    },
+    {
+      "glob": "resources/scripts/lib/**",
+      "reason": "Helpers puros; nao contem labels visiveis."
+    },
+    {
+      "glob": "resources/scripts/plugins/**",
+      "reason": "Hooks e plugins; nao contem labels visiveis."
+    },
+    {
+      "glob": "resources/scripts/assets/**",
+      "reason": "Temas, CSS e SVGs; nao contem labels visiveis."
+    },
+    {
+      "glob": "resources/scripts/index.tsx",
+      "reason": "Bootstrap do React; nao contem labels visiveis."
+    },
+    {
+      "glob": "resources/scripts/**/*.d.ts",
+      "reason": "Declaracoes de tipos."
+    }
+  ]
+}

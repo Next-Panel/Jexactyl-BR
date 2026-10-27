@@ -1,0 +1,360 @@
+From: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+Date: Tue, 27 Oct 2026 09:53:05 -0300
+Subject: i18n: traduz templates Blade de faturas em PDF e e-mails de notificação
+
+Description:
+Traduz o template de fatura em PDF (resources/views/invoices/pdf.blade.php)
+e os templates HTML e texto puro de notificações por e-mail do Laravel,
+incluindo cabeçalhos de cobrança, resumo de recursos contratados, saudações,
+instruções de link alternativo e rodapé institucional.
+
+Origin: vendor
+Forwarded: not-needed
+Applied-Upstream: no
+Last-Update: 2026-10-27
+Signed-off-by: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+
+---
+
+diff --git a/resources/lang/en/activity.php b/resources/lang/en/activity.php
+index 447d6a05b..c7ba6f215 100644
+--- a/resources/lang/en/activity.php
++++ b/resources/lang/en/activity.php
+@@ -135,4 +135,142 @@ return [
+             'delete' => 'Removed :email as a subuser',
+         ],
+     ],
++    'admin' => [
++        'ai' => [
++            'update' => 'JexpanelAI settings were updated',
++        ],
++        'alert' => [
++            'update' => 'Alert system was updated with new data',
++        ],
++        'api-keys' => [
++            'create' => 'A new Application API key was created',
++            'delete' => 'An Application API key was deleted',
++        ],
++        'auth' => [
++            'module' => [
++                'disable' => 'An authentication module was disabled',
++                'enable' => 'An authentication module was enabled',
++                'update' => 'An authentication module setting was updated',
++            ],
++        ],
++        'billing' => [
++            'categories' => [
++                'create' => 'A billing category was created',
++                'delete' => 'A billing category was deleted',
++                'update' => 'A billing category was updated',
++            ],
++            'config' => [
++                'export' => 'User exported Jexpanelbilling configuration',
++                'import' => 'User imported Jexpanelbilling configuration',
++            ],
++            'discount-codes' => [
++                'create' => 'A discount code was created',
++                'delete' => 'A discount code was deleted',
++                'update' => 'A discount code was updated',
++            ],
++            'exception-resolve' => 'A billing exception was resolved',
++            'exception-resolve-all' => 'All billing exceptions was resolved',
++            'products' => [
++                'create' => 'A new billing product was created',
++                'delete' => 'A billing product has been deleted',
++                'update' => 'A billing product has been updated',
++            ],
++            'reset-keys' => 'Mercado Pago credentials for billing were reset',
++            'update' => 'Jexpanelbilling settings were updated',
++        ],
++        'database-hosts' => [
++            'create' => 'A new database host was created',
++            'delete' => 'A database host was deleted',
++            'update' => 'A database host was updated',
++        ],
++        'eggs' => [
++            'create' => 'An egg was created',
++            'delete' => 'An egg was deleted',
++            'export' => 'An egg was exported',
++            'update' => 'An egg was updated',
++            'variables' => [
++                'create' => 'A variable was added to an egg',
++                'delete' => 'A variable was removed from an egg',
++                'update' => 'Egg variables were updated',
++            ],
++        ],
++        'link' => [
++            'create' => 'New custom link for client UI was made',
++            'delete' => 'An existing custom link was deleted',
++            'update' => 'An existing custom link was updated',
++        ],
++        'nests' => [
++            'create' => 'A nest was created',
++            'delete' => 'A nest was deleted',
++            'import' => 'An egg was imported to a nest',
++            'update' => 'A nest was updated',
++        ],
++        'nodes' => [
++            'allocations' => [
++                'create' => 'Allocations were added to a node',
++                'delete' => 'An allocation was removed from a node',
++                'delete-all' => 'All unused allocations were removed from a node',
++            ],
++            'create' => 'A node was created',
++            'delete' => 'A node was deleted',
++            'update' => 'A node was updated',
++        ],
++        'roles' => [
++            'create' => 'An administrator role was created',
++            'delete' => 'An administrator role was deleted',
++            'update' => 'An administrator role was updated',
++            'update-permissions' => 'Permissions were updated for an administrator role',
++        ],
++        'server_presets' => [
++            'create' => 'A server preset was created',
++            'delete' => 'A server preset was deleted',
++            'update' => 'A server preset was updated',
++        ],
++        'servers' => [
++            'bulk-power' => 'A bulk power action was performed on multiple servers',
++            'create' => 'A server was created via a server preset',
++            'databases' => [
++                'create' => 'A database was created for a server',
++                'delete' => 'A server database was deleted',
++                'reset-password' => 'A server database password was reset',
++            ],
++            'delete' => 'A server was deleted',
++            'reinstall' => 'A server was marked for reinstallation',
++            'startup' => 'A server startup configuration was updated',
++            'suspend' => 'A server was suspended',
++            'toggle' => 'A server installation status was toggled',
++            'transfer' => 'A server transfer was initiated',
++            'unsuspend' => 'A server was unsuspended',
++            'update' => 'A server was updated',
++        ],
++        'settings' => [
++            'mode' => 'The panel mode was changed',
++            'update' => 'The general panel settings were updated',
++        ],
++        'setup' => [
++            'finish' => 'The panel setup wizard was completed',
++        ],
++        'theme' => [
++            'reset' => 'The panel theme was reset to factory defaults',
++            'update' => 'A panel theme color was updated',
++        ],
++        'tickets' => [
++            'create' => 'A ticket was created',
++            'delete' => 'A ticket was deleted',
++            'message' => 'A message was added to a ticket',
++            'settings' => 'Settings for the ticket module were updated',
++            'update' => 'A ticket was updated',
++        ],
++        'users' => [
++            'create' => 'A user was created',
++            'delete' => 'A user was deleted',
++            'suspend' => 'A user was suspended',
++            'update' => 'A user was updated',
++        ],
++        'webhooks' => [
++            'test' => 'The webhook integration was tested',
++            'toggle' => 'Webhook event(s) were toggled',
++            'update' => 'Jexpanelwebhook settings were updated',
++        ],
++    ],
+ ];
+diff --git a/resources/lang/en/exceptions.php b/resources/lang/en/exceptions.php
+index decc0017c..b0ea3cf15 100644
+--- a/resources/lang/en/exceptions.php
++++ b/resources/lang/en/exceptions.php
+@@ -53,4 +53,20 @@ return [
+     'api' => [
+         'resource_not_found' => 'The requested resource does not exist on this server.',
+     ],
++    'billing' => [
++        'no_visible_categories_title' => 'No product categories are visible',
++        'no_visible_categories_description' => 'Create a category and set the visibility to true',
++        'no_products_in_category_title' => 'No products in category :category are visible',
++        'no_products_in_category_description' => 'Go to this category and create a visible product',
++        'no_deployable_nodes_title' => 'No deployable nodes found',
++        'no_deployable_nodes_description' => 'Ensure at least one node has the "deployable" box checked',
++        'no_nodes_satisfy_requirements_title' => 'No nodes satisfy requirements',
++        'no_nodes_satisfy_requirements_description' => 'Available nodes are offline or have no free allocations',
++        'failed_create_billable_server_title' => 'Failed to create billable server',
++        'failed_find_allocation_title' => 'Failed to find allocation to assign to server',
++        'failed_find_allocation_description' => 'Create more allocations (ports) for node :node',
++        'failed_create_free_server_title' => 'Failed to create free server',
++        'failed_generate_invoice_title' => 'Failed to generate invoice',
++        'deployment_renewal_failed_title' => 'Deployment or renewal of server failed',
++    ],
+ ];
+diff --git a/resources/views/invoices/pdf.blade.php b/resources/views/invoices/pdf.blade.php
+index 975e1caed..7fd4ffeea 100644
+--- a/resources/views/invoices/pdf.blade.php
++++ b/resources/views/invoices/pdf.blade.php
+@@ -80,8 +80,8 @@
+                 <div class="brand">{{ config('app.name') }}</div>
+             </td>
+             <td width="50%" class="text-right">
+-                <div><strong>Invoice {{ $snapshot['invoice_number'] }}</strong></div>
+-                <div class="muted">Issued: {{ \Illuminate\Support\Carbon::parse($snapshot['issued_at'])->format('M j, Y') }}</div>
++                <div><strong>Fatura {{ $snapshot['invoice_number'] }}</strong></div>
++                <div class="muted">Emitida em: {{ \Illuminate\Support\Carbon::parse($snapshot['issued_at'])->locale('pt_BR')->translatedFormat('j \\d\\e F \\d\\e Y') }}</div>
+             </td>
+         </tr>
+     </table>
+@@ -89,21 +89,21 @@
+     <table>
+         <tr>
+             <td width="50%">
+-                <div class="section-title">Billed To</div>
++                <div class="section-title">Faturado para</div>
+                 <table class="details-table">
+                     <tr><td>{{ $snapshot['billed_to']['username'] }}</td></tr>
+                     <tr><td class="muted">{{ $snapshot['billed_to']['email'] }}</td></tr>
+                 </table>
+             </td>
+             <td width="50%">
+-                <div class="section-title">Order</div>
++                <div class="section-title">Pedido</div>
+                 <table class="details-table">
+-                    <tr><td class="muted">Order ID</td><td class="text-right">#{{ $snapshot['order_id'] }}</td></tr>
+-                    <tr><td class="muted">Type</td><td class="text-right">{{ ucfirst($snapshot['order_type']) }}</td></tr>
++                    <tr><td class="muted">ID do pedido</td><td class="text-right">#{{ $snapshot['order_id'] }}</td></tr>
++                    <tr><td class="muted">Tipo</td><td class="text-right">{{ ['new' => 'Novo', 'upg' => 'Upgrade', 'upgrade' => 'Upgrade', 'ren' => 'Renovação', 'renewal' => 'Renovação'][$snapshot['order_type']] ?? ucfirst($snapshot['order_type']) }}</td></tr>
+                     @if ($snapshot['expires_at'])
+                         <tr>
+-                            <td class="muted">Service Expires</td>
+-                            <td class="text-right">{{ \Illuminate\Support\Carbon::parse($snapshot['expires_at'])->format('M j, Y') }}</td>
++                            <td class="muted">Expiração do serviço</td>
++                            <td class="text-right">{{ \Illuminate\Support\Carbon::parse($snapshot['expires_at'])->locale('pt_BR')->translatedFormat('j \\d\\e F \\d\\e Y') }}</td>
+                         </tr>
+                     @endif
+                 </table>
+@@ -112,10 +112,10 @@
+     </table>
+ 
+     @if ($snapshot['server'] || $snapshot['node'] || $snapshot['egg'])
+-        <div class="section-title">Deployment</div>
++        <div class="section-title">Implantação</div>
+         <table class="details-table">
+             @if ($snapshot['server'])
+-                <tr><td class="muted" width="30%">Server</td><td>{{ $snapshot['server']['name'] }}</td></tr>
++                <tr><td class="muted" width="30%">Servidor</td><td>{{ $snapshot['server']['name'] }}</td></tr>
+             @endif
+             @if ($snapshot['node'])
+                 <tr><td class="muted">Node</td><td>{{ $snapshot['node']['name'] }} ({{ $snapshot['node']['fqdn'] }})</td></tr>
+@@ -125,23 +125,23 @@
+             @endif
+             @if ($snapshot['product'])
+                 <tr>
+-                    <td class="muted">Resources</td>
++                    <td class="muted">Recursos</td>
+                     <td>
+                         {{ $snapshot['product']['cpu_limit'] }}% CPU,
+-                        {{ number_format($snapshot['product']['memory_limit'] / 1024, 1) }} GiB Memory,
+-                        {{ number_format($snapshot['product']['disk_limit'] / 1024, 1) }} GiB Disk
++                        {{ number_format($snapshot['product']['memory_limit'] / 1024, 1) }} GiB de memória,
++                        {{ number_format($snapshot['product']['disk_limit'] / 1024, 1) }} GiB de disco
+                     </td>
+                 </tr>
+             @endif
+         </table>
+     @endif
+ 
+-    <div class="section-title">Charges</div>
++    <div class="section-title">Cobranças</div>
+     <table class="line-items">
+         <thead>
+             <tr>
+-                <th>Description</th>
+-                <th class="text-right">Amount</th>
++                <th>Descrição</th>
++                <th class="text-right">Valor</th>
+             </tr>
+         </thead>
+         <tbody>
+@@ -159,7 +159,7 @@
+     </table>
+ 
+     <div class="footer">
+-        Generated by {{ config('app.name') }} &middot; {{ url('/') }}
++        Gerado por {{ config('app.name') }} &middot; {{ url('/') }}
+     </div>
+ </body>
+ </html>
+diff --git a/resources/views/templates/wrapper.blade.php b/resources/views/templates/wrapper.blade.php
+index 7e1a54f2d..ca636093d 100644
+--- a/resources/views/templates/wrapper.blade.php
++++ b/resources/views/templates/wrapper.blade.php
+@@ -1,5 +1,5 @@
+ <!DOCTYPE html>
+-<html lang="en">
++<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+     <head>
+         <title>{{ config('app.name', 'Everest') }}</title>
+ 
+diff --git a/resources/views/vendor/notifications/email-plain.blade.php b/resources/views/vendor/notifications/email-plain.blade.php
+index acefa6523..e7082f8ab 100644
+--- a/resources/views/vendor/notifications/email-plain.blade.php
++++ b/resources/views/vendor/notifications/email-plain.blade.php
+@@ -3,7 +3,7 @@
+ if (! empty($greeting)) {
+     echo $greeting, "\n\n";
+ } else {
+-    echo $level == 'error' ? 'Whoops!' : 'Hello!', "\n\n";
++    echo $level == 'error' ? 'Ops!' : 'Olá!', "\n\n";
+ }
+ 
+ if (! empty($introLines)) {
+@@ -18,5 +18,5 @@ if (! empty($outroLines)) {
+     echo implode("\n", $outroLines), "\n\n";
+ }
+ 
+-echo 'Regards,', "\n";
++echo 'Atenciosamente,', "\n";
+ echo config('app.name'), "\n";
+diff --git a/resources/views/vendor/notifications/email.blade.php b/resources/views/vendor/notifications/email.blade.php
+index 94f86a960..98df03b84 100644
+--- a/resources/views/vendor/notifications/email.blade.php
++++ b/resources/views/vendor/notifications/email.blade.php
+@@ -88,9 +88,9 @@ $style = [
+                                                 {{ $greeting }}
+                                             @else
+                                                 @if ($level == 'error')
+-                                                    Whoops!
++                                                    Ops!
+                                                 @else
+-                                                    Hello!
++                                                    Olá!
+                                                 @endif
+                                             @endif
+                                         </h1>
+@@ -140,7 +140,7 @@ $style = [
+ 
+                                         <!-- Salutation -->
+                                         <p style="{{ $style['paragraph'] }}">
+-                                            Regards,<br>{{ config('app.name') }}
++                                            Atenciosamente,<br>{{ config('app.name') }}
+                                         </p>
+ 
+                                         <!-- Sub Copy -->
+@@ -149,8 +149,7 @@ $style = [
+                                                 <tr>
+                                                     <td style="{{ $fontFamily }}">
+                                                         <p style="{{ $style['paragraph-sub'] }}">
+-                                                            If you’re having trouble clicking the "{{ $actionText }}" button,
+-                                                            copy and paste the URL below into your web browser:
++                                                            Se você estiver com problemas para clicar no botão "{{ $actionText }}", copie e cole a URL abaixo no seu navegador:
+                                                         </p>
+ 
+                                                         <p style="{{ $style['paragraph-sub'] }}">
+@@ -177,7 +176,7 @@ $style = [
+                                         <p style="{{ $style['paragraph-sub'] }}">
+                                             &copy; {{ date('Y') }}
+                                             <a style="{{ $style['anchor'] }}" href="{{ url('/') }}" target="_blank">{{ config('app.name') }}</a>.
+-                                            All rights reserved.
++                                            Todos os direitos reservados.
+                                         </p>
+                                     </td>
+                                 </tr>

@@ -1,0 +1,39 @@
+From: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+Date: Tue, 27 Oct 2026 09:53:17 -0300
+Subject: i18n: traduz indicadores de status dos módulos no cabeçalho admin
+
+Description:
+Traduz as dicas de contexto (tooltips) exibidas em AdminIndicators.tsx no
+topo do painel administrativo para informar o status de atualizações
+automáticas, cadastro de usuários, módulo de faturamento e sistema de
+tickets de suporte.
+
+Origin: vendor
+Forwarded: not-needed
+Applied-Upstream: no
+Last-Update: 2026-10-27
+Signed-off-by: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+
+---
+
+diff --git a/resources/scripts/components/admin/AdminIndicators.tsx b/resources/scripts/components/admin/AdminIndicators.tsx
+index 717979fa3..7035f1591 100644
+--- a/resources/scripts/components/admin/AdminIndicators.tsx
++++ b/resources/scripts/components/admin/AdminIndicators.tsx
+@@ -27,10 +27,12 @@ export default () => {
+     return (
+         <div className={'hidden md:block fixed top-3 right-3'}>
+             <div className={'grid grid-cols-1 gap-y-2'}>
+-                {settings.auto_update && <Indicator text={'Automatic updates are enabled.'} icon={faRecycle} />}
+-                {everest.auth.registration.enabled && <Indicator text={'User registration is enabled.'} icon={faKey} />}
+-                {everest.billing.enabled && <Indicator text={'Billing module is enabled.'} icon={faDollar} />}
+-                {everest.tickets.enabled && <Indicator text={'Support ticket system is enabled.'} icon={faTicket} />}
++                {settings.auto_update && <Indicator text={'Atualizações automáticas ativadas.'} icon={faRecycle} />}
++                {everest.auth.registration.enabled && <Indicator text={'Cadastro de usuários ativado.'} icon={faKey} />}
++                {everest.billing.enabled && <Indicator text={'Módulo de faturamento ativado.'} icon={faDollar} />}
++                {everest.tickets.enabled && (
++                    <Indicator text={'Sistema de tickets de suporte ativado.'} icon={faTicket} />
++                )}
+             </div>
+         </div>
+     );

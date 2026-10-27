@@ -1,0 +1,60 @@
+# Workspace do upstream (copia de trabalho com os patches aplicados)
+.upstream/
+
+# Cache local e fila SQLite usados pelo jx e pelos scripts
+.br-cache/
+CACHE.md
+CACHE.md.lock
+
+# Artefatos de release (jx package) e compilacao Rust
+dist/
+/jx-tools/target/
+
+# Backups de banco de dados (make backup-db) e dumps SQL
+backups/
+*.sql
+*.sql.gz
+*.dump
+
+# Ferramentas locais de IA e memoria de sessao
+.ai-memory.toml
+ai-memory.toml
+.ai-memory/
+CLAUDE.md
+.claude/
+.cursor/
+.gemini/
+.agents/
+.aider*
+.windsurf/
+
+# Editores, SO e arquivos temporarios de patch/merge
+.DS_Store
+Thumbs.db
+*~
+*.swp
+*.swo
+*.bak
+*.tmp
+*.orig
+*.rej
+.idea/
+.vscode/
+
+# Artefatos Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.coverage
+
+# Perfis legiveis de categoria (gerados sob demanda por jx i18n-catalog --write)
+i18n/categories/
+
+# Segredos e certificados locais (o template .env.example continua versionado)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt

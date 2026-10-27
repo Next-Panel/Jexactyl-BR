@@ -1,0 +1,17 @@
+[upstream]
+url = "https://github.com/Jexactyl/Jexactyl.git"
+ref = "v4.0.7"
+sha = "5927ca45f62a2ce288f001f8c07cf6c06bcbbf3d"
+
+[workspace]
+dir = ".upstream"
+
+[patches]
+dir = "patches"
+series = "patches/series"
+
+[overlays]
+dir = "overlays"
+
+[dist]
+dir = "dist"

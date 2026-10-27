@@ -1,0 +1,949 @@
+From: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+Date: Tue, 27 Oct 2026 09:53:14 -0300
+Subject: i18n: traduz rede, agendamentos, inicialização e subusuários
+
+Description:
+Traduz as abas de configuração do servidor: alocações de rede (definição de
+porta principal, notas e exclusão), agendador de tarefas cron (criação,
+edição, execução manual, guia de sintaxe cron e tarefas encadeadas),
+parâmetros de inicialização e imagem Docker (StartupContainer) e controle de
+subusuários e permissões de acesso.
+
+Origin: vendor
+Forwarded: not-needed
+Applied-Upstream: no
+Last-Update: 2026-10-27
+Signed-off-by: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+
+---
+
+diff --git a/resources/scripts/components/server/network/AllocationRow.tsx b/resources/scripts/components/server/network/AllocationRow.tsx
+index 881236013..a71ef847d 100644
+--- a/resources/scripts/components/server/network/AllocationRow.tsx
++++ b/resources/scripts/components/server/network/AllocationRow.tsx
+@@ -75,18 +75,18 @@ const AllocationRow = ({ allocation }: Props) => {
+                             <Code dark>{ip(allocation.ip)}</Code>
+                         </CopyOnClick>
+                     )}
+-                    <Label>{allocation.alias ? 'Hostname' : 'IP Address'}</Label>
++                    <Label>{allocation.alias ? 'Nome de host' : 'Endereço IP'}</Label>
+                 </div>
+                 <div className={'w-16 overflow-hidden md:w-24'}>
+                     <Code dark>{allocation.port}</Code>
+-                    <Label>Port</Label>
++                    <Label>Porta</Label>
+                 </div>
+             </div>
+             <div className={'mt-4 w-full md:mt-0 md:w-auto md:flex-1'}>
+                 <InputSpinner visible={loading}>
+                     <Textarea
+                         className={'border-transparent bg-neutral-800 hover:border-neutral-600'}
+-                        placeholder={'Notes'}
++                        placeholder={'Observações'}
+                         defaultValue={allocation.notes || undefined}
+                         onChange={e => doSetNotes(e.currentTarget.value)}
+                     />
+@@ -95,7 +95,7 @@ const AllocationRow = ({ allocation }: Props) => {
+             <div className={'mt-4 flex w-full justify-end space-x-4 md:mt-0 md:w-48'}>
+                 {allocation.isDefault ? (
+                     <Button size={Button.Sizes.Small} className={'!bg-blue-600 !text-slate-50'} disabled>
+-                        Primary
++                        Principal
+                     </Button>
+                 ) : (
+                     <>
+@@ -104,7 +104,7 @@ const AllocationRow = ({ allocation }: Props) => {
+                         </Can>
+                         <Can action={'allocation.update'}>
+                             <Button.Text size={Button.Sizes.Small} onClick={doSetPrimary}>
+-                                Make Primary
++                                Tornar principal
+                             </Button.Text>
+                         </Can>
+                     </>
+diff --git a/resources/scripts/components/server/network/DeleteAllocationButton.tsx b/resources/scripts/components/server/network/DeleteAllocationButton.tsx
+index 92e1241fb..80031ee1b 100644
+--- a/resources/scripts/components/server/network/DeleteAllocationButton.tsx
++++ b/resources/scripts/components/server/network/DeleteAllocationButton.tsx
+@@ -38,11 +38,11 @@ const DeleteAllocationButton = ({ allocation }: Props) => {
+             <Dialog.Confirm
+                 open={confirm}
+                 onClose={() => setConfirm(false)}
+-                title={'Remove Allocation'}
+-                confirm={'Delete'}
++                title={'Remover alocação'}
++                confirm={'Excluir'}
+                 onConfirmed={doDeletion}
+             >
+-                This allocation will be immediately removed from your server.
++                Esta alocação será removida imediatamente do seu servidor.
+             </Dialog.Confirm>
+             <Button.Danger
+                 variant={Button.Variants.Secondary}
+diff --git a/resources/scripts/components/server/network/NetworkContainer.tsx b/resources/scripts/components/server/network/NetworkContainer.tsx
+index aabaec0d1..16ea9bb11 100644
+--- a/resources/scripts/components/server/network/NetworkContainer.tsx
++++ b/resources/scripts/components/server/network/NetworkContainer.tsx
+@@ -52,9 +52,9 @@ const NetworkContainer = () => {
+     return (
+         <PageContentBlock
+             showFlashKey={'server:network'}
+-            title={'Network'}
++            title={'Rede'}
+             header
+-            description={'Assign, edit and remove ports from this server.'}
++            description={'Atribua, edite e remova as portas deste servidor.'}
+         >
+             {!data ? (
+                 <Spinner size={'large'} centered />
+@@ -68,12 +68,12 @@ const NetworkContainer = () => {
+                             <SpinnerOverlay visible={loading} />
+                             <div css={tw`mt-6 sm:flex items-center justify-end`}>
+                                 <p css={tw`text-sm text-neutral-300 mb-4 sm:mr-6 sm:mb-0`}>
+-                                    You are currently using {data.length} of {allocationLimit} allowed allocations for
+-                                    this server.
++                                    Você está usando {data.length} de {allocationLimit} alocações permitidas neste
++                                    servidor.
+                                 </p>
+                                 {allocationLimit > data.length && (
+                                     <Button css={tw`w-full sm:w-auto`} color={'primary'} onClick={onCreateAllocation}>
+-                                        Create Allocation
++                                        Criar alocação
+                                     </Button>
+                                 )}
+                             </div>
+diff --git a/resources/scripts/components/server/schedules/DeleteScheduleButton.tsx b/resources/scripts/components/server/schedules/DeleteScheduleButton.tsx
+index 56fe6d9ea..bc31e6e68 100644
+--- a/resources/scripts/components/server/schedules/DeleteScheduleButton.tsx
++++ b/resources/scripts/components/server/schedules/DeleteScheduleButton.tsx
+@@ -41,19 +41,19 @@ export default ({ scheduleId, onDeleted }: Props) => {
+             <Dialog.Confirm
+                 open={visible}
+                 onClose={() => setVisible(false)}
+-                title={'Delete Schedule'}
+-                confirm={'Delete'}
++                title={'Excluir agendamento'}
++                confirm={'Excluir'}
+                 onConfirmed={onDelete}
+             >
+                 <SpinnerOverlay visible={isLoading} />
+-                All tasks will be removed and any running processes will be terminated.
++                Todas as tarefas serão removidas e todos os processos em execução serão encerrados.
+             </Dialog.Confirm>
+             <Button.Danger
+                 variant={Button.Variants.Secondary}
+                 className={'mr-4 flex-1 border-transparent sm:flex-none'}
+                 onClick={() => setVisible(true)}
+             >
+-                Delete
++                Excluir
+             </Button.Danger>
+         </>
+     );
+diff --git a/resources/scripts/components/server/schedules/EditScheduleModal.tsx b/resources/scripts/components/server/schedules/EditScheduleModal.tsx
+index dddec9e2e..437146d4e 100644
+--- a/resources/scripts/components/server/schedules/EditScheduleModal.tsx
++++ b/resources/scripts/components/server/schedules/EditScheduleModal.tsx
+@@ -92,23 +92,23 @@ const EditScheduleModal = ({ schedule }: Props) => {
+         >
+             {({ isSubmitting }) => (
+                 <Form>
+-                    <h3 css={tw`text-2xl mb-6`}>{schedule ? 'Edit schedule' : 'Create new schedule'}</h3>
++                    <h3 css={tw`text-2xl mb-6`}>{schedule ? 'Editar agendamento' : 'Criar novo agendamento'}</h3>
+                     <FlashMessageRender byKey={'schedule:edit'} css={tw`mb-6`} />
+                     <Field
+                         name={'name'}
+-                        label={'Schedule name'}
+-                        description={'A human readable identifier for this schedule.'}
++                        label={'Nome do agendamento'}
++                        description={'Um identificador legível para este agendamento.'}
+                     />
+                     <div css={tw`grid grid-cols-2 sm:grid-cols-5 gap-4 mt-6`}>
+-                        <Field name={'minute'} label={'Minute'} />
+-                        <Field name={'hour'} label={'Hour'} />
+-                        <Field name={'dayOfMonth'} label={'Day of month'} />
+-                        <Field name={'month'} label={'Month'} />
+-                        <Field name={'dayOfWeek'} label={'Day of week'} />
++                        <Field name={'minute'} label={'Minuto'} />
++                        <Field name={'hour'} label={'Hora'} />
++                        <Field name={'dayOfMonth'} label={'Dia do mês'} />
++                        <Field name={'month'} label={'Mês'} />
++                        <Field name={'dayOfWeek'} label={'Dia da semana'} />
+                     </div>
+                     <p css={tw`text-neutral-400 text-xs mt-2`}>
+-                        The schedule system supports the use of Cronjob syntax when defining when tasks should begin
+-                        running. Use the fields above to specify when these tasks should begin running.
++                        O sistema de agendamentos aceita a sintaxe Cronjob para definir quando as tarefas devem começar
++                        a ser executadas. Use os campos acima para definir quando essas tarefas devem começar.
+                     </p>
+                     <div
+                         css={tw`mt-6 border-2 border-black/25 shadow-inner p-4 rounded`}
+@@ -116,8 +116,8 @@ const EditScheduleModal = ({ schedule }: Props) => {
+                     >
+                         <Switch
+                             name={'show_cheatsheet'}
+-                            description={'Show the cron cheatsheet for some examples.'}
+-                            label={'Show Cheatsheet'}
++                            description={'Exibir a cola do Cron com alguns exemplos.'}
++                            label={'Exibir cola'}
+                             defaultChecked={showCheatsheet}
+                             onChange={() => setShowCheetsheet(s => !s)}
+                         />
+@@ -133,8 +133,8 @@ const EditScheduleModal = ({ schedule }: Props) => {
+                     >
+                         <FormikSwitch
+                             name={'onlyWhenOnline'}
+-                            description={'Only execute this schedule when the server is in a running state.'}
+-                            label={'Only When Server Is Online'}
++                            description={'Executar este agendamento somente quando o servidor estiver em execução.'}
++                            label={'Somente quando o servidor estiver online'}
+                         />
+                     </div>
+                     <div
+@@ -143,13 +143,13 @@ const EditScheduleModal = ({ schedule }: Props) => {
+                     >
+                         <FormikSwitch
+                             name={'enabled'}
+-                            description={'This schedule will be executed automatically if enabled.'}
+-                            label={'Schedule Enabled'}
++                            description={'Este agendamento será executado automaticamente se estiver ativado.'}
++                            label={'Agendamento ativado'}
+                         />
+                     </div>
+                     <div css={tw`mt-6 text-right`}>
+                         <Button className={'w-full sm:w-auto'} type={'submit'} disabled={isSubmitting}>
+-                            {schedule ? 'Save changes' : 'Create schedule'}
++                            {schedule ? 'Salvar alterações' : 'Criar agendamento'}
+                         </Button>
+                     </div>
+                 </Form>
+diff --git a/resources/scripts/components/server/schedules/NewTaskButton.tsx b/resources/scripts/components/server/schedules/NewTaskButton.tsx
+index 4eaacf267..5b21ec646 100644
+--- a/resources/scripts/components/server/schedules/NewTaskButton.tsx
++++ b/resources/scripts/components/server/schedules/NewTaskButton.tsx
+@@ -14,7 +14,7 @@ export default ({ schedule }: Props) => {
+         <>
+             <TaskDetailsModal schedule={schedule} visible={visible} onModalDismissed={() => setVisible(false)} />
+             <Button onClick={() => setVisible(true)} className={'flex-1'}>
+-                New Task
++                Nova tarefa
+             </Button>
+         </>
+     );
+diff --git a/resources/scripts/components/server/schedules/RunScheduleButton.tsx b/resources/scripts/components/server/schedules/RunScheduleButton.tsx
+index 9fc9276cd..b7e0c73cd 100644
+--- a/resources/scripts/components/server/schedules/RunScheduleButton.tsx
++++ b/resources/scripts/components/server/schedules/RunScheduleButton.tsx
+@@ -37,7 +37,7 @@ const RunScheduleButton = ({ schedule }: { schedule: Schedule }) => {
+                 disabled={schedule.isProcessing}
+                 onClick={onTriggerExecute}
+             >
+-                Run Now
++                Executar agora
+             </Button>
+         </>
+     );
+diff --git a/resources/scripts/components/server/schedules/ScheduleCheatsheetCards.tsx b/resources/scripts/components/server/schedules/ScheduleCheatsheetCards.tsx
+index 5a2edd4c2..04a362238 100644
+--- a/resources/scripts/components/server/schedules/ScheduleCheatsheetCards.tsx
++++ b/resources/scripts/components/server/schedules/ScheduleCheatsheetCards.tsx
+@@ -5,47 +5,47 @@ export default () => {
+         <>
+             <div css={tw`md:w-1/2 h-full bg-neutral-600`}>
+                 <div css={tw`flex flex-col`}>
+-                    <h2 css={tw`py-4 px-6 font-bold`}>Examples</h2>
++                    <h2 css={tw`py-4 px-6 font-bold`}>Exemplos</h2>
+                     <div css={tw`flex py-4 px-6 bg-neutral-500`}>
+                         <div css={tw`w-1/2`}>*/5 * * * *</div>
+-                        <div css={tw`w-1/2`}>every 5 minutes</div>
++                        <div css={tw`w-1/2`}>a cada 5 minutos</div>
+                     </div>
+                     <div css={tw`flex py-4 px-6`}>
+                         <div css={tw`w-1/2`}>0 */1 * * *</div>
+-                        <div css={tw`w-1/2`}>every hour</div>
++                        <div css={tw`w-1/2`}>a cada hora</div>
+                     </div>
+                     <div css={tw`flex py-4 px-6 bg-neutral-500`}>
+                         <div css={tw`w-1/2`}>0 8-12 * * *</div>
+-                        <div css={tw`w-1/2`}>hour range</div>
++                        <div css={tw`w-1/2`}>intervalo de horas</div>
+                     </div>
+                     <div css={tw`flex py-4 px-6`}>
+                         <div css={tw`w-1/2`}>0 0 * * *</div>
+-                        <div css={tw`w-1/2`}>once a day</div>
++                        <div css={tw`w-1/2`}>uma vez por dia</div>
+                     </div>
+                     <div css={tw`flex py-4 px-6 bg-neutral-500`}>
+                         <div css={tw`w-1/2`}>0 0 * * MON</div>
+-                        <div css={tw`w-1/2`}>every Monday</div>
++                        <div css={tw`w-1/2`}>toda segunda-feira</div>
+                     </div>
+                 </div>
+             </div>
+             <div css={tw`md:w-1/2 h-full bg-neutral-600`}>
+-                <h2 css={tw`py-4 px-6 font-bold`}>Special Characters</h2>
++                <h2 css={tw`py-4 px-6 font-bold`}>Caracteres especiais</h2>
+                 <div css={tw`flex flex-col`}>
+                     <div css={tw`flex py-4 px-6 bg-neutral-500`}>
+                         <div css={tw`w-1/2`}>*</div>
+-                        <div css={tw`w-1/2`}>any value</div>
++                        <div css={tw`w-1/2`}>qualquer valor</div>
+                     </div>
+                     <div css={tw`flex py-4 px-6`}>
+                         <div css={tw`w-1/2`}>,</div>
+-                        <div css={tw`w-1/2`}>value list separator</div>
++                        <div css={tw`w-1/2`}>separador de lista de valores</div>
+                     </div>
+                     <div css={tw`flex py-4 px-6 bg-neutral-500`}>
+                         <div css={tw`w-1/2`}>-</div>
+-                        <div css={tw`w-1/2`}>range values</div>
++                        <div css={tw`w-1/2`}>intervalo de valores</div>
+                     </div>
+                     <div css={tw`flex py-4 px-6`}>
+                         <div css={tw`w-1/2`}>/</div>
+-                        <div css={tw`w-1/2`}>step values</div>
++                        <div css={tw`w-1/2`}>valores de incremento</div>
+                     </div>
+                 </div>
+             </div>
+diff --git a/resources/scripts/components/server/schedules/ScheduleContainer.tsx b/resources/scripts/components/server/schedules/ScheduleContainer.tsx
+index 8e15182d7..515e10a70 100644
+--- a/resources/scripts/components/server/schedules/ScheduleContainer.tsx
++++ b/resources/scripts/components/server/schedules/ScheduleContainer.tsx
+@@ -34,7 +34,11 @@ function ScheduleContainer() {
+     }, []);
+ 
+     return (
+-        <PageContentBlock title={'Schedules'} header description={'Create and edit automatic tasks for your server.'}>
++        <PageContentBlock
++            title={'Agendamentos'}
++            header
++            description={'Crie e edite tarefas automáticas para o seu servidor.'}
++        >
+             <FlashMessageRender byKey={'schedules'} css={tw`mb-4`} />
+             {!schedules.length && loading ? (
+                 <Spinner size={'large'} centered />
+@@ -42,7 +46,7 @@ function ScheduleContainer() {
+                 <>
+                     {schedules.length === 0 ? (
+                         <p css={tw`text-sm text-center text-neutral-300`}>
+-                            There are no schedules configured for this server.
++                            Não há agendamentos configurados para este servidor.
+                         </p>
+                     ) : (
+                         schedules.map(schedule => (
+@@ -57,7 +61,7 @@ function ScheduleContainer() {
+                         <div css={tw`mt-8 flex justify-end`}>
+                             <EditScheduleModal visible={visible} onModalDismissed={() => setVisible(false)} />
+                             <Button type={'button'} onClick={() => setVisible(true)}>
+-                                Create schedule
++                                Criar agendamento
+                             </Button>
+                         </div>
+                     </Can>
+diff --git a/resources/scripts/components/server/schedules/ScheduleCronRow.tsx b/resources/scripts/components/server/schedules/ScheduleCronRow.tsx
+index a161ad32e..c3b752908 100644
+--- a/resources/scripts/components/server/schedules/ScheduleCronRow.tsx
++++ b/resources/scripts/components/server/schedules/ScheduleCronRow.tsx
+@@ -14,23 +14,23 @@ const ScheduleCronRow = ({ cron, className }: Props) => {
+         <div className={classNames('flex', className)} style={{ backgroundColor: colors.secondary }}>
+             <div className={'w-1/5 text-center sm:w-auto'}>
+                 <p className={'font-medium'}>{cron.minute}</p>
+-                <p className={'text-2xs uppercase text-neutral-500'}>Minute</p>
++                <p className={'text-2xs uppercase text-neutral-500'}>Minuto</p>
+             </div>
+             <div className={'ml-4 w-1/5 text-center sm:w-auto'}>
+                 <p className={'font-medium'}>{cron.hour}</p>
+-                <p className={'text-2xs uppercase text-neutral-500'}>Hour</p>
++                <p className={'text-2xs uppercase text-neutral-500'}>Hora</p>
+             </div>
+             <div className={'ml-4 w-1/5 text-center sm:w-auto'}>
+                 <p className={'font-medium'}>{cron.dayOfMonth}</p>
+-                <p className={'text-2xs uppercase text-neutral-500'}>Day (Month)</p>
++                <p className={'text-2xs uppercase text-neutral-500'}>Dia (mês)</p>
+             </div>
+             <div className={'ml-4 w-1/5 text-center sm:w-auto'}>
+                 <p className={'font-medium'}>{cron.month}</p>
+-                <p className={'text-2xs uppercase text-neutral-500'}>Month</p>
++                <p className={'text-2xs uppercase text-neutral-500'}>Mês</p>
+             </div>
+             <div className={'ml-4 w-1/5 text-center sm:w-auto'}>
+                 <p className={'font-medium'}>{cron.dayOfWeek}</p>
+-                <p className={'text-2xs uppercase text-neutral-500'}>Day (Week)</p>
++                <p className={'text-2xs uppercase text-neutral-500'}>Dia (semana)</p>
+             </div>
+         </div>
+     );
+diff --git a/resources/scripts/components/server/schedules/ScheduleEditContainer.tsx b/resources/scripts/components/server/schedules/ScheduleEditContainer.tsx
+index 9da4b48f7..eabcd219d 100644
+--- a/resources/scripts/components/server/schedules/ScheduleEditContainer.tsx
++++ b/resources/scripts/components/server/schedules/ScheduleEditContainer.tsx
+@@ -15,6 +15,7 @@ import { Button } from '@/elements/button/index';
+ import ScheduleTaskRow from '@server/schedules/ScheduleTaskRow';
+ import isEqual from 'react-fast-compare';
+ import { format } from 'date-fns';
++import { dateLocale } from '@/lib/dateLocale';
+ import ScheduleCronRow from '@server/schedules/ScheduleCronRow';
+ import RunScheduleButton from '@server/schedules/RunScheduleButton';
+ import { useStoreState } from '@/state/hooks';
+@@ -33,7 +34,7 @@ const ActivePill = ({ active }: { active: boolean }) => (
+             active ? tw`bg-green-600 text-green-100` : tw`bg-red-600 text-red-100`,
+         ]}
+     >
+-        {active ? 'Active' : 'Inactive'}
++        {active ? 'Ativo' : 'Inativo'}
+     </span>
+ );
+ 
+@@ -77,7 +78,7 @@ export default () => {
+     }, []);
+ 
+     return (
+-        <PageContentBlock title={'Schedules'}>
++        <PageContentBlock title={'Agendamentos'}>
+             <FlashMessageRender byKey={'schedules'} css={tw`mb-4`} />
+             {!schedule || isLoading ? (
+                 <Spinner size={'large'} centered />
+@@ -97,25 +98,25 @@ export default () => {
+                                             css={tw`flex items-center rounded-full px-2 py-px text-xs ml-4 uppercase bg-neutral-600 text-white`}
+                                         >
+                                             <Spinner css={tw`w-3! h-3! mr-2`} />
+-                                            Processing
++                                            Processando
+                                         </span>
+                                     ) : (
+                                         <ActivePill active={schedule.isActive} />
+                                     )}
+                                 </h3>
+                                 <p css={tw`mt-1 text-sm text-neutral-200`}>
+-                                    Last run at:&nbsp;
++                                    Última execução:&nbsp;
+                                     {schedule.lastRunAt ? (
+-                                        format(schedule.lastRunAt, "MMM do 'at' h:mma")
++                                        format(schedule.lastRunAt, "MMM do 'às' HH:mm", { locale: dateLocale() })
+                                     ) : (
+-                                        <span css={tw`text-neutral-300`}>n/a</span>
++                                        <span css={tw`text-neutral-300`}>Nunca</span>
+                                     )}
+                                     <span css={tw`ml-4 pl-4 border-l-4 border-neutral-600 py-px`}>
+-                                        Next run at:&nbsp;
++                                        Próxima execução:&nbsp;
+                                         {schedule.nextRunAt ? (
+-                                            format(schedule.nextRunAt, "MMM do 'at' h:mma")
++                                            format(schedule.nextRunAt, "MMM do 'às' HH:mm", { locale: dateLocale() })
+                                         ) : (
+-                                            <span css={tw`text-neutral-300`}>n/a</span>
++                                            <span css={tw`text-neutral-300`}>Nunca</span>
+                                         )}
+                                     </span>
+                                 </p>
+@@ -123,18 +124,18 @@ export default () => {
+                             <div css={tw`flex sm:block mt-3 sm:mt-0`}>
+                                 <Can action={'schedule.update'}>
+                                     <Button.Text className={'mr-4 flex-1'} onClick={toggleEditModal}>
+-                                        Edit
++                                        Editar
+                                     </Button.Text>
+                                     <NewTaskButton schedule={schedule} />
+                                 </Can>
+                             </div>
+                         </div>
+                         <div css={tw`hidden sm:grid grid-cols-5 md:grid-cols-5 gap-4 mb-4 mt-4`}>
+-                            <CronBox color={colors.secondary} title={'Minute'} value={schedule.cron.minute} />
+-                            <CronBox color={colors.secondary} title={'Hour'} value={schedule.cron.hour} />
+-                            <CronBox color={colors.secondary} title={'Day (Month)'} value={schedule.cron.dayOfMonth} />
+-                            <CronBox color={colors.secondary} title={'Month'} value={schedule.cron.month} />
+-                            <CronBox color={colors.secondary} title={'Day (Week)'} value={schedule.cron.dayOfWeek} />
++                            <CronBox color={colors.secondary} title={'Minuto'} value={schedule.cron.minute} />
++                            <CronBox color={colors.secondary} title={'Hora'} value={schedule.cron.hour} />
++                            <CronBox color={colors.secondary} title={'Dia (mês)'} value={schedule.cron.dayOfMonth} />
++                            <CronBox color={colors.secondary} title={'Mês'} value={schedule.cron.month} />
++                            <CronBox color={colors.secondary} title={'Dia (semana)'} value={schedule.cron.dayOfWeek} />
+                         </div>
+                         <div css={tw`bg-neutral-700 rounded-b`}>
+                             {schedule.tasks.length > 0
+diff --git a/resources/scripts/components/server/schedules/ScheduleRow.tsx b/resources/scripts/components/server/schedules/ScheduleRow.tsx
+index 8b0780ec7..7ea01cb05 100644
+--- a/resources/scripts/components/server/schedules/ScheduleRow.tsx
++++ b/resources/scripts/components/server/schedules/ScheduleRow.tsx
+@@ -2,6 +2,7 @@ import { type Schedule } from '@definitions/server';
+ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+ import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+ import { format } from 'date-fns';
++import { dateLocale } from '@/lib/dateLocale';
+ import tw from 'twin.macro';
+ import ScheduleCronRow from '@server/schedules/ScheduleCronRow';
+ import GreyRowBox from '@/elements/GreyRowBox';
+@@ -16,7 +17,7 @@ export default ({ schedule, to }: { schedule: Schedule; to: string }) => (
+             <div css={tw`flex-1 md:ml-4`}>
+                 <p>{schedule.name}</p>
+                 <p css={tw`text-xs text-neutral-400`}>
+-                    Last run at: {schedule.lastRunAt ? format(schedule.lastRunAt, "MMM do 'at' h:mma") : 'never'}
++                    Última execução: {schedule.lastRunAt ? format(schedule.lastRunAt, "MMM do 'às' HH:mm", { locale: dateLocale() }) : 'Nunca'}
+                 </p>
+             </div>
+             <div>
+@@ -26,7 +27,7 @@ export default ({ schedule, to }: { schedule: Schedule; to: string }) => (
+                         schedule.isActive ? tw`bg-green-600` : tw`bg-neutral-400`,
+                     ]}
+                 >
+-                    {schedule.isActive ? 'Active' : 'Inactive'}
++                    {schedule.isActive ? 'Ativo' : 'Inativo'}
+                 </p>
+             </div>
+             <ScheduleCronRow cron={schedule.cron} css={tw`mx-auto sm:mx-8 w-full sm:w-auto mt-4 sm:mt-0`} />
+@@ -37,7 +38,7 @@ export default ({ schedule, to }: { schedule: Schedule; to: string }) => (
+                         schedule.isActive && !schedule.isProcessing ? tw`bg-green-600` : tw`bg-neutral-400`,
+                     ]}
+                 >
+-                    {schedule.isProcessing ? 'Processing' : schedule.isActive ? 'Active' : 'Inactive'}
++                    {schedule.isProcessing ? 'Processando' : schedule.isActive ? 'Ativo' : 'Inativo'}
+                 </p>
+             </div>
+         </GreyRowBox>
+diff --git a/resources/scripts/components/server/schedules/ScheduleTaskRow.tsx b/resources/scripts/components/server/schedules/ScheduleTaskRow.tsx
+index 298bdd301..c2af7783d 100644
+--- a/resources/scripts/components/server/schedules/ScheduleTaskRow.tsx
++++ b/resources/scripts/components/server/schedules/ScheduleTaskRow.tsx
+@@ -30,13 +30,13 @@ interface Props {
+ const getActionDetails = (action: string): [string, any] => {
+     switch (action) {
+         case 'command':
+-            return ['Send Command', faCode];
++            return ['Enviar comando', faCode];
+         case 'power':
+-            return ['Send Power Action', faToggleOn];
++            return ['Enviar ação de energia', faToggleOn];
+         case 'backup':
+-            return ['Create Backup', faFileArchive];
++            return ['Criar backup', faFileArchive];
+         default:
+-            return ['Unknown Action', faCode];
++            return ['Ação desconhecida', faCode];
+     }
+ };
+ 
+@@ -81,13 +81,13 @@ export default ({ schedule, task }: Props) => {
+                 onModalDismissed={() => setIsEditing(false)}
+             />
+             <ConfirmationModal
+-                title={'Confirm task deletion'}
+-                buttonText={'Delete Task'}
++                title={'Confirmar exclusão da tarefa'}
++                buttonText={'Excluir tarefa'}
+                 onConfirmed={onConfirmDeletion}
+                 visible={visible}
+                 onModalDismissed={() => setVisible(false)}
+             >
+-                Are you sure you want to delete this task? This action cannot be undone.
++                Tem certeza de que deseja excluir esta tarefa? Esta ação não pode ser desfeita.
+             </ConfirmationModal>
+             <FontAwesomeIcon icon={icon} css={tw`text-lg text-white hidden md:block`} />
+             <div css={tw`flex-none sm:flex-1 w-full sm:w-auto overflow-x-auto`}>
+@@ -95,7 +95,7 @@ export default ({ schedule, task }: Props) => {
+                 {task.payload && (
+                     <div css={tw`md:ml-6 mt-2`}>
+                         {task.action === 'backup' && (
+-                            <p css={tw`text-xs uppercase text-neutral-400 mb-1`}>Ignoring files & folders:</p>
++                            <p css={tw`text-xs uppercase text-neutral-400 mb-1`}>Ignorando arquivos e pastas:</p>
+                         )}
+                         <div
+                             css={tw`font-mono bg-neutral-800 rounded py-1 px-2 text-sm w-auto inline-block whitespace-pre-wrap break-all`}
+@@ -110,7 +110,7 @@ export default ({ schedule, task }: Props) => {
+                     <div css={tw`mr-6`}>
+                         <div css={tw`flex items-center px-2 py-1 bg-yellow-500 text-yellow-800 text-sm rounded-full`}>
+                             <Icon icon={faArrowCircleDown} css={tw`w-3 h-3 mr-2`} />
+-                            Continues on Failure
++                            Continua em caso de falha
+                         </div>
+                     </div>
+                 )}
+@@ -118,14 +118,14 @@ export default ({ schedule, task }: Props) => {
+                     <div css={tw`mr-6`}>
+                         <div css={tw`flex items-center px-2 py-1 bg-neutral-500 text-sm rounded-full`}>
+                             <Icon icon={faClock} css={tw`w-3 h-3 mr-2`} />
+-                            {task.timeOffset}s later
++                            {task.timeOffset}s depois
+                         </div>
+                     </div>
+                 )}
+                 <Can action={'schedule.update'}>
+                     <button
+                         type={'button'}
+-                        aria-label={'Edit scheduled task'}
++                        aria-label={'Editar tarefa agendada'}
+                         css={tw`block text-sm p-2 text-neutral-500 hover:text-neutral-100 transition-colors duration-150 mr-4 ml-auto sm:ml-0`}
+                         onClick={() => setIsEditing(true)}
+                     >
+@@ -135,7 +135,7 @@ export default ({ schedule, task }: Props) => {
+                 <Can action={'schedule.update'}>
+                     <button
+                         type={'button'}
+-                        aria-label={'Delete scheduled task'}
++                        aria-label={'Excluir tarefa agendada'}
+                         css={tw`block text-sm p-2 text-neutral-500 hover:text-red-600 transition-colors duration-150`}
+                         onClick={() => setVisible(true)}
+                     >
+diff --git a/resources/scripts/components/server/schedules/TaskDetailsModal.tsx b/resources/scripts/components/server/schedules/TaskDetailsModal.tsx
+index 99538836c..dc28d32cd 100644
+--- a/resources/scripts/components/server/schedules/TaskDetailsModal.tsx
++++ b/resources/scripts/components/server/schedules/TaskDetailsModal.tsx
+@@ -36,15 +36,15 @@ const schema = object().shape({
+     action: string().required().oneOf(['command', 'power', 'backup']),
+     payload: string().when('action', {
+         is: (v: string) => v !== 'backup',
+-        then: string().required('A task payload must be provided.'),
++        then: string().required('É necessário informar o conteúdo da tarefa.'),
+         otherwise: string(),
+     }),
+     continueOnFailure: boolean(),
+     timeOffset: number()
+-        .typeError('The time offset must be a valid number between 0 and 900.')
+-        .required('A time offset value must be provided.')
+-        .min(0, 'The time offset must be at least 0 seconds.')
+-        .max(900, 'The time offset must be less than 900 seconds.'),
++        .typeError('O intervalo de tempo deve ser um número válido entre 0 e 900.')
++        .required('É necessário informar um valor de intervalo de tempo.')
++        .min(0, 'O intervalo de tempo deve ser de pelo menos 0 segundos.')
++        .max(900, 'O intervalo de tempo deve ser menor que 900 segundos.'),
+ });
+ 
+ const ActionListener = () => {
+@@ -83,7 +83,7 @@ const TaskDetailsModal = ({ schedule, task }: Props) => {
+         if (backupLimit === 0 && values.action === 'backup') {
+             setSubmitting(false);
+             addError({
+-                message: "A backup task cannot be created when the server's backup limit is set to 0.",
++                message: 'Não é possível criar uma tarefa de backup quando o limite de backups do servidor é 0.',
+                 key: 'schedule:task',
+             });
+         } else {
+@@ -119,25 +119,25 @@ const TaskDetailsModal = ({ schedule, task }: Props) => {
+             {({ isSubmitting, values }) => (
+                 <Form css={tw`m-0`}>
+                     <FlashMessageRender byKey={'schedule:task'} css={tw`mb-4`} />
+-                    <h2 css={tw`text-2xl mb-6`}>{task ? 'Edit Task' : 'Create Task'}</h2>
++                    <h2 css={tw`text-2xl mb-6`}>{task ? 'Editar tarefa' : 'Criar tarefa'}</h2>
+                     <div css={tw`flex`}>
+                         <div css={tw`mr-2 w-1/3`}>
+-                            <Label>Action</Label>
++                            <Label>Ação</Label>
+                             <ActionListener />
+                             <FormikFieldWrapper name={'action'}>
+                                 <FormikField as={Select} name={'action'}>
+-                                    <option value={'command'}>Send command</option>
+-                                    <option value={'power'}>Send power action</option>
+-                                    <option value={'backup'}>Create backup</option>
++                                    <option value={'command'}>Enviar comando</option>
++                                    <option value={'power'}>Enviar ação de energia</option>
++                                    <option value={'backup'}>Criar backup</option>
+                                 </FormikField>
+                             </FormikFieldWrapper>
+                         </div>
+                         <div css={tw`flex-1 ml-6`}>
+                             <Field
+                                 name={'timeOffset'}
+-                                label={'Time offset (in seconds)'}
++                                label={'Intervalo de tempo (em segundos)'}
+                                 description={
+-                                    'The amount of time to wait after the previous task executes before running this one. If this is the first task on a schedule this will not be applied.'
++                                    'O tempo de espera após a execução da tarefa anterior antes de executar esta. Se esta for a primeira tarefa de um agendamento, isso não será aplicado.'
+                                 }
+                             />
+                         </div>
+@@ -145,30 +145,30 @@ const TaskDetailsModal = ({ schedule, task }: Props) => {
+                     <div css={tw`mt-6`}>
+                         {values.action === 'command' ? (
+                             <div>
+-                                <Label>Payload</Label>
++                                <Label>Conteúdo</Label>
+                                 <FormikFieldWrapper name={'payload'}>
+                                     <FormikField as={Textarea} name={'payload'} rows={6} />
+                                 </FormikFieldWrapper>
+                             </div>
+                         ) : values.action === 'power' ? (
+                             <div>
+-                                <Label>Payload</Label>
++                                <Label>Conteúdo</Label>
+                                 <FormikFieldWrapper name={'payload'}>
+                                     <FormikField as={Select} name={'payload'}>
+-                                        <option value={'start'}>Start the server</option>
+-                                        <option value={'restart'}>Restart the server</option>
+-                                        <option value={'stop'}>Stop the server</option>
+-                                        <option value={'kill'}>Terminate the server</option>
++                                        <option value={'start'}>Iniciar o servidor</option>
++                                        <option value={'restart'}>Reiniciar o servidor</option>
++                                        <option value={'stop'}>Parar o servidor</option>
++                                        <option value={'kill'}>Encerrar o servidor</option>
+                                     </FormikField>
+                                 </FormikFieldWrapper>
+                             </div>
+                         ) : (
+                             <div>
+-                                <Label>Ignored Files</Label>
++                                <Label>Arquivos ignorados</Label>
+                                 <FormikFieldWrapper
+                                     name={'payload'}
+                                     description={
+-                                        'Optional. Include the files and folders to be excluded in this backup. By default, the contents of your .pteroignore file will be used. If you have reached your backup limit, the oldest backup will be rotated.'
++                                        'Opcional. Informe os arquivos e pastas a serem excluídos deste backup. Por padrão, será usado o conteúdo do seu arquivo .pteroignore. Se você atingir o limite de backups, o backup mais antigo será removido.'
+                                     }
+                                 >
+                                     <FormikField as={Textarea} name={'payload'} rows={6} />
+@@ -179,13 +179,13 @@ const TaskDetailsModal = ({ schedule, task }: Props) => {
+                     <div css={tw`mt-6 bg-neutral-700 border border-neutral-800 shadow-inner p-4 rounded`}>
+                         <FormikSwitch
+                             name={'continueOnFailure'}
+-                            description={'Future tasks will be run when this task fails.'}
+-                            label={'Continue on Failure'}
++                            description={'As próximas tarefas serão executadas mesmo se esta tarefa falhar.'}
++                            label={'Continuar em caso de falha'}
+                         />
+                     </div>
+                     <div css={tw`flex justify-end mt-6`}>
+                         <Button type={'submit'} disabled={isSubmitting}>
+-                            {task ? 'Save Changes' : 'Create Task'}
++                            {task ? 'Salvar alterações' : 'Criar tarefa'}
+                         </Button>
+                     </div>
+                 </Form>
+diff --git a/resources/scripts/components/server/startup/StartupContainer.tsx b/resources/scripts/components/server/startup/StartupContainer.tsx
+index 0d21adab6..2426f65f1 100644
+--- a/resources/scripts/components/server/startup/StartupContainer.tsx
++++ b/resources/scripts/components/server/startup/StartupContainer.tsx
+@@ -81,22 +81,22 @@ const StartupContainer = () => {
+         !error || (error && isValidating) ? (
+             <Spinner centered size={Spinner.Size.LARGE} />
+         ) : (
+-            <ServerError title={'Oops!'} message={httpErrorToHuman(error)} onRetry={() => mutate()} />
++            <ServerError title={'Ops!'} message={httpErrorToHuman(error)} onRetry={() => mutate()} />
+         )
+     ) : (
+         <PageContentBlock
+-            title={'Startup Settings'}
++            title={'Configurações de inicialização'}
+             header
+-            description={'Control startup variables for your server.'}
++            description={'Controle as variáveis de inicialização do seu servidor.'}
+             showFlashKey={'startup:image'}
+         >
+             <div css={tw`md:flex`}>
+-                <TitledGreyBox title={'Startup Command'} css={tw`flex-1`}>
++                <TitledGreyBox title={'Comando de inicialização'} css={tw`flex-1`}>
+                     <div css={tw`px-1 py-2`}>
+                         <p css={tw`font-mono bg-neutral-900 rounded py-2 px-4`}>{invo}</p>
+                     </div>
+                 </TitledGreyBox>
+-                <TitledGreyBox title={'Docker Image'} css={tw`flex-1 lg:flex-none lg:w-1/3 mt-8 md:mt-0 md:ml-10`}>
++                <TitledGreyBox title={'Imagem Docker'} css={tw`flex-1 lg:flex-none lg:w-1/3 mt-8 md:mt-0 md:ml-10`}>
+                     {Object.keys(data.dockerImages).length > 1 && !isCustomImage ? (
+                         <>
+                             <InputSpinner visible={loading}>
+@@ -113,8 +113,8 @@ const StartupContainer = () => {
+                                 </Select>
+                             </InputSpinner>
+                             <p css={tw`text-xs text-neutral-300 mt-2`}>
+-                                This is an advanced feature allowing you to select a Docker image to use when running
+-                                this server instance.
++                                Este é um recurso avançado que permite selecionar uma imagem Docker para executar este
++                                servidor.
+                             </p>
+                         </>
+                     ) : (
+@@ -122,15 +122,15 @@ const StartupContainer = () => {
+                             <Input disabled readOnly value={variables.dockerImage} />
+                             {isCustomImage && (
+                                 <p css={tw`text-xs text-neutral-300 mt-2`}>
+-                                    This {"server's"} Docker image has been manually set by an administrator and cannot
+-                                    be changed through this UI.
++                                    A imagem Docker deste servidor foi definida manualmente por um administrador e não
++                                    pode ser alterada por esta interface.
+                                 </p>
+                             )}
+                         </>
+                     )}
+                 </TitledGreyBox>
+             </div>
+-            <h3 css={tw`mt-8 mb-2 text-2xl`}>Variables</h3>
++            <h3 css={tw`mt-8 mb-2 text-2xl`}>Variáveis</h3>
+             <div css={tw`grid gap-8 md:grid-cols-2`}>
+                 {data.variables.map(variable => (
+                     <VariableBox key={variable.envVariable} variable={variable} />
+diff --git a/resources/scripts/components/server/startup/VariableBox.tsx b/resources/scripts/components/server/startup/VariableBox.tsx
+index 7da9e2d59..87859f280 100644
+--- a/resources/scripts/components/server/startup/VariableBox.tsx
++++ b/resources/scripts/components/server/startup/VariableBox.tsx
+@@ -63,7 +63,7 @@ const VariableBox = ({ variable }: Props) => {
+             title={
+                 <p className="text-sm font-semibold">
+                     {!variable.isEditable && (
+-                        <span className="bg-neutral-700 text-xs py-1 px-2 rounded-full mr-2 mb-1">Read Only</span>
++                        <span className="bg-neutral-700 text-xs py-1 px-2 rounded-full mr-2 mb-1">Somente leitura</span>
+                     )}
+                     {variable.name}
+                 </p>
+diff --git a/resources/scripts/components/server/users/AddSubuserButton.tsx b/resources/scripts/components/server/users/AddSubuserButton.tsx
+index 9d8c56593..1fe67cf08 100644
+--- a/resources/scripts/components/server/users/AddSubuserButton.tsx
++++ b/resources/scripts/components/server/users/AddSubuserButton.tsx
+@@ -8,7 +8,7 @@ export default () => {
+     return (
+         <>
+             <EditSubuserModal visible={visible} onModalDismissed={() => setVisible(false)} />
+-            <Button onClick={() => setVisible(true)}>New User</Button>
++            <Button onClick={() => setVisible(true)}>Novo usuário</Button>
+         </>
+     );
+ };
+diff --git a/resources/scripts/components/server/users/EditSubuserModal.tsx b/resources/scripts/components/server/users/EditSubuserModal.tsx
+index 2168aa056..6257c79bd 100644
+--- a/resources/scripts/components/server/users/EditSubuserModal.tsx
++++ b/resources/scripts/components/server/users/EditSubuserModal.tsx
+@@ -96,9 +96,9 @@ const EditSubuserModal = ({ subuser }: Props) => {
+             }
+             validationSchema={object().shape({
+                 email: string()
+-                    .max(191, 'Email addresses must not exceed 191 characters.')
+-                    .email('A valid email address must be provided.')
+-                    .required('A valid email address must be provided.'),
++                    .max(191, 'O e-mail não deve exceder 191 caracteres.')
++                    .email('Informe um endereço de e-mail válido.')
++                    .required('Informe um endereço de e-mail válido.'),
+                 permissions: array().of(string()),
+             })}
+         >
+@@ -106,12 +106,12 @@ const EditSubuserModal = ({ subuser }: Props) => {
+                 <div css={tw`flex justify-between`}>
+                     <h2 css={tw`text-2xl`} ref={ref}>
+                         {subuser
+-                            ? `${canEditUser ? 'Modify' : 'View'} permissions for ${subuser.email}`
+-                            : 'Create new subuser'}
++                            ? `${canEditUser ? 'Modificar' : 'Ver'} permissões de ${subuser.email}`
++                            : 'Criar novo subusuário'}
+                     </h2>
+                     <div>
+                         <Button type={'submit'} css={tw`w-full sm:w-auto`}>
+-                            {subuser ? 'Save' : 'Invite User'}
++                            {subuser ? 'Salvar' : 'Convidar usuário'}
+                         </Button>
+                     </div>
+                 </div>
+@@ -119,8 +119,8 @@ const EditSubuserModal = ({ subuser }: Props) => {
+                 {!isRootAdmin && loggedInPermissions[0] !== '*' && (
+                     <div css={tw`mt-4 pl-4 py-2 border-l-4 border-cyan-400`}>
+                         <p css={tw`text-sm text-neutral-300`}>
+-                            Only permissions which your account is currently assigned may be selected when creating or
+-                            modifying other users.
++                            Somente as permissões atribuídas à sua conta podem ser selecionadas ao criar ou modificar
++                            outros usuários.
+                         </p>
+                     </div>
+                 )}
+@@ -128,9 +128,9 @@ const EditSubuserModal = ({ subuser }: Props) => {
+                     <div css={tw`mt-6`}>
+                         <Field
+                             name={'email'}
+-                            label={'User Email'}
++                            label={'E-mail do usuário'}
+                             description={
+-                                'Enter the email address of the user you wish to invite as a subuser for this server.'
++                                'Informe o endereço de e-mail do usuário que você deseja convidar como subusuário deste servidor.'
+                             }
+                         />
+                     </div>
+@@ -160,7 +160,7 @@ const EditSubuserModal = ({ subuser }: Props) => {
+                 <Can action={subuser ? 'user.update' : 'user.create'}>
+                     <div css={tw`pb-6 flex justify-end`}>
+                         <Button type={'submit'} css={tw`w-full sm:w-auto`}>
+-                            {subuser ? 'Save' : 'Invite User'}
++                            {subuser ? 'Salvar' : 'Convidar usuário'}
+                         </Button>
+                     </div>
+                 </Can>
+diff --git a/resources/scripts/components/server/users/RemoveSubuserButton.tsx b/resources/scripts/components/server/users/RemoveSubuserButton.tsx
+index c261e616f..ee436b25e 100644
+--- a/resources/scripts/components/server/users/RemoveSubuserButton.tsx
++++ b/resources/scripts/components/server/users/RemoveSubuserButton.tsx
+@@ -36,19 +36,19 @@ export default ({ subuser }: { subuser: Subuser }) => {
+     return (
+         <>
+             <ConfirmationModal
+-                title={'Delete this subuser?'}
+-                buttonText={'Yes, remove subuser'}
++                title={'Excluir este subusuário?'}
++                buttonText={'Sim, remover subusuário'}
+                 visible={showConfirmation}
+                 showSpinnerOverlay={loading}
+                 onConfirmed={() => doDeletion()}
+                 onModalDismissed={() => setShowConfirmation(false)}
+             >
+-                Are you sure you wish to remove this subuser? They will have all access to this server revoked
+-                immediately.
++                Tem certeza de que deseja remover este subusuário? Todo o acesso dele a este servidor será revogado
++                imediatamente.
+             </ConfirmationModal>
+             <button
+                 type={'button'}
+-                aria-label={'Delete subuser'}
++                aria-label={'Excluir subusuário'}
+                 css={tw`block text-sm p-2 text-neutral-500 hover:text-red-600 transition-colors duration-150`}
+                 onClick={() => setShowConfirmation(true)}
+             >
+diff --git a/resources/scripts/components/server/users/UserRow.tsx b/resources/scripts/components/server/users/UserRow.tsx
+index 1f2197153..95413b14e 100644
+--- a/resources/scripts/components/server/users/UserRow.tsx
++++ b/resources/scripts/components/server/users/UserRow.tsx
+@@ -38,20 +38,20 @@ export default ({ subuser }: Props) => {
+                     />
+                     &nbsp;
+                 </p>
+-                <p css={tw`text-2xs text-neutral-300 uppercase hidden md:block`}>2FA Enabled</p>
++                <p css={tw`text-2xs text-neutral-300 uppercase hidden md:block`}>2FA ativado</p>
+             </div>
+             <div css={tw`ml-4 hidden md:block`}>
+                 <p css={tw`font-medium text-center`}>
+                     {subuser.permissions.filter(permission => permission !== 'websocket.connect').length}
+                 </p>
+-                <p css={tw`text-2xs text-neutral-300 uppercase`}>Permissions</p>
++                <p css={tw`text-2xs text-neutral-300 uppercase`}>Permissões</p>
+             </div>
+             {subuser.uuid !== uuid && (
+                 <>
+                     <Can action={'user.update'}>
+                         <button
+                             type={'button'}
+-                            aria-label={'Edit subuser'}
++                            aria-label={'Editar subusuário'}
+                             css={tw`block text-sm p-1 md:p-2 text-neutral-500 hover:text-neutral-100 transition-colors duration-150 mx-4`}
+                             onClick={() => setVisible(true)}
+                         >
+diff --git a/resources/scripts/components/server/users/UsersContainer.tsx b/resources/scripts/components/server/users/UsersContainer.tsx
+index f5e2c0a22..eee4117d9 100644
+--- a/resources/scripts/components/server/users/UsersContainer.tsx
++++ b/resources/scripts/components/server/users/UsersContainer.tsx
+@@ -50,10 +50,14 @@ export default () => {
+     }
+ 
+     return (
+-        <PageContentBlock title={'Subusers'} header description={'Control the access of other users to this server.'}>
++        <PageContentBlock
++            title={'Subusuários'}
++            header
++            description={'Controle o acesso de outros usuários a este servidor.'}
++        >
+             <FlashMessageRender byKey={'users'} css={tw`mb-4`} />
+             {!subusers.length ? (
+-                <p css={tw`text-center text-sm text-neutral-300`}>It looks like you don&apos;t have any subusers.</p>
++                <p css={tw`text-center text-sm text-neutral-300`}>Parece que você não tem nenhum subusuário.</p>
+             ) : (
+                 subusers.map(subuser => <UserRow key={subuser.uuid} subuser={subuser} />)
+             )}
+@@ -61,7 +65,7 @@ export default () => {
+                 <div css={tw`mt-6 sm:flex items-center justify-end`}>
+                     {limit > 0 && subusers.length > 0 && (
+                         <p css={tw`text-sm text-neutral-300 mb-4 sm:mr-6 sm:mb-0`}>
+-                            {subusers.length} of {limit} subusers have been created for this server.
++                            {subusers.length} de {limit} subusuários foram criados para este servidor.
+                         </p>
+                     )}
+                     {limit > 0 && limit > subusers.length && <AddSubuserButton css={tw`w-full sm:w-auto`} />}

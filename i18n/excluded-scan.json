@@ -1,0 +1,140 @@
+{
+  "generated_at": "2026-10-27T02:01:10.942Z",
+  "hits": [
+    {
+      "file": "resources/scripts/plugins/Websocket.ts",
+      "line": 30,
+      "text": "Failed to parse incoming websocket message."
+    },
+    {
+      "file": "resources/scripts/plugins/usePersistedState.ts",
+      "line": 12,
+      "text": "Failed to retrieve persisted value from store."
+    },
+    {
+      "file": "resources/scripts/assets/currency.ts",
+      "line": 7,
+      "text": "United Arab Emirates Dirham"
+    },
+    {
+      "file": "resources/scripts/assets/currency.ts",
+      "line": 8,
+      "text": "Australian Dollar"
+    },
+    {
+      "file": "resources/scripts/assets/currency.ts",
+      "line": 9,
+      "text": "Brazilian Real"
+    },
+    {
+      "file": "resources/scripts/assets/currency.ts",
+      "line": 10,
+      "text": "Canadian Dollar"
+    },
+    {
+      "file": "resources/scripts/assets/currency.ts",
+      "line": 11,
+      "text": "Swiss Franc"
+    },
+    {
+      "file": "resources/scripts/assets/currency.ts",
+      "line": 12,
+      "text": "Chinese Yuan"
+    },
+    {
+      "file": "resources/scripts/assets/currency.ts",
+      "line": 14,
+      "text": "British Pound"
+    },
+    {
+      "file": "resources/scripts/assets/currency.ts",
+      "line": 15,
+      "text": "Hong Kong Dollar"
+    },
+    {
+      "file": "resources/scripts/assets/currency.ts",
+      "line": 16,
+      "text": "Indian Rupee"
+    },
+    {
+      "file": "resources/scripts/assets/currency.ts",
+      "line": 17,
+      "text": "Japanese Yen"
+    },
+    {
+      "file": "resources/scripts/assets/currency.ts",
+      "line": 18,
+      "text": "South Korean Won"
+    },
+    {
+      "file": "resources/scripts/assets/currency.ts",
+      "line": 20,
+      "text": "Norwegian Krone"
+    },
+    {
+      "file": "resources/scripts/assets/currency.ts",
+      "line": 21,
+      "text": "New Zealand Dollar"
+    },
+    {
+      "file": "resources/scripts/assets/currency.ts",
+      "line": 22,
+      "text": "Russian Ruble"
+    },
+    {
+      "file": "resources/scripts/assets/currency.ts",
+      "line": 23,
+      "text": "Saudi Riyal"
+    },
+    {
+      "file": "resources/scripts/assets/currency.ts",
+      "line": 24,
+      "text": "Swedish Krona"
+    },
+    {
+      "file": "resources/scripts/assets/currency.ts",
+      "line": 25,
+      "text": "Singapore Dollar"
+    },
+    {
+      "file": "resources/scripts/assets/currency.ts",
+      "line": 26,
+      "text": "United States Dollar"
+    },
+    {
+      "file": "resources/scripts/assets/currency.ts",
+      "line": 27,
+      "text": "South African Rand"
+    },
+    {
+      "file": "resources/scripts/assets/images/themed/AISvg.tsx",
+      "line": 127,
+      "text": "Path 22"
+    },
+    {
+      "file": "resources/scripts/assets/images/themed/AISvg.tsx",
+      "line": 134,
+      "text": "Path 23"
+    },
+    {
+      "file": "resources/scripts/assets/images/themed/PersonalModeSvg.tsx",
+      "line": 3,
+      "text": "Layer 1"
+    },
+    {
+      "file": "resources/scripts/assets/images/themed/StandardMoveSvg.tsx",
+      "line": 3,
+      "text": "Layer 1"
+    },
+    {
+      "file": "resources/scripts/assets/images/themed/SuccessSvg.tsx",
+      "line": 4,
+      "text": "Layer 1"
+    },
+    {
+      "file": "resources/scripts/assets/images/themed/SupportSvg.tsx",
+      "line": 3,
+      "text": "Layer 1"
+    }
+  ]
+}

@@ -1,0 +1,268 @@
+en	pt-BR	notes
+Dashboard	Início	Rótulo de navegação; não usar "Casa" nem "Painel" para a página.
+Panel	Painel	Produto/nome do painel.
+Server	Servidor	
+Servers	Servidores	
+Console	Console	Termo técnico mantido.
+Files	Arquivos	
+File Manager	Gerenciador de arquivos	
+Databases	Bancos de dados	
+Database	Banco de dados	
+Schedules	Agendamentos	
+Schedule	Agendamento	
+Users	Usuários	
+User	Usuário	
+Subusers	Subusuários	
+Subuser	Subusuário	
+Network	Rede	
+Startup	Inicialização	
+Backups	Backups	manter
+Backup	Backup	manter
+Settings	Configurações	
+Account	Conta	
+Security	Segurança	
+Tickets	Tickets	manter
+Ticket	Ticket	manter
+Billing	Faturamento	
+Orders	Pedidos	
+Order	Pedido	
+Invoices	Faturas	
+Invoice	Fatura	
+Products	Produtos	
+Product	Produto	
+Store	Loja	
+Checkout	Finalizar compra	
+Payment	Pagamento	
+Subscription	Assinatura	
+Renewal	Renovação	
+Discount Code	Cupom de desconto	
+Coupon	Cupom	
+Node	Node	manter
+Nodes	Nodes	manter
+Allocation	Alocação	
+Allocations	Alocações	
+Nest	Nest	manter
+Nests	Nests	manter
+Egg	Egg	manter
+Eggs	Eggs	manter
+Preset	Preset	manter
+Presets	Presets	manter
+Role	Função	
+Roles	Funções	
+Permissions	Permissões	
+Permission	Permissão	
+API Key	Chave de API	
+SSH Key	Chave SSH	
+Passkey	Passkey	manter
+Two-Factor	Dois fatores	
+2FA	2FA	manter
+Recovery Token	Token de recuperação	
+Password	Senha	
+Email	E-mail	
+Username	Nome de usuário	
+Sign In	Entrar	
+Log In	Entrar	
+Sign Up	Criar conta	
+Register	Criar conta	
+Logout	Sair	
+Forgot Password?	Esqueceu a senha?	
+Reset Password	Redefinir senha	
+Search	Buscar	
+Save	Salvar	
+Cancel	Cancelar	
+Delete	Excluir	
+Remove	Remover	
+Create	Criar	
+Edit	Editar	
+Update	Atualizar	
+Close	Fechar	
+Back	Voltar	
+Next	Próximo	
+Previous	Anterior	
+Loading	Carregando	
+Error	Erro	
+Success	Sucesso	
+Warning	Aviso	alerta pontual
+Enabled	Ativado	
+Disabled	Desativado	
+Active	Ativo	
+Inactive	Inativo	
+Online	Online	manter
+Offline	Offline	manter
+Starting	Iniciando	
+Stopping	Parando	
+Stopped	Parado	
+Running	Em execução	
+Suspended	Suspenso	servidor masculino; para conta usar "Suspensa"
+Installing	Instalando	
+Install	Instalar	
+Reinstall	Reinstalar	
+Transfer	Transferir	
+Upgrade	Fazer upgrade	verbo em botoes; usar "Upgrade" como substantivo se necessario
+Downgrade	Fazer downgrade	verbo em botoes; usar "Downgrade" como substantivo se necessario
+CPU	CPU	manter
+Memory	Memória	
+Disk	Disco	
+Bandwidth	Largura de banda	
+Uptime	Tempo de atividade	
+Status	Status	manter
+Name	Nome	
+Description	Descrição	
+Type	Tipo	
+Amount	Valor	
+Price	Preço	
+Total	Total	manter
+Date	Data	
+Created At	Criado em	
+Updated At	Atualizado em	
+Expires At	Expira em	
+Owner	Proprietário	
+Identifier	Identificador	
+IP Address	Endereço IP	
+Port	Porta	
+Protocol	Protocolo	
+Command	Comando	
+Task	Tarefa	
+Variable	Variável	
+Environment	Ambiente	
+Startup Command	Comando de inicialização	
+Docker Image	Imagem Docker	
+Server Group	Grupo de servidores	
+Root Admin	Administrador raiz	root = raiz; revisar contexto
+Admin	Administrador	
+Overview	Visão geral	
+Activity	Atividade	
+Audit Log	Registro de auditoria	
+Webhook	Webhook	manter
+Theme	Tema	
+Appearance	Aparência	
+Links	Links	manter
+Alerts	Alertas	
+Announcement	Comunicado	diferencia de Warning/Aviso
+Maintenance	Manutenção	
+Migration	Migração	
+Setup	Configuração inicial	
+Mode	Modo	
+Personal Mode	Modo pessoal	
+Standard Mode	Modo padrão	
+Debug	Depuração	
+Automatic Updates	Atualizações automáticas	
+Admin Indicators	Indicadores administrativos	
+Speed Dial	Ações rápidas	
+Onboarding	Primeiros passos	
+Avatar	Avatar	manter
+Language	Idioma	
+Timezone	Fuso horário	
+Category	Categoria	
+Plan	Plano	
+Tax	Imposto	
+Refund	Reembolso	
+Transaction	Transação	
+Gateway	Gateway	manter
+Mercado Pago	Mercado Pago	manter
+Stripe	Stripe	manter
+PayPal	PayPal	manter
+Discord	Discord	manter
+Google	Google	manter
+Jexactyl	Jexactyl	manter
+Jexpanel	Jexpanel	manter
+Pterodactyl	Pterodactyl	manter
+Docker	Docker	manter
+Java	Java	manter
+Bedrock	Bedrock	manter
+Steam	Steam	manter
+Hytale	Hytale	manter
+GSL	GSL	manter
+PID	PID	manter
+RAM	RAM	manter
+Swap	Swap	manter (memoria virtual, como RAM)
+GiB	GiB	manter (unidade, como CPU/RAM)
+GB	GB	manter (unidade, como GiB/RAM)
+SSD	SSD	manter
+HDD	HDD	manter
+UUID	UUID	manter
+DNS	DNS	manter
+CIDR	CIDR	manter
+WebSocket	WebSocket	manter
+Cron	Cron	manter
+API	API	manter
+SFTP	SFTP	manter
+FTP	FTP	manter
+SSH	SSH	manter
+SSL	SSL	manter
+TLS	TLS	manter
+OAuth	OAuth	manter
+SSO	SSO	manter
+Email Address	Endereço de e-mail	
+Current Password	Senha atual	
+New Password	Nova senha	
+Confirm Password	Confirmar senha	
+Two-Factor Authentication	Autenticação de dois fatores	
+Recovery Codes	Códigos de recuperação	
+Priority	Prioridade	
+Subject	Assunto	
+Message	Mensagem	
+Payment Method	Método de pagamento	
+Due Date	Vencimento	
+Subtotal	Subtotal	manter
+Discount	Desconto	
+Primary Allocation	Alocação principal	
+IP Alias	Alias de IP	
+Make Primary	Tornar principal	
+Services	Serviços	
+Configuration	Configuração	
+Home	Início	
+Add	Adicionar	
+View	Visualizar	
+Copy	Copiar	
+Continue	Continuar	
+Submit	Enviar	
+No	Não	
+Yes	Sim	
+User ID	ID do usuário	
+Return	Voltar	
+Welcome back	Bem-vindo de volta	
+View as Admin	Ver como admin	forma curta para caber no sidebar; usar "Ver como administrador" em textos longos
+General	Geral	
+Modules	Módulos	
+Management	Gerenciamento	
+Data	Dados	
+Logo	Logo	manter
+admin	admin	manter; abreviacao de administrador em labels de espaço limitado
+AI	IA	sigla padrao em pt-BR; nao manter "AI"
+Okay	OK	padrao do Dialog.Confirm; caixa alta, sem ponto
+Confirm	Confirmar	acao de confirmacao
+Access Denied	Acesso negado	titulo de tela; caixa de frase
+Dismiss	Dispensar	fechar um alerta; distinto de Close = Fechar
+Metadata	Metadados	dialogo de metadados de atividade
+System User	Usuário do sistema	tooltip do ator de atividade
+System	Sistema	fallback visivel do ator
+Renew	Renovar	verbo; o substantivo Renewal = Renovacao
+Days overdue	Dias em atraso	preservar o placeholder
+outstanding balance	Saldo devedor	fatura em atraso
+No Items	Nenhum item	estado vazio de tabela
+No results found.	Nenhum resultado encontrado.	busca sem correspondencia
+Powered by	Desenvolvido por	credito do rodape; preservar a marca e o link
+Ask AI	Perguntar à IA	tooltip do SpeedDial
+Create Node	Criar Node	Node mantido
+Create Server	Criar servidor	acao rapida
+New User	Novo usuário	acao rapida
+View Tickets	Ver tickets	Tickets mantido
+Search...	Buscar...	reticencias ASCII
+Copied text to clipboard.	Texto copiado para a área de transferência.	toast curto
+Copied "{text}" to clipboard.	Texto "{text}" copiado para a área de transferência.	preservar {text} e as aspas
+Please type 2 or more characters.	Digite pelo menos 2 caracteres.	imperativo com voce
+You must enter a value for this field for this module to work.	Informe um valor neste campo para que este módulo funcione.	tooltip de campo obrigatorio
+No items could be found, it's almost like they are hiding.	Nenhum item foi encontrado. Parece até que estão se escondendo.	manter o tom ludico
+Showing {from} to {to} of {total} results	Exibindo {from} a {to} de {total} resultados	sem ponto final
+Page {current} of {totalPages}	Página {current} de {totalPages}	sem ponto final
+Suspended - No Payment	Suspenso - falta de pagamento	servidor masculino
+Renew Free Server	Renovar servidor gratuito	botao
+Renewing...	Renovando...	reticencias ASCII
+Using API Key	Usando chave de API	API mantida
+Using SFTP	Usando SFTP	SFTP mantido
+Something went wrong	Algo deu errado	titulo padrao de erro
+The requested resource was not found.	O recurso solicitado não foi encontrado.	mensagem 404
+no editor session has been configured	Nenhuma sessão do editor foi configurada.	erro interno do editor
+JexpanelAI	JexpanelAI	manter (produto, como Jexactyl/Jexpanel)
+ToS	ToS	manter (sigla de Terms of Service)

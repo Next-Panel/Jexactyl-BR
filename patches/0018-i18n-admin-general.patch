@@ -1,0 +1,1120 @@
+From: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+Date: Tue, 27 Oct 2026 09:53:18 -0300
+Subject: i18n: traduz visão geral, configurações, webhooks, API e logs do admin
+
+Description:
+Traduz a seção Geral da administração: painel de visão geral e informações de
+versão, configurações do núcleo e modos de operação (padrão, pessoal e
+depuração), gerenciamento e eventos de webhooks, chaves e matriz de
+permissões da API de aplicação, exportação de logs de depuração e registro
+global de atividades administrativas.
+
+Origin: vendor
+Forwarded: not-needed
+Applied-Upstream: no
+Last-Update: 2026-10-27
+Signed-off-by: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+
+---
+
+diff --git a/resources/scripts/components/admin/general/activity/ActivityLogsContainer.tsx b/resources/scripts/components/admin/general/activity/ActivityLogsContainer.tsx
+index ede3083e3..2331d7c78 100644
+--- a/resources/scripts/components/admin/general/activity/ActivityLogsContainer.tsx
++++ b/resources/scripts/components/admin/general/activity/ActivityLogsContainer.tsx
+@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
+ import classNames from 'classnames';
+ import { debounce } from 'debounce';
+ import { format, formatDistanceToNowStrict } from 'date-fns';
++import { dateLocale } from '@/lib/dateLocale';
+ import AdminContentBlock from '@/elements/AdminContentBlock';
+ import AdminTable, {
+     Loading,
+@@ -105,16 +106,16 @@ function ActivityLogsContainer() {
+     const hasActiveFilters = Boolean(filters?.actor || filters?.subject || filters?.event || filters?.ip);
+ 
+     return (
+-        <AdminContentBlock title={'Activity Log'}>
++        <AdminContentBlock title={'Registro de atividades'}>
+             <div className={'w-full flex flex-row items-center mb-8'}>
+                 <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
+-                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Activity Log</h2>
++                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Registro de atividades</h2>
+                     <p
+                         className={
+                             'hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden'
+                         }
+                     >
+-                        A paper-trail of administrative actions taken across the panel.
++                        Um registro das ações administrativas realizadas no painel.
+                     </p>
+                 </div>
+                 {hasActiveFilters && (
+@@ -124,7 +125,7 @@ function ActivityLogsContainer() {
+                             className={classNames(btnStyles.button, btnStyles.text, 'w-full sm:w-auto')}
+                             onClick={() => setFilters(null)}
+                         >
+-                            Clear Filters <XCircleIcon className={'ml-2 h-4 w-4'} />
++                            Limpar filtros <XCircleIcon className={'ml-2 h-4 w-4'} />
+                         </Link>
+                     </div>
+                 )}
+@@ -132,26 +133,26 @@ function ActivityLogsContainer() {
+             <AdminTable>
+                 <div className={'flex flex-wrap items-end gap-4 px-6 py-4'}>
+                     <FilterField
+-                        label={'Actor'}
+-                        placeholder={'Filter by username...'}
++                        label={'Ator'}
++                        placeholder={'Filtrar por usuário...'}
+                         value={filters?.actor ?? ''}
+                         onChange={value => setFilters(current => ({ ...current, actor: value || undefined }))}
+                     />
+                     <FilterField
+-                        label={'Subject'}
+-                        placeholder={'Filter by subject...'}
++                        label={'Assunto'}
++                        placeholder={'Filtrar por assunto...'}
+                         value={filters?.subject ?? ''}
+                         onChange={value => setFilters(current => ({ ...current, subject: value || undefined }))}
+                     />
+                     <FilterField
+-                        label={'Event'}
+-                        placeholder={'Filter by event key...'}
++                        label={'Evento'}
++                        placeholder={'Filtrar por chave de evento...'}
+                         value={filters?.event ?? ''}
+                         onChange={value => setFilters(current => ({ ...current, event: value || undefined }))}
+                     />
+                     <FilterField
+-                        label={'IP Address'}
+-                        placeholder={'Filter by IP address...'}
++                        label={'Endereço IP'}
++                        placeholder={'Filtrar por endereço IP...'}
+                         value={filters?.ip ?? ''}
+                         onChange={value => setFilters(current => ({ ...current, ip: value || undefined }))}
+                     />
+@@ -162,13 +163,13 @@ function ActivityLogsContainer() {
+                             <TableHead>
+                                 <TableHeader name={'ID'} />
+                                 <TableHeader
+-                                    name={'Time'}
++                                    name={'Hora'}
+                                     direction={sort === 'timestamp' ? (sortDirection ? 1 : 2) : null}
+                                     onClick={() => setSort('timestamp')}
+                                 />
+-                                <TableHeader name={'Actor'} />
++                                <TableHeader name={'Ator'} />
+                                 <TableHeader
+-                                    name={'Event'}
++                                    name={'Evento'}
+                                     direction={sort === 'event' ? (sortDirection ? 1 : 2) : null}
+                                     onClick={() => setSort('event')}
+                                 />
+@@ -204,9 +205,14 @@ function ActivityLogsContainer() {
+                                                         placement={'top'}
+                                                         content={formatDistanceToNowStrict(item.timestamp, {
+                                                             addSuffix: true,
++                                                            locale: dateLocale(),
+                                                         })}
+                                                     >
+-                                                        <span>{format(item.timestamp, 'MMM do, yyyy H:mm:ss')}</span>
++                                                        <span>
++                                                            {format(item.timestamp, 'MMM do, yyyy H:mm:ss', {
++                                                                locale: dateLocale(),
++                                                            })}
++                                                        </span>
+                                                     </Tooltip>
+                                                 </td>
+                                                 <td className={'px-6 py-4 text-sm text-neutral-200 text-left'}>
+@@ -225,11 +231,11 @@ function ActivityLogsContainer() {
+                                                                     className={'font-bold hover:brightness-125'}
+                                                                     style={{ color: colors.primary }}
+                                                                 >
+-                                                                    {actor?.username || 'System'}
++                                                                    {actor?.username || 'Sistema'}
+                                                                 </Link>
+                                                             ) : (
+                                                                 <span className={'font-bold'}>
+-                                                                    {actor?.username || 'System'}
++                                                                    {actor?.username || 'Sistema'}
+                                                                 </span>
+                                                             )}
+                                                         </div>
+@@ -272,7 +278,7 @@ function ActivityLogsContainer() {
+                                                             <Tooltip
+                                                                 placement={'top'}
+                                                                 content={
+-                                                                    'A system-level action with no specific server or user target'
++                                                                    'Uma ação do sistema sem servidor ou usuário específico como alvo'
+                                                                 }
+                                                             >
+                                                                 <div
+@@ -284,7 +290,7 @@ function ActivityLogsContainer() {
+                                                                         className={'h-4 w-4 flex-shrink-0'}
+                                                                     />
+                                                                     <CogIcon className={'h-3.5 w-3.5'} />
+-                                                                    <span>System</span>
++                                                                    <span>Sistema</span>
+                                                                 </div>
+                                                             </Tooltip>
+                                                         )}
+@@ -304,12 +310,12 @@ function ActivityLogsContainer() {
+                                                             </p>
+                                                         </Link>
+                                                         {item.isApi && (
+-                                                            <Tooltip placement={'top'} content={'Using API Key'}>
++                                                            <Tooltip placement={'top'} content={'Usando chave de API'}>
+                                                                 <TerminalIcon className={'h-4 w-4 text-slate-400'} />
+                                                             </Tooltip>
+                                                         )}
+                                                         {item.event.startsWith('server:sftp.') && (
+-                                                            <Tooltip placement={'top'} content={'Using SFTP'}>
++                                                            <Tooltip placement={'top'} content={'Usando SFTP'}>
+                                                                 <FolderOpenIcon className={'h-4 w-4 text-slate-400'} />
+                                                             </Tooltip>
+                                                         )}
+@@ -321,7 +327,7 @@ function ActivityLogsContainer() {
+                                                         <Translate
+                                                             ns={'activity'}
+                                                             values={properties}
+-                                                            i18nKey={item.event.replace(':', '.')}
++                                                            i18nKey={item.event.split(':').join('.')}
+                                                             defaults={item.description ?? item.event}
+                                                         />
+                                                     </p>
+diff --git a/resources/scripts/components/admin/general/api/ApiContainer.tsx b/resources/scripts/components/admin/general/api/ApiContainer.tsx
+index 3f2219639..9e48d15e0 100644
+--- a/resources/scripts/components/admin/general/api/ApiContainer.tsx
++++ b/resources/scripts/components/admin/general/api/ApiContainer.tsx
+@@ -16,6 +16,7 @@ import { Link } from 'react-router-dom';
+ import { Button } from '@/elements/button';
+ import { useGetApiKeys, Context as ApiContext, ContextFilters } from '@/api/routes/admin/apiKeys';
+ import { differenceInHours, format, formatDistanceToNow } from 'date-fns';
++import { dateLocale } from '@/lib/dateLocale';
+ import DeleteApiKeyButton from './DeleteApiKeyButton';
+ import FlashMessageRender from '@/elements/FlashMessageRender';
+ import { useStoreState } from '@/state/hooks';
+@@ -41,7 +42,7 @@ function ApiContainer() {
+         <>
+             <div css={tw`flex ml-auto pl-4 mb-2`}>
+                 <Link to={'/admin/api/new'}>
+-                    <Button icon={PlusIcon}>New API Key</Button>
++                    <Button icon={PlusIcon}>Nova chave de API</Button>
+                 </Link>
+             </div>
+             <FlashMessageRender byKey={'api'} className={'my-4'} />
+@@ -57,16 +58,16 @@ function ApiContainer() {
+                                         onClick={() => setSort('id')}
+                                     />
+                                     <TableHeader
+-                                        name={'Key Identifier'}
++                                        name={'Identificador da chave'}
+                                         direction={sort === 'identifier' ? (sortDirection ? 1 : 2) : null}
+                                         onClick={() => setSort('identifier')}
+                                     />
+                                     <TableHeader
+-                                        name={'Last Used'}
++                                        name={'Último uso'}
+                                         direction={sort === 'last_used_at' ? (sortDirection ? 1 : 2) : null}
+                                         onClick={() => setSort('last_used_at')}
+                                     />
+-                                    <TableHeader name={'Created At'} />
++                                    <TableHeader name={'Criado em'} />
+                                     <TableHeader />
+                                 </TableHead>
+                                 <TableBody>
+@@ -91,13 +92,13 @@ function ApiContainer() {
+                                                 </td>
+                                                 <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                     {key.last_used_at && new Date(key.last_used_at).getTime() > 0
+-                                                        ? format(key.last_used_at, 'MMM do, yyyy h:mma')
+-                                                        : 'Not Used'}
++                                                        ? format(key.last_used_at, 'MMM do, yyyy HH:mm', { locale: dateLocale() })
++                                                        : 'Não usada'}
+                                                 </td>
+                                                 <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                     {Math.abs(differenceInHours(key.created_at!, new Date())) > 48
+-                                                        ? format(key.created_at!, 'MMM do, yyyy h:mma')
+-                                                        : formatDistanceToNow(key.created_at!, { addSuffix: true })}
++                                                        ? format(key.created_at!, 'MMM do, yyyy HH:mm', { locale: dateLocale() })
++                                                        : formatDistanceToNow(key.created_at!, { addSuffix: true, locale: dateLocale() })}
+                                                 </td>
+                                                 <DeleteApiKeyButton id={key.id!} />
+                                             </TableRow>
+diff --git a/resources/scripts/components/admin/general/api/ApplicationApiRouter.tsx b/resources/scripts/components/admin/general/api/ApplicationApiRouter.tsx
+index 5ecf9145f..b3e4f426c 100644
+--- a/resources/scripts/components/admin/general/api/ApplicationApiRouter.tsx
++++ b/resources/scripts/components/admin/general/api/ApplicationApiRouter.tsx
+@@ -6,16 +6,16 @@ import NewApiKeyContainer from './NewApiKeyContainer';
+ import { NotFound } from '@/elements/ScreenBlock';
+ 
+ export default () => (
+-    <AdminContentBlock title={'Application API'}>
++    <AdminContentBlock title={'API da aplicação'}>
+         <div className={'w-full flex flex-row items-center mb-8'}>
+             <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
+-                <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Application API</h2>
++                <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>API da aplicação</h2>
+                 <p
+                     className={
+                         'hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden'
+                     }
+                 >
+-                    Create, update and delete administrative API keys for this Panel.
++                    Crie, atualize e exclua chaves administrativas de API deste Painel.
+                 </p>
+             </div>
+         </div>
+diff --git a/resources/scripts/components/admin/general/api/DeleteApiKeyButton.tsx b/resources/scripts/components/admin/general/api/DeleteApiKeyButton.tsx
+index 864438846..d8ff884f0 100644
+--- a/resources/scripts/components/admin/general/api/DeleteApiKeyButton.tsx
++++ b/resources/scripts/components/admin/general/api/DeleteApiKeyButton.tsx
+@@ -26,9 +26,9 @@ export default ({ id }: { id: number }) => {
+                 open={visible}
+                 onConfirmed={submit}
+                 onClose={() => setVisible(false)}
+-                title={'Confirm API Key Deletion'}
++                title={'Confirmar exclusão da chave de API'}
+             >
+-                Deleting this key will instantly remove all access. You will not be able to reverse this action!
++                Excluir esta chave removerá todo o acesso imediatamente. Você não poderá reverter esta ação!
+             </Dialog.Confirm>
+             <Button.Danger className={'mt-2'} size={Button.Sizes.Small} onClick={() => setVisible(true)}>
+                 <FontAwesomeIcon icon={faTrash} />
+diff --git a/resources/scripts/components/admin/general/api/NewApiKeyContainer.tsx b/resources/scripts/components/admin/general/api/NewApiKeyContainer.tsx
+index d84e4c103..d73a059bd 100644
+--- a/resources/scripts/components/admin/general/api/NewApiKeyContainer.tsx
++++ b/resources/scripts/components/admin/general/api/NewApiKeyContainer.tsx
+@@ -21,7 +21,7 @@ import { Link } from 'react-router-dom';
+ import { XIcon } from '@heroicons/react/solid';
+ 
+ const initialValues: Values = {
+-    memo: 'Your API Key',
++    memo: 'Sua chave de API',
+     permissions: {
+         r_allocations: '0',
+         r_database_hosts: '0',
+@@ -59,13 +59,13 @@ export default () => {
+         <>
+             <div css={tw`flex ml-auto pl-4 mb-2`}>
+                 <Link to={'/admin/api'}>
+-                    <Button.Text icon={XIcon}>Cancel</Button.Text>
++                    <Button.Text icon={XIcon}>Cancelar</Button.Text>
+                 </Link>
+             </div>
+             <FlashMessageRender byKey={'api:create'} />
+             {visible && (
+-                <Dialog open={Boolean(visible)} onClose={() => setVisible(null)} title={'Your API Key'}>
+-                    Do not lose this key, it is impossible to recover. Click the key below to copy it.
++                <Dialog open={Boolean(visible)} onClose={() => setVisible(null)} title={'Sua chave de API'}>
++                    Não perca esta chave, é impossível recuperá-la. Clique na chave abaixo para copiá-la.
+                     <CopyOnClick text={visible}>
+                         <div className={'px-4 py-2 bg-black/50 rounded-lg mt-1 font-mono'}>
+                             {visible.slice(0, 48) ?? ''}...
+@@ -100,20 +100,20 @@ export default () => {
+                     <Form>
+                         <div css={tw`flex flex-col lg:flex-row`}>
+                             <div css={tw`w-full lg:w-1/2 flex flex-col mr-0 lg:mr-2`}>
+-                                <AdminBox icon={faCog} title={'Settings'} css={tw`w-full relative`}>
++                                <AdminBox icon={faCog} title={'Configurações'} css={tw`w-full relative`}>
+                                     <SpinnerOverlay visible={isSubmitting} />
+ 
+                                     <div css={tw`mb-6`}>
+-                                        <Field id={'memo'} name={'memo'} label={'Key Memo'} type={'text'} />
++                                        <Field id={'memo'} name={'memo'} label={'Descrição da chave'} type={'text'} />
+                                         <p className={'text-gray-400 text-xs mt-1'}>
+-                                            A simple name or description to identify your API key.
++                                            Um nome ou descrição simples para identificar sua chave de API.
+                                         </p>
+                                     </div>
+                                 </AdminBox>
+                                 <div css={tw`rounded shadow-md mt-4 py-2 pr-6`} style={{ backgroundColor: secondary }}>
+                                     <div css={tw`flex flex-row`}>
+                                         <Button type={'submit'} css={tw`ml-auto`} disabled={isSubmitting || !isValid}>
+-                                            Create
++                                            Criar
+                                         </Button>
+                                     </div>
+                                 </div>
+@@ -121,17 +121,24 @@ export default () => {
+ 
+                             <div css={tw`w-full lg:w-1/2 flex flex-col ml-0 lg:ml-2 mt-4 lg:mt-0`}>
+                                 <div css={tw`flex w-full`}>
+-                                    <AdminBox icon={faElevator} title={'Access Permissions'} css={tw`w-full relative`}>
++                                    <AdminBox
++                                        icon={faElevator}
++                                        title={'Permissões de acesso'}
++                                        css={tw`w-full relative`}
++                                    >
+                                         <SpinnerOverlay visible={isSubmitting} />
+-                                        <PermissionRow name={'Allocations'} id={'r_allocations'} />
+-                                        <PermissionRow name={'Database Hosts'} id={'r_database_hosts'} />
++                                        <PermissionRow name={'Alocações'} id={'r_allocations'} />
++                                        <PermissionRow name={'Hosts de banco de dados'} id={'r_database_hosts'} />
+                                         <PermissionRow name={'Eggs'} id={'r_eggs'} />
+-                                        <PermissionRow name={'Locations'} id={'r_locations'} />
++                                        <PermissionRow name={'Localizações'} id={'r_locations'} />
+                                         <PermissionRow name={'Nests'} id={'r_nests'} />
+                                         <PermissionRow name={'Nodes'} id={'r_nodes'} />
+-                                        <PermissionRow name={'Server Databases'} id={'r_server_databases'} />
+-                                        <PermissionRow name={'Servers'} id={'r_servers'} />
+-                                        <PermissionRow name={'User Accounts'} id={'r_users'} />
++                                        <PermissionRow
++                                            name={'Bancos de dados de servidores'}
++                                            id={'r_server_databases'}
++                                        />
++                                        <PermissionRow name={'Servidores'} id={'r_servers'} />
++                                        <PermissionRow name={'Contas de usuários'} id={'r_users'} />
+                                     </AdminBox>
+                                 </div>
+                             </div>
+diff --git a/resources/scripts/components/admin/general/api/PermissionRow.tsx b/resources/scripts/components/admin/general/api/PermissionRow.tsx
+index 4ec84086a..db8bc8d6f 100644
+--- a/resources/scripts/components/admin/general/api/PermissionRow.tsx
++++ b/resources/scripts/components/admin/general/api/PermissionRow.tsx
+@@ -13,17 +13,17 @@ export default ({ id, name }: Props) => (
+         <div className={'space-x-6'}>
+             <label css={tw`inline-flex items-center mr-2`}>
+                 <FormikField id={id} name={`permissions.${id}`} type={'radio'} value={'0'} />
+-                <span css={tw`text-neutral-300 ml-2`}>No Access</span>
++                <span css={tw`text-neutral-300 ml-2`}>Sem acesso</span>
+             </label>
+ 
+             <label css={tw`inline-flex items-center ml-2`}>
+                 <FormikField id={id} name={`permissions.${id}`} type={'radio'} value={'1'} />
+-                <span css={tw`text-neutral-300 ml-2`}>Read Only</span>
++                <span css={tw`text-neutral-300 ml-2`}>Somente leitura</span>
+             </label>
+ 
+             <label css={tw`inline-flex items-center ml-2`}>
+                 <FormikField id={id} name={`permissions.${id}`} type={'radio'} value={'2'} />
+-                <span css={tw`text-neutral-300 ml-2`}>Read & Write</span>
++                <span css={tw`text-neutral-300 ml-2`}>Leitura e escrita</span>
+             </label>
+         </div>
+     </div>
+diff --git a/resources/scripts/components/admin/general/overview/OverviewContainer.tsx b/resources/scripts/components/admin/general/overview/OverviewContainer.tsx
+index 3a17b6532..58ffa3e6b 100644
+--- a/resources/scripts/components/admin/general/overview/OverviewContainer.tsx
++++ b/resources/scripts/components/admin/general/overview/OverviewContainer.tsx
+@@ -58,7 +58,7 @@ const SuggestionCard = ({ icon, title, description, link, action }: SuggestionPr
+             <p className={'text-gray-300'}>{description}</p>
+             <p className={'mt-2 text-right text-sm'} style={{ color: colors.primary }}>
+                 <Link to={link}>
+-                    {action ?? 'Manage'} <FontAwesomeIcon icon={faArrowRight} />
++                    {action ?? 'Gerenciar'} <FontAwesomeIcon icon={faArrowRight} />
+                 </Link>
+             </p>
+         </div>
+@@ -114,24 +114,24 @@ export default () => {
+     }, []);
+ 
+     return (
+-        <AdminContentBlock title={'Overview'}>
++        <AdminContentBlock title={'Visão geral'}>
+             <div css={tw`w-full flex flex-row items-center mb-8`}>
+                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
+-                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Overview</h2>
++                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Visão geral</h2>
+                     <p
+                         css={tw`hidden md:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}
+                     >
+-                        A quick glance at your system.
++                        Uma visão rápida do seu sistema.
+                     </p>
+                 </div>
+             </div>
+ 
+             <FlashMessageRender byKey={'overview'} css={tw`mb-4`} />
+ 
+-            <AdminBox title={'Version Information'} icon={faDesktop}>
++            <AdminBox title={'Informações da versão'} icon={faDesktop}>
+                 {settings.debug && (
+                     <Alert type={'warning'} className={'mb-3'}>
+-                        Jexpanelis running in debug mode. Do not use in production.
++                        O Jexpanel está rodando em modo de depuração. Não use em produção.
+                     </Alert>
+                 )}
+                 {loading ? (
+@@ -139,11 +139,11 @@ export default () => {
+                 ) : (
+                     <>
+                         <div className={'text-gray-200 mb-2'}>
+-                            You are currently running version&nbsp;
++                            Você está usando a versão&nbsp;
+                             <CopyOnClick text={versionData?.panel.current}>
+                                 <Code>{versionData?.panel.current}</Code>
+                             </CopyOnClick>
+-                            , with the latest release being &nbsp;
++                            , sendo que a versão mais recente é &nbsp;
+                             <CopyOnClick text={versionData?.panel.latest}>
+                                 <Code>{versionData?.panel.latest}</Code>
+                             </CopyOnClick>
+@@ -151,15 +151,15 @@ export default () => {
+                         </div>
+                         {versionData?.panel.current.startsWith('v4.0.0-') && (
+                             <Alert type={'danger'} className={'mt-4'}>
+-                                You are running a beta release of Jexpanelv4, which may include several bugs or weird
+-                                glitches. Do NOT use this software in production unless you don&apos;t care about losing
+-                                data.
++                                Você está usando uma versão beta do Jexpanel v4, que pode conter vários erros ou falhas
++                                estranhas. NÃO use este software em produção, a menos que você não se importe em perder
++                                dados.
+                             </Alert>
+                         )}
+                     </>
+                 )}
+             </AdminBox>
+-            <AdminBox title={'Statistics'} className={'mt-6'} icon={faChartLine}>
++            <AdminBox title={'Estatísticas'} className={'mt-6'} icon={faChartLine}>
+                 {loading || !metricData ? (
+                     <Spinner size={'large'} centered />
+                 ) : (
+@@ -167,16 +167,16 @@ export default () => {
+                         <StatCard icon={faLayerGroup} title={'Nodes'} value={metricData.nodes} />
+                         <StatCard
+                             icon={faServer}
+-                            title={'Servers'}
++                            title={'Servidores'}
+                             value={metricData.servers.total}
+                             subtext={
+                                 metricData.servers.suspended > 0 || metricData.servers.installing > 0
+                                     ? [
+                                           metricData.servers.suspended > 0
+-                                              ? `${metricData.servers.suspended} suspended`
++                                              ? `${metricData.servers.suspended} suspenso`
+                                               : null,
+                                           metricData.servers.installing > 0
+-                                              ? `${metricData.servers.installing} installing`
++                                              ? `${metricData.servers.installing} instalando`
+                                               : null,
+                                       ]
+                                           .filter(Boolean)
+@@ -186,41 +186,41 @@ export default () => {
+                         />
+                         <StatCard
+                             icon={faUsers}
+-                            title={'Users'}
++                            title={'Usuários'}
+                             value={metricData.users.total}
+-                            subtext={`${metricData.users.admins} administrators`}
++                            subtext={`${metricData.users.admins} administradores`}
+                         />
+-                        <StatCard icon={faTicket} title={'Pending Tickets'} value={metricData.tickets} />
+-                        <StatCard icon={faDatabase} title={'Databases'} value={metricData.databases} />
++                        <StatCard icon={faTicket} title={'Tickets pendentes'} value={metricData.tickets} />
++                        <StatCard icon={faDatabase} title={'Bancos de dados'} value={metricData.databases} />
+                         <StatCard icon={faSave} title={'Backups'} value={metricData.backups} />
+                         {metricData.billing && (
+                             <>
+                                 <StatCard
+                                     icon={faCoins}
+-                                    title={'Revenue'}
++                                    title={'Receita'}
+                                     value={`${everest.billing.currency.symbol}${metricData.billing.revenue.toFixed(2)}`}
+-                                    subtext={`${metricData.billing.orders_this_month} orders this month`}
++                                    subtext={`${metricData.billing.orders_this_month} pedidos este mês`}
+                                 />
+                                 <StatCard
+                                     icon={faQuestionCircle}
+-                                    title={'Pending Orders'}
++                                    title={'Pedidos pendentes'}
+                                     value={metricData.billing.orders_pending}
+-                                    subtext={`${metricData.billing.products} products available`}
++                                    subtext={`${metricData.billing.products} produtos disponíveis`}
+                                 />
+                             </>
+                         )}
+                     </div>
+                 )}
+             </AdminBox>
+-            <AdminBox title={'Suggested Actions'} className={'mt-6'} icon={faQuestionCircle}>
++            <AdminBox title={'Ações sugeridas'} className={'mt-6'} icon={faQuestionCircle}>
+                 <div className={'grid lg:grid-cols-3 gap-4'}>
+                     {!settings.auto_update && (
+                         <SuggestionCard
+                             icon={faRecycle}
+                             link={'/admin/settings'}
+-                            title={'Enable automatic updates'}
++                            title={'Ativar atualizações automáticas'}
+                             description={
+-                                'By setting up automatic updates, you can keep Jexpanelstable and secure in the background.'
++                                'Ao ativar as atualizações automáticas, você mantém o Jexpanel estável e seguro em segundo plano.'
+                             }
+                         />
+                     )}
+@@ -228,9 +228,9 @@ export default () => {
+                         <SuggestionCard
+                             icon={faUserPlus}
+                             link={'/admin/auth'}
+-                            title={'Allow user registration'}
++                            title={'Permitir registro de usuários'}
+                             description={
+-                                'Enabling the Authentication module allows users to signup via the login page.'
++                                'Ativar o módulo de autenticação permite que os usuários se cadastrem pela página de login.'
+                             }
+                         />
+                     )}
+@@ -240,32 +240,34 @@ export default () => {
+                                 <SuggestionCard
+                                     icon={faLayerGroup}
+                                     link={'/admin/nodes/new'}
+-                                    title={'Add your first node'}
+-                                    description={"Nodes are physical servers which Jexactyl's servers run on."}
++                                    title={'Adicione seu primeiro Node'}
++                                    description={
++                                        'Nodes são servidores físicos onde os servidores do Jexactyl são executados.'
++                                    }
+                                 />
+                             )}
+                             {metricData.servers.total < 1 && (
+                                 <SuggestionCard
+                                     icon={faServer}
+                                     link={'/admin/servers/new'}
+-                                    title={'Create your first server'}
+-                                    description={'Create a server to host your favourite game or program.'}
++                                    title={'Crie seu primeiro servidor'}
++                                    description={'Crie um servidor para hospedar seu jogo ou programa favorito.'}
+                                 />
+                             )}
+                             {everest.tickets.enabled && metricData.tickets > 0 && (
+                                 <SuggestionCard
+                                     icon={faTicket}
+                                     link={'/admin/tickets'}
+-                                    title={'Answer customer tickets'}
+-                                    description={`You currently have ${metricData.tickets} pending tickets.`}
++                                    title={'Responda os tickets dos clientes'}
++                                    description={`Você tem ${metricData.tickets} tickets pendentes no momento.`}
+                                 />
+                             )}
+                             {metricData.billing && metricData.billing.orders_pending > 0 && (
+                                 <SuggestionCard
+                                     icon={faCoins}
+                                     link={'/admin/billing/orders'}
+-                                    title={'Review pending orders'}
+-                                    description={`You currently have ${metricData.billing.orders_pending} pending billing orders.`}
++                                    title={'Revise os pedidos pendentes'}
++                                    description={`Você tem ${metricData.billing.orders_pending} pedidos de faturamento pendentes no momento.`}
+                                 />
+                             )}
+                         </>
+@@ -273,10 +275,10 @@ export default () => {
+                     <SuggestionCard
+                         icon={faHeart}
+                         link={'https://donate.stripe.com/6oE02Zftd9cC34IbIS'}
+-                        title={'Donate to Jexactyl'}
+-                        action={'Donate'}
++                        title={'Doe para o Jexactyl'}
++                        action={'Doar'}
+                         description={
+-                            'Support the project by leaving a donation to help us pay for testing servers and domains.'
++                            'Apoie o projeto com uma doação para ajudar a pagar servidores de teste e domínios.'
+                         }
+                     />
+                 </div>
+diff --git a/resources/scripts/components/admin/general/settings/DebugSettings.tsx b/resources/scripts/components/admin/general/settings/DebugSettings.tsx
+index b5801bf8b..a9ec4cc8a 100644
+--- a/resources/scripts/components/admin/general/settings/DebugSettings.tsx
++++ b/resources/scripts/components/admin/general/settings/DebugSettings.tsx
+@@ -1,5 +1,6 @@
+ import { useEffect, useState } from 'react';
+ import { format, formatDistanceToNowStrict } from 'date-fns';
++import { dateLocale } from '@/lib/dateLocale';
+ import { ArchiveIcon, DocumentDownloadIcon } from '@heroicons/react/outline';
+ import AdminTable, { Loading, NoItems, TableBody, TableHead, TableHeader, TableRow } from '@/elements/AdminTable';
+ import { Button } from '@/elements/button';
+@@ -53,18 +54,18 @@ export default () => {
+                 <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
+                     <p className={'text-base text-neutral-400'}>
+                         {logs === undefined
+-                            ? 'Checking for issues with the Panel...'
++                            ? 'Verificando se há problemas com o Painel...'
+                             : totalErrors > 0
+-                            ? `Found ${totalErrors} error${totalErrors === 1 ? '' : 's'} and ${totalWarnings} warning${
++                            ? `Encontrados ${totalErrors} erro${totalErrors === 1 ? '' : 's'} e ${totalWarnings} aviso${
+                                   totalWarnings === 1 ? '' : 's'
+-                              } across ${logs.length} log file${logs.length === 1 ? '' : 's'}.`
+-                            : 'No errors have been found in the Panel logs.'}
++                              } em ${logs.length} arquivo${logs.length === 1 ? '' : 's'} de log.`
++                            : 'Nenhum erro foi encontrado nos logs do Painel.'}
+                     </p>
+                 </div>
+                 <div className={'flex ml-auto pl-4'}>
+                     <Button onClick={downloadAll} disabled={!logs?.length || downloading !== null}>
+                         <ArchiveIcon className={'h-4 w-4 mr-2'} />
+-                        {downloading === '__archive__' ? 'Preparing...' : 'Download All (.zip)'}
++                        {downloading === '__archive__' ? 'Preparando...' : 'Baixar tudo (.zip)'}
+                     </Button>
+                 </div>
+             </div>
+@@ -72,11 +73,11 @@ export default () => {
+                 <div className={'overflow-x-auto'}>
+                     <table className={'w-full table-auto'}>
+                         <TableHead>
+-                            <TableHeader name={'File'} />
+-                            <TableHeader name={'Size'} />
+-                            <TableHeader name={'Last Modified'} />
+-                            <TableHeader name={'Errors'} />
+-                            <TableHeader name={'Warnings'} />
++                            <TableHeader name={'Arquivo'} />
++                            <TableHeader name={'Tamanho'} />
++                            <TableHeader name={'Última modificação'} />
++                            <TableHeader name={'Erros'} />
++                            <TableHeader name={'Avisos'} />
+                             <TableHeader name={''} />
+                         </TableHead>
+                         <TableBody>
+@@ -94,10 +95,10 @@ export default () => {
+                                         <td className={'px-6 text-sm text-neutral-200 text-left whitespace-nowrap'}>
+                                             <Tooltip
+                                                 placement={'top'}
+-                                                content={format(log.modifiedAt, 'MMM do, yyyy H:mm:ss')}
++                                                content={format(log.modifiedAt, 'MMM do, yyyy H:mm:ss', { locale: dateLocale() })}
+                                             >
+                                                 <span>
+-                                                    {formatDistanceToNowStrict(log.modifiedAt, { addSuffix: true })}
++                                                    {formatDistanceToNowStrict(log.modifiedAt, { addSuffix: true, locale: dateLocale() })}
+                                                 </span>
+                                             </Tooltip>
+                                         </td>
+diff --git a/resources/scripts/components/admin/general/settings/GeneralSettings.tsx b/resources/scripts/components/admin/general/settings/GeneralSettings.tsx
+index 70580a116..e074bab92 100644
+--- a/resources/scripts/components/admin/general/settings/GeneralSettings.tsx
++++ b/resources/scripts/components/admin/general/settings/GeneralSettings.tsx
+@@ -28,7 +28,7 @@ export default () => {
+                 addFlash({
+                     type: 'success',
+                     key: 'settings:general',
+-                    message: 'Settings have been updated successfully.',
++                    message: 'Configurações atualizadas com sucesso.',
+                 });
+             })
+             .catch(error => {
+@@ -64,22 +64,22 @@ export default () => {
+             <Form>
+                 <FlashMessageRender byKey={'settings:general'} className={'mb-2'} />
+                 <div css={tw`grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-6`}>
+-                    <AdminBox title={'Application Name'} icon={faPaintBrush}>
++                    <AdminBox title={'Nome da aplicação'} icon={faPaintBrush}>
+                         <Field id={'name'} name={'name'} type={'text'} description={''} />
+                         <p className={'text-gray-400 text-xs mt-1.5'}>
+-                            Configure the name of this Panel to suit your needs.
++                            Configure o nome deste Painel conforme suas necessidades.
+                         </p>
+                     </AdminBox>
+-                    <AdminBox title={'Application Logo'} icon={faImage}>
++                    <AdminBox title={'Logo da aplicação'} icon={faImage}>
+                         <Field id={'logo'} name={'logo'} type={'url'} description={''} />
+                         <p className={'text-gray-400 text-xs mt-1.5'}>
+-                            Configure the logo of this Panel to suit your needs.
++                            Configure o logo deste Painel conforme suas necessidades.
+                         </p>
+                     </AdminBox>
+-                    <AdminBox title={'Automatic Updates'} icon={faRecycle}>
++                    <AdminBox title={'Atualizações automáticas'} icon={faRecycle}>
+                         <div>
+                             <div className={'inline-flex'}>
+-                                <Label className={'mt-1 mr-2'}>Allow Automatic Updates?</Label>
++                                <Label className={'mt-1 mr-2'}>Permitir atualizações automáticas?</Label>
+                                 <Field
+                                     id={'auto_update'}
+                                     name={'auto_update'}
+@@ -88,15 +88,15 @@ export default () => {
+                                 />
+                             </div>
+                             <p className={'text-gray-400 text-xs mt-1.5'}>
+-                                If enabled, Jexpanelwill automatically update in order to keep your system secure and
+-                                introduce new features.
++                                Se ativado, o Jexpanel será atualizado automaticamente para manter seu sistema seguro e
++                                trazer novos recursos.
+                             </p>
+                         </div>
+                     </AdminBox>
+-                    <AdminBox title={'Admin Indicators'} icon={faShapes}>
++                    <AdminBox title={'Indicadores administrativos'} icon={faShapes}>
+                         <div>
+                             <div className={'inline-flex'}>
+-                                <Label className={'mt-1 mr-2'}>Show admin indicators?</Label>
++                                <Label className={'mt-1 mr-2'}>Exibir indicadores administrativos?</Label>
+                                 <Field
+                                     id={'indicators'}
+                                     name={'indicators'}
+@@ -105,15 +105,15 @@ export default () => {
+                                 />
+                             </div>
+                             <p className={'text-gray-400 text-xs mt-1.5'}>
+-                                If enabled, small boxes will appear in the top-right of the UI indicating whether
+-                                Jexpanelmodules are enabled/disabled. Only on large screens.
++                                Se ativado, pequenas caixas aparecerão no canto superior direito da interface indicando
++                                se os módulos do Jexpanel estão ativados ou desativados. Somente em telas grandes.
+                             </p>
+                         </div>
+                     </AdminBox>
+-                    <AdminBox title={'Speed Dial'} icon={faPlusCircle}>
++                    <AdminBox title={'Ações rápidas'} icon={faPlusCircle}>
+                         <div>
+                             <div className={'inline-flex'}>
+-                                <Label className={'mt-1 mr-2'}>Show speed dial component?</Label>
++                                <Label className={'mt-1 mr-2'}>Exibir componente de ações rápidas?</Label>
+                                 <Field
+                                     id={'speed_dial'}
+                                     name={'speed_dial'}
+@@ -122,16 +122,16 @@ export default () => {
+                                 />
+                             </div>
+                             <p className={'text-gray-400 text-xs mt-1.5'}>
+-                                If enabled, a component will show to admins in the client-side UI for quick actions -
+-                                such as creating a server or user.
++                                Se ativado, um componente será exibido para administradores na interface do cliente para
++                                ações rápidas - como criar um servidor ou usuário.
+                             </p>
+                         </div>
+                     </AdminBox>
+-                    <AdminBox title={'Activity Logging'} icon={faEye}>
++                    <AdminBox title={'Registro de atividade'} icon={faEye}>
+                         <div>
+                             <div className={'bg-black/50 rounded-lg p-2 grid lg:grid-cols-3 gap-4 place-items-center'}>
+                                 <div className={'inline-flex'}>
+-                                    <Label className={'mt-1 mr-2'}>Account</Label>
++                                    <Label className={'mt-1 mr-2'}>Conta</Label>
+                                     <Field
+                                         id={'activity.enabled.account'}
+                                         name={'activity.enabled.account'}
+@@ -140,7 +140,7 @@ export default () => {
+                                     />
+                                 </div>
+                                 <div className={'inline-flex'}>
+-                                    <Label className={'mt-1 mr-2'}>Server</Label>
++                                    <Label className={'mt-1 mr-2'}>Servidor</Label>
+                                     <Field
+                                         id={'activity.enabled.server'}
+                                         name={'activity.enabled.server'}
+@@ -149,7 +149,7 @@ export default () => {
+                                     />
+                                 </div>
+                                 <div className={'inline-flex'}>
+-                                    <Label className={'mt-1 mr-2'}>Admin</Label>
++                                    <Label className={'mt-1 mr-2'}>Administrador</Label>
+                                     <Field
+                                         id={'activity.enabled.admin'}
+                                         name={'activity.enabled.admin'}
+@@ -159,18 +159,19 @@ export default () => {
+                                 </div>
+                             </div>
+                             <p className={'text-gray-400 text-xs mt-1.5'}>
+-                                Check the boxes you wish to log activity for. By default, all of these are enabled.
++                                Marque as caixas das atividades que você deseja registrar. Por padrão, todas estão
++                                ativadas.
+                             </p>
+                         </div>
+                     </AdminBox>
+                 </div>
+                 <div css={tw`w-full flex flex-row items-center mt-6`}>
+                     <div css={tw`flex text-xs text-gray-500`}>
+-                        These changes may not apply until users refresh the page.
++                        Essas alterações podem não ser aplicadas até que os usuários atualizem a página.
+                     </div>
+ 
+                     <div css={tw`flex ml-auto`}>
+-                        <Button type="submit">Save Changes</Button>
++                        <Button type="submit">Salvar alterações</Button>
+                     </div>
+                 </div>
+             </Form>
+diff --git a/resources/scripts/components/admin/general/settings/ModeSettings.tsx b/resources/scripts/components/admin/general/settings/ModeSettings.tsx
+index b5e85fad6..3365cff34 100644
+--- a/resources/scripts/components/admin/general/settings/ModeSettings.tsx
++++ b/resources/scripts/components/admin/general/settings/ModeSettings.tsx
+@@ -29,7 +29,7 @@ export default () => {
+                 addFlash({
+                     key: 'settings:mode',
+                     type: 'success',
+-                    message: 'Panel mode has been updated.',
++                    message: 'O modo do Painel foi atualizado.',
+                 });
+             })
+             .catch(error => clearAndAddHttpError({ key: 'settings:mode', error }));
+@@ -37,57 +37,60 @@ export default () => {
+ 
+     return (
+         <>
+-            <Dialog open={warning} onClose={() => setWarning(false)} title={'How to activate Debug mode'}>
+-                To set your application into debug mode:
++            <Dialog open={warning} onClose={() => setWarning(false)} title={'Como ativar o modo de depuração'}>
++                Para colocar sua aplicação em modo de depuração:
+                 <ul className={'my-4 text-gray-300'}>
+-                    <li>&bull; SSH into your Webserver console</li>
++                    <li>&bull; Acesse o console do seu servidor web via SSH</li>
+                     <li className={'my-1'}>
+-                        &bull; Navigate to <code className={'bg-black/50 p-1 rounded-lg'}>/var/www/jexactyl</code>
++                        &bull; Navegue até <code className={'bg-black/50 p-1 rounded-lg'}>/var/www/jexactyl</code>
+                     </li>
+                     <li className={'my-1'}>
+-                        &bull; Open the environment file (<code className={'bg-black/50 p-1 rounded-lg'}>.env</code>)
++                        &bull; Abra o arquivo de ambiente (<code className={'bg-black/50 p-1 rounded-lg'}>.env</code>)
++                    </li>
++                    <li className={'my-1'}>&bull; Defina APP_ENV como local e APP_DEBUG como true</li>
++                    <li className={'my-1'}>
++                        &bull; Defina APP_ENV como production e APP_DEBUG como false para desativar
+                     </li>
+-                    <li className={'my-1'}>&bull; Set APP_ENV to local, and APP_DEBUG to true</li>
+-                    <li className={'my-1'}>&bull; Set APP_ENV to production, and APP_DEBUG to false to deactivate</li>
+                 </ul>
+             </Dialog>
+             <FeatureContainer
+                 noHeight
+                 icon={faDesktop}
+-                title={'Standard Mode'}
++                title={'Modo padrão'}
+                 image={<StandardModeSvg color={primary} />}
+             >
+-                Standard mode enables all the typical features of Jexactyl, including our billing system, tickets, user
+-                registration and so much more.
++                O modo padrão ativa todos os recursos típicos do Jexactyl, incluindo nosso sistema de faturamento,
++                tickets, registro de usuários e muito mais.
+                 <p className={'text-right mt-2'}>
+                     <Button disabled={settings.mode === 'standard'} onClick={() => updateMode('standard')}>
+-                        {settings.mode === 'standard' ? 'Currently Active' : 'Enable Now'}
++                        {settings.mode === 'standard' ? 'Ativo no momento' : 'Ativar agora'}
+                     </Button>
+                 </p>
+             </FeatureContainer>
+             <div className={'h-px bg-gray-700 rounded-full my-4'} />
+-            <FeatureContainer
+-                noHeight
+-                icon={faMoon}
+-                title={'Personal Mode'}
+-                image={<PersonalModeSvg color={primary} />}
+-            >
+-                With Personal mode, the Panel automatically removes features mostly used by larger organisations and
+-                hosting providers in order to make hosting and controlling servers much easier for a smaller audience.
++            <FeatureContainer noHeight icon={faMoon} title={'Modo pessoal'} image={<PersonalModeSvg color={primary} />}>
++                Com o modo pessoal, o Painel remove automaticamente recursos usados principalmente por organizações
++                maiores e provedores de hospedagem para facilitar a hospedagem e o controle de servidores para um
++                público menor.
+                 <p className={'text-right mt-2'}>
+                     <Button disabled={settings.mode === 'personal'} onClick={() => updateMode('personal')}>
+-                        {settings.mode === 'personal' ? 'Currently Active' : 'Enable Now'}
++                        {settings.mode === 'personal' ? 'Ativo no momento' : 'Ativar agora'}
+                     </Button>
+                 </p>
+             </FeatureContainer>
+             <div className={'h-px bg-gray-700 rounded-full my-4'} />
+-            <FeatureContainer noHeight icon={faTerminal} title={'Debug Mode'} image={<ServerSvg color={primary} />}>
+-                When Jexpanelis in Debug mode, all HTTP request data is exposed and errors are reported including
+-                sensitive details. Use this mode with caution, and especially{' '}
+-                <strong>do not use this mode in production.</strong>
++            <FeatureContainer
++                noHeight
++                icon={faTerminal}
++                title={'Modo de depuração'}
++                image={<ServerSvg color={primary} />}
++            >
++                Quando o Jexpanel está em modo de depuração, todos os dados de requisições HTTP são expostos e os erros
++                são relatados incluindo detalhes sensíveis. Use este modo com cuidado e especialmente{' '}
++                <strong>não use este modo em produção.</strong>
+                 <p className={'text-right mt-2'}>
+                     <Button onClick={() => setWarning(true)} disabled={settings.debug}>
+-                        {settings.debug ? 'Currently Active' : 'Enable Now'}
++                        {settings.debug ? 'Ativo no momento' : 'Ativar agora'}
+                     </Button>
+                 </p>
+             </FeatureContainer>
+diff --git a/resources/scripts/components/admin/general/settings/SettingsRouter.tsx b/resources/scripts/components/admin/general/settings/SettingsRouter.tsx
+index 2b3348155..9cff2536e 100644
+--- a/resources/scripts/components/admin/general/settings/SettingsRouter.tsx
++++ b/resources/scripts/components/admin/general/settings/SettingsRouter.tsx
+@@ -14,14 +14,14 @@ const SettingsRouter = () => {
+     const appName = useStoreState(state => state.settings.data!.name);
+ 
+     return (
+-        <AdminContentBlock title={'Settings'}>
++        <AdminContentBlock title={'Configurações'}>
+             <div css={tw`w-full flex flex-row items-center mb-8`}>
+                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
+-                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Settings</h2>
++                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Configurações</h2>
+                     <p
+                         css={tw`hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}
+                     >
+-                        Configure and manage settings for {appName}.
++                        Configure e gerencie as configurações de {appName}.
+                     </p>
+                 </div>
+             </div>
+@@ -29,16 +29,16 @@ const SettingsRouter = () => {
+             <FlashMessageRender byKey={'admin:settings'} css={tw`mb-4`} />
+ 
+             <SubNavigation>
+-                <SubNavigationLink to="/admin/settings" name="Core" base>
++                <SubNavigationLink to="/admin/settings" name="Núcleo" base>
+                     <ChipIcon />
+                 </SubNavigationLink>
+-                <SubNavigationLink to="/admin/settings/mode" name="Modes">
++                <SubNavigationLink to="/admin/settings/mode" name="Modos">
+                     <AdjustmentsIcon />
+                 </SubNavigationLink>
+                 <SubNavigationLink to="/admin/settings/webhooks" name="Webhooks">
+                     <LinkIcon />
+                 </SubNavigationLink>
+-                <SubNavigationLink to="/admin/settings/debug" name="Debug">
++                <SubNavigationLink to="/admin/settings/debug" name="Depuração">
+                     <TerminalIcon />
+                 </SubNavigationLink>
+             </SubNavigation>
+diff --git a/resources/scripts/components/admin/general/settings/webhooks/EnableWebhooks.tsx b/resources/scripts/components/admin/general/settings/webhooks/EnableWebhooks.tsx
+index 6c5af6324..7fc6d9a8e 100644
+--- a/resources/scripts/components/admin/general/settings/webhooks/EnableWebhooks.tsx
++++ b/resources/scripts/components/admin/general/settings/webhooks/EnableWebhooks.tsx
+@@ -9,9 +9,9 @@ export default () => {
+ 
+     return (
+         <FeatureContainer image={<WebhookSvg color={primary} />} icon={faExternalLink} title={'Webhooks'}>
+-            Jexactyl&apos;s webhook system can send live updates directly to a URL of your choice - perfect for
+-            integration with platforms like Discord&trade;, Slack&trade; and more. Set what you want to monitor, and a
+-            webhook will be sent whenever that event has been triggered. Simple!
++            O sistema de webhooks do Jexactyl pode enviar atualizações em tempo real diretamente para uma URL de sua
++            escolha - perfeito para integração com plataformas como Discord&trade;, Slack&trade; e outras. Defina o que
++            você quer monitorar, e um webhook será enviado sempre que esse evento for acionado. Simples!
+             <p className={'text-right'}>
+                 <ToggleWebhooksButton />
+             </p>
+diff --git a/resources/scripts/components/admin/general/settings/webhooks/ToggleWebhooksButton.tsx b/resources/scripts/components/admin/general/settings/webhooks/ToggleWebhooksButton.tsx
+index a4499539b..689d1186c 100644
+--- a/resources/scripts/components/admin/general/settings/webhooks/ToggleWebhooksButton.tsx
++++ b/resources/scripts/components/admin/general/settings/webhooks/ToggleWebhooksButton.tsx
+@@ -13,7 +13,7 @@ export default () => {
+ 
+     return (
+         <div className={'mr-4'} onClick={submit}>
+-            {!enabled ? <Button>Enable Webhooks</Button> : <Button.Danger>Disable Webhooks</Button.Danger>}
++            {!enabled ? <Button>Ativar Webhooks</Button> : <Button.Danger>Desativar Webhooks</Button.Danger>}
+         </div>
+     );
+ };
+diff --git a/resources/scripts/components/admin/general/settings/webhooks/WebhookRouter.tsx b/resources/scripts/components/admin/general/settings/webhooks/WebhookRouter.tsx
+index f69d85a40..cd26f7e5d 100644
+--- a/resources/scripts/components/admin/general/settings/webhooks/WebhookRouter.tsx
++++ b/resources/scripts/components/admin/general/settings/webhooks/WebhookRouter.tsx
+@@ -22,15 +22,15 @@ export default () => {
+                             'hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden'
+                         }
+                     >
+-                        Change settings for realtime webhook monitoring.
++                        Altere as configurações do monitoramento de webhooks em tempo real.
+                     </p>
+                 </div>
+             </div>
+             <SubNavigation>
+-                <SubNavigationLink to="/admin/settings" name="Core" base>
++                <SubNavigationLink to="/admin/settings" name="Núcleo" base>
+                     <ChipIcon />
+                 </SubNavigationLink>
+-                <SubNavigationLink to="/admin/settings/mode" name="Modes">
++                <SubNavigationLink to="/admin/settings/mode" name="Modos">
+                     <AdjustmentsIcon />
+                 </SubNavigationLink>
+                 <SubNavigationLink to="/admin/settings/webhooks" name="Webhooks">
+diff --git a/resources/scripts/components/admin/general/settings/webhooks/WebhookSettings.tsx b/resources/scripts/components/admin/general/settings/webhooks/WebhookSettings.tsx
+index 61c0755c9..896ebf962 100644
+--- a/resources/scripts/components/admin/general/settings/webhooks/WebhookSettings.tsx
++++ b/resources/scripts/components/admin/general/settings/webhooks/WebhookSettings.tsx
+@@ -29,7 +29,7 @@ export default () => {
+                 addFlash({
+                     type: 'success',
+                     key: 'admin:webhooks',
+-                    message: 'Settings have been updated successfully.',
++                    message: 'Configurações atualizadas com sucesso.',
+                 });
+             })
+             .catch(error => {
+@@ -54,32 +54,34 @@ export default () => {
+             <Form>
+                 <FlashMessageRender byKey={'admin:webhooks'} className={'mb-2'} />
+                 <div>
+-                    <AdminBox title={'Webhook URL'} icon={faLink}>
++                    <AdminBox title={'URL do Webhook'} icon={faLink}>
+                         <div>
+                             <div>
+-                                <Label className={'mt-1 mr-2'}>Webhook URL Configuration</Label>
++                                <Label className={'mt-1 mr-2'}>Configuração da URL do Webhook</Label>
+                                 <Field
+                                     id={'url'}
+                                     name={'url'}
+                                     placeholder={
+                                         settings.url
+-                                            ? 'The webhook URL has already been provided.'
+-                                            : 'Provide a webhook URL here'
++                                            ? 'A URL do webhook já foi informada.'
++                                            : 'Informe uma URL de webhook aqui'
+                                     }
+                                 />
+                             </div>
+                             <p className={'text-gray-400 text-xs mt-1.5'}>
+-                                Set the webhook URL to use for sending data.
++                                Defina a URL do webhook a ser usada para enviar dados.
+                             </p>
+                         </div>
+                     </AdminBox>
+                 </div>
+                 <div css={tw`w-full flex flex-row items-center mt-6`}>
+-                    <div css={tw`flex text-xs text-gray-500`}>These changes will apply as soon you save them.</div>
++                    <div css={tw`flex text-xs text-gray-500`}>
++                        Essas alterações serão aplicadas assim que você salvá-las.
++                    </div>
+ 
+                     <div css={tw`flex ml-auto`}>
+                         <ToggleWebhooksButton />
+-                        <Button type="submit">Save Changes</Button>
++                        <Button type="submit">Salvar alterações</Button>
+                     </div>
+                 </div>
+             </Form>
+diff --git a/resources/scripts/components/admin/general/settings/webhooks/events/EventBox.tsx b/resources/scripts/components/admin/general/settings/webhooks/events/EventBox.tsx
+index b44aee7e1..d491b0662 100644
+--- a/resources/scripts/components/admin/general/settings/webhooks/events/EventBox.tsx
++++ b/resources/scripts/components/admin/general/settings/webhooks/events/EventBox.tsx
+@@ -31,7 +31,7 @@ export default ({ event }: { event: WebhookEvent }) => {
+         >
+             {status === 'none' && (
+                 <span className={'absolute top-2.5 right-2 space-x-1'}>
+-                    <Pill type={event.enabled ? 'success' : 'danger'}>{event.enabled ? 'Enabled' : 'Disabled'}</Pill>
++                    <Pill type={event.enabled ? 'success' : 'danger'}>{event.enabled ? 'Ativado' : 'Desativado'}</Pill>
+                 </span>
+             )}
+             <p className={'text-sm text-gray-400'}>
+diff --git a/resources/scripts/components/admin/general/settings/webhooks/events/WebhookEventsContainer.tsx b/resources/scripts/components/admin/general/settings/webhooks/events/WebhookEventsContainer.tsx
+index 166c96d65..ab87d36f2 100644
+--- a/resources/scripts/components/admin/general/settings/webhooks/events/WebhookEventsContainer.tsx
++++ b/resources/scripts/components/admin/general/settings/webhooks/events/WebhookEventsContainer.tsx
+@@ -50,7 +50,7 @@ export default () => {
+ 
+         sendTestEvent()
+             .then(() => {
+-                addFlash({ key: 'admin:webhooks', type: 'success', message: 'Webhook sent successfully!' });
++                addFlash({ key: 'admin:webhooks', type: 'success', message: 'Webhook enviado com sucesso!' });
+             })
+             .catch(error => clearAndAddHttpError({ key: 'admin:webhooks', error }));
+     };
+@@ -63,17 +63,17 @@ export default () => {
+             <div className={'w-full h-px bg-white/50 rounded-full my-10'} />
+             <div className={'flex grid lg:grid-cols-2 mb-6'}>
+                 <Input
+-                    placeholder={'Search for a webhook event...'}
++                    placeholder={'Buscar um evento de webhook...'}
+                     value={searchTerm}
+                     onChange={e => handleSearch(e.target.value)}
+                 />
+                 <div className={'flex justify-end'}>
+                     <div className={'p-2 w-fit rounded-lg space-x-3'} style={{ background: colors.secondary }}>
+                         <Button.Text onClick={doTest} variant={Button.Variants.Secondary}>
+-                            Send Test
++                            Enviar teste
+                         </Button.Text>
+-                        <Button.Danger onClick={doDisable}>Disable All</Button.Danger>
+-                        <Button onClick={doEnable}>Enable All</Button>
++                        <Button.Danger onClick={doDisable}>Desativar tudo</Button.Danger>
++                        <Button onClick={doEnable}>Ativar tudo</Button>
+                     </div>
+                 </div>
+             </div>

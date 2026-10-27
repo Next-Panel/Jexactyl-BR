@@ -1,0 +1,3269 @@
+From: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+Date: Tue, 27 Oct 2026 09:53:19 -0300
+Subject: i18n: traduz gestão administrativa de bancos, Nodes, servidores e contas
+
+Description:
+Traduz toda a seção de Gerenciamento do painel administrativo, abrangendo
+hosts de bancos de dados, Nodes (criação, implantação expressa, limites,
+portas de escuta, alocações, auto-implantação do Wings e faturamento),
+servidores e Presets (criação, recursos, rede, inicialização, suspensão,
+reinstalação, transferência e exclusão) e usuários e funções administrativas
+(roles e permissões).
+
+Origin: vendor
+Forwarded: not-needed
+Applied-Upstream: no
+Last-Update: 2026-10-27
+Signed-off-by: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+
+---
+
+diff --git a/resources/scripts/components/admin/management/databases/DatabaseDeleteButton.tsx b/resources/scripts/components/admin/management/databases/DatabaseDeleteButton.tsx
+index 1fbc657d0..73e2c7bed 100644
+--- a/resources/scripts/components/admin/management/databases/DatabaseDeleteButton.tsx
++++ b/resources/scripts/components/admin/management/databases/DatabaseDeleteButton.tsx
+@@ -39,14 +39,14 @@ export default ({ databaseId, onDeleted }: Props) => {
+         <>
+             <ConfirmationModal
+                 visible={visible}
+-                title={'Delete database host?'}
+-                buttonText={'Yes, delete database host'}
++                title={'Excluir host de banco de dados?'}
++                buttonText={'Sim, excluir host de banco de dados'}
+                 onConfirmed={onDelete}
+                 showSpinnerOverlay={loading}
+                 onModalDismissed={() => setVisible(false)}
+             >
+-                Are you sure you want to delete this database host? This action will delete all knowledge of databases
+-                created on this host but not the databases themselves.
++                Tem certeza de que deseja excluir este host de banco de dados? Isso removerá todos os registros de
++                bancos de dados criados neste host, mas não os bancos de dados em si.
+             </ConfirmationModal>
+ 
+             <Button.Danger type="button" shape={Shape.IconSquare} onClick={() => setVisible(true)}>
+diff --git a/resources/scripts/components/admin/management/databases/DatabaseEditContainer.tsx b/resources/scripts/components/admin/management/databases/DatabaseEditContainer.tsx
+index 8e0521b61..82a59b447 100644
+--- a/resources/scripts/components/admin/management/databases/DatabaseEditContainer.tsx
++++ b/resources/scripts/components/admin/management/databases/DatabaseEditContainer.tsx
+@@ -83,7 +83,7 @@ export const InformationContainer = ({ title, initialValues, children, onSubmit
+ 
+                         <Form css={tw`mb-0`}>
+                             <div>
+-                                <Field id={'name'} name={'name'} label={'Name'} type={'text'} />
++                                <Field id={'name'} name={'name'} label={'Nome'} type={'text'} />
+                             </div>
+ 
+                             <div css={tw`md:w-full md:flex md:flex-row mt-6`}>
+@@ -92,20 +92,20 @@ export const InformationContainer = ({ title, initialValues, children, onSubmit
+                                 </div>
+ 
+                                 <div css={tw`md:w-full md:flex md:flex-col md:ml-4 mt-6 md:mt-0`}>
+-                                    <Field id={'port'} name={'port'} label={'Port'} type={'text'} />
++                                    <Field id={'port'} name={'port'} label={'Porta'} type={'text'} />
+                                 </div>
+                             </div>
+ 
+                             <div css={tw`md:w-full md:flex md:flex-row mt-6`}>
+                                 <div css={tw`md:w-full md:flex md:flex-col md:mr-4 mt-6 md:mt-0`}>
+-                                    <Field id={'username'} name={'username'} label={'Username'} type={'text'} />
++                                    <Field id={'username'} name={'username'} label={'Nome de usuário'} type={'text'} />
+                                 </div>
+ 
+                                 <div css={tw`md:w-full md:flex md:flex-col md:ml-4 mt-6 md:mt-0`}>
+                                     <Field
+                                         id={'password'}
+                                         name={'password'}
+-                                        label={'Password'}
++                                        label={'Senha'}
+                                         type={'password'}
+                                         placeholder={'••••••••'}
+                                     />
+@@ -116,7 +116,7 @@ export const InformationContainer = ({ title, initialValues, children, onSubmit
+                                 {children}
+                                 <div css={tw`flex ml-auto`}>
+                                     <Button type="submit" disabled={isSubmitting || !isValid}>
+-                                        Save Changes
++                                        Salvar alterações
+                                     </Button>
+                                 </div>
+                             </div>
+@@ -156,7 +156,7 @@ const EditInformationContainer = () => {
+ 
+     return (
+         <InformationContainer
+-            title={'Edit Database'}
++            title={'Editar banco de dados'}
+             initialValues={{
+                 name: database.name,
+                 host: database.host,
+@@ -209,7 +209,7 @@ const DatabaseEditContainer = () => {
+     }
+ 
+     return (
+-        <AdminContentBlock title={'Database - ' + database.name}>
++        <AdminContentBlock title={'Banco de dados - ' + database.name}>
+             <div css={tw`w-full flex flex-row items-center mb-8`}>
+                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
+                     <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>{database.name}</h2>
+diff --git a/resources/scripts/components/admin/management/databases/DatabasesContainer.tsx b/resources/scripts/components/admin/management/databases/DatabasesContainer.tsx
+index e76b62382..1cde02fb7 100644
+--- a/resources/scripts/components/admin/management/databases/DatabasesContainer.tsx
++++ b/resources/scripts/components/admin/management/databases/DatabasesContainer.tsx
+@@ -35,14 +35,14 @@ export default ({ filters }: Props) => {
+ 
+     return (
+         <AdminContentBlock>
+-            <Dialog title={'Create a New Database'} open={open} onClose={() => setOpen(false)} size={'lg'}>
+-                <InformationContainer title={'Information'} onSubmit={submit} />
++            <Dialog title={'Criar novo banco de dados'} open={open} onClose={() => setOpen(false)} size={'lg'}>
++                <InformationContainer title={'Informações'} onSubmit={submit} />
+             </Dialog>
+             <div className={'w-full flex flex-row items-center mb-8'}>
+                 <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
+-                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Database Hosts</h2>
++                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Hosts de banco de dados</h2>
+                     <p className={'hidden lg:block text-base text-neutral-400 whitespace-nowrap'}>
+-                        Modify node database hosts linked to the Panel.
++                        Modifique os hosts de banco de dados dos Nodes vinculados ao Painel.
+                     </p>
+                 </div>
+                 <div className={'w-full text-right mb-4'}>
+@@ -52,7 +52,7 @@ export default ({ filters }: Props) => {
+                         onClick={() => setOpen(true)}
+                         className={'h-10 px-4 py-0 whitespace-nowrap'}
+                     >
+-                        New Database Host
++                        Novo host de banco de dados
+                     </Button>
+                 </div>
+             </div>
+diff --git a/resources/scripts/components/admin/management/databases/DatabasesTable.tsx b/resources/scripts/components/admin/management/databases/DatabasesTable.tsx
+index 47fc77e64..5b398e1af 100644
+--- a/resources/scripts/components/admin/management/databases/DatabasesTable.tsx
++++ b/resources/scripts/components/admin/management/databases/DatabasesTable.tsx
+@@ -59,12 +59,12 @@ export default () => {
+                                     onClick={() => setSort('id')}
+                                 />
+                                 <TableHeader
+-                                    name={'Name'}
++                                    name={'Nome'}
+                                     direction={sort === 'name' ? (sortDirection ? 1 : 2) : null}
+                                     onClick={() => setSort('name')}
+                                 />
+-                                <TableHeader name={'Address'} />
+-                                <TableHeader name={'Username'} />
++                                <TableHeader name={'Endereço'} />
++                                <TableHeader name={'Nome de usuário'} />
+                                 <TableHeader name={'Status'} />
+                             </TableHead>
+ 
+diff --git a/resources/scripts/components/admin/management/nodes/DatabaseSelect.tsx b/resources/scripts/components/admin/management/nodes/DatabaseSelect.tsx
+index 34fc0d009..6994ac8e7 100644
+--- a/resources/scripts/components/admin/management/nodes/DatabaseSelect.tsx
++++ b/resources/scripts/components/admin/management/nodes/DatabaseSelect.tsx
+@@ -44,8 +44,8 @@ export default ({ selected }: { selected: number | null }) => {
+         <SearchableSelect
+             id={'databaseId'}
+             name={'databaseId'}
+-            label={'Database Host'}
+-            placeholder={'Select a database host...'}
++            label={'Host do banco de dados'}
++            placeholder={'Selecione um host de banco de dados...'}
+             items={databases}
+             selected={database}
+             setSelected={setDatabase}
+diff --git a/resources/scripts/components/admin/management/nodes/NewNodeContainer.tsx b/resources/scripts/components/admin/management/nodes/NewNodeContainer.tsx
+index fe903bbc5..e3a0dd562 100644
+--- a/resources/scripts/components/admin/management/nodes/NewNodeContainer.tsx
++++ b/resources/scripts/components/admin/management/nodes/NewNodeContainer.tsx
+@@ -59,14 +59,14 @@ function InternalForm() {
+     return (
+         <Form>
+             <div css={tw`w-full mb-4`}>
+-                <AdminBox title={'Setup Mode'} css={tw`w-full relative`}>
++                <AdminBox title={'Modo de configuração'} css={tw`w-full relative`}>
+                     <Switch
+                         name={'advancedSetup'}
+-                        label={advanced ? 'Advanced' : 'Express'}
++                        label={advanced ? 'Avançado' : 'Expresso'}
+                         description={
+                             advanced
+-                                ? 'Configure every setting for this node.'
+-                                : 'Configure only the essentials — everything else uses sensible defaults.'
++                                ? 'Configure todas as definições deste Node.'
++                                : 'Configure apenas o essencial — o restante usa padrões sensatos.'
+                         }
+                         defaultChecked={advanced}
+                         onChange={() => setAdvanced(!advanced)}
+@@ -115,7 +115,7 @@ function InternalForm() {
+                         disabled={isSubmitting || !isValid}
+                         icon={PlusIcon}
+                     >
+-                        Create
++                        Criar
+                     </Button>
+                 </div>
+             </div>
+@@ -167,8 +167,8 @@ export default () => {
+                 disk: number().required(),
+                 diskOverallocate: number().required(),
+                 deploymentFee: number()
+-                    .typeError('Deployment fee must be a number')
+-                    .min(0, 'Deployment fee cannot be negative'),
++                    .typeError('A taxa de implantação deve ser um número')
++                    .min(0, 'A taxa de implantação não pode ser negativa'),
+             })}
+         >
+             <InternalForm />
+diff --git a/resources/scripts/components/admin/management/nodes/NodeAboutContainer.tsx b/resources/scripts/components/admin/management/nodes/NodeAboutContainer.tsx
+index e8c134b03..f10fd527f 100644
+--- a/resources/scripts/components/admin/management/nodes/NodeAboutContainer.tsx
++++ b/resources/scripts/components/admin/management/nodes/NodeAboutContainer.tsx
+@@ -120,7 +120,7 @@ export default () => {
+ 
+     if (loading) {
+         return (
+-            <AdminBox title={'Node Information'} icon={faServer} css={tw`relative`}>
++            <AdminBox title={'Informações do Node'} icon={faServer} css={tw`relative`}>
+                 <SpinnerOverlay visible={loading} />
+             </AdminBox>
+         );
+@@ -130,48 +130,48 @@ export default () => {
+         <div className={'grid lg:grid-cols-3 gap-4'}>
+             {error ? (
+                 <Alert type={'danger'} className={'col-span-2'}>
+-                    We were unable to connect to this node, so no information can be displayed.
++                    Não foi possível conectar a este Node, por isso nenhuma informação pode ser exibida.
+                 </Alert>
+             ) : (
+                 <>
+-                    <AdminBox title={'System Information'} icon={faServer}>
++                    <AdminBox title={'Informações do sistema'} icon={faServer}>
+                         <table>
+                             <tbody>
+                                 <tr>
+-                                    <td css={tw`py-1 pr-6`}>Version</td>
++                                    <td css={tw`py-1 pr-6`}>Versão</td>
+                                     <td css={tw`py-1`}>
+                                         <Code css={tw`ml-auto`}>{info?.version}</Code>
+                                     </td>
+                                 </tr>
+                                 <tr>
+-                                    <td css={tw`py-1 pr-6`}>Operating System</td>
++                                    <td css={tw`py-1 pr-6`}>Sistema operacional</td>
+                                     <td css={tw`py-1`}>
+                                         <Code css={tw`ml-auto`}>{info?.system.type}</Code>
+                                         <Code css={tw`ml-1`}>{info?.system.release}</Code>
+                                     </td>
+                                 </tr>
+                                 <tr>
+-                                    <td css={tw`py-1 pr-6`}>Architecture</td>
++                                    <td css={tw`py-1 pr-6`}>Arquitetura</td>
+                                     <td css={tw`py-1`}>
+                                         <Code css={tw`ml-auto`}>{info?.system.arch}</Code>
+                                     </td>
+                                 </tr>
+                                 <tr>
+-                                    <td css={tw`py-1 pr-6`}>CPU Threads</td>
++                                    <td css={tw`py-1 pr-6`}>Threads de CPU</td>
+                                     <td css={tw`py-1`}>
+                                         <Code css={tw`ml-auto`}>{info?.system.cpus}</Code>
+                                     </td>
+                                 </tr>
+                                 <tr>
+-                                    <td css={tw`py-1 pr-6`}>Supercharged</td>
++                                    <td css={tw`py-1 pr-6`}>Supercarregado</td>
+                                     <td css={tw`py-1`}>
+-                                        <Code css={tw`ml-auto`}>{info?.system.supercharged ? 'Yes' : 'No'}</Code>
++                                        <Code css={tw`ml-auto`}>{info?.system.supercharged ? 'Sim' : 'Não'}</Code>
+                                         <Tooltip
+                                             placement={'right-end'}
+                                             content={
+                                                 info?.system.supercharged
+-                                                    ? 'This node is running JexpanelSuperDaemon, which adds more features.'
+-                                                    : 'This node is running Pterodactyl Wings. Consider moving to JexpanelSuperDaemon for more features.'
++                                                    ? 'Este Node está executando o JexpanelSuperDaemon, que adiciona mais recursos.'
++                                                    : 'Este Node está executando o Pterodactyl Wings. Considere migrar para o JexpanelSuperDaemon para ter mais recursos.'
+                                             }
+                                         >
+                                             <FontAwesomeIcon
+@@ -185,21 +185,21 @@ export default () => {
+                             </tbody>
+                         </table>
+                     </AdminBox>
+-                    <AdminBox icon={faMicrochip} title={'Resources'} css={tw`w-full relative`}>
++                    <AdminBox icon={faMicrochip} title={'Recursos'} css={tw`w-full relative`}>
+                         <div css={tw`md:w-full md:flex md:flex-row mb-6`}>
+                             <div css={tw`md:w-full md:flex md:flex-col md:mr-4 mb-6 md:mb-0`}>
+-                                <Label>Memory Limit</Label>
++                                <Label>Limite de memória</Label>
+                                 <Input disabled placeholder={`${(node.memory / 1024).toString()} GiB`}></Input>
+                             </div>
+ 
+                             <div css={tw`md:w-full md:flex md:flex-col md:ml-4 mb-6 md:mb-0`}>
+-                                <Label>Disk Limit</Label>
++                                <Label>Limite de disco</Label>
+                                 <Input disabled placeholder={`${(node.disk / 1024).toString()} GiB`}></Input>
+                             </div>
+                         </div>
+                         <div css={tw`md:w-full md:flex md:flex-row mb-6`}>
+                             <div css={tw`md:w-full md:flex md:flex-col mb-6 md:mb-0`}>
+-                                <Label>FQDN Address</Label>
++                                <Label>Endereço FQDN</Label>
+                                 <Input
+                                     disabled
+                                     placeholder={`${node.scheme}://${node.fqdn}:${node.listenPortHTTP}`}
+@@ -207,26 +207,26 @@ export default () => {
+                             </div>
+                         </div>
+                     </AdminBox>
+-                    <AdminBox icon={faChartBar} title={'Allocation Information'} css={tw`w-full relative`}>
++                    <AdminBox icon={faChartBar} title={'Informações de alocação'} css={tw`w-full relative`}>
+                         <div className={'grid space-y-6'}>
+-                            <AllocatedBox title={'Memory allocated to servers'} percent={node.memoryUsedPercent} />
+-                            <AllocatedBox title={'Disk allocated to servers'} percent={node.diskUsedPercent} />
+-                            <AllocatedBox title={'Used Allocations'} percent={node.allocationsUsedPercent} />
++                            <AllocatedBox title={'Memória alocada aos servidores'} percent={node.memoryUsedPercent} />
++                            <AllocatedBox title={'Disco alocado aos servidores'} percent={node.diskUsedPercent} />
++                            <AllocatedBox title={'Alocações utilizadas'} percent={node.allocationsUsedPercent} />
+                         </div>
+                     </AdminBox>
+                     {utilization && (
+-                        <AdminBox icon={faBarChart} title={'Resource Utilization'} css={tw`w-full relative`}>
++                        <AdminBox icon={faBarChart} title={'Utilização de recursos'} css={tw`w-full relative`}>
+                             <div className={'grid lg:grid-cols-3 gap-6'}>
+                                 <ResourceBox
+                                     icon={faMicrochip}
+-                                    title={'CPU usage'}
++                                    title={'Uso de CPU'}
+                                     usage={`${utilization.cpu.toFixed(2)}%`}
+                                 />
+                                 <ResourceBox
+                                     large
+                                     icon={faMemory}
+-                                    title={'RAM utilization'}
+-                                    usage={`${(utilization.memory.used / 1024 / 1024 / 1024).toFixed(1)} GB of ${(
++                                    title={'Utilização de RAM'}
++                                    usage={`${(utilization.memory.used / 1024 / 1024 / 1024).toFixed(1)} GB de ${(
+                                         utilization.memory.total /
+                                         1024 /
+                                         1024 /
+@@ -236,8 +236,8 @@ export default () => {
+                                 <ResourceBox
+                                     large
+                                     icon={faHdd}
+-                                    title={'Disk utilization'}
+-                                    usage={`${(utilization.disk.used / 1024 / 1024 / 1024).toFixed(1)} GB of ${(
++                                    title={'Utilização de disco'}
++                                    usage={`${(utilization.disk.used / 1024 / 1024 / 1024).toFixed(1)} GB de ${(
+                                         utilization.disk.total /
+                                         1024 /
+                                         1024 /
+@@ -246,7 +246,7 @@ export default () => {
+                                 />
+                                 <ResourceBox
+                                     icon={faShuffle}
+-                                    title={'Swap usage'}
++                                    title={'Uso de Swap'}
+                                     usage={`${(utilization.swap.used / 1024 / 1024 / 1024).toFixed(1)} GB`}
+                                 />
+                             </div>
+diff --git a/resources/scripts/components/admin/management/nodes/NodeAllocationContainer.tsx b/resources/scripts/components/admin/management/nodes/NodeAllocationContainer.tsx
+index f5360b1ba..0d17e4852 100644
+--- a/resources/scripts/components/admin/management/nodes/NodeAllocationContainer.tsx
++++ b/resources/scripts/components/admin/management/nodes/NodeAllocationContainer.tsx
+@@ -20,7 +20,7 @@ export default () => {
+                 </div>
+ 
+                 <div css={tw`lg:col-span-4`}>
+-                    <AdminBox icon={faNetworkWired} title={'Allocations'} css={tw`h-auto w-full`}>
++                    <AdminBox icon={faNetworkWired} title={'Alocações'} css={tw`h-auto w-full`}>
+                         <CreateAllocationForm nodeId={Number(params.id)} />
+                     </AdminBox>
+                     <div className={'text-right mt-4'}>
+diff --git a/resources/scripts/components/admin/management/nodes/NodeBillingContainer.tsx b/resources/scripts/components/admin/management/nodes/NodeBillingContainer.tsx
+index e782aedbe..5a60c8bea 100644
+--- a/resources/scripts/components/admin/management/nodes/NodeBillingContainer.tsx
++++ b/resources/scripts/components/admin/management/nodes/NodeBillingContainer.tsx
+@@ -10,40 +10,42 @@ export default () => {
+     const { isSubmitting } = useFormikContext();
+ 
+     return (
+-        <AdminBox icon={faCashRegister} title={'Billing Configuration'} css={tw`w-full relative`}>
++        <AdminBox icon={faCashRegister} title={'Configuração de faturamento'} css={tw`w-full relative`}>
+             <SpinnerOverlay visible={isSubmitting} />
+             <div>
+-                <Label htmlFor={'deployable'}>Deployable for paid servers</Label>
++                <Label htmlFor={'deployable'}>Implantável para servidores pagos</Label>
+                 <div>
+                     <label css={tw`inline-flex items-center mr-2`}>
+                         <FormikField name={'deployable'} type={'radio'} value={'true'} />
+-                        <span css={tw`text-neutral-300 ml-2`}>Enabled</span>
++                        <span css={tw`text-neutral-300 ml-2`}>Ativado</span>
+                     </label>
+ 
+                     <label css={tw`inline-flex items-center ml-2`}>
+                         <FormikField name={'deployable'} type={'radio'} value={'false'} />
+-                        <span css={tw`text-neutral-300 ml-2`}>Disabled</span>
++                        <span css={tw`text-neutral-300 ml-2`}>Desativado</span>
+                     </label>
+                 </div>
+                 <p className={'text-sm text-gray-400 mt-1'}>
+-                    Allows users to deploy servers to this node via the Billing system if it is enabled.
++                    Permite que usuários implantem servidores neste Node pelo sistema de faturamento, se estiver
++                    ativado.
+                 </p>
+             </div>
+             <div className={'mt-6'}>
+-                <Label htmlFor={'deployableFree'}>Deployable for free servers</Label>
++                <Label htmlFor={'deployableFree'}>Implantável para servidores gratuitos</Label>
+                 <div>
+                     <label css={tw`inline-flex items-center mr-2`}>
+                         <FormikField name={'deployableFree'} type={'radio'} value={'true'} />
+-                        <span css={tw`text-neutral-300 ml-2`}>Enabled</span>
++                        <span css={tw`text-neutral-300 ml-2`}>Ativado</span>
+                     </label>
+ 
+                     <label css={tw`inline-flex items-center ml-2`}>
+                         <FormikField name={'deployableFree'} type={'radio'} value={'false'} />
+-                        <span css={tw`text-neutral-300 ml-2`}>Disabled</span>
++                        <span css={tw`text-neutral-300 ml-2`}>Desativado</span>
+                     </label>
+                 </div>
+                 <p className={'text-sm text-gray-400 mt-1'}>
+-                    Allows users to deploy <strong>free</strong> servers to this node via the billing system.
++                    Permite que usuários implantem servidores <strong>gratuitos</strong> neste Node pelo sistema de
++                    faturamento.
+                 </p>
+             </div>
+             <div className={'mt-6'}>
+@@ -51,9 +53,9 @@ export default () => {
+                     id={'deploymentFee'}
+                     name={'deploymentFee'}
+                     type={'text'}
+-                    label={'Deployment Fee'}
++                    label={'Taxa de implantação'}
+                     description={
+-                        'Optional one-time fee charged in addition to the product price when a paid server is first deployed to this node. Leave at 0 for no fee.'
++                        'Taxa única opcional cobrada além do preço do produto quando um servidor pago é implantado neste Node pela primeira vez. Deixe 0 para não cobrar taxa.'
+                     }
+                 />
+             </div>
+diff --git a/resources/scripts/components/admin/management/nodes/NodeConfigurationContainer.tsx b/resources/scripts/components/admin/management/nodes/NodeConfigurationContainer.tsx
+index 8c47bf630..f2de767b3 100644
+--- a/resources/scripts/components/admin/management/nodes/NodeConfigurationContainer.tsx
++++ b/resources/scripts/components/admin/management/nodes/NodeConfigurationContainer.tsx
+@@ -41,12 +41,13 @@ export default () => {
+         <>
+             {searchParams.get('setup') === 'true' && (
+                 <Alert type={'info'} css={tw`mb-4`}>
+-                    Your node has been created. Copy the configuration below and paste it into&nbsp;
+-                    <code className={'mx-1'}>/etc/pterodactyl/config.yml</code>&nbsp;on your new node to complete setup.
++                    Seu Node foi criado. Copie a configuração abaixo e cole em&nbsp;
++                    <code className={'mx-1'}>/etc/pterodactyl/config.yml</code>&nbsp;no seu novo Node para concluir a
++                    configuração.
+                 </Alert>
+             )}
+ 
+-            <AdminBox title={'Configuration'} icon={faCode} css={tw`mb-4`}>
++            <AdminBox title={'Configuração'} icon={faCode} css={tw`mb-4`}>
+                 <div css={tw`relative`}>
+                     <div css={tw`absolute top-0 right-0`}>
+                         <CopyOnClick text={configuration} showInNotification={false}>
+@@ -64,8 +65,8 @@ export default () => {
+ 
+             {searchParams.get('setup') === 'true' && (
+                 <Alert type={'info'} css={tw`mb-4`}>
+-                    After this is done, you&apos;ll need to set up Allocations for servers to connect to. Click
+-                    &apos;Allocations&apos; at the top of your screen.
++                    Depois disso, você precisará configurar as alocações para os servidores se conectarem. Clique em
++                    &apos;Alocações&apos; no topo da tela.
+                 </Alert>
+             )}
+         </>
+diff --git a/resources/scripts/components/admin/management/nodes/NodeDeleteButton.tsx b/resources/scripts/components/admin/management/nodes/NodeDeleteButton.tsx
+index f4c83921d..a66724ea5 100644
+--- a/resources/scripts/components/admin/management/nodes/NodeDeleteButton.tsx
++++ b/resources/scripts/components/admin/management/nodes/NodeDeleteButton.tsx
+@@ -43,13 +43,13 @@ export default ({ nodeId, onDeleted }: Props) => {
+         <>
+             <ConfirmationModal
+                 visible={visible}
+-                title={'Delete node?'}
+-                buttonText={'Yes, delete node'}
++                title={'Excluir Node?'}
++                buttonText={'Sim, excluir Node'}
+                 onConfirmed={onDelete}
+                 showSpinnerOverlay={loading}
+                 onModalDismissed={() => setVisible(false)}
+             >
+-                Are you sure you want to delete this node?
++                Tem certeza de que deseja excluir este Node?
+             </ConfirmationModal>
+ 
+             <Button.Danger type={'button'} onClick={() => setVisible(true)}>
+diff --git a/resources/scripts/components/admin/management/nodes/NodeEditContainer.tsx b/resources/scripts/components/admin/management/nodes/NodeEditContainer.tsx
+index 8bcdc4d57..1d94f1779 100644
+--- a/resources/scripts/components/admin/management/nodes/NodeEditContainer.tsx
++++ b/resources/scripts/components/admin/management/nodes/NodeEditContainer.tsx
+@@ -120,8 +120,8 @@ export default () => {
+                 disk: number().required(),
+                 diskOverallocate: number().required(),
+                 deploymentFee: number()
+-                    .typeError('Deployment fee must be a number')
+-                    .min(0, 'Deployment fee cannot be negative'),
++                    .typeError('A taxa de implantação deve ser um número')
++                    .min(0, 'A taxa de implantação não pode ser negativa'),
+             })}
+         >
+             {({ isSubmitting, isValid }) => (
+@@ -148,7 +148,7 @@ export default () => {
+                                 <div css={tw`flex flex-row`}>
+                                     <NodeDeleteButton nodeId={node?.id} onDeleted={() => navigate('/admin/nodes')} />
+                                     <Button type={'submit'} css={tw`ml-auto`} disabled={isSubmitting || !isValid}>
+-                                        Save Changes
++                                        Salvar alterações
+                                     </Button>
+                                 </div>
+                             </div>
+diff --git a/resources/scripts/components/admin/management/nodes/NodeExpressContainer.tsx b/resources/scripts/components/admin/management/nodes/NodeExpressContainer.tsx
+index 5e2b9b78b..55f4607d2 100644
+--- a/resources/scripts/components/admin/management/nodes/NodeExpressContainer.tsx
++++ b/resources/scripts/components/admin/management/nodes/NodeExpressContainer.tsx
+@@ -11,11 +11,11 @@ export default () => {
+     const { isSubmitting } = useFormikContext();
+ 
+     return (
+-        <AdminBox icon={faServer} title={'Node Details'} css={tw`w-full relative`}>
++        <AdminBox icon={faServer} title={'Detalhes do Node'} css={tw`w-full relative`}>
+             <SpinnerOverlay visible={isSubmitting} />
+ 
+             <div css={tw`mb-6`}>
+-                <Field id={'name'} name={'name'} label={'Name'} type={'text'} />
++                <Field id={'name'} name={'name'} label={'Nome'} type={'text'} />
+             </div>
+ 
+             <div css={tw`mb-6`}>
+@@ -28,23 +28,23 @@ export default () => {
+                 <div>
+                     <label css={tw`inline-flex items-center mr-2`}>
+                         <FormikField name={'scheme'} type={'radio'} value={'https'} />
+-                        <span css={tw`text-neutral-300 ml-2`}>Enabled</span>
++                        <span css={tw`text-neutral-300 ml-2`}>Ativado</span>
+                     </label>
+ 
+                     <label css={tw`inline-flex items-center ml-2`}>
+                         <FormikField name={'scheme'} type={'radio'} value={'http'} />
+-                        <span css={tw`text-neutral-300 ml-2`}>Disabled</span>
++                        <span css={tw`text-neutral-300 ml-2`}>Desativado</span>
+                     </label>
+                 </div>
+             </div>
+ 
+             <div css={tw`md:w-full md:flex md:flex-row`}>
+                 <div css={tw`mb-6 md:w-full md:flex md:flex-col md:mr-4 md:mb-0`}>
+-                    <Field id={'memory'} name={'memory'} label={'Memory Limit'} type={'number'} />
++                    <Field id={'memory'} name={'memory'} label={'Limite de memória'} type={'number'} />
+                 </div>
+ 
+                 <div css={tw`mb-6 md:w-full md:flex md:flex-col md:ml-4 md:mb-0`}>
+-                    <Field id={'disk'} name={'disk'} label={'Disk Limit'} type={'number'} />
++                    <Field id={'disk'} name={'disk'} label={'Limite de disco'} type={'number'} />
+                 </div>
+             </div>
+         </AdminBox>
+diff --git a/resources/scripts/components/admin/management/nodes/NodeLimitContainer.tsx b/resources/scripts/components/admin/management/nodes/NodeLimitContainer.tsx
+index e81fff203..9bca232e0 100644
+--- a/resources/scripts/components/admin/management/nodes/NodeLimitContainer.tsx
++++ b/resources/scripts/components/admin/management/nodes/NodeLimitContainer.tsx
+@@ -10,19 +10,19 @@ export default () => {
+     const { isSubmitting } = useFormikContext();
+ 
+     return (
+-        <AdminBox icon={faMicrochip} title={'Limits'} css={tw`w-full relative`}>
++        <AdminBox icon={faMicrochip} title={'Limites'} css={tw`w-full relative`}>
+             <SpinnerOverlay visible={isSubmitting} />
+ 
+             <div css={tw`md:w-full md:flex md:flex-row mb-6`}>
+                 <div css={tw`md:w-full md:flex md:flex-col md:mr-4 mb-6 md:mb-0`}>
+-                    <Field id={'memory'} name={'memory'} label={'Memory'} type={'number'} />
++                    <Field id={'memory'} name={'memory'} label={'Memória'} type={'number'} />
+                 </div>
+ 
+                 <div css={tw`md:w-full md:flex md:flex-col md:ml-4 mb-6 md:mb-0`}>
+                     <Field
+                         id={'memoryOverallocate'}
+                         name={'memoryOverallocate'}
+-                        label={'Memory Overallocate'}
++                        label={'Superalocação de memória'}
+                         type={'number'}
+                     />
+                 </div>
+@@ -30,14 +30,14 @@ export default () => {
+ 
+             <div css={tw`md:w-full md:flex md:flex-row mb-6`}>
+                 <div css={tw`md:w-full md:flex md:flex-col md:mr-4 mb-6 md:mb-0`}>
+-                    <Field id={'disk'} name={'disk'} label={'Disk'} type={'number'} />
++                    <Field id={'disk'} name={'disk'} label={'Disco'} type={'number'} />
+                 </div>
+ 
+                 <div css={tw`md:w-full md:flex md:flex-col md:ml-4 mb-6 md:mb-0`}>
+                     <Field
+                         id={'diskOverallocate'}
+                         name={'diskOverallocate'}
+-                        label={'Disk Overallocate'}
++                        label={'Superalocação de disco'}
+                         type={'number'}
+                     />
+                 </div>
+diff --git a/resources/scripts/components/admin/management/nodes/NodeListenContainer.tsx b/resources/scripts/components/admin/management/nodes/NodeListenContainer.tsx
+index b9da94c6d..7ddc48be8 100644
+--- a/resources/scripts/components/admin/management/nodes/NodeListenContainer.tsx
++++ b/resources/scripts/components/admin/management/nodes/NodeListenContainer.tsx
+@@ -10,26 +10,36 @@ export default () => {
+     const { isSubmitting } = useFormikContext();
+ 
+     return (
+-        <AdminBox icon={faNetworkWired} title={'Listen'} css={tw`w-full relative`}>
++        <AdminBox icon={faNetworkWired} title={'Escuta'} css={tw`w-full relative`}>
+             <SpinnerOverlay visible={isSubmitting} />
+ 
+             <div css={tw`mb-6 md:w-full md:flex md:flex-row`}>
+                 <div css={tw`mb-6 md:w-full md:flex md:flex-col md:mr-4 md:mb-0`}>
+-                    <Field id={'listenPortHTTP'} name={'listenPortHTTP'} label={'HTTP Listen Port'} type={'number'} />
++                    <Field
++                        id={'listenPortHTTP'}
++                        name={'listenPortHTTP'}
++                        label={'Porta de escuta HTTP'}
++                        type={'number'}
++                    />
+                 </div>
+ 
+                 <div css={tw`mb-6 md:w-full md:flex md:flex-col md:ml-4 md:mb-0`}>
+-                    <Field id={'publicPortHTTP'} name={'publicPortHTTP'} label={'HTTP Public Port'} type={'number'} />
++                    <Field id={'publicPortHTTP'} name={'publicPortHTTP'} label={'Porta pública HTTP'} type={'number'} />
+                 </div>
+             </div>
+ 
+             <div css={tw`mb-6 md:w-full md:flex md:flex-row`}>
+                 <div css={tw`mb-6 md:w-full md:flex md:flex-col md:mr-4 md:mb-0`}>
+-                    <Field id={'listenPortSFTP'} name={'listenPortSFTP'} label={'SFTP Listen Port'} type={'number'} />
++                    <Field
++                        id={'listenPortSFTP'}
++                        name={'listenPortSFTP'}
++                        label={'Porta de escuta SFTP'}
++                        type={'number'}
++                    />
+                 </div>
+ 
+                 <div css={tw`mb-6 md:w-full md:flex md:flex-col md:ml-4 md:mb-0`}>
+-                    <Field id={'publicPortSFTP'} name={'publicPortSFTP'} label={'SFTP Public Port'} type={'number'} />
++                    <Field id={'publicPortSFTP'} name={'publicPortSFTP'} label={'Porta pública SFTP'} type={'number'} />
+                 </div>
+             </div>
+         </AdminBox>
+diff --git a/resources/scripts/components/admin/management/nodes/NodeRouter.tsx b/resources/scripts/components/admin/management/nodes/NodeRouter.tsx
+index 5d2a41396..7f0415fbf 100644
+--- a/resources/scripts/components/admin/management/nodes/NodeRouter.tsx
++++ b/resources/scripts/components/admin/management/nodes/NodeRouter.tsx
+@@ -86,23 +86,23 @@ const NodeRouter = () => {
+             <FlashMessageRender byKey={'admin:nodes'} css={tw`mb-4`} />
+ 
+             <SubNavigation>
+-                <SubNavigationLink to={`/admin/nodes/${node.id}`} name={'About'} base>
++                <SubNavigationLink to={`/admin/nodes/${node.id}`} name={'Sobre'} base>
+                     <OfficeBuildingIcon />
+                 </SubNavigationLink>
+ 
+-                <SubNavigationLink to={`/admin/nodes/${node.id}/settings`} name={'Settings'}>
++                <SubNavigationLink to={`/admin/nodes/${node.id}/settings`} name={'Configurações'}>
+                     <CogIcon />
+                 </SubNavigationLink>
+ 
+-                <SubNavigationLink to={`/admin/nodes/${node.id}/configuration`} name={'Configuration'}>
++                <SubNavigationLink to={`/admin/nodes/${node.id}/configuration`} name={'Configuração'}>
+                     <CodeIcon />
+                 </SubNavigationLink>
+ 
+-                <SubNavigationLink to={`/admin/nodes/${node.id}/allocations`} name={'Allocations'}>
++                <SubNavigationLink to={`/admin/nodes/${node.id}/allocations`} name={'Alocações'}>
+                     <WifiIcon />
+                 </SubNavigationLink>
+ 
+-                <SubNavigationLink to={`/admin/nodes/${node.id}/servers`} name={'Servers'}>
++                <SubNavigationLink to={`/admin/nodes/${node.id}/servers`} name={'Servidores'}>
+                     <ServerIcon />
+                 </SubNavigationLink>
+             </SubNavigation>
+diff --git a/resources/scripts/components/admin/management/nodes/NodeSettingsContainer.tsx b/resources/scripts/components/admin/management/nodes/NodeSettingsContainer.tsx
+index 49cfb23d1..3955adfd2 100644
+--- a/resources/scripts/components/admin/management/nodes/NodeSettingsContainer.tsx
++++ b/resources/scripts/components/admin/management/nodes/NodeSettingsContainer.tsx
+@@ -13,11 +13,11 @@ export default function NodeSettingsContainer({ node }: { node?: Node }) {
+     const { isSubmitting } = useFormikContext();
+ 
+     return (
+-        <AdminBox icon={faDatabase} title={'Settings'} css={tw`w-full relative`}>
++        <AdminBox icon={faDatabase} title={'Configurações'} css={tw`w-full relative`}>
+             <SpinnerOverlay visible={isSubmitting} />
+ 
+             <div css={tw`mb-6`}>
+-                <Field id={'name'} name={'name'} label={'Name'} type={'text'} />
++                <Field id={'name'} name={'name'} label={'Nome'} type={'text'} />
+             </div>
+ 
+             <div css={tw`mb-6`}>
+@@ -32,10 +32,10 @@ export default function NodeSettingsContainer({ node }: { node?: Node }) {
+                 <Field
+                     id={'sftpAlias'}
+                     name={'sftpAlias'}
+-                    label={'SFTP Alias'}
++                    label={'Alias SFTP'}
+                     type={'text'}
+                     description={
+-                        'Optional hostname shown to server owners in the File Manager SFTP details instead of the FQDN.'
++                        'Nome de host opcional exibido aos donos dos servidores nos detalhes de SFTP do gerenciador de arquivos em vez do FQDN.'
+                     }
+                 />
+             </div>
+@@ -44,7 +44,7 @@ export default function NodeSettingsContainer({ node }: { node?: Node }) {
+                 <Field
+                     id={'daemonBase'}
+                     name={'daemonBase'}
+-                    label={'Data Directory'}
++                    label={'Diretório de dados'}
+                     type={'text'}
+                     disabled={node !== undefined}
+                 />
+@@ -56,44 +56,44 @@ export default function NodeSettingsContainer({ node }: { node?: Node }) {
+                 <div>
+                     <label css={tw`inline-flex items-center mr-2`}>
+                         <FormikField name={'scheme'} type={'radio'} value={'https'} />
+-                        <span css={tw`text-neutral-300 ml-2`}>Enabled</span>
++                        <span css={tw`text-neutral-300 ml-2`}>Ativado</span>
+                     </label>
+ 
+                     <label css={tw`inline-flex items-center ml-2`}>
+                         <FormikField name={'scheme'} type={'radio'} value={'http'} />
+-                        <span css={tw`text-neutral-300 ml-2`}>Disabled</span>
++                        <span css={tw`text-neutral-300 ml-2`}>Desativado</span>
+                     </label>
+                 </div>
+             </div>
+ 
+             <div css={tw`mt-6`}>
+-                <Label htmlFor={'behindProxy'}>Behind Proxy</Label>
++                <Label htmlFor={'behindProxy'}>Atrás de proxy</Label>
+ 
+                 <div>
+                     <label css={tw`inline-flex items-center mr-2`}>
+                         <FormikField name={'behindProxy'} type={'radio'} value={'false'} />
+-                        <span css={tw`text-neutral-300 ml-2`}>No</span>
++                        <span css={tw`text-neutral-300 ml-2`}>Não</span>
+                     </label>
+ 
+                     <label css={tw`inline-flex items-center ml-2`}>
+                         <FormikField name={'behindProxy'} type={'radio'} value={'true'} />
+-                        <span css={tw`text-neutral-300 ml-2`}>Yes</span>
++                        <span css={tw`text-neutral-300 ml-2`}>Sim</span>
+                     </label>
+                 </div>
+             </div>
+ 
+             <div css={tw`mt-6`}>
+-                <Label htmlFor={'public'}>Automatic Allocation</Label>
++                <Label htmlFor={'public'}>Alocação automática</Label>
+ 
+                 <div>
+                     <label css={tw`inline-flex items-center mr-2`}>
+                         <FormikField name={'public'} type={'radio'} value={'false'} />
+-                        <span css={tw`text-neutral-300 ml-2`}>Disabled</span>
++                        <span css={tw`text-neutral-300 ml-2`}>Desativado</span>
+                     </label>
+ 
+                     <label css={tw`inline-flex items-center ml-2`}>
+                         <FormikField name={'public'} type={'radio'} value={'true'} />
+-                        <span css={tw`text-neutral-300 ml-2`}>Enabled</span>
++                        <span css={tw`text-neutral-300 ml-2`}>Ativado</span>
+                     </label>
+                 </div>
+             </div>
+diff --git a/resources/scripts/components/admin/management/nodes/NodeStatus.tsx b/resources/scripts/components/admin/management/nodes/NodeStatus.tsx
+index 65075c1d4..ee015816e 100644
+--- a/resources/scripts/components/admin/management/nodes/NodeStatus.tsx
++++ b/resources/scripts/components/admin/management/nodes/NodeStatus.tsx
+@@ -32,7 +32,9 @@ export default ({ node, className }: { node: number; className?: string }) => {
+         <Tooltip
+             placement={'top'}
+             content={
+-                info ? `${info.system.supercharged ? 'Supercharged' : ''} version ${info.version}` : 'Node Unavailable'
++                info
++                    ? `${info.system.supercharged ? 'Supercarregado' : ''} versão ${info.version}`
++                    : 'Node indisponível'
+             }
+         >
+             <FontAwesomeIcon
+diff --git a/resources/scripts/components/admin/management/nodes/NodesContainer.tsx b/resources/scripts/components/admin/management/nodes/NodesContainer.tsx
+index f1a6a702a..24d9cf02f 100644
+--- a/resources/scripts/components/admin/management/nodes/NodesContainer.tsx
++++ b/resources/scripts/components/admin/management/nodes/NodesContainer.tsx
+@@ -57,13 +57,13 @@ const NodesContainer = () => {
+                     <p
+                         css={tw`hidden md:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}
+                     >
+-                        All nodes available on the system.
++                        Todos os Nodes disponíveis no sistema.
+                     </p>
+                 </div>
+ 
+                 <Link to={'/admin/nodes/new'} css={tw`flex ml-auto pl-4`}>
+                     <Button type={'button'} css={tw`h-10 px-4 py-0 whitespace-nowrap`}>
+-                        New Node
++                        Criar Node
+                     </Button>
+                 </Link>
+             </div>
+@@ -82,7 +82,7 @@ const NodesContainer = () => {
+                                         onClick={() => setSort('id')}
+                                     />
+                                     <TableHeader
+-                                        name={'Name'}
++                                        name={'Nome'}
+                                         direction={sort === 'name' ? (sortDirection ? 1 : 2) : null}
+                                         onClick={() => setSort('name')}
+                                     />
+@@ -92,12 +92,12 @@ const NodesContainer = () => {
+                                         onClick={() => setSort('fqdn')}
+                                     />
+                                     <TableHeader
+-                                        name={'Total Memory'}
++                                        name={'Memória total'}
+                                         direction={sort === 'memory' ? (sortDirection ? 1 : 2) : null}
+                                         onClick={() => setSort('memory')}
+                                     />
+                                     <TableHeader
+-                                        name={'Total Disk'}
++                                        name={'Disco total'}
+                                         direction={sort === 'disk' ? (sortDirection ? 1 : 2) : null}
+                                         onClick={() => setSort('disk')}
+                                     />
+@@ -148,13 +148,13 @@ const NodesContainer = () => {
+                                                         <span
+                                                             css={tw`px-2 inline-flex text-xs leading-5 font-medium rounded-full bg-green-100 text-green-800`}
+                                                         >
+-                                                            Secure
++                                                            Seguro
+                                                         </span>
+                                                     ) : (
+                                                         <span
+                                                             css={tw`px-2 inline-flex text-xs leading-5 font-medium rounded-full bg-red-200 text-red-800`}
+                                                         >
+-                                                            Non-Secure
++                                                            Não seguro
+                                                         </span>
+                                                     )}
+                                                 </td>
+diff --git a/resources/scripts/components/admin/management/nodes/allocations/AllocationTable.tsx b/resources/scripts/components/admin/management/nodes/allocations/AllocationTable.tsx
+index c25bb8a79..1276f48e1 100644
+--- a/resources/scripts/components/admin/management/nodes/allocations/AllocationTable.tsx
++++ b/resources/scripts/components/admin/management/nodes/allocations/AllocationTable.tsx
+@@ -64,17 +64,17 @@ function AllocationsTable({ nodeId, filters }: Props) {
+                         <table css={tw`w-full table-auto`}>
+                             <TableHead>
+                                 <TableHeader
+-                                    name={'IP Address'}
++                                    name={'Endereço IP'}
+                                     direction={sort === 'ip' ? (sortDirection ? 1 : 2) : null}
+                                     onClick={() => setSort('ip')}
+                                 />
+                                 <TableHeader name={'Alias'} />
+                                 <TableHeader
+-                                    name={'Port'}
++                                    name={'Porta'}
+                                     direction={sort === 'port' ? (sortDirection ? 1 : 2) : null}
+                                     onClick={() => setSort('port')}
+                                 />
+-                                <TableHeader name={'Assigned To'} />
++                                <TableHeader name={'Atribuído a'} />
+                                 <TableHeader />
+                             </TableHead>
+ 
+diff --git a/resources/scripts/components/admin/management/nodes/allocations/CreateAllocationForm.tsx b/resources/scripts/components/admin/management/nodes/allocations/CreateAllocationForm.tsx
+index daa56f192..d7f3676d2 100644
+--- a/resources/scripts/components/admin/management/nodes/allocations/CreateAllocationForm.tsx
++++ b/resources/scripts/components/admin/management/nodes/allocations/CreateAllocationForm.tsx
+@@ -66,15 +66,15 @@ function CreateAllocationForm({ nodeId }: { nodeId: number }) {
+                 alias: '',
+             }}
+             validationSchema={object().shape({
+-                ips: array(string()).required().min(1, 'You must select at least one ip address.'),
++                ips: array(string()).required().min(1, 'Você deve selecionar pelo menos um endereço IP.'),
+                 startPort: number()
+                     .required()
+-                    .min(1024, 'This port cannot be lower than 1024.')
+-                    .max(65535, 'This port cannot exceed 65535.'),
++                    .min(1024, 'Esta porta não pode ser menor que 1024.')
++                    .max(65535, 'Esta porta não pode exceder 65535.'),
+                 endPort: number()
+                     .nullable()
+-                    .min(1024, 'This port cannot be lower than 1024.')
+-                    .max(65535, 'This port cannot exceed 65535.'),
++                    .min(1024, 'Esta porta não pode ser menor que 1024.')
++                    .max(65535, 'Esta porta não pode exceder 65535.'),
+             })}
+         >
+             {({ isSubmitting, isValid }) => (
+@@ -82,7 +82,7 @@ function CreateAllocationForm({ nodeId }: { nodeId: number }) {
+                     <SelectField
+                         id={'ips'}
+                         name={'ips'}
+-                        label={'IPs and CIDRs'}
++                        label={'IPs e CIDRs'}
+                         options={ips}
+                         isValidNewOption={isValidIP}
+                         isMulti
+@@ -91,8 +91,8 @@ function CreateAllocationForm({ nodeId }: { nodeId: number }) {
+                     />
+ 
+                     <div css={tw`my-6 grid grid-cols-2 gap-2`}>
+-                        <Field id={'startPort'} name={'startPort'} label={'Start Port'} type={'text'} />
+-                        <Field id={'endPort'} name={'endPort'} label={'End Port'} type={'text'} />
++                        <Field id={'startPort'} name={'startPort'} label={'Porta inicial'} type={'text'} />
++                        <Field id={'endPort'} name={'endPort'} label={'Porta final'} type={'text'} />
+                     </div>
+ 
+                     <Field id={'alias'} name={'alias'} label={'Alias'} type={'text'} />
+@@ -100,7 +100,7 @@ function CreateAllocationForm({ nodeId }: { nodeId: number }) {
+                     <div css={tw`w-full flex flex-row items-center mt-6`}>
+                         <div css={tw`flex ml-auto`}>
+                             <Button type={'submit'} disabled={isSubmitting || !isValid}>
+-                                Create Allocations
++                                Criar alocações
+                             </Button>
+                         </div>
+                     </div>
+diff --git a/resources/scripts/components/admin/management/nodes/allocations/DeleteAllAllocationsButton.tsx b/resources/scripts/components/admin/management/nodes/allocations/DeleteAllAllocationsButton.tsx
+index c15c10a61..559faa563 100644
+--- a/resources/scripts/components/admin/management/nodes/allocations/DeleteAllAllocationsButton.tsx
++++ b/resources/scripts/components/admin/management/nodes/allocations/DeleteAllAllocationsButton.tsx
+@@ -29,14 +29,14 @@ export default ({ nodeId }: { nodeId: number }) => {
+                 buttonType={'danger'}
+                 onClose={() => setOpen(false)}
+                 onConfirmed={doDeleteAll}
+-                confirm={'Yes, delete all'}
+-                title={'Delete all unused allocations?'}
++                confirm={'Sim, excluir tudo'}
++                title={'Excluir todas as alocações não utilizadas?'}
+             >
+                 <SpinnerOverlay visible={loading} />
+-                Are you sure you wish to remove all unused allocations? You can re-create them at any time by using the
+-                form above. This action will not delete allocations which are currently assigned to servers.
++                Tem certeza de que deseja remover todas as alocações não utilizadas? Você pode recriá-las a qualquer
++                momento usando o formulário acima. Esta ação não excluirá alocações atribuídas a servidores no momento.
+             </Dialog.Confirm>
+-            <Button.Danger onClick={() => setOpen(true)}>Delete All Unused Allocations</Button.Danger>
++            <Button.Danger onClick={() => setOpen(true)}>Excluir todas as alocações não utilizadas</Button.Danger>
+         </>
+     );
+ };
+diff --git a/resources/scripts/components/admin/management/nodes/allocations/DeleteAllocationButton.tsx b/resources/scripts/components/admin/management/nodes/allocations/DeleteAllocationButton.tsx
+index b6044ba17..31fa7a1b9 100644
+--- a/resources/scripts/components/admin/management/nodes/allocations/DeleteAllocationButton.tsx
++++ b/resources/scripts/components/admin/management/nodes/allocations/DeleteAllocationButton.tsx
+@@ -43,12 +43,12 @@ export default ({ nodeId, allocationId, onDeleted }: Props) => {
+         <>
+             <Dialog.Confirm
+                 open={visible}
+-                title={'Delete allocation?'}
+-                confirm={'Yes, delete allocation'}
++                title={'Excluir alocação?'}
++                confirm={'Sim, excluir alocação'}
+                 onConfirmed={onDelete}
+                 onClose={() => setVisible(false)}
+             >
+-                Are you sure you want to delete this allocation?
++                Tem certeza de que deseja excluir esta alocação?
+             </Dialog.Confirm>
+ 
+             <Button.Danger type={'button'} size={Button.Sizes.Small} onClick={() => setVisible(true)}>
+diff --git a/resources/scripts/components/admin/management/servers/EggSelect.tsx b/resources/scripts/components/admin/management/servers/EggSelect.tsx
+index c9fb7c6aa..aba4cdbf5 100644
+--- a/resources/scripts/components/admin/management/servers/EggSelect.tsx
++++ b/resources/scripts/components/admin/management/servers/EggSelect.tsx
+@@ -70,7 +70,7 @@ export default ({ nestId, selectedEggId, onEggSelect }: Props) => {
+             <Label>Egg</Label>
+             <Select id={'eggId'} name={'eggId'} value={selectedEggId} onChange={onSelectChange}>
+                 {!eggs ? (
+-                    <option disabled>Loading...</option>
++                    <option disabled>Carregando...</option>
+                 ) : (
+                     eggs.map(v => (
+                         <option key={v.id} value={v.id.toString()}>
+diff --git a/resources/scripts/components/admin/management/servers/NestSelector.tsx b/resources/scripts/components/admin/management/servers/NestSelector.tsx
+index f50ff4208..48bd7f60e 100644
+--- a/resources/scripts/components/admin/management/servers/NestSelector.tsx
++++ b/resources/scripts/components/admin/management/servers/NestSelector.tsx
+@@ -30,7 +30,7 @@ export default ({ selectedNestId, onNestSelect }: Props) => {
+             <Label>Nest</Label>
+             <Select value={selectedNestId} onChange={e => onNestSelect(Number(e.currentTarget.value))}>
+                 {!nests ? (
+-                    <option disabled>Loading...</option>
++                    <option disabled>Carregando...</option>
+                 ) : (
+                     nests?.map(v => (
+                         <option key={v.uuid} value={v.id.toString()}>
+diff --git a/resources/scripts/components/admin/management/servers/NewServerContainer.tsx b/resources/scripts/components/admin/management/servers/NewServerContainer.tsx
+index f6e4df02d..3f38621ec 100644
+--- a/resources/scripts/components/admin/management/servers/NewServerContainer.tsx
++++ b/resources/scripts/components/admin/management/servers/NewServerContainer.tsx
+@@ -79,8 +79,8 @@ function InternalForm() {
+                         <div className="xl:col-span-2 bg-neutral-800 border border-neutral-900 shadow-inner p-4 rounded">
+                             <FormikSwitch
+                                 name={'startOnCompletion'}
+-                                label={'Start after installation'}
+-                                description={'Should the server be automatically started after it has been installed?'}
++                                label={'Iniciar após a instalação'}
++                                description={'O servidor deve ser iniciado automaticamente após ser instalado?'}
+                             />
+                         </div>
+                     </BaseSettingsBox>
+@@ -88,12 +88,12 @@ function InternalForm() {
+                     <ServerServiceContainer selectedEggId={egg?.id} setEgg={setEgg} nestId={0} />
+                 </div>
+                 <div className="grid grid-cols-1 gap-y-6 col-span-2 md:col-span-1">
+-                    <AdminBox icon={faNetworkWired} title="Networking" isLoading={isSubmitting}>
++                    <AdminBox icon={faNetworkWired} title="Rede" isLoading={isSubmitting}>
+                         <div className="grid grid-cols-1 gap-4 lg:gap-6">
+                             <div>
+-                                <Label htmlFor={'allocation.default'}>Primary Allocation</Label>
++                                <Label htmlFor={'allocation.default'}>Alocação principal</Label>
+                                 {!node ? (
+-                                    <Alert type={'info'}>Select a node to view allocations.</Alert>
++                                    <Alert type={'info'}>Selecione um Node para ver as alocações.</Alert>
+                                 ) : (
+                                     <AsyncSelectField
+                                         id={'allocation.default'}
+@@ -108,16 +108,16 @@ function InternalForm() {
+                     <ServerImageContainer />
+                 </div>
+ 
+-                <AdminBox title={'Startup Command'} className="relative w-full col-span-2">
++                <AdminBox title={'Comando de inicialização'} className="relative w-full col-span-2">
+                     <SpinnerOverlay visible={isSubmitting} />
+ 
+                     <Field
+                         id={'startup'}
+                         name={'startup'}
+-                        label={'Startup Command'}
++                        label={'Comando de inicialização'}
+                         type={'text'}
+                         description={
+-                            "Edit your server's startup command here. The following variables are available by default: {{SERVER_MEMORY}}, {{SERVER_IP}}, and {{SERVER_PORT}}."
++                            'Edite o comando de inicialização do seu servidor aqui. As seguintes variáveis estão disponíveis por padrão: {{SERVER_MEMORY}}, {{SERVER_IP}} e {{SERVER_PORT}}.'
+                         }
+                         placeholder={egg?.startup || ''}
+                     />
+@@ -135,7 +135,7 @@ function InternalForm() {
+                 <div className="bg-neutral-700 rounded shadow-md px-4 py-3 col-span-2">
+                     <div className="flex flex-row">
+                         <Button type="submit" className="ml-auto" disabled={isSubmitting || !isValid}>
+-                            Create Server
++                            Criar servidor
+                         </Button>
+                     </div>
+                 </div>
+@@ -159,14 +159,14 @@ export default () => {
+     };
+ 
+     return (
+-        <AdminContentBlock title={'New Server'}>
++        <AdminContentBlock title={'Novo servidor'}>
+             <div css={tw`w-full flex flex-row items-center mb-8`}>
+                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
+-                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>New Server</h2>
++                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Novo servidor</h2>
+                     <p
+                         css={tw`hidden md:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}
+                     >
+-                        Add a new server to the panel.
++                        Adicione um novo servidor ao painel.
+                     </p>
+                 </div>
+             </div>
+diff --git a/resources/scripts/components/admin/management/servers/NodeSelect.tsx b/resources/scripts/components/admin/management/servers/NodeSelect.tsx
+index ecccded8f..d3d046bf7 100644
+--- a/resources/scripts/components/admin/management/servers/NodeSelect.tsx
++++ b/resources/scripts/components/admin/management/servers/NodeSelect.tsx
+@@ -32,7 +32,7 @@ export default ({ node, setNode }: { node: Node | null; setNode: (_: Node | null
+             id={'nodeId'}
+             name={'nodeId'}
+             label={'Node'}
+-            placeholder={'Select a node...'}
++            placeholder={'Selecione um Node...'}
+             items={nodes}
+             selected={node}
+             setSelected={setNode}
+diff --git a/resources/scripts/components/admin/management/servers/OwnerSelect.tsx b/resources/scripts/components/admin/management/servers/OwnerSelect.tsx
+index 3657b7553..953197543 100644
+--- a/resources/scripts/components/admin/management/servers/OwnerSelect.tsx
++++ b/resources/scripts/components/admin/management/servers/OwnerSelect.tsx
+@@ -32,8 +32,8 @@ export default ({ selected }: { selected?: User }) => {
+         <SearchableSelect
+             id={'ownerId'}
+             name={'ownerId'}
+-            label={'Owner'}
+-            placeholder={'Select a user...'}
++            label={'Proprietário'}
++            placeholder={'Selecione um usuário...'}
+             items={users}
+             selected={user}
+             setSelected={setUser}
+diff --git a/resources/scripts/components/admin/management/servers/PresetCreationDialog.tsx b/resources/scripts/components/admin/management/servers/PresetCreationDialog.tsx
+index aa456d0cb..02ffed287 100644
+--- a/resources/scripts/components/admin/management/servers/PresetCreationDialog.tsx
++++ b/resources/scripts/components/admin/management/servers/PresetCreationDialog.tsx
+@@ -45,11 +45,11 @@ export default () => {
+ 
+     return (
+         <>
+-            <Dialog open={open} onClose={() => setOpen(false)} title="Select preset for server creation">
++            <Dialog open={open} onClose={() => setOpen(false)} title="Selecione o Preset para criação do servidor">
+                 <FlashMessageRender byKey={'admin:servers:create'} className={'mb-2'} />
+                 <div className={'grid lg:grid-cols-2 gap-4'}>
+                     <Select onChange={presetSelect} value={selectedPreset?.id ?? ''}>
+-                        <option value="">Select a server preset...</option>
++                        <option value="">Selecione um Preset de servidor...</option>
+                         {presets?.items.map(p => (
+                             <option key={p.id} value={p.id}>
+                                 {p.name}
+@@ -58,7 +58,7 @@ export default () => {
+                     </Select>
+ 
+                     <Select onChange={nodeSelect} value={selectedNode?.id ?? ''} className={'mt-2 lg:mt-0'}>
+-                        <option value="">Select a node for deploment...</option>
++                        <option value="">Selecione um Node para implantação...</option>
+                         {nodes?.items.map(p => (
+                             <option key={p.id} value={p.id}>
+                                 {p.name}
+@@ -70,27 +70,27 @@ export default () => {
+                 {selectedPreset && (
+                     <div className="bg-black/50 rounded-lg p-4 mt-4 space-y-2">
+                         <div className="font-bold">
+-                            Deploying using {selectedPreset.name} onto {selectedNode?.name ?? '...'}
++                            Implantando usando {selectedPreset.name} em {selectedNode?.name ?? '...'}
+                         </div>
+                         <div className="grid grid-cols-3 gap-4 text-sm text-neutral-400">
+                             <div>CPU: {selectedPreset.cpu}%</div>
+-                            <div>Memory: {selectedPreset.memory} MB</div>
+-                            <div>Disk: {selectedPreset.disk} MB</div>
++                            <div>Memória: {selectedPreset.memory} MB</div>
++                            <div>Disco: {selectedPreset.disk} MB</div>
+                         </div>
+                     </div>
+                 )}
+ 
+                 <p className={'text-gray-400 text-sm my-3'}>
+-                    Variables, allocations and deployment will all be calculated automatically. You can change this at
+-                    any time by heading to the server in the administrative menu and changing details there.
++                    As variáveis, alocações e implantação serão calculadas automaticamente. Você pode alterar isso a
++                    qualquer momento acessando o servidor no menu administrativo e alterando os detalhes lá.
+                 </p>
+ 
+                 {!selectedPreset || !selectedNode ? (
+-                    <Alert type={'info'}>Select a valid node and server preset to continue.</Alert>
++                    <Alert type={'info'}>Selecione um Node e um Preset de servidor válidos para continuar.</Alert>
+                 ) : (
+                     <div className="flex justify-end">
+                         <Button onClick={submit}>
+-                            <SparklesIcon className="w-5 h-5 mr-2" /> Create
++                            <SparklesIcon className="w-5 h-5 mr-2" /> Criar
+                         </Button>
+                     </div>
+                 )}
+@@ -102,7 +102,7 @@ export default () => {
+                 size={Button.Sizes.Large}
+                 className="h-10 px-4 py-0 whitespace-nowrap"
+             >
+-                <SparklesIcon className="w-5 h-5 mr-2" /> Create from Preset
++                <SparklesIcon className="w-5 h-5 mr-2" /> Criar a partir do Preset
+             </Button>
+         </>
+     );
+diff --git a/resources/scripts/components/admin/management/servers/ServerActivityContainer.tsx b/resources/scripts/components/admin/management/servers/ServerActivityContainer.tsx
+index 826a8a2ef..bd373993f 100644
+--- a/resources/scripts/components/admin/management/servers/ServerActivityContainer.tsx
++++ b/resources/scripts/components/admin/management/servers/ServerActivityContainer.tsx
+@@ -39,14 +39,16 @@ export default () => {
+                         className={classNames(btnStyles.button, btnStyles.text, 'w-full sm:w-auto')}
+                         onClick={() => setFilters(value => ({ ...value, filters: {} }))}
+                     >
+-                        Clear Filters <XCircleIcon className={'ml-2 h-4 w-4'} />
++                        Limpar filtros <XCircleIcon className={'ml-2 h-4 w-4'} />
+                     </Link>
+                 </div>
+             )}
+             {!data && isValidating ? (
+                 <Spinner centered />
+             ) : !data?.items.length ? (
+-                <p className={'text-center text-sm text-slate-400'}>No activity logs available for this server.</p>
++                <p className={'text-center text-sm text-slate-400'}>
++                    Nenhum registro de atividade disponível para este servidor.
++                </p>
+             ) : (
+                 <div className={'bg-slate-700'}>
+                     {data?.items.map(activity => (
+diff --git a/resources/scripts/components/admin/management/servers/ServerDeleteButton.tsx b/resources/scripts/components/admin/management/servers/ServerDeleteButton.tsx
+index fac2206e8..0dc68137e 100644
+--- a/resources/scripts/components/admin/management/servers/ServerDeleteButton.tsx
++++ b/resources/scripts/components/admin/management/servers/ServerDeleteButton.tsx
+@@ -47,22 +47,22 @@ export default () => {
+         <>
+             <Dialog.Confirm
+                 open={visible}
+-                title={'Delete server?'}
+-                confirm={'Yes, delete server'}
++                title={'Excluir servidor?'}
++                confirm={'Sim, excluir servidor'}
+                 onConfirmed={onDelete}
+                 onClose={() => setVisible(false)}
+             >
+                 <SpinnerOverlay visible={loading} />
+-                Are you sure you want to delete this server?
++                Tem certeza de que deseja excluir este servidor?
+                 <div className={'bg-black/50 rounded-lg p-4 text-gray-400 mt-4'}>
+                     <Checkbox onClick={() => setForce(!force)} className={'mr-1'} />
+-                    Force delete this server from the Panel
++                    Forçar a exclusão deste servidor do Painel
+                 </div>
+                 {force && (
+                     <Alert type={'warning'} className={'mt-2'}>
+-                        Using force to delete this server from the Panel will delete its contents and data, regardless
+-                        of any errors that may occur during the process. Only use this if safely deleting the server
+-                        fails.
++                        Usar a força para excluir este servidor do Painel apagará seu conteúdo e dados,
++                        independentemente de erros que possam ocorrer durante o processo. Use isso apenas se a exclusão
++                        segura do servidor falhar.
+                     </Alert>
+                 )}
+             </Dialog.Confirm>
+diff --git a/resources/scripts/components/admin/management/servers/ServerRouter.tsx b/resources/scripts/components/admin/management/servers/ServerRouter.tsx
+index ea5e4ad3f..ec4e3cbe2 100644
+--- a/resources/scripts/components/admin/management/servers/ServerRouter.tsx
++++ b/resources/scripts/components/admin/management/servers/ServerRouter.tsx
+@@ -53,7 +53,7 @@ export default () => {
+     }
+ 
+     return (
+-        <AdminContentBlock title={'Server - ' + server.name}>
++        <AdminContentBlock title={'Servidor - ' + server.name}>
+             <FlashMessageRender byKey={'backups'} css={tw`mb-4`} />
+             <div css={tw`w-full flex flex-row items-center mb-4`}>
+                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
+@@ -70,11 +70,11 @@ export default () => {
+                     </Pill>
+                     {billing.enabled && server.billingProductId && (
+                         <Pill type={'info'}>
+-                            <CurrencyDollarIcon className={'w-3 mr-1'} /> Billable
++                            <CurrencyDollarIcon className={'w-3 mr-1'} /> Faturável
+                         </Pill>
+                     )}
+                     <Pill type={'success'}>
+-                        <InformationCircleIcon className={'w-3 mr-1'} /> {server.status ?? 'Active'}
++                        <InformationCircleIcon className={'w-3 mr-1'} /> {server.status ?? 'Ativo'}
+                     </Pill>
+                 </div>
+             </div>
+@@ -82,28 +82,32 @@ export default () => {
+             <FlashMessageRender byKey={'server'} css={tw`mb-4`} />
+ 
+             <SubNavigation>
+-                <SubNavigationLink to={`/admin/servers/${params.id}`} name={'Settings'} icon={CogIcon} base />
+-                <SubNavigationLink to={`/admin/servers/${params.id}/startup`} name={'Startup'} icon={AdjustmentsIcon} />
++                <SubNavigationLink to={`/admin/servers/${params.id}`} name={'Configurações'} icon={CogIcon} base />
++                <SubNavigationLink
++                    to={`/admin/servers/${params.id}/startup`}
++                    name={'Inicialização'}
++                    icon={AdjustmentsIcon}
++                />
+                 <SubNavigationLink
+                     to={`/admin/servers/${params.id}/databases`}
+-                    name={'Databases'}
++                    name={'Bancos de dados'}
+                     icon={DatabaseIcon}
+                 />
+                 <SubNavigationLink
+                     to={`/admin/servers/${params.id}/billing`}
+-                    name={'Billing'}
++                    name={'Faturamento'}
+                     icon={CurrencyDollarIcon}
+                     disabled={!billing.enabled || !server.billingProductId}
+                 />
+-                <SubNavigationLink to={`/admin/servers/${params.id}/activity`} name={'Activity'} icon={ClockIcon} />
++                <SubNavigationLink to={`/admin/servers/${params.id}/activity`} name={'Atividade'} icon={ClockIcon} />
+                 <SubNavigationLink
+                     to={`/admin/servers/${params.id}/manage`}
+-                    name={'Manage'}
++                    name={'Gerenciamento'}
+                     icon={ShieldExclamationIcon}
+                 />
+                 <SubNavigationLink
+                     to={`/server/${server.uuid.split('-')[0]}`}
+-                    name={'View as user'}
++                    name={'Ver como usuário'}
+                     icon={ExternalLinkIcon}
+                 />
+             </SubNavigation>
+diff --git a/resources/scripts/components/admin/management/servers/ServerSettingsContainer.tsx b/resources/scripts/components/admin/management/servers/ServerSettingsContainer.tsx
+index e0eae553c..8d433ca82 100644
+--- a/resources/scripts/components/admin/management/servers/ServerSettingsContainer.tsx
++++ b/resources/scripts/components/admin/management/servers/ServerSettingsContainer.tsx
+@@ -92,7 +92,7 @@ export default () => {
+ 
+                         <div css={tw`flex flex-col`}>
+                             <ServerResourceBox />
+-                            <TitledGreyBox title={'Node Information'} icon={faLayerGroup} className={'mt-6'}>
++                            <TitledGreyBox title={'Informações do Node'} icon={faLayerGroup} className={'mt-6'}>
+                                 {!node ? (
+                                     <Spinner size={'large'} centered />
+                                 ) : (
+@@ -110,7 +110,7 @@ export default () => {
+                                     <ServerDeleteButton />
+ 
+                                     <Button type="submit" className="ml-auto" disabled={isSubmitting || !isValid}>
+-                                        Save Changes
++                                        Salvar alterações
+                                     </Button>
+                                 </div>
+                             </div>
+diff --git a/resources/scripts/components/admin/management/servers/ServerStartupContainer.tsx b/resources/scripts/components/admin/management/servers/ServerStartupContainer.tsx
+index 109ffe4d9..552b06707 100644
+--- a/resources/scripts/components/admin/management/servers/ServerStartupContainer.tsx
++++ b/resources/scripts/components/admin/management/servers/ServerStartupContainer.tsx
+@@ -45,24 +45,24 @@ function ServerStartupLineContainer({ egg, server }: { egg?: Egg; server: Server
+     }, [egg]);
+ 
+     return (
+-        <AdminBox title={'Startup Command'} className="relative w-full">
++        <AdminBox title={'Comando de inicialização'} className="relative w-full">
+             <SpinnerOverlay visible={isSubmitting} />
+ 
+             <div className="mb-6">
+                 <Field
+                     id={'startup'}
+                     name={'startup'}
+-                    label={'Startup Command'}
++                    label={'Comando de inicialização'}
+                     type={'text'}
+                     description={
+-                        "Edit your server's startup command here. The following variables are available by default: {{SERVER_MEMORY}}, {{SERVER_IP}}, and {{SERVER_PORT}}."
++                        'Edite o comando de inicialização do seu servidor aqui. As seguintes variáveis estão disponíveis por padrão: {{SERVER_MEMORY}}, {{SERVER_IP}} e {{SERVER_PORT}}.'
+                     }
+                     placeholder={egg?.startup || ''}
+                 />
+             </div>
+ 
+             <div>
+-                <Label>Default Startup Command</Label>
++                <Label>Comando de inicialização padrão</Label>
+                 <Input value={egg?.startup || ''} readOnly />
+             </div>
+         </AdminBox>
+@@ -85,7 +85,7 @@ export function ServerServiceContainer({
+     const [nestId, setNestId] = useState<number>(_nestId);
+ 
+     return (
+-        <AdminBox title={'Service Configuration'} isLoading={isSubmitting} className="w-full" icon={faLayerGroup}>
++        <AdminBox title={'Configuração de serviço'} isLoading={isSubmitting} className="w-full" icon={faLayerGroup}>
+             <div className="mb-6">
+                 <NestSelector selectedNestId={nestId} onNestSelect={setNestId} />
+             </div>
+@@ -94,7 +94,11 @@ export function ServerServiceContainer({
+             </div>
+             {!noToggle && (
+                 <div className="bg-neutral-800 border border-neutral-900 shadow-inner p-4 rounded">
+-                    <FormikSwitch name={'skipScripts'} label={'Skip Egg Install Script'} description={'Soon™'} />
++                    <FormikSwitch
++                        name={'skipScripts'}
++                        label={'Pular script de instalação do Egg'}
++                        description={'Em breve'}
++                    />
+                 </div>
+             )}
+         </AdminBox>
+@@ -105,13 +109,13 @@ export function ServerImageContainer() {
+     const { isSubmitting } = useFormikContext();
+ 
+     return (
+-        <AdminBox title={'Image Configuration'} className="relative w-full">
++        <AdminBox title={'Configuração de imagem'} className="relative w-full">
+             <SpinnerOverlay visible={isSubmitting} />
+ 
+             <div className="md:w-full md:flex md:flex-col">
+                 <div>
+                     {/* TODO: make this a proper select but allow a custom image to be specified if needed. */}
+-                    <Field id={'image'} name={'image'} label={'Docker Image'} type={'text'} />
++                    <Field id={'image'} name={'image'} label={'Imagem Docker'} type={'text'} />
+                 </div>
+             </div>
+         </AdminBox>
+@@ -205,7 +209,7 @@ function ServerStartupForm({
+                 <div className="rounded shadow-md py-2 pr-6 mt-6" style={{ backgroundColor: secondary }}>
+                     <div className="flex flex-row">
+                         <Button type="submit" className="ml-auto" disabled={isSubmitting || !isValid}>
+-                            Save Changes
++                            Salvar alterações
+                         </Button>
+                     </div>
+                 </div>
+diff --git a/resources/scripts/components/admin/management/servers/ServersContainer.tsx b/resources/scripts/components/admin/management/servers/ServersContainer.tsx
+index 82a340fbf..3f2423c6f 100644
+--- a/resources/scripts/components/admin/management/servers/ServersContainer.tsx
++++ b/resources/scripts/components/admin/management/servers/ServersContainer.tsx
+@@ -9,21 +9,21 @@ import { SubNavigation, SubNavigationLink } from '@admin/SubNavigation';
+ import PresetCreationDialog from './PresetCreationDialog';
+ 
+ export default () => (
+-    <AdminContentBlock title={'Servers'}>
++    <AdminContentBlock title={'Servidores'}>
+         <div css={tw`w-full flex flex-row items-center mb-8`}>
+             <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
+-                <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Servers</h2>
++                <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Servidores</h2>
+                 <p
+                     css={tw`hidden md:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}
+                 >
+-                    All servers available on the system.
++                    Todos os servidores disponíveis no sistema.
+                 </p>
+             </div>
+ 
+             <div css={tw`flex ml-auto pl-4 space-x-4`}>
+                 <NavLink to={`/admin/servers/new`}>
+                     <Button.Text type={'button'} size={Button.Sizes.Large} css={tw`h-10 px-4 py-0 whitespace-nowrap`}>
+-                        Create Server
++                        Criar servidor
+                     </Button.Text>
+                 </NavLink>
+                 <PresetCreationDialog />
+@@ -33,7 +33,7 @@ export default () => (
+         <FlashMessageRender byKey={'servers'} css={tw`mb-4`} />
+ 
+         <SubNavigation>
+-            <SubNavigationLink to="/admin/servers" name="All Servers" base>
++            <SubNavigationLink to="/admin/servers" name="Todos os servidores" base>
+                 <TerminalIcon />
+             </SubNavigationLink>
+             <SubNavigationLink to="/admin/servers/presets" name="Presets">
+diff --git a/resources/scripts/components/admin/management/servers/ServersTable.tsx b/resources/scripts/components/admin/management/servers/ServersTable.tsx
+index 503f7f9e0..549e0c189 100644
+--- a/resources/scripts/components/admin/management/servers/ServersTable.tsx
++++ b/resources/scripts/components/admin/management/servers/ServersTable.tsx
+@@ -72,14 +72,14 @@ function ServersTable({ filters }: Props) {
+                     addFlash({
+                         key: 'servers',
+                         type: 'error',
+-                        title: 'Warning',
+-                        message: `${result.failed.length} of ${result.total} server(s) failed to receive the "${action}" action.`,
++                        title: 'Aviso',
++                        message: `${result.failed.length} de ${result.total} servidor(es) não receberam a ação "${action}".`,
+                     });
+                 } else {
+                     addFlash({
+                         key: 'servers',
+                         type: 'success',
+-                        message: `Sent "${action}" to ${result.total} server(s).`,
++                        message: `"${action}" enviado para ${result.total} servidor(es).`,
+                     });
+                 }
+ 
+@@ -107,7 +107,7 @@ function ServersTable({ filters }: Props) {
+             <ContentWrapper onSearch={onSearch}>
+                 {selected.length > 0 && (
+                     <div css={tw`flex flex-row items-center h-12 px-6 border-b border-neutral-500`}>
+-                        <p css={tw`text-sm text-neutral-300 mr-4`}>{selected.length} selected</p>
++                        <p css={tw`text-sm text-neutral-300 mr-4`}>{selected.length} selecionado(s)</p>
+ 
+                         <div css={tw`flex flex-row ml-auto gap-2`}>
+                             <Button.Success
+@@ -115,28 +115,28 @@ function ServersTable({ filters }: Props) {
+                                 disabled={submitting}
+                                 onClick={() => doBulkPowerAction('start')}
+                             >
+-                                Start
++                                Iniciar
+                             </Button.Success>
+                             <Button.Warn
+                                 size={Button.Sizes.Small}
+                                 disabled={submitting}
+                                 onClick={() => doBulkPowerAction('restart')}
+                             >
+-                                Restart
++                                Reiniciar
+                             </Button.Warn>
+                             <Button.Text
+                                 size={Button.Sizes.Small}
+                                 disabled={submitting}
+                                 onClick={() => doBulkPowerAction('stop')}
+                             >
+-                                Stop
++                                Parar
+                             </Button.Text>
+                             <Button.Danger
+                                 size={Button.Sizes.Small}
+                                 disabled={submitting}
+                                 onClick={() => doBulkPowerAction('kill')}
+                             >
+-                                Kill
++                                Encerrar
+                             </Button.Danger>
+                         </div>
+                     </div>
+@@ -153,17 +153,17 @@ function ServersTable({ filters }: Props) {
+                                     />
+                                 </th>
+                                 <TableHeader
+-                                    name={'Identifier'}
++                                    name={'Identificador'}
+                                     direction={sort === 'uuidShort' ? (sortDirection ? 1 : 2) : null}
+                                     onClick={() => setSort('uuidShort')}
+                                 />
+                                 <TableHeader
+-                                    name={'Name'}
++                                    name={'Nome'}
+                                     direction={sort === 'name' ? (sortDirection ? 1 : 2) : null}
+                                     onClick={() => setSort('name')}
+                                 />
+                                 <TableHeader
+-                                    name={'Owner'}
++                                    name={'Proprietário'}
+                                     direction={sort === 'owner_id' ? (sortDirection ? 1 : 2) : null}
+                                     onClick={() => setSort('owner_id')}
+                                 />
+@@ -244,25 +244,25 @@ function ServersTable({ filters }: Props) {
+                                                     <span
+                                                         css={tw`px-2 inline-flex text-xs leading-5 font-medium rounded-full bg-yellow-200 text-yellow-800`}
+                                                     >
+-                                                        Installing
++                                                        Instalando
+                                                     </span>
+                                                 ) : server.status === 'transferring' ? (
+                                                     <span
+                                                         css={tw`px-2 inline-flex text-xs leading-5 font-medium rounded-full bg-yellow-200 text-yellow-800`}
+                                                     >
+-                                                        Transferring
++                                                        Transferindo
+                                                     </span>
+                                                 ) : server.status === 'suspended' ? (
+                                                     <span
+                                                         css={tw`px-2 inline-flex text-xs leading-5 font-medium rounded-full bg-red-200 text-red-800`}
+                                                     >
+-                                                        Suspended
++                                                        Suspenso
+                                                     </span>
+                                                 ) : (
+                                                     <span
+                                                         css={tw`px-2 inline-flex text-xs leading-5 font-medium rounded-full bg-green-100 text-green-800`}
+                                                     >
+-                                                        Active
++                                                        Ativo
+                                                     </span>
+                                                 )}
+                                             </td>
+diff --git a/resources/scripts/components/admin/management/servers/billing/EditServerBillingDialog.tsx b/resources/scripts/components/admin/management/servers/billing/EditServerBillingDialog.tsx
+index 2d327a99e..b42467574 100644
+--- a/resources/scripts/components/admin/management/servers/billing/EditServerBillingDialog.tsx
++++ b/resources/scripts/components/admin/management/servers/billing/EditServerBillingDialog.tsx
+@@ -98,7 +98,7 @@ export default ({ server }: { server: Server }) => {
+ 
+     return (
+         <>
+-            <Dialog open={open} onClose={() => setOpen(false)} title={'Edit Server Billing'}>
++            <Dialog open={open} onClose={() => setOpen(false)} title={'Editar faturamento do servidor'}>
+                 <FlashMessageRender byKey={'admin:server:billing'} />
+                 <Formik onSubmit={submit} initialValues={{}}>
+                     <Form>
+@@ -107,10 +107,10 @@ export default ({ server }: { server: Server }) => {
+                             <div>
+                                 <div className={'flex'}>
+                                     <Label>
+-                                        <CashIcon className={'w-4 inline-flex'} /> Billing Status
++                                        <CashIcon className={'w-4 inline-flex'} /> Status de faturamento
+                                     </Label>
+                                     <span className={'ml-2 italic text-gray-400 text-sm'}>
+-                                        Should this server be billed automatically?
++                                        Este servidor deve ser faturado automaticamente?
+                                     </span>
+                                 </div>
+                                 <button
+@@ -121,7 +121,7 @@ export default ({ server }: { server: Server }) => {
+                                         'rounded-l py-3 px-6 font-bold text-white',
+                                     )}
+                                 >
+-                                    Enabled
++                                    Ativado
+                                 </button>
+                                 <button
+                                     type="button"
+@@ -131,7 +131,7 @@ export default ({ server }: { server: Server }) => {
+                                         'rounded-r py-3 px-6 font-bold text-white',
+                                     )}
+                                 >
+-                                    Disabled
++                                    Desativado
+                                 </button>
+                             </div>
+ 
+@@ -141,10 +141,10 @@ export default ({ server }: { server: Server }) => {
+                                     <div>
+                                         <div className={'flex'}>
+                                             <Label>
+-                                                <CashIcon className={'w-4 inline-flex'} /> Billing Category
++                                                <CashIcon className={'w-4 inline-flex'} /> Categoria de faturamento
+                                             </Label>
+                                             <span className={'ml-2 italic text-gray-400 text-sm'}>
+-                                                Select the category for billing.
++                                                Selecione a categoria para faturamento.
+                                             </span>
+                                         </div>
+                                         {loadingState === 'loading' ? (
+@@ -167,10 +167,10 @@ export default ({ server }: { server: Server }) => {
+                                     <div>
+                                         <div className={'flex'}>
+                                             <Label>
+-                                                <CashIcon className={'w-4 inline-flex'} /> Billing Product
++                                                <CashIcon className={'w-4 inline-flex'} /> Produto de faturamento
+                                             </Label>
+                                             <span className={'ml-2 italic text-gray-400 text-sm'}>
+-                                                Select the product to assign to this server.
++                                                Selecione o produto a ser atribuído a este servidor.
+                                             </span>
+                                         </div>
+                                         {loadingState === 'loading' ? (
+@@ -184,8 +184,8 @@ export default ({ server }: { server: Server }) => {
+                                                     <option key={product.id} value={product.id}>
+                                                         {product.name} ({product.limits.cpu}% CPU,{' '}
+                                                         {product.limits.memory / 1024}GB RAM,{' '}
+-                                                        {product.limits.disk / 1024}GB Disk) - {billing.currency.symbol}
+-                                                        {product.price}/mo
++                                                        {product.limits.disk / 1024}GB de disco) - {billing.currency.symbol}
++                                                        {product.price}/mês
+                                                     </option>
+                                                 ))}
+                                             </Select>
+@@ -198,10 +198,10 @@ export default ({ server }: { server: Server }) => {
+                             <div>
+                                 <div className={'flex'}>
+                                     <Label>
+-                                        <ClockIcon className={'w-4 inline-flex'} /> Renewal Date
++                                        <ClockIcon className={'w-4 inline-flex'} /> Data de renovação
+                                     </Label>
+                                     <span className={'ml-2 italic text-gray-400 text-sm'}>
+-                                        Adjust when this server will renew.
++                                        Ajuste quando este servidor será renovado.
+                                     </span>
+                                 </div>
+                                 <Input
+@@ -213,7 +213,7 @@ export default ({ server }: { server: Server }) => {
+ 
+                             <div className={'ml-auto'}>
+                                 <Button type="button" onClick={submit}>
+-                                    Save Changes
++                                    Salvar alterações
+                                 </Button>
+                             </div>
+                         </div>
+@@ -222,7 +222,7 @@ export default ({ server }: { server: Server }) => {
+             </Dialog>
+ 
+             <Button size={Button.Sizes.Small} onClick={() => setOpen(true)}>
+-                Edit <PencilAltIcon className={'ml-1 w-4'} />
++                Editar <PencilAltIcon className={'ml-1 w-4'} />
+             </Button>
+         </>
+     );
+diff --git a/resources/scripts/components/admin/management/servers/billing/ServerBillingContainer.tsx b/resources/scripts/components/admin/management/servers/billing/ServerBillingContainer.tsx
+index 2d8fb346c..91b895c25 100644
+--- a/resources/scripts/components/admin/management/servers/billing/ServerBillingContainer.tsx
++++ b/resources/scripts/components/admin/management/servers/billing/ServerBillingContainer.tsx
+@@ -35,54 +35,54 @@ export default () => {
+         <div>
+             {!billing.enabled && (
+                 <Alert type={'danger'}>
+-                    The Billing Module is currently disabled. Any changes made here will not have effect unless the
+-                    module is enabled again.
++                    O módulo de faturamento está desativado no momento. As alterações feitas aqui não terão efeito a
++                    menos que o módulo seja ativado novamente.
+                 </Alert>
+             )}
+             <div className={'mt-4 grid lg:grid-cols-4 gap-4'}>
+-                <AdminBox title={'Billing Details'} icon={faCashRegister} className={'relative'}>
++                <AdminBox title={'Detalhes de faturamento'} icon={faCashRegister} className={'relative'}>
+                     <div className={'grid gap-y-4'}>
+                         <div>
+-                            <Label>Plan Name and Cost</Label>
++                            <Label>Nome e custo do plano</Label>
+                             <p className={'text-gray-400'}>
+                                 {!server.billingProductId ? (
+-                                    'None'
++                                    'Nenhum'
+                                 ) : !product ? (
+                                     <Spinner size={'small'} centered />
+                                 ) : (
+                                     <>
+                                         {product.name} - {billing.currency.symbol}
+-                                        {product.price} {billing.currency.code.toUpperCase()} every {renewalDays} days
++                                        {product.price} {billing.currency.code.toUpperCase()} a cada {renewalDays} dias
+                                     </>
+                                 )}
+                             </p>
+                         </div>
+                         <div>
+-                            <Label>Next Renewal Due</Label>
++                            <Label>Próxima renovação</Label>
+                             <p className={'text-gray-400'}>
+                                 {!server.renewalDate ? (
+-                                    'None'
++                                    'Nenhuma'
+                                 ) : (
+                                     <>
+                                         {new Date(server.renewalDate).toLocaleDateString()}
+                                         {' - '}
+-                                        {timeUntil(server.renewalDate).days} days, {timeUntil(server.renewalDate).hours}{' '}
+-                                        hours
++                                        {timeUntil(server.renewalDate).days} dias, {timeUntil(server.renewalDate).hours}{' '}
++                                        horas
+                                     </>
+                                 )}
+                             </p>
+                         </div>
+                         <div>
+-                            <Label>Resource Limits</Label>
++                            <Label>Limites de recursos</Label>
+                             <p className={'text-gray-400'}>
+                                 {!server.billingProductId ? (
+-                                    'None'
++                                    'Nenhum'
+                                 ) : !product ? (
+                                     <Spinner size={'small'} centered />
+                                 ) : (
+                                     <>
+                                         {product.limits.cpu}% CPU &bull; {product.limits.memory / 1024} GiB RAM &bull;{' '}
+-                                        {product.limits.disk / 1024} GiB Storage
++                                        {product.limits.disk / 1024} GiB de armazenamento
+                                     </>
+                                 )}
+                             </p>
+diff --git a/resources/scripts/components/admin/management/servers/manage/ReinstallServerBox.tsx b/resources/scripts/components/admin/management/servers/manage/ReinstallServerBox.tsx
+index 98fae7bc8..1ef3f20cc 100644
+--- a/resources/scripts/components/admin/management/servers/manage/ReinstallServerBox.tsx
++++ b/resources/scripts/components/admin/management/servers/manage/ReinstallServerBox.tsx
+@@ -22,13 +22,13 @@ export default () => {
+                 addFlash({
+                     key: 'server:manage',
+                     type: 'success',
+-                    message: 'This server will begin the reinstallation process now.',
++                    message: 'Este servidor iniciará o processo de reinstalação agora.',
+                 });
+             })
+             .catch(error => {
+                 clearAndAddHttpError({
+                     key: 'server:manage',
+-                    error: `Failed to reinstall server: ${error.message}`,
++                    error: `Falha ao reinstalar o servidor: ${error.message}`,
+                 });
+             });
+ 
+@@ -38,25 +38,25 @@ export default () => {
+     return (
+         <>
+             <Dialog.Confirm
+-                title={'Confirm server reinstallation'}
++                title={'Confirmar reinstalação do servidor'}
+                 onConfirmed={submit}
+                 open={visible}
+                 onClose={() => setVisible(false)}
+-                confirm={'I understand, proceed'}
++                confirm={'Entendo, continuar'}
+             >
+-                Are you sure you wish to reinstall this server now? This could lead to a loss of data or files becoming
+-                corrupted by the install process.
++                Tem certeza de que deseja reinstalar este servidor agora? Isso pode causar perda de dados ou corromper
++                arquivos durante o processo de instalação.
+             </Dialog.Confirm>
+             <div css={tw`h-auto flex flex-col`}>
+-                <AdminBox icon={faWrench} title={'Reinstall Server'} css={tw`relative w-full`}>
++                <AdminBox icon={faWrench} title={'Reinstalar servidor'} css={tw`relative w-full`}>
+                     <Button.Danger size={Button.Sizes.Large} css={tw`w-full`} onClick={() => setVisible(true)}>
+-                        Reinstall Server
++                        Reinstalar servidor
+                     </Button.Danger>
+                     <p css={tw`text-xs text-neutral-400 mt-2`}>
+-                        This will reinstall the server with the assigned service scripts.
++                        Isso reinstalará o servidor com os scripts de serviço atribuídos.
+                         <br />
+                         <FontAwesomeIcon icon={faExclamationTriangle} className={'mr-1 text-red-500'} />
+-                        This could overwrite server data.
++                        Isso pode sobrescrever os dados do servidor.
+                     </p>
+                 </AdminBox>
+             </div>
+diff --git a/resources/scripts/components/admin/management/servers/manage/SuspendServerBox.tsx b/resources/scripts/components/admin/management/servers/manage/SuspendServerBox.tsx
+index 42ee2593b..dff043f0f 100644
+--- a/resources/scripts/components/admin/management/servers/manage/SuspendServerBox.tsx
++++ b/resources/scripts/components/admin/management/servers/manage/SuspendServerBox.tsx
+@@ -21,13 +21,13 @@ export default () => {
+                 addFlash({
+                     key: 'server:manage',
+                     type: 'success',
+-                    message: 'Your server is now suspended.',
++                    message: 'Seu servidor está suspenso.',
+                 });
+             })
+             .catch(error => {
+                 clearAndAddHttpError({
+                     key: 'server:manage',
+-                    error: `Failed to suspend server: ${error.message}`,
++                    error: `Falha ao suspender o servidor: ${error.message}`,
+                 });
+             });
+ 
+@@ -37,22 +37,23 @@ export default () => {
+     return (
+         <>
+             <Dialog.Confirm
+-                title={'Confirm suspension request'}
++                title={'Confirmar solicitação de suspensão'}
+                 onConfirmed={submit}
+                 open={visible}
+                 onClose={() => setVisible(false)}
+-                confirm={'I understand, proceed'}
++                confirm={'Entendo, continuar'}
+             >
+-                Are you sure you wish to suspend this server? It will become instantly inaccessible to the owner.
++                Tem certeza de que deseja suspender este servidor? Ele ficará instantaneamente inacessível ao
++                proprietário.
+             </Dialog.Confirm>
+             <div css={tw`h-auto flex flex-col`}>
+-                <AdminBox icon={faEyeSlash} title={'Suspend Server'} css={tw`relative w-full`}>
++                <AdminBox icon={faEyeSlash} title={'Suspender servidor'} css={tw`relative w-full`}>
+                     <Button.Warn size={Button.Sizes.Large} css={tw`w-full`} onClick={() => setVisible(true)}>
+-                        Suspend Server
++                        Suspender servidor
+                     </Button.Warn>
+                     <p css={tw`text-xs text-neutral-400 mt-2`}>
+-                        This will suspend the server, stop any running processes, and immediately block the user from
+-                        being able to manage their server through the panel.
++                        Isso suspenderá o servidor, interromperá todos os processos em execução e impedirá imediatamente
++                        que o usuário gerencie o servidor pelo painel.
+                     </p>
+                 </AdminBox>
+             </div>
+diff --git a/resources/scripts/components/admin/management/servers/manage/ToggleInstallStatusBox.tsx b/resources/scripts/components/admin/management/servers/manage/ToggleInstallStatusBox.tsx
+index 1f96089b1..16bf76250 100644
+--- a/resources/scripts/components/admin/management/servers/manage/ToggleInstallStatusBox.tsx
++++ b/resources/scripts/components/admin/management/servers/manage/ToggleInstallStatusBox.tsx
+@@ -21,13 +21,13 @@ export default () => {
+                 addFlash({
+                     key: 'server:manage',
+                     type: 'success',
+-                    message: "This server's install state has been toggled.",
++                    message: 'O estado de instalação deste servidor foi alternado.',
+                 });
+             })
+             .catch(error => {
+                 clearAndAddHttpError({
+                     key: 'server:manage',
+-                    error: `Failed to change server install state: ${error.message}`,
++                    error: `Falha ao alterar o estado de instalação do servidor: ${error.message}`,
+                 });
+             });
+ 
+@@ -37,24 +37,24 @@ export default () => {
+     return (
+         <>
+             <Dialog.Confirm
+-                title={'Confirm install status change'}
++                title={'Confirmar alteração do status de instalação'}
+                 onConfirmed={submit}
+                 open={visible}
+                 onClose={() => setVisible(false)}
+-                confirm={'I understand, proceed'}
++                confirm={'Entendo, continuar'}
+             >
+-                Are you sure you wish to change the install status of this server?
++                Tem certeza de que deseja alterar o status de instalação deste servidor?
+             </Dialog.Confirm>
+             <div css={tw`h-auto flex flex-col`}>
+-                <AdminBox icon={faDownload} title={'Install Status'} css={tw`relative w-full`}>
++                <AdminBox icon={faDownload} title={'Status de instalação'} css={tw`relative w-full`}>
+                     <Button.Info size={Button.Sizes.Large} css={tw`w-full`} onClick={() => setVisible(true)}>
+-                        Set Server as {server.status === 'installing' ? 'Active' : 'Installing'}
++                        Definir servidor como {server.status === 'installing' ? 'Ativo' : 'Instalando'}
+                     </Button.Info>
+                     <p css={tw`text-xs text-neutral-400 mt-2`}>
+-                        Change the server from being in an installed state to uninstalled, or vice versa. Your server is
+-                        currently marked as&nbsp;
++                        Altere o servidor de um estado instalado para não instalado, ou vice-versa. Seu servidor está
++                        marcado atualmente como&nbsp;
+                         <span className={'text-blue-400'}>
+-                            {server.status === 'installing' ? 'installing' : 'active'}
++                            {server.status === 'installing' ? 'instalando' : 'ativo'}
+                         </span>
+                         .
+                     </p>
+diff --git a/resources/scripts/components/admin/management/servers/manage/TransferServerBox.tsx b/resources/scripts/components/admin/management/servers/manage/TransferServerBox.tsx
+index 55ec9174d..ca7d66b52 100644
+--- a/resources/scripts/components/admin/management/servers/manage/TransferServerBox.tsx
++++ b/resources/scripts/components/admin/management/servers/manage/TransferServerBox.tsx
+@@ -36,7 +36,7 @@ export default () => {
+                     addFlash({
+                         key: 'server:manage',
+                         type: 'error',
+-                        message: 'Unable to load available nodes. Please try again.',
++                        message: 'Não foi possível carregar os Nodes disponíveis. Tente novamente.',
+                     });
+                 });
+         }
+@@ -64,7 +64,7 @@ export default () => {
+                     addFlash({
+                         key: 'server:manage',
+                         type: 'error',
+-                        message: 'Unable to load available allocations for the selected node.',
++                        message: 'Não foi possível carregar as alocações disponíveis para o Node selecionado.',
+                     });
+                     setLoading(false);
+                 });
+@@ -79,7 +79,7 @@ export default () => {
+             addFlash({
+                 key: 'server:manage',
+                 type: 'error',
+-                message: 'Please select both a node and an allocation.',
++                message: 'Selecione um Node e uma alocação.',
+             });
+             return;
+         }
+@@ -93,7 +93,7 @@ export default () => {
+                 addFlash({
+                     key: 'server:manage',
+                     type: 'success',
+-                    message: 'Server transfer has been initiated. This may take several minutes.',
++                    message: 'A transferência do servidor foi iniciada. Isso pode levar alguns minutos.',
+                 });
+                 setVisible(false);
+                 // Reset form
+@@ -107,7 +107,7 @@ export default () => {
+                     key: 'server:manage',
+                     type: 'error',
+                     message:
+-                        'Failed to initiate server transfer. Please ensure the server is not suspended or already being transferred.',
++                        'Falha ao iniciar a transferência do servidor. Verifique se o servidor não está suspenso nem em transferência.',
+                 });
+             })
+             .finally(() => {
+@@ -118,7 +118,7 @@ export default () => {
+     return (
+         <>
+             <Dialog
+-                title={'Transfer Server'}
++                title={'Transferir servidor'}
+                 open={visible}
+                 onClose={() => {
+                     setVisible(false);
+@@ -131,18 +131,18 @@ export default () => {
+                 <div css={tw`space-y-4`}>
+                     <p css={tw`text-sm text-neutral-400`}>
+                         <FontAwesomeIcon icon={faExclamationTriangle} className={'mr-1 text-yellow-500'} />
+-                        Transferring a server will move all of its files to a new node. The server will be stopped
+-                        during this process and may experience downtime.
++                        Transferir um servidor move todos os seus arquivos para um novo Node. O servidor será parado
++                        durante esse processo e pode ficar indisponível.
+                     </p>
+ 
+                     <div>
+-                        <label css={tw`block text-sm font-medium mb-2`}>Target Node</label>
++                        <label css={tw`block text-sm font-medium mb-2`}>Node de destino</label>
+                         <select
+                             css={tw`shadow-none block p-3 pr-8 rounded border w-full text-sm transition-colors duration-150 ease-linear border-neutral-500 text-neutral-200 bg-neutral-800 outline-none`}
+                             value={selectedNodeId?.toString() || ''}
+                             onChange={e => setSelectedNodeId(e.target.value ? parseInt(e.target.value) : null)}
+                         >
+-                            <option value="">Select a node...</option>
++                            <option value="">Selecione um Node...</option>
+                             {nodes.map(node => (
+                                 <option key={node.id} value={node.id}>
+                                     {node.name} ({node.fqdn})
+@@ -153,7 +153,7 @@ export default () => {
+ 
+                     {selectedNodeId && (
+                         <div>
+-                            <label css={tw`block text-sm font-medium mb-2`}>Target Allocation</label>
++                            <label css={tw`block text-sm font-medium mb-2`}>Alocação de destino</label>
+                             <select
+                                 css={tw`shadow-none block p-3 pr-8 rounded border w-full text-sm transition-colors duration-150 ease-linear border-neutral-500 text-neutral-200 bg-neutral-800 outline-none disabled:opacity-50`}
+                                 value={selectedAllocationId?.toString() || ''}
+@@ -163,10 +163,10 @@ export default () => {
+                                 disabled={loading || allocations.length === 0}
+                             >
+                                 {allocations.length === 0 ? (
+-                                    <option value="">No available allocations</option>
++                                    <option value="">Nenhuma alocação disponível</option>
+                                 ) : (
+                                     <>
+-                                        <option value="">Select an allocation...</option>
++                                        <option value="">Selecione uma alocação...</option>
+                                         {allocations.map(allocation => (
+                                             <option key={allocation.id} value={allocation.id}>
+                                                 {allocation.ip}:{allocation.port}
+@@ -189,22 +189,22 @@ export default () => {
+                                 setAllocations([]);
+                             }}
+                         >
+-                            Cancel
++                            Cancelar
+                         </Button.Text>
+                         <Button.Danger onClick={submit} disabled={!selectedNodeId || !selectedAllocationId || loading}>
+-                            {loading ? 'Transferring...' : 'Transfer Server'}
++                            {loading ? 'Transferindo...' : 'Transferir servidor'}
+                         </Button.Danger>
+                     </div>
+                 </div>
+             </Dialog>
+             <div css={tw`h-auto flex flex-col`}>
+-                <AdminBox icon={faExchangeAlt} title={'Transfer Server'} css={tw`relative w-full`}>
++                <AdminBox icon={faExchangeAlt} title={'Transferir servidor'} css={tw`relative w-full`}>
+                     <Button size={Button.Sizes.Large} css={tw`w-full`} onClick={() => setVisible(true)}>
+-                        Transfer Server
++                        Transferir servidor
+                     </Button>
+                     <p css={tw`text-xs text-neutral-400 mt-2`}>
+-                        Transfer this server to a different node. The server will be stopped and all files will be
+-                        migrated.
++                        Transfira este servidor para um Node diferente. O servidor será parado e todos os arquivos serão
++                        migrados.
+                     </p>
+                 </AdminBox>
+             </div>
+diff --git a/resources/scripts/components/admin/management/servers/manage/UnsuspendServerBox.tsx b/resources/scripts/components/admin/management/servers/manage/UnsuspendServerBox.tsx
+index 51e58dfa0..a0e8d613f 100644
+--- a/resources/scripts/components/admin/management/servers/manage/UnsuspendServerBox.tsx
++++ b/resources/scripts/components/admin/management/servers/manage/UnsuspendServerBox.tsx
+@@ -21,13 +21,13 @@ export default () => {
+                 addFlash({
+                     key: 'server:manage',
+                     type: 'success',
+-                    message: 'Your server is now unsuspended.',
++                    message: 'Seu servidor foi reativado.',
+                 });
+             })
+             .catch(error => {
+                 clearAndAddHttpError({
+                     key: 'server:manage',
+-                    error: `Failed to unsuspend server: ${error.message}`,
++                    error: `Falha ao reativar o servidor: ${error.message}`,
+                 });
+             });
+ 
+@@ -37,21 +37,21 @@ export default () => {
+     return (
+         <>
+             <Dialog.Confirm
+-                title={'Confirm suspension removal'}
++                title={'Confirmar remoção da suspensão'}
+                 onConfirmed={submit}
+                 open={visible}
+                 onClose={() => setVisible(false)}
+-                confirm={'I understand, proceed'}
++                confirm={'Entendo, continuar'}
+             >
+-                Are you sure you wish to unsuspend this server? Users will now be able to reconnect as usual.
++                Tem certeza de que deseja reativar este servidor? Os usuários poderão se reconectar normalmente.
+             </Dialog.Confirm>
+             <div css={tw`h-auto flex flex-col`}>
+-                <AdminBox icon={faEye} title={'Unuspend Server'} css={tw`relative w-full`}>
++                <AdminBox icon={faEye} title={'Reativar servidor'} css={tw`relative w-full`}>
+                     <Button.Warn size={Button.Sizes.Large} css={tw`w-full`} onClick={() => setVisible(true)}>
+-                        Unsuspend Server
++                        Reativar servidor
+                     </Button.Warn>
+                     <p css={tw`text-xs text-neutral-400 mt-2`}>
+-                        This action will allow users to access the server like normal.
++                        Esta ação permitirá que os usuários acessem o servidor normalmente.
+                     </p>
+                 </AdminBox>
+             </div>
+diff --git a/resources/scripts/components/admin/management/servers/presets/DeleteServerPresetDialog.tsx b/resources/scripts/components/admin/management/servers/presets/DeleteServerPresetDialog.tsx
+index c69feeb57..f9c424c47 100644
+--- a/resources/scripts/components/admin/management/servers/presets/DeleteServerPresetDialog.tsx
++++ b/resources/scripts/components/admin/management/servers/presets/DeleteServerPresetDialog.tsx
+@@ -25,15 +25,15 @@ export default ({ id }: { id: number }) => {
+             <Dialog.Confirm
+                 open={open}
+                 onClose={() => setOpen(false)}
+-                title={'Confirm server preset deletion'}
++                title={'Confirmar exclusão do Preset'}
+                 onConfirmed={submit}
+                 buttonType={'danger'}
+             >
+                 <SpinnerOverlay visible={loading} />
+-                Are you sure you wish to delete this server preset? This action cannot be undone.
++                Tem certeza de que deseja excluir este Preset? Esta ação não pode ser desfeita.
+             </Dialog.Confirm>
+             <Button.Danger onClick={() => setOpen(true)}>
+-                <TrashIcon className={'w-5 h-5 mr-1'} /> Delete
++                <TrashIcon className={'w-5 h-5 mr-1'} /> Excluir
+             </Button.Danger>
+         </>
+     );
+diff --git a/resources/scripts/components/admin/management/servers/presets/NestEggSelect.tsx b/resources/scripts/components/admin/management/servers/presets/NestEggSelect.tsx
+index e96f030ce..969bf64c3 100644
+--- a/resources/scripts/components/admin/management/servers/presets/NestEggSelect.tsx
++++ b/resources/scripts/components/admin/management/servers/presets/NestEggSelect.tsx
+@@ -24,11 +24,11 @@ const NestSelect = ({ form, update }: NameSelectProps) => {
+                 onChange={e => update('nest_id', e.target.value === 'none' ? null : Number(e.target.value))}
+             >
+                 {!nests ? (
+-                    <option disabled>Loading...</option>
++                    <option disabled>Carregando...</option>
+                 ) : (
+                     <>
+                         <option key={'none'} value={'none'}>
+-                            None
++                            Nenhum
+                         </option>
+                         {nests?.map(v => (
+                             <option key={v.uuid} value={v.id.toString()}>
+@@ -38,7 +38,7 @@ const NestSelect = ({ form, update }: NameSelectProps) => {
+                     </>
+                 )}
+             </Select>
+-            <p className={'text-xs text-gray-400'}>Select a nest to use with this preset (optional)</p>
++            <p className={'text-xs text-gray-400'}>Selecione um Nest para usar com este Preset (opcional)</p>
+         </div>
+     );
+ };
+@@ -69,7 +69,7 @@ const EggSelect = ({ form, update }: NameSelectProps) => {
+                 onChange={e => update('egg_id', Number(e.currentTarget.value))}
+             >
+                 {!eggs ? (
+-                    <option disabled>Loading...</option>
++                    <option disabled>Carregando...</option>
+                 ) : (
+                     eggs?.map(v => (
+                         <option key={v.uuid} value={v.id.toString()}>
+@@ -78,7 +78,7 @@ const EggSelect = ({ form, update }: NameSelectProps) => {
+                     ))
+                 )}
+             </Select>
+-            <p className={'text-xs text-gray-400'}>Select an egg to use with this preset (optional)</p>
++            <p className={'text-xs text-gray-400'}>Selecione um Egg para usar com este Preset (opcional)</p>
+         </div>
+     );
+ };
+diff --git a/resources/scripts/components/admin/management/servers/presets/ServerPresetContainer.tsx b/resources/scripts/components/admin/management/servers/presets/ServerPresetContainer.tsx
+index 4d2a178d6..878291c9d 100644
+--- a/resources/scripts/components/admin/management/servers/presets/ServerPresetContainer.tsx
++++ b/resources/scripts/components/admin/management/servers/presets/ServerPresetContainer.tsx
+@@ -5,14 +5,14 @@ import ServerPresetsTable from './ServerPresetsTable';
+ import ServerPresetDialog from './ServerPresetDialog';
+ 
+ export default () => (
+-    <AdminContentBlock title={'New Server'} showFlashKey={'admin:servers:presets'}>
++    <AdminContentBlock title={'Novo servidor'} showFlashKey={'admin:servers:presets'}>
+         <div className={`w-full flex flex-row items-center mb-8`}>
+             <div className={`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
+-                <h2 className={`text-2xl text-neutral-50 font-header font-medium`}>Server Presets</h2>
++                <h2 className={`text-2xl text-neutral-50 font-header font-medium`}>Presets de servidor</h2>
+                 <p
+                     className={`hidden md:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}
+                 >
+-                    Control preset server configurations for administrators.
++                    Controle as configurações de Preset para administradores.
+                 </p>
+             </div>
+             <div className={`flex ml-auto pl-4`}>
+@@ -21,7 +21,7 @@ export default () => (
+         </div>
+ 
+         <SubNavigation>
+-            <SubNavigationLink to="/admin/servers" name="All Servers" base>
++            <SubNavigationLink to="/admin/servers" name="Todos os servidores" base>
+                 <TerminalIcon />
+             </SubNavigationLink>
+             <SubNavigationLink to="/admin/servers/presets" name="Presets">
+diff --git a/resources/scripts/components/admin/management/servers/presets/ServerPresetDialog.tsx b/resources/scripts/components/admin/management/servers/presets/ServerPresetDialog.tsx
+index 242b370c8..9213983a8 100644
+--- a/resources/scripts/components/admin/management/servers/presets/ServerPresetDialog.tsx
++++ b/resources/scripts/components/admin/management/servers/presets/ServerPresetDialog.tsx
+@@ -13,9 +13,15 @@ import { ServerPreset } from '@/api/definitions/admin';
+ import { useNavigate } from 'react-router-dom';
+ 
+ const pages = [
+-    { title: '(1/3) Create a description', description: 'Add a title and description to identify this preset.' },
+-    { title: '(2/3) Assign resource limits', description: 'Add a resource cap on specific hardware usage.' },
+-    { title: '(3/3) Choose a nest and egg (optional)', description: 'Assign a default nest/egg to this preset.' },
++    {
++        title: '(1/3) Crie uma descrição',
++        description: 'Adicione um título e uma descrição para identificar este Preset.',
++    },
++    {
++        title: '(2/3) Defina os limites de recursos',
++        description: 'Defina um limite de recursos para o uso de hardware.',
++    },
++    { title: '(3/3) Escolha um Nest e um Egg (opcional)', description: 'Atribua um Nest/Egg padrão a este Preset.' },
+ ];
+ 
+ export interface NameSelectProps {
+@@ -29,13 +35,13 @@ const NameSelect = ({ form, update }: NameSelectProps) => (
+             name={'name'}
+             value={form.name}
+             onChange={e => update('name', e.target.value)}
+-            placeholder={'Preset Name'}
++            placeholder={'Nome do preset'}
+         />
+         <Input
+             name="description"
+             value={form.description}
+             onChange={e => update('description', e.target.value)}
+-            placeholder="Preset Description"
++            placeholder="Descrição do preset"
+         />
+     </div>
+ );
+@@ -44,7 +50,7 @@ const ResourceSelect = ({ form, update }: NameSelectProps) => (
+     <div className="mb-8 space-y-2">
+         <div className={'grid lg:grid-cols-3 gap-4'}>
+             <div>
+-                <Label>CPU Limit (%)</Label>
++                <Label>Limite de CPU (%)</Label>
+                 <Input
+                     name={'cpu'}
+                     type={'number'}
+@@ -53,7 +59,7 @@ const ResourceSelect = ({ form, update }: NameSelectProps) => (
+                 />
+             </div>
+             <div>
+-                <Label>Memory Limit (MiB)</Label>
++                <Label>Limite de memória (MiB)</Label>
+                 <Input
+                     name={'memory'}
+                     type={'number'}
+@@ -62,7 +68,7 @@ const ResourceSelect = ({ form, update }: NameSelectProps) => (
+                 />
+             </div>
+             <div>
+-                <Label>Disk Limit (MiB)</Label>
++                <Label>Limite de disco (MiB)</Label>
+                 <Input
+                     name={'disk'}
+                     type={'number'}
+@@ -158,7 +164,7 @@ export default function ServerPresetDialog({ preset }: { preset?: ServerPreset }
+                     )}
+                     {page === 2 && (
+                         <Button.Success size={Button.Sizes.Small} onClick={submit}>
+-                            <CheckCircleIcon className="w-4 h-4 mr-1" /> Finish
++                            <CheckCircleIcon className="w-4 h-4 mr-1" /> Concluir
+                         </Button.Success>
+                     )}
+                 </div>
+@@ -172,11 +178,11 @@ export default function ServerPresetDialog({ preset }: { preset?: ServerPreset }
+             >
+                 {preset ? (
+                     <>
+-                        <PencilAltIcon className={'w-5 h-5 mr-1'} /> Update
++                        <PencilAltIcon className={'w-5 h-5 mr-1'} /> Atualizar
+                     </>
+                 ) : (
+                     <>
+-                        <PlusIcon className={'w-5 h-5 mr-1'} /> Create
++                        <PlusIcon className={'w-5 h-5 mr-1'} /> Criar
+                     </>
+                 )}
+             </Button>
+diff --git a/resources/scripts/components/admin/management/servers/presets/ServerPresetViewContainer.tsx b/resources/scripts/components/admin/management/servers/presets/ServerPresetViewContainer.tsx
+index 03fbd7837..41d5616c1 100644
+--- a/resources/scripts/components/admin/management/servers/presets/ServerPresetViewContainer.tsx
++++ b/resources/scripts/components/admin/management/servers/presets/ServerPresetViewContainer.tsx
+@@ -26,20 +26,20 @@ export default () => {
+     if (!preset) return <Spinner size={'large'} centered />;
+ 
+     return (
+-        <AdminContentBlock title={'New Server'} showFlashKey={'admin:servers:presets'}>
++        <AdminContentBlock title={'Novo servidor'} showFlashKey={'admin:servers:presets'}>
+             <div className={`w-full flex flex-row items-center mb-8`}>
+                 <div className={`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
+                     <h2 className={`text-2xl text-neutral-50 font-header font-medium`}>{preset.name}</h2>
+                     <p
+                         className={`hidden md:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}
+                     >
+-                        {preset.description ?? 'This is a server preset.'}
++                        {preset.description ?? 'Este é um Preset de servidor.'}
+                     </p>
+                 </div>
+                 <div className={`flex ml-auto pl-4 space-x-3`}>
+                     <Link to={'/admin/servers/presets'}>
+                         <Button.Text>
+-                            <ChevronLeftIcon className={'w-5 h-5 mr-1'} /> Back
++                            <ChevronLeftIcon className={'w-5 h-5 mr-1'} /> Voltar
+                         </Button.Text>
+                     </Link>
+                     <ServerPresetDialog preset={preset} />
+@@ -47,46 +47,46 @@ export default () => {
+                 </div>
+             </div>
+             <div className={'grid lg:grid-cols-2 gap-8'}>
+-                <AdminBox title={'Basic Information'} icon={faPencilSquare} className={'col-span-2'}>
++                <AdminBox title={'Informações básicas'} icon={faPencilSquare} className={'col-span-2'}>
+                     <div className="grid lg:grid-cols-3 gap-4">
+                         <div>
+-                            <Label>Preset Name</Label>
++                            <Label>Nome do Preset</Label>
+                             <Input disabled value={preset.name}></Input>
+                         </div>
+                         <div>
+-                            <Label>Preset Description</Label>
++                            <Label>Descrição do Preset</Label>
+                             <Input disabled value={preset.description}></Input>
+                         </div>
+                         <div>
+-                            <Label>Created At</Label>
++                            <Label>Criado em</Label>
+                             <Input disabled value={new Date(preset.created_at).toLocaleString()}></Input>
+                         </div>
+                     </div>
+                 </AdminBox>
+-                <AdminBox title={'Assignment Details'} icon={faCube}>
++                <AdminBox title={'Detalhes da atribuição'} icon={faCube}>
+                     <div className="grid lg:grid-cols-2 gap-4">
+                         <div>
+-                            <Label>Nest ID</Label>
+-                            <Input disabled value={preset.nest_id ?? 'Not Assigned'}></Input>
++                            <Label>ID do Nest</Label>
++                            <Input disabled value={preset.nest_id ?? 'Não atribuído'}></Input>
+                         </div>
+                         <div>
+-                            <Label>Egg ID</Label>
+-                            <Input disabled value={preset.egg_id ?? 'Not Assigned'}></Input>
++                            <Label>ID do Egg</Label>
++                            <Input disabled value={preset.egg_id ?? 'Não atribuído'}></Input>
+                         </div>
+                     </div>
+                 </AdminBox>
+-                <AdminBox title={'Resource Limits'} icon={faChartBar}>
++                <AdminBox title={'Limites de recursos'} icon={faChartBar}>
+                     <div className="grid lg:grid-cols-3 gap-4">
+                         <div>
+-                            <Label>CPU Limit (%)</Label>
++                            <Label>Limite de CPU (%)</Label>
+                             <Input disabled value={preset.cpu}></Input>
+                         </div>
+                         <div>
+-                            <Label>Memory Limit (MiB)</Label>
++                            <Label>Limite de memória (MiB)</Label>
+                             <Input disabled value={preset.memory}></Input>
+                         </div>
+                         <div>
+-                            <Label>Disk Limit (MiB)</Label>
++                            <Label>Limite de disco (MiB)</Label>
+                             <Input disabled value={preset.disk}></Input>
+                         </div>
+                     </div>
+diff --git a/resources/scripts/components/admin/management/servers/presets/ServerPresetsTable.tsx b/resources/scripts/components/admin/management/servers/presets/ServerPresetsTable.tsx
+index 867229d0e..b392099ee 100644
+--- a/resources/scripts/components/admin/management/servers/presets/ServerPresetsTable.tsx
++++ b/resources/scripts/components/admin/management/servers/presets/ServerPresetsTable.tsx
+@@ -64,27 +64,27 @@ function ServerPresetsTable({ filters }: Props) {
+                                     onClick={() => setSort('id')}
+                                 />
+                                 <TableHeader
+-                                    name={'Name'}
++                                    name={'Nome'}
+                                     direction={sort === 'name' ? (sortDirection ? 1 : 2) : null}
+                                     onClick={() => setSort('name')}
+                                 />
+-                                <TableHeader name={'Description'} />
++                                <TableHeader name={'Descrição'} />
+                                 <TableHeader
+                                     name={'CPU'}
+                                     direction={sort === 'cpu' ? (sortDirection ? 1 : 2) : null}
+                                     onClick={() => setSort('cpu')}
+                                 />
+                                 <TableHeader
+-                                    name={'Memory'}
++                                    name={'Memória'}
+                                     direction={sort === 'memory' ? (sortDirection ? 1 : 2) : null}
+                                     onClick={() => setSort('memory')}
+                                 />
+                                 <TableHeader
+-                                    name={'Disk'}
++                                    name={'Disco'}
+                                     direction={sort === 'disk' ? (sortDirection ? 1 : 2) : null}
+                                     onClick={() => setSort('disk')}
+                                 />
+-                                <TableHeader name={'Has Egg?'} />
++                                <TableHeader name={'Possui Egg?'} />
+                             </TableHead>
+ 
+                             <TableBody>
+diff --git a/resources/scripts/components/admin/management/servers/settings/BaseSettingsBox.tsx b/resources/scripts/components/admin/management/servers/settings/BaseSettingsBox.tsx
+index 853263a17..e7c1591bb 100644
+--- a/resources/scripts/components/admin/management/servers/settings/BaseSettingsBox.tsx
++++ b/resources/scripts/components/admin/management/servers/settings/BaseSettingsBox.tsx
+@@ -13,16 +13,16 @@ export default ({ children }: { children?: ReactNode }) => {
+     const { isSubmitting } = useFormikContext();
+ 
+     return (
+-        <AdminBox icon={faCogs} title={'Settings'} isLoading={isSubmitting}>
++        <AdminBox icon={faCogs} title={'Configurações'} isLoading={isSubmitting}>
+             <div css={tw`grid grid-cols-1 xl:grid-cols-2 gap-4 lg:gap-6`}>
+                 <Field
+                     id={'name'}
+                     name={'name'}
+-                    label={'Server Name'}
++                    label={'Nome do servidor'}
+                     type={'text'}
+-                    placeholder={'My Amazing Server'}
++                    placeholder={'Meu servidor incrível'}
+                 />
+-                <Field id={'externalId'} name={'externalId'} label={'External Identifier'} type={'text'} />
++                <Field id={'externalId'} name={'externalId'} label={'Identificador externo'} type={'text'} />
+                 <OwnerSelect selected={server?.relationships.user} />
+                 {children}
+             </div>
+diff --git a/resources/scripts/components/admin/management/servers/settings/FeatureLimitsBox.tsx b/resources/scripts/components/admin/management/servers/settings/FeatureLimitsBox.tsx
+index c2b66954f..91adb7e67 100644
+--- a/resources/scripts/components/admin/management/servers/settings/FeatureLimitsBox.tsx
++++ b/resources/scripts/components/admin/management/servers/settings/FeatureLimitsBox.tsx
+@@ -9,35 +9,35 @@ export default () => {
+     const { isSubmitting } = useFormikContext();
+ 
+     return (
+-        <AdminBox icon={faConciergeBell} title={'Feature Limits'} isLoading={isSubmitting}>
++        <AdminBox icon={faConciergeBell} title={'Limites de funcionalidades'} isLoading={isSubmitting}>
+             <div css={tw`grid grid-cols-1 xl:grid-cols-2 gap-4 lg:gap-6`}>
+                 <Field
+                     id={'featureLimits.allocations'}
+                     name={'featureLimits.allocations'}
+-                    label={'Allocation Limit'}
++                    label={'Limite de alocações'}
+                     type={'number'}
+-                    description={'The total number of allocations a user is allowed to create for this server.'}
++                    description={'O número total de alocações que um usuário pode criar para este servidor.'}
+                 />
+                 <Field
+                     id={'featureLimits.backups'}
+                     name={'featureLimits.backups'}
+-                    label={'Backup Limit'}
++                    label={'Limite de backups'}
+                     type={'number'}
+-                    description={'The total number of backups that can be created for this server.'}
++                    description={'O número total de backups que podem ser criados para este servidor.'}
+                 />
+                 <Field
+                     id={'featureLimits.databases'}
+                     name={'featureLimits.databases'}
+-                    label={'Database Limit'}
++                    label={'Limite de bancos de dados'}
+                     type={'number'}
+-                    description={'The total number of databases a user is allowed to create for this server.'}
++                    description={'O número total de bancos de dados que um usuário pode criar para este servidor.'}
+                 />
+                 <Field
+                     id={'featureLimits.subusers'}
+                     name={'featureLimits.subusers'}
+-                    label={'Subuser Limit'}
++                    label={'Limite de subusuários'}
+                     type={'number'}
+-                    description={'The total number of subusers that can be added to this server.'}
++                    description={'O número total de subusuários que podem ser adicionados a este servidor.'}
+                 />
+             </div>
+         </AdminBox>
+diff --git a/resources/scripts/components/admin/management/servers/settings/NetworkingBox.tsx b/resources/scripts/components/admin/management/servers/settings/NetworkingBox.tsx
+index df02184cd..7ce0a0749 100644
+--- a/resources/scripts/components/admin/management/servers/settings/NetworkingBox.tsx
++++ b/resources/scripts/components/admin/management/servers/settings/NetworkingBox.tsx
+@@ -30,10 +30,10 @@ export default () => {
+     };
+ 
+     return (
+-        <AdminBox icon={faNetworkWired} title={'Networking'} isLoading={isSubmitting}>
++        <AdminBox icon={faNetworkWired} title={'Rede'} isLoading={isSubmitting}>
+             <div css={tw`grid grid-cols-1 gap-4 lg:gap-6`}>
+                 <div>
+-                    <Label htmlFor={'allocationId'}>Primary Allocation</Label>
++                    <Label htmlFor={'allocationId'}>Alocação principal</Label>
+                     <Select id={'allocationId'} name={'allocationId'}>
+                         {server?.relationships.allocations?.map(a => (
+                             <option key={a.id} value={a.id}>
+@@ -45,14 +45,14 @@ export default () => {
+                 <AsyncSelectField
+                     id={'addAllocations'}
+                     name={'addAllocations'}
+-                    label={'Add Allocations'}
++                    label={'Adicionar alocações'}
+                     loadOptions={loadOptions}
+                     isMulti
+                 />
+                 <SelectField
+                     id={'removeAllocations'}
+                     name={'removeAllocations'}
+-                    label={'Remove Allocations'}
++                    label={'Remover alocações'}
+                     options={
+                         server?.relationships.allocations?.map(a => {
+                             return { value: a.id.toString(), label: a.getDisplayText() };
+diff --git a/resources/scripts/components/admin/management/servers/settings/ServerResourceBox.tsx b/resources/scripts/components/admin/management/servers/settings/ServerResourceBox.tsx
+index 7ab306a01..a29e051fd 100644
+--- a/resources/scripts/components/admin/management/servers/settings/ServerResourceBox.tsx
++++ b/resources/scripts/components/admin/management/servers/settings/ServerResourceBox.tsx
+@@ -10,52 +10,52 @@ export default () => {
+     const { isSubmitting } = useFormikContext();
+ 
+     return (
+-        <AdminBox icon={faBalanceScale} title={'Resources'} isLoading={isSubmitting}>
++        <AdminBox icon={faBalanceScale} title={'Recursos'} isLoading={isSubmitting}>
+             <div css={tw`grid grid-cols-1 xl:grid-cols-2 gap-4 lg:gap-6`}>
+                 <Field
+                     id={'limits.cpu'}
+                     name={'limits.cpu'}
+-                    label={'CPU Limit'}
++                    label={'Limite de CPU'}
+                     type={'text'}
+                     description={
+-                        'Each thread on the system is considered to be 100%. Setting this value to 0 will allow the server to use CPU time without restriction.'
++                        'Cada thread do sistema é considerada 100%. Definir este valor como 0 permitirá que o servidor use tempo de CPU sem restrição.'
+                     }
+                 />
+                 <Field
+                     id={'limits.threads'}
+                     name={'limits.threads'}
+-                    label={'CPU Pinning'}
++                    label={'Fixação de CPU'}
+                     type={'text'}
+                     description={
+-                        'Advanced: Enter the specific CPU cores that this server can run on, or leave blank to allow all cores. This can be a single number, and or a comma seperated list, and or a dashed range. Example: 0, 0-1,3, or 0,1,3,4.  It is recommended to leave this value blank and let the CPU handle balancing the load.'
++                        'Avançado: informe os núcleos de CPU específicos que este servidor pode usar, ou deixe em branco para permitir todos os núcleos. Pode ser um único número, uma lista separada por vírgulas ou um intervalo com hífen. Exemplo: 0, 0-1,3 ou 0,1,3,4. É recomendável deixar este valor em branco e deixar a CPU equilibrar a carga.'
+                     }
+                 />
+                 <Field
+                     id={'limits.memory'}
+                     name={'limits.memory'}
+-                    label={'Memory Limit'}
++                    label={'Limite de memória'}
+                     type={'number'}
+                     description={
+-                        'The maximum amount of memory allowed for this container. Setting this to 0 will allow unlimited memory in a container.'
++                        'A quantidade máxima de memória permitida para este contêiner. Definir como 0 permitirá memória ilimitada no contêiner.'
+                     }
+                 />
+-                <Field id={'limits.swap'} name={'limits.swap'} label={'Swap Limit'} type={'number'} />
++                <Field id={'limits.swap'} name={'limits.swap'} label={'Limite de swap'} type={'number'} />
+                 <Field
+                     id={'limits.disk'}
+                     name={'limits.disk'}
+-                    label={'Disk Limit'}
++                    label={'Limite de disco'}
+                     type={'number'}
+                     description={
+-                        'This server will not be allowed to boot if it is using more than this amount of space. If a server goes over this limit while running it will be safely stopped and locked until enough space is available. Set to 0 to allow unlimited disk usage.'
++                        'Este servidor não poderá ser iniciado se estiver usando mais do que essa quantidade de espaço. Se um servidor ultrapassar esse limite durante a execução, ele será parado com segurança e bloqueado até que haja espaço suficiente disponível. Defina como 0 para permitir uso ilimitado de disco.'
+                     }
+                 />
+                 <Field
+                     id={'limits.io'}
+                     name={'limits.io'}
+-                    label={'Block IO Proportion'}
++                    label={'Proporção de Block IO'}
+                     type={'number'}
+                     description={
+-                        'Advanced: The IO performance of this server relative to other running containers on the system. Value should be between 10 and 1000.'
++                        'Avançado: o desempenho de IO deste servidor em relação aos outros contêineres em execução no sistema. O valor deve estar entre 10 e 1000.'
+                     }
+                 />
+                 <div css={tw`xl:col-span-2 bg-neutral-800 border border-neutral-900 shadow-inner p-4 rounded`}>
+@@ -63,7 +63,7 @@ export default () => {
+                         name={'limits.oomKiller'}
+                         label={'Out of Memory Killer'}
+                         description={
+-                            'Enabling the Out of Memory Killer may cause server processes to exit unexpectedly.'
++                            'Ativar o Out of Memory Killer pode encerrar inesperadamente os processos do servidor.'
+                         }
+                     />
+                 </div>
+diff --git a/resources/scripts/components/admin/management/users/NewUserContainer.tsx b/resources/scripts/components/admin/management/users/NewUserContainer.tsx
+index cdc8133e8..89973b562 100644
+--- a/resources/scripts/components/admin/management/users/NewUserContainer.tsx
++++ b/resources/scripts/components/admin/management/users/NewUserContainer.tsx
+@@ -31,21 +31,21 @@ export default () => {
+     };
+ 
+     return (
+-        <AdminContentBlock title={'New User'}>
++        <AdminContentBlock title={'Novo usuário'}>
+             <div css={tw`w-full flex flex-row items-center mb-8`}>
+                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
+-                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>New User</h2>
++                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Novo usuário</h2>
+                     <p
+                         css={tw`hidden md:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}
+                     >
+-                        Add a new user to the panel.
++                        Adicione um novo usuário ao painel.
+                     </p>
+                 </div>
+             </div>
+ 
+             <FlashMessageRender byKey={'user:create'} css={tw`mb-4`} />
+ 
+-            <UserForm title={'Create User'} onSubmit={submit} />
++            <UserForm title={'Criar usuário'} onSubmit={submit} />
+         </AdminContentBlock>
+     );
+ };
+diff --git a/resources/scripts/components/admin/management/users/UserRouter.tsx b/resources/scripts/components/admin/management/users/UserRouter.tsx
+index 8a121a9d4..756793e2a 100644
+--- a/resources/scripts/components/admin/management/users/UserRouter.tsx
++++ b/resources/scripts/components/admin/management/users/UserRouter.tsx
+@@ -69,7 +69,7 @@ const UserRouter = () => {
+     }
+ 
+     return (
+-        <AdminContentBlock title={'User - ' + user.id}>
++        <AdminContentBlock title={'Usuário - ' + user.id}>
+             <div css={tw`w-full flex flex-row items-center mb-4`}>
+                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
+                     <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>{user.email}</h2>
+@@ -82,7 +82,7 @@ const UserRouter = () => {
+                 <div css={tw`flex ml-auto pl-4`}>
+                     <Link to={'/admin/users'}>
+                         <Button>
+-                            <FontAwesomeIcon icon={faArrowLeft} className={'mr-2 my-auto'} /> Back to Users
++                            <FontAwesomeIcon icon={faArrowLeft} className={'mr-2 my-auto'} /> Voltar para os usuários
+                         </Button>
+                     </Link>
+                 </div>
+@@ -91,19 +91,19 @@ const UserRouter = () => {
+             <FlashMessageRender byKey={'user'} css={tw`mb-4`} />
+ 
+             <SubNavigation>
+-                <SubNavigationLink to={`/admin/users/${params.id}`} name={'About'} base>
++                <SubNavigationLink to={`/admin/users/${params.id}`} name={'Sobre'} base>
+                     <UserIcon />
+                 </SubNavigationLink>
+ 
+-                <SubNavigationLink to={`/admin/users/${params.id}/servers`} name={'Servers'}>
++                <SubNavigationLink to={`/admin/users/${params.id}/servers`} name={'Servidores'}>
+                     <ServerIcon />
+                 </SubNavigationLink>
+ 
+-                <SubNavigationLink to={`/admin/users/${params.id}/activity`} name={'Activity'}>
++                <SubNavigationLink to={`/admin/users/${params.id}/activity`} name={'Atividade'}>
+                     <ClockIcon />
+                 </SubNavigationLink>
+ 
+-                <SubNavigationLink to={`/admin/users/${params.id}/manage`} name={'Manage'}>
++                <SubNavigationLink to={`/admin/users/${params.id}/manage`} name={'Gerenciamento'}>
+                     <CogIcon />
+                 </SubNavigationLink>
+             </SubNavigation>
+diff --git a/resources/scripts/components/admin/management/users/UsersContainer.tsx b/resources/scripts/components/admin/management/users/UsersContainer.tsx
+index 935a3a793..2a4af8201 100644
+--- a/resources/scripts/components/admin/management/users/UsersContainer.tsx
++++ b/resources/scripts/components/admin/management/users/UsersContainer.tsx
+@@ -53,30 +53,30 @@ function UsersContainer() {
+     };
+ 
+     return (
+-        <AdminContentBlock title={'User Accounts'}>
++        <AdminContentBlock title={'Contas de usuários'}>
+             <div css={tw`w-full flex flex-row items-center mb-8`}>
+                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
+-                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>User Accounts</h2>
++                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Contas de usuários</h2>
+                     <p
+                         css={tw`hidden md:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}
+                     >
+-                        All users that have access to the system.
++                        Todos os usuários com acesso ao sistema.
+                     </p>
+                 </div>
+ 
+                 <div css={tw`flex ml-auto pl-4`}>
+                     <Link to={'/admin/users/new'}>
+                         <Button>
+-                            <FontAwesomeIcon icon={faPlus} className={'mr-2 my-auto'} /> New User
++                            <FontAwesomeIcon icon={faPlus} className={'mr-2 my-auto'} /> Novo usuário
+                         </Button>
+                     </Link>
+                 </div>
+             </div>
+             <SubNavigation>
+-                <SubNavigationLink to={`/admin/users`} name={'Users'} base>
++                <SubNavigationLink to={`/admin/users`} name={'Usuários'} base>
+                     <UsersIcon />
+                 </SubNavigationLink>
+-                <SubNavigationLink to={`/admin/users/roles`} name={'Administrator Roles'}>
++                <SubNavigationLink to={`/admin/users/roles`} name={'Funções de administrador'}>
+                     <UserAddIcon />
+                 </SubNavigationLink>
+             </SubNavigation>
+@@ -92,27 +92,27 @@ function UsersContainer() {
+                                         onClick={() => setSort('id')}
+                                     />
+                                     <TableHeader
+-                                        name={'Username'}
++                                        name={'Nome de usuário'}
+                                         direction={sort === 'username' ? (sortDirection ? 1 : 2) : null}
+                                         onClick={() => setSort('username')}
+                                     />
+                                     <TableHeader
+-                                        name={'Email Address'}
++                                        name={'Endereço de e-mail'}
+                                         direction={sort === 'email' ? (sortDirection ? 1 : 2) : null}
+                                         onClick={() => setSort('email')}
+                                     />
+                                     <TableHeader
+-                                        name={'2FA Enabled'}
++                                        name={'2FA ativado'}
+                                         direction={sort === 'use_totp' ? (sortDirection ? 1 : 2) : null}
+                                         onClick={() => setSort('use_totp')}
+                                     />
+                                     <TableHeader
+-                                        name={'State'}
++                                        name={'Status'}
+                                         direction={sort === 'state' ? (sortDirection ? 1 : 2) : null}
+                                         onClick={() => setSort('state')}
+                                     />
+                                     <TableHeader
+-                                        name={'permissions'}
++                                        name={'Permissões'}
+                                         direction={sort === 'root_admin' ? (sortDirection ? 1 : 2) : null}
+                                         onClick={() => setSort('root_admin')}
+                                     />
+@@ -147,7 +147,7 @@ function UsersContainer() {
+                                                                 className={'my-auto mr-1'}
+                                                                 size={'sm'}
+                                                             />{' '}
+-                                                            Enabled
++                                                            Ativado
+                                                         </Pill>
+                                                     ) : (
+                                                         <Pill type={'danger'}>
+@@ -156,7 +156,7 @@ function UsersContainer() {
+                                                                 className={'my-auto mr-1'}
+                                                                 size={'sm'}
+                                                             />{' '}
+-                                                            Disabled
++                                                            Desativado
+                                                         </Pill>
+                                                     )}
+                                                 </td>
+@@ -168,7 +168,7 @@ function UsersContainer() {
+                                                                 className={'my-auto mr-1'}
+                                                                 size={'sm'}
+                                                             />{' '}
+-                                                            Suspended
++                                                            Suspenso
+                                                         </Pill>
+                                                     ) : (
+                                                         <Pill type={'success'}>
+@@ -177,7 +177,7 @@ function UsersContainer() {
+                                                                 className={'my-auto mr-1'}
+                                                                 size={'sm'}
+                                                             />{' '}
+-                                                            Active
++                                                            Ativo
+                                                         </Pill>
+                                                     )}
+                                                 </td>
+@@ -190,7 +190,7 @@ function UsersContainer() {
+                                                                     className={'my-auto mr-1'}
+                                                                     size={'sm'}
+                                                                 />{' '}
+-                                                                Admin
++                                                                Administrador
+                                                             </Pill>
+                                                             {user.admin_role_id ? (
+                                                                 <Pill type={'info'}>
+@@ -208,7 +208,7 @@ function UsersContainer() {
+                                                                         className={'my-auto mr-1'}
+                                                                         size={'sm'}
+                                                                     />{' '}
+-                                                                    Full Access
++                                                                    Acesso total
+                                                                 </Pill>
+                                                             )}
+                                                         </>
+@@ -219,7 +219,7 @@ function UsersContainer() {
+                                                                 className={'my-auto mr-1'}
+                                                                 size={'sm'}
+                                                             />{' '}
+-                                                            Standard
++                                                            Padrão
+                                                         </Pill>
+                                                     )}
+                                                 </td>
+diff --git a/resources/scripts/components/admin/management/users/roles/NewRoleButton.tsx b/resources/scripts/components/admin/management/users/roles/NewRoleButton.tsx
+index 55cc6e090..789199621 100644
+--- a/resources/scripts/components/admin/management/users/roles/NewRoleButton.tsx
++++ b/resources/scripts/components/admin/management/users/roles/NewRoleButton.tsx
+@@ -17,8 +17,8 @@ interface Values {
+ }
+ 
+ const schema = object().shape({
+-    name: string().required('A role name must be provided.').max(32, 'Role name must not exceed 32 characters.'),
+-    description: string().max(255, 'Role description must not exceed 255 characters.'),
++    name: string().required('Informe o nome da função.').max(32, 'O nome da função deve ter no máximo 32 caracteres.'),
++    description: string().max(255, 'A descrição da função deve ter no máximo 255 caracteres.'),
+     color: string().nullable(),
+ });
+ 
+@@ -60,14 +60,14 @@ export default () => {
+                     >
+                         <SpinnerOverlay visible={isSubmitting} />
+                         <FlashMessageRender byKey={'role:create'} css={tw`mb-6`} />
+-                        <h2 css={tw`mb-6 text-2xl text-neutral-100`}>New Role</h2>
++                        <h2 css={tw`mb-6 text-2xl text-neutral-100`}>Nova função</h2>
+                         <Form css={tw`m-0`}>
+                             <Field
+                                 type={'text'}
+                                 id={'name'}
+                                 name={'name'}
+-                                label={'Name'}
+-                                description={'A short name used to identify this role.'}
++                                label={'Nome'}
++                                description={'Um nome curto para identificar esta função.'}
+                                 autoFocus
+                             />
+ 
+@@ -76,8 +76,8 @@ export default () => {
+                                     type={'text'}
+                                     id={'description'}
+                                     name={'description'}
+-                                    label={'Description'}
+-                                    description={'A description for this role.'}
++                                    label={'Descrição'}
++                                    description={'Uma descrição para esta função.'}
+                                 />
+                             </div>
+                             <div css={tw`mt-6`}>
+@@ -85,8 +85,8 @@ export default () => {
+                                     type={'color'}
+                                     id={'color'}
+                                     name={'color'}
+-                                    label={'Role Color'}
+-                                    description={'Set a color for this role. (optional)'}
++                                    label={'Cor da função'}
++                                    description={'Defina uma cor para esta função. (opcional)'}
+                                 />
+                             </div>
+ 
+@@ -97,10 +97,10 @@ export default () => {
+                                     css={tw`w-full sm:w-auto sm:mr-2`}
+                                     onClick={() => setVisible(false)}
+                                 >
+-                                    Cancel
++                                    Cancelar
+                                 </Button>
+                                 <Button css={tw`w-full mt-4 sm:w-auto sm:mt-0`} type={'submit'}>
+-                                    Create Role
++                                    Criar função
+                                 </Button>
+                             </div>
+                         </Form>
+@@ -114,7 +114,7 @@ export default () => {
+                 css={tw`h-10 px-4 py-0 whitespace-nowrap`}
+                 onClick={() => setVisible(true)}
+             >
+-                New Role
++                Nova função
+             </Button>
+         </>
+     );
+diff --git a/resources/scripts/components/admin/management/users/roles/PermissionsTable.tsx b/resources/scripts/components/admin/management/users/roles/PermissionsTable.tsx
+index 730e016c2..d2ef789dc 100644
+--- a/resources/scripts/components/admin/management/users/roles/PermissionsTable.tsx
++++ b/resources/scripts/components/admin/management/users/roles/PermissionsTable.tsx
+@@ -94,7 +94,7 @@ export default ({ role }: { role: UserRole }) => {
+                 })}
+             </div>
+             <div className={'text-right mt-4'}>
+-                <Button onClick={save}>Save</Button>
++                <Button onClick={save}>Salvar</Button>
+             </div>
+         </>
+     );
+diff --git a/resources/scripts/components/admin/management/users/roles/RoleDeleteButton.tsx b/resources/scripts/components/admin/management/users/roles/RoleDeleteButton.tsx
+index 2c1c32150..a37fe9c13 100644
+--- a/resources/scripts/components/admin/management/users/roles/RoleDeleteButton.tsx
++++ b/resources/scripts/components/admin/management/users/roles/RoleDeleteButton.tsx
+@@ -43,15 +43,16 @@ export default ({ roleId, onDeleted }: Props) => {
+         <>
+             <Dialog.Confirm
+                 open={visible}
+-                title={'Delete role?'}
+-                confirm={'Yes, delete role'}
++                title={'Excluir função?'}
++                confirm={'Sim, excluir função'}
+                 onConfirmed={onDelete}
+                 onClose={() => setVisible(false)}
+                 buttonType={'danger'}
+             >
+                 <SpinnerOverlay visible={loading} />
+-                Are you sure you want to delete this role? All users with this role will have all their access revoked.
+-                You must create a new role and assign it to each user in order to give them access again.
++                Tem certeza de que deseja excluir esta função? Todos os usuários com esta função terão todo o acesso
++                revogado. Você precisa criar uma nova função e atribuí-la a cada usuário para dar acesso a eles
++                novamente.
+             </Dialog.Confirm>
+ 
+             <Button.Danger type={'button'} size={Button.Sizes.Small} onClick={() => setVisible(true)}>
+diff --git a/resources/scripts/components/admin/management/users/roles/RoleEditContainer.tsx b/resources/scripts/components/admin/management/users/roles/RoleEditContainer.tsx
+index 1cedb1900..ba95a866d 100644
+--- a/resources/scripts/components/admin/management/users/roles/RoleEditContainer.tsx
++++ b/resources/scripts/components/admin/management/users/roles/RoleEditContainer.tsx
+@@ -79,20 +79,20 @@ const EditInformationContainer = () => {
+         >
+             {({ isSubmitting, isValid }) => (
+                 <React.Fragment>
+-                    <AdminBox title={'Edit Role'} css={tw`relative mb-6`} icon={faPencil}>
++                    <AdminBox title={'Editar função'} css={tw`relative mb-6`} icon={faPencil}>
+                         <SpinnerOverlay visible={isSubmitting} />
+ 
+                         <Form css={tw`mb-0`}>
+                             <div>
+-                                <Field id={'name'} name={'name'} label={'Name'} type={'text'} />
++                                <Field id={'name'} name={'name'} label={'Nome'} type={'text'} />
+                             </div>
+ 
+                             <div css={tw`mt-6`}>
+-                                <Field id={'description'} name={'description'} label={'Description'} type={'text'} />
++                                <Field id={'description'} name={'description'} label={'Descrição'} type={'text'} />
+                             </div>
+ 
+                             <div css={tw`mt-6`}>
+-                                <Field id={'color'} type={'color'} name={'color'} label={'Color'} />
++                                <Field id={'color'} type={'color'} name={'color'} label={'Cor'} />
+                             </div>
+ 
+                             <div css={tw`w-full flex flex-row items-center mt-6`}>
+@@ -102,7 +102,7 @@ const EditInformationContainer = () => {
+ 
+                                 <div css={tw`flex ml-auto`}>
+                                     <Button type={'submit'} disabled={isSubmitting || !isValid}>
+-                                        Save Changes
++                                        Salvar alterações
+                                     </Button>
+                                 </div>
+                             </div>
+@@ -150,7 +150,7 @@ const RoleEditContainer = () => {
+     }
+ 
+     return (
+-        <AdminContentBlock title={'Role - ' + role.name}>
++        <AdminContentBlock title={'Função - ' + role.name}>
+             <div css={tw`w-full flex flex-row items-center mb-8`}>
+                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
+                     <h2
+@@ -161,7 +161,7 @@ const RoleEditContainer = () => {
+                     </h2>
+                     {(role.description || '').length < 1 ? (
+                         <p css={tw`text-base text-neutral-400`}>
+-                            <span css={tw`italic`}>No description</span>
++                            <span css={tw`italic`}>Sem descrição</span>
+                         </p>
+                     ) : (
+                         <p css={tw`text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}>
+@@ -174,9 +174,9 @@ const RoleEditContainer = () => {
+             <EditInformationContainer />
+             <div css={tw`w-full flex flex-row items-center my-8`}>
+                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
+-                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Role Permissions</h2>
++                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Permissões da função</h2>
+                     <p css={tw`text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}>
+-                        This table contains the permissions that you can assign to the role.
++                        Esta tabela contém as permissões que você pode atribuir à função.
+                     </p>
+                 </div>
+             </div>
+diff --git a/resources/scripts/components/admin/management/users/roles/RolesContainer.tsx b/resources/scripts/components/admin/management/users/roles/RolesContainer.tsx
+index 0a712f6f2..6d606f12e 100644
+--- a/resources/scripts/components/admin/management/users/roles/RolesContainer.tsx
++++ b/resources/scripts/components/admin/management/users/roles/RolesContainer.tsx
+@@ -56,12 +56,12 @@ const RolesContainer = () => {
+     }, [page]);
+ 
+     return (
+-        <AdminContentBlock title={'Roles'}>
++        <AdminContentBlock title={'Funções'}>
+             <div css={tw`w-full flex flex-row items-center mb-8`}>
+                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
+-                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Administrator Roles</h2>
++                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Funções de administrador</h2>
+                     <p css={tw`text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}>
+-                        Roles are sets of permissions that you can assign to your panel administrators.
++                        Funções são conjuntos de permissões que você pode atribuir aos administradores do painel.
+                     </p>
+                 </div>
+ 
+@@ -73,10 +73,10 @@ const RolesContainer = () => {
+             <FlashMessageRender byKey={'roles'} css={tw`mb-4`} />
+ 
+             <SubNavigation>
+-                <SubNavigationLink to={`/admin/users`} name={'Users'} base>
++                <SubNavigationLink to={`/admin/users`} name={'Usuários'} base>
+                     <UsersIcon />
+                 </SubNavigationLink>
+-                <SubNavigationLink to={`/admin/users/roles`} name={'Administrator Roles'}>
++                <SubNavigationLink to={`/admin/users/roles`} name={'Funções de administrador'}>
+                     <UserAddIcon />
+                 </SubNavigationLink>
+             </SubNavigation>
+@@ -93,12 +93,12 @@ const RolesContainer = () => {
+                                         onClick={() => setSort('id')}
+                                     />
+                                     <TableHeader
+-                                        name={'Name'}
++                                        name={'Nome'}
+                                         direction={sort === 'name' ? (sortDirection ? 1 : 2) : null}
+                                         onClick={() => setSort('name')}
+                                     />
+-                                    <TableHeader name={'Description'} />
+-                                    <TableHeader name={'Permission Count'} />
++                                    <TableHeader name={'Descrição'} />
++                                    <TableHeader name={'Nº de permissões'} />
+                                 </TableHead>
+ 
+                                 <TableBody>
+diff --git a/resources/scripts/components/admin/management/users/view/AboutContainer.tsx b/resources/scripts/components/admin/management/users/view/AboutContainer.tsx
+index ce2c80e4c..1c32e5f03 100644
+--- a/resources/scripts/components/admin/management/users/view/AboutContainer.tsx
++++ b/resources/scripts/components/admin/management/users/view/AboutContainer.tsx
+@@ -33,7 +33,7 @@ export default () => {
+ 
+     return (
+         <UserForm
+-            title={'Edit User'}
++            title={'Editar usuário'}
+             initialValues={{
+                 externalId: user.externalId,
+                 username: user.username,
+diff --git a/resources/scripts/components/admin/management/users/view/ActivityContainer.tsx b/resources/scripts/components/admin/management/users/view/ActivityContainer.tsx
+index 1d94ffce9..f0cd33788 100644
+--- a/resources/scripts/components/admin/management/users/view/ActivityContainer.tsx
++++ b/resources/scripts/components/admin/management/users/view/ActivityContainer.tsx
+@@ -39,14 +39,16 @@ export default () => {
+                         className={classNames(btnStyles.button, btnStyles.text, 'w-full sm:w-auto')}
+                         onClick={() => setFilters(value => ({ ...value, filters: {} }))}
+                     >
+-                        Clear Filters <XCircleIcon className={'ml-2 h-4 w-4'} />
++                        Limpar filtros <XCircleIcon className={'ml-2 h-4 w-4'} />
+                     </Link>
+                 </div>
+             )}
+             {!data && isValidating ? (
+                 <Spinner centered />
+             ) : !data?.items.length ? (
+-                <p className={'text-center text-sm text-slate-400'}>No activity logs available for this user.</p>
++                <p className={'text-center text-sm text-slate-400'}>
++                    Nenhum registro de atividade disponível para este usuário.
++                </p>
+             ) : (
+                 <div className={'bg-slate-700'}>
+                     {data?.items.map(activity => (
+diff --git a/resources/scripts/components/admin/management/users/view/DeleteUserBox.tsx b/resources/scripts/components/admin/management/users/view/DeleteUserBox.tsx
+index dd2aeba67..6bfb9d960 100644
+--- a/resources/scripts/components/admin/management/users/view/DeleteUserBox.tsx
++++ b/resources/scripts/components/admin/management/users/view/DeleteUserBox.tsx
+@@ -30,21 +30,21 @@ export default () => {
+     return (
+         <>
+             <Dialog.Confirm
+-                title={'Confirm deletion request'}
++                title={'Confirmar solicitação de exclusão'}
+                 onConfirmed={submit}
+                 open={visible}
+                 onClose={() => setVisible(false)}
+-                confirm={'I understand, proceed'}
++                confirm={'Entendo, continuar'}
+             >
+-                Are you sure you wish to delete this user? They will not be able to access the Panel anymore!
++                Tem certeza de que deseja excluir este usuário? Ele não poderá mais acessar o Painel!
+             </Dialog.Confirm>
+             <div css={tw`h-auto flex flex-col`}>
+-                <AdminBox icon={faUserSlash} title={'Delete User'} css={tw`relative w-full`}>
++                <AdminBox icon={faUserSlash} title={'Excluir usuário'} css={tw`relative w-full`}>
+                     <Button.Danger size={Button.Sizes.Large} css={tw`w-full`} onClick={() => setVisible(true)}>
+-                        Delete User
++                        Excluir usuário
+                     </Button.Danger>
+                     <p css={tw`text-xs text-neutral-400 mt-2`}>
+-                        This will remove the user&apos;s account, meaning they will not be able to access the Panel.
++                        Isso removerá a conta do usuário, e ele não poderá mais acessar o Painel.
+                     </p>
+                 </AdminBox>
+             </div>
+diff --git a/resources/scripts/components/admin/management/users/view/RoleSelect.tsx b/resources/scripts/components/admin/management/users/view/RoleSelect.tsx
+index 660dca097..14aa112ea 100644
+--- a/resources/scripts/components/admin/management/users/view/RoleSelect.tsx
++++ b/resources/scripts/components/admin/management/users/view/RoleSelect.tsx
+@@ -36,8 +36,8 @@ export default ({ selected }: { selected?: UserRole }) => {
+         <SearchableSelect
+             id={'admin_role_id'}
+             name={'admin_role_id'}
+-            label={'Assign Admin Role'}
+-            placeholder={'Select an admin role... (optional)'}
++            label={'Atribuir função de administrador'}
++            placeholder={'Selecione uma função de administrador... (opcional)'}
+             items={userRoles}
+             selected={userRole}
+             setSelected={setUserRole}
+diff --git a/resources/scripts/components/admin/management/users/view/SuspendUserBox.tsx b/resources/scripts/components/admin/management/users/view/SuspendUserBox.tsx
+index 0217c034c..da566afea 100644
+--- a/resources/scripts/components/admin/management/users/view/SuspendUserBox.tsx
++++ b/resources/scripts/components/admin/management/users/view/SuspendUserBox.tsx
+@@ -13,7 +13,7 @@ export default () => {
+     const [visible, setVisible] = useState<boolean>(false);
+     const user = Context.useStoreState(state => state.user);
+ 
+-    const action = user?.state === 'suspended' ? 'unsuspend' : 'suspend';
++    const action = user?.state === 'suspended' ? 'reativar' : 'suspender';
+ 
+     const submit = () => {
+         suspendUser(user!.id)
+@@ -21,7 +21,7 @@ export default () => {
+                 addFlash({
+                     key: 'user:manage',
+                     type: 'success',
+-                    message: 'This user has been suspended.',
++                    message: 'Este usuário foi suspenso.',
+                 });
+             })
+             .catch(error => {
+@@ -37,26 +37,26 @@ export default () => {
+     return (
+         <>
+             <Dialog.Confirm
+-                title={`Confirm ${action} request`}
++                title={`Confirmar solicitação para ${action} o usuário`}
+                 onConfirmed={submit}
+                 open={visible}
+                 onClose={() => setVisible(false)}
+-                confirm={'I understand, proceed'}
++                confirm={'Entendo, continuar'}
+             >
+-                Are you sure you wish to {action} this user?
++                Tem certeza de que deseja {action} este usuário?
+             </Dialog.Confirm>
+             <div css={tw`h-auto flex flex-col`}>
+                 <AdminBox
+-                    icon={action === 'suspend' ? faEyeSlash : faEye}
+-                    title={`${action} user`}
++                    icon={action === 'suspender' ? faEyeSlash : faEye}
++                    title={`${action} usuário`}
+                     css={tw`relative w-full`}
+                 >
+                     <Button.Warn size={Button.Sizes.Large} css={tw`w-full capitalize`} onClick={() => setVisible(true)}>
+-                        {action} User
++                        {action} usuário
+                     </Button.Warn>
+                     <p css={tw`text-xs text-neutral-400 mt-2`}>
+-                        This will {action} the user instantly. This account is currently&nbsp;
+-                        {user?.state === 'suspended' ? 'suspended' : 'active'}.
++                        Isso vai {action} o usuário imediatamente. Esta conta está atualmente&nbsp;
++                        {user?.state === 'suspended' ? 'suspensa' : 'ativa'}.
+                     </p>
+                 </AdminBox>
+             </div>
+diff --git a/resources/scripts/components/admin/management/users/view/UserForm.tsx b/resources/scripts/components/admin/management/users/view/UserForm.tsx
+index fd31c85e2..70af90296 100644
+--- a/resources/scripts/components/admin/management/users/view/UserForm.tsx
++++ b/resources/scripts/components/admin/management/users/view/UserForm.tsx
+@@ -85,42 +85,42 @@ export default function UserForm({ title, initialValues, children, onSubmit, uui
+                                 <Field
+                                     id={'externalId'}
+                                     name={'externalId'}
+-                                    label={'External ID'}
++                                    label={'ID externo'}
+                                     type={'text'}
+                                     description={
+-                                        'Used by external integrations, this field should not be modified unless you know what you are doing.'
++                                        'Usado por integrações externas. Não altere este campo, a menos que saiba o que está fazendo.'
+                                     }
+                                 />
+                             )}
+                             <Field
+                                 id={'username'}
+                                 name={'username'}
+-                                label={'Username'}
++                                label={'Nome de usuário'}
+                                 type={'text'}
+-                                description={"The user's username, what else would go here?"}
++                                description={'O nome de usuário deste usuário. O que mais ficaria aqui?'}
+                             />
+                             <Field
+                                 id={'email'}
+                                 name={'email'}
+-                                label={'Email Address'}
++                                label={'Endereço de e-mail'}
+                                 type={'email'}
+-                                description={"The user's email address, what else would go here?"}
++                                description={'O endereço de e-mail deste usuário. O que mais ficaria aqui?'}
+                             />
+                             <Field
+                                 id={'password'}
+                                 name={'password'}
+-                                label={'Password'}
++                                label={'Senha'}
+                                 type={'password'}
+                                 placeholder={'••••••••'}
+                                 autoComplete={'new-password'}
+                                 /* TODO: Change description depending on if user is being created or updated. */
+                                 description={
+-                                    'Leave empty to email the user a link where they will be required to set a password.'
++                                    'Deixe em branco para enviar ao usuário um link onde ele precisará definir uma senha.'
+                                 }
+                             />
+                         </FieldRow>
+                     </AdminBox>
+-                    <AdminBox title={'Permission Control'} css={tw`relative mt-6`} icon={faToggleOn}>
++                    <AdminBox title={'Controle de permissões'} css={tw`relative mt-6`} icon={faToggleOn}>
+                         <SpinnerOverlay visible={isSubmitting} />
+                         <div className={'grid lg:grid-cols-2 gap-4'}>
+                             <div css={tw`w-full flex flex-row mb-6`}>
+@@ -130,19 +130,21 @@ export default function UserForm({ title, initialValues, children, onSubmit, uui
+                                 >
+                                     <FormikSwitch
+                                         name={'rootAdmin'}
+-                                        label={'Root Admin'}
+-                                        description={'Should this user be a root administrator?'}
++                                        label={'Administrador raiz'}
++                                        description={'Este usuário deve ser um administrador raiz?'}
+                                     />
+                                     <Alert type={'warning'} className={'mt-2'} small>
+-                                        Enabling RootAdmin gives the user full access. It is recommended to keep this
+-                                        off, but assign an admin role to the user to grant specific permissions.
++                                        Ativar o administrador raiz concede ao usuário acesso total. É recomendável
++                                        manter esta opção desativada e atribuir uma função de administrador ao usuário
++                                        para conceder permissões específicas.
+                                     </Alert>
+                                 </div>
+                             </div>
+                             <div>
+                                 <RoleSelect selected={currentRole} />
+                                 <p className={'mt-1 text-xs'}>
+-                                    If you wish, you can assign an administrator role to restrict permissions.
++                                    Se desejar, você pode atribuir uma função de administrador para restringir as
++                                    permissões.
+                                 </p>
+                             </div>
+                         </div>
+@@ -151,7 +153,7 @@ export default function UserForm({ title, initialValues, children, onSubmit, uui
+                         {children}
+                         <div css={tw`flex ml-auto`}>
+                             <Button type={'submit'} disabled={isSubmitting || !isValid}>
+-                                Save Changes
++                                Salvar alterações
+                             </Button>
+                         </div>
+                     </div>

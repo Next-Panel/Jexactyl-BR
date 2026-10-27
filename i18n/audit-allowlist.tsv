@@ -1,0 +1,24 @@
+# Excecoes revisadas para falsos positivos do auditor estatico.
+# Formato: arquivo<TAB>linha<TAB>codigo<TAB>justificativa
+resources/views/invoices/pdf.blade.php	101	english-label	"ID do pedido": "do" e preposicao portuguesa, nao o termo ingles Do.
+resources/views/vendor/notifications/email.blade.php	90	glossary-english	'error' e valor de comparacao de $level, nao label visivel.
+resources/views/vendor/notifications/email.blade.php	152	glossary-english	"no" e preposicao portuguesa dentro da frase, nao o termo ingles No.
+resources/scripts/components/account/ServerRow.tsx	60	code-changed	statusToLabel retorna label exibido na UI; Online/Offline mantidos pelo glossario, Starting/Stopping traduzidos.
+resources/scripts/components/account/ServerRow.tsx	62	code-changed	statusToLabel retorna label exibido na UI; Online/Offline mantidos pelo glossario, Starting/Stopping traduzidos.
+resources/scripts/components/account/forms/UpdateAvatarForm.tsx	65	english-label	"URL do Avatar": URL e sigla tecnica, "do" e preposicao, Avatar e termo mantido pelo glossario.
+resources/scripts/components/account/billing/ProductsContainer.tsx	171	english-label	"GiB de RAM": unidade GiB + preposicao de + sigla RAM; segue o padrao GiB de X da unidade.
+resources/scripts/components/server/billing/UpgradeContainer.tsx	169	code-changed	Interpolacao e logica identicas ao original ({allocation} e {cond && 's'}); TEXT extra 'de rede' exigido pela ordem das palavras em pt-BR ('porta(s) de rede'). Revisado: sem mudanca de codigo.
+resources/scripts/components/admin/AdminIndicators.tsx	33	code-changed	Reflow do prettier apos traducao: quebra de linha com parens de agrupamento JSX (&& (...) ); logica e labels identicos ao original.
+resources/scripts/components/admin/AdminIndicators.tsx	35	code-changed	Fechamento do reflow acima (")}" ); par com a linha 33, sem mudanca de codigo.
+resources/scripts/components/admin/management/users/view/SuspendUserBox.tsx	16	code-changed	Valores de exibicao de action traduzidos in-place (suspend/unsuspend -> suspender/reativar); submit() ignora action (suspendUser toggles); comparacao de estado com API ('suspended') intacta; comportamento identico, so labels mudaram.
+resources/scripts/components/admin/management/users/view/SuspendUserBox.tsx	50	code-changed	Ternario de icone atualizado em paridade com os valores de action acima (suspender -> faEyeSlash); sem mudanca de logica.
+resources/scripts/components/admin/management/servers/settings/ServerResourceBox.tsx	66	glossary-english	"Out of Memory Killer" e nome proprio do recurso do kernel Linux, mantido deliberadamente (como Docker); entorno em pt-BR natural.
+resources/scripts/components/admin/modules/billing/overview/OverviewContainer.tsx	86	english-label	"de receita total": fragmento pt-BR de label de grafico (EN 'total' e cognato, nao evidencia de ingles); entorno traduzido e revisado.
+resources/scripts/components/admin/modules/billing/products/ProductForm.tsx	98	code-changed	Formik initialValues: fallback de exibicao traduzido ("Nome do plano"); logica e placeholders intactos, revisado.
+resources/scripts/components/admin/modules/billing/products/ProductForm.tsx	102	code-changed	Formik initialValues: fallback de exibicao traduzido ("Este e um plano de servidor."); logica e placeholders intactos, revisado.
+resources/scripts/components/admin/modules/billing/discounts/DiscountCodeDialog.tsx	92	glossary-english	"Data de expiracao": sentido de data (date), nao de dados (information); entrada do glossario mira o outro sentido.
+resources/scripts/components/admin/modules/billing/overview/RevenueChart.tsx	76	glossary-english	Eixo "Data" = data (date) do grafico; entrada do glossario mira dados (information).
+resources/scripts/components/admin/modules/links/CreateLinkDialog.tsx	61	english-label	"Visibilidade do link": unico termo EN e a preposicao ambigua "do" (link e universal/mantido na pratica); classificar como label mascararia "Link visibility" nao traduzido. Revisado: pt-BR correto.
+resources/scripts/components/admin/setup/ModeSelection.tsx	45	code-changed	EN construi 'Selected' por sufixo ('Select' + cond && 'ed'); pt-BR exige duas formas ('Selecionar'/'Selecionado'), reestruturado em ternario equivalente. Comportamento identico; logica de disabled intacta. Revisado.
+resources/scripts/components/admin/setup/ModeSelection.tsx	58	code-changed	Idem linha 45 para o modo standard ('Selecionar'/'Selecionado'). Revisado.
+resources/scripts/components/admin/setup/ModeSelection.tsx	59	code-changed	Idem linha 45 (hunk complementar do ternario). Revisado.

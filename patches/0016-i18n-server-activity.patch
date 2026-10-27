@@ -1,0 +1,53 @@
+From: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+Date: Tue, 27 Oct 2026 09:53:16 -0300
+Subject: i18n: traduz tela de registro de atividades do servidor
+
+Description:
+Traduz a página de histórico de atividades do servidor
+(ServerActivityLogContainer), incluindo cabeçalhos, ação para limpar filtros
+ativos e mensagem de estado vazio quando não há eventos registrados.
+
+Origin: vendor
+Forwarded: not-needed
+Applied-Upstream: no
+Last-Update: 2026-10-27
+Signed-off-by: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+
+---
+
+diff --git a/resources/scripts/components/server/ServerActivityLogContainer.tsx b/resources/scripts/components/server/ServerActivityLogContainer.tsx
+index c8bf0d6b3..18c41adc0 100644
+--- a/resources/scripts/components/server/ServerActivityLogContainer.tsx
++++ b/resources/scripts/components/server/ServerActivityLogContainer.tsx
+@@ -36,7 +36,11 @@ export default () => {
+     }, [error]);
+ 
+     return (
+-        <PageContentBlock title={'Activity Log'} header description={'View recent activity on your server.'}>
++        <PageContentBlock
++            title={'Registro de atividades'}
++            header
++            description={'Veja as atividades recentes do seu servidor.'}
++        >
+             <FlashMessageRender byKey={'server:activity'} />
+             {(filters.filters?.event || filters.filters?.ip) && (
+                 <div className={'mb-2 flex justify-end'}>
+@@ -45,14 +49,16 @@ export default () => {
+                         className={classNames(btnStyles.button, btnStyles.text, 'w-full sm:w-auto')}
+                         onClick={() => setFilters(value => ({ ...value, filters: {} }))}
+                     >
+-                        Clear Filters <XCircleIcon className={'ml-2 h-4 w-4'} />
++                        Limpar filtros <XCircleIcon className={'ml-2 h-4 w-4'} />
+                     </Link>
+                 </div>
+             )}
+             {!data && isValidating ? (
+                 <Spinner centered />
+             ) : !data?.items.length ? (
+-                <p className={'text-center text-sm text-slate-400'}>No activity logs available for this server.</p>
++                <p className={'text-center text-sm text-slate-400'}>
++                    Nenhum registro de atividade disponível para este servidor.
++                </p>
+             ) : (
+                 <div className={'bg-slate-700'}>
+                     {data?.items.map(activity => (

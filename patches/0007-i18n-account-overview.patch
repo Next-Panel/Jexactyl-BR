@@ -1,0 +1,480 @@
+From: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+Date: Tue, 27 Oct 2026 09:53:07 -0300
+Subject: i18n: traduz visão geral da conta, painel inicial, grupos e busca
+
+Description:
+Traduz a visão geral da conta (AccountOverviewContainer), o painel inicial
+de servidores (DashboardContainer e ServerRow), o assistente de boas-vindas
+(Onboarding), o gerenciamento de grupos de servidores e o modal de busca
+rápida, incluindo estados de energia e indicadores de renovação.
+
+Origin: vendor
+Forwarded: not-needed
+Applied-Upstream: no
+Last-Update: 2026-10-27
+Signed-off-by: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+
+---
+
+diff --git a/resources/scripts/components/account/AccountOverviewContainer.tsx b/resources/scripts/components/account/AccountOverviewContainer.tsx
+index 05325ecae..c155e8a29 100644
+--- a/resources/scripts/components/account/AccountOverviewContainer.tsx
++++ b/resources/scripts/components/account/AccountOverviewContainer.tsx
+@@ -1,6 +1,7 @@
+ import type { ReactNode } from 'react';
+ import { Link } from 'react-router-dom';
+ import { format } from 'date-fns';
++import { dateLocale } from '@/lib/dateLocale';
+ import tw from 'twin.macro';
+ import styled from 'styled-components';
+ 
+@@ -38,26 +39,26 @@ export default () => {
+     const user = useStoreState(state => state.user.data!);
+ 
+     return (
+-        <PageContentBlock title="Account" header description={'An overview of the details on your account.'}>
++        <PageContentBlock title="Conta" header description={'Uma visão geral dos detalhes da sua conta.'}>
+             <Container css={tw`lg:grid lg:grid-cols-2 mb-10 mt-10`}>
+                 <ContentBox title="Avatar" showFlashes="account:avatar">
+                     <UpdateAvatarForm />
+                 </ContentBox>
+ 
+-                <ContentBox css={tw`mt-8 lg:mt-0 lg:ml-8`} title="Account Information">
+-                    <Detail label={'Username'}>{user.username}</Detail>
+-                    <Detail label={'Email Address'}>{user.email}</Detail>
+-                    <Detail label={'Account ID'}>
++                <ContentBox css={tw`mt-8 lg:mt-0 lg:ml-8`} title="Informações da conta">
++                    <Detail label={'Nome de usuário'}>{user.username}</Detail>
++                    <Detail label={'Endereço de e-mail'}>{user.email}</Detail>
++                    <Detail label={'ID da conta'}>
+                         <CopyOnClick text={user.uuid}>
+                             <code css={tw`font-mono text-xs`}>{user.uuid}</code>
+                         </CopyOnClick>
+                     </Detail>
+-                    {user.roleName && <Detail label={'Role'}>{user.roleName}</Detail>}
+-                    <Detail label={'Member Since'}>{format(user.createdAt, 'MMMM do, yyyy')}</Detail>
++                    {user.roleName && <Detail label={'Função'}>{user.roleName}</Detail>}
++                    <Detail label={'Membro desde'}>{format(user.createdAt, 'MMMM do, yyyy', { locale: dateLocale() })}</Detail>
+                     <p css={tw`text-xs text-gray-400 mt-6`}>
+-                        Your email, password, and sign-in methods are managed under{' '}
++                        Seu e-mail, senha e métodos de login são gerenciados em{' '}
+                         <Link to={'/account/security'} css={tw`text-green-400 hover:text-green-200 duration-300`}>
+-                            Security
++                            Segurança
+                         </Link>
+                         .
+                     </p>
+diff --git a/resources/scripts/components/account/DashboardContainer.tsx b/resources/scripts/components/account/DashboardContainer.tsx
+index 0d2abaa36..734240c69 100644
+--- a/resources/scripts/components/account/DashboardContainer.tsx
++++ b/resources/scripts/components/account/DashboardContainer.tsx
+@@ -74,7 +74,7 @@ export default () => {
+     }, [error]);
+ 
+     return (
+-        <PageContentBlock title={`Welcome to ${name}`} header description={`Signed in as ${user.email}`}>
++        <PageContentBlock title={`Bem-vindo ao ${name}`} header description={`Conectado como ${user.email}`}>
+             <DashboardAlert />
+             {open && <ServerGroupDialog open={open} setOpen={setOpen} groups={groups} setGroups={setGroups} />}
+             <FlashMessageRender className={'my-4'} byKey={'dashboard'} />
+@@ -91,7 +91,7 @@ export default () => {
+                                     />
+                                 </div>
+                             )}
+-                            {showOnlyAdmin ? 'Other' : 'Your'} Servers
++                            {showOnlyAdmin ? 'Outros' : 'Seus'} servidores
+                         </div>
+                         <Button.Text
+                             size={Button.Sizes.Small}
+@@ -107,18 +107,20 @@ export default () => {
+                                 <div className={'grid lg:grid-cols-2 gap-6 m-4'}>
+                                     <ServerSvg color={colors.primary} />
+                                     <div>
+-                                        <h1 className={'text-gray-200 text-2xl font-bold'}>Deploy your first server</h1>
++                                        <h1 className={'text-gray-200 text-2xl font-bold'}>
++                                            Crie seu primeiro servidor
++                                        </h1>
+                                         <div className={'mt-2'}>
+-                                            It looks like you have no servers deployed to your account.&nbsp;
++                                            Parece que você não tem nenhum servidor na sua conta.&nbsp;
+                                             {billing ? (
+                                                 <>
+-                                                    With our billing portal, you can configure and purchase a new server
+-                                                    plan and choose options like amount of CPU, memory and which game
+-                                                    you&apos;d like to run.
++                                                    Com o nosso portal de faturamento, você pode configurar e comprar um
++                                                    novo plano de servidor e escolher opções como quantidade de CPU,
++                                                    memória e qual jogo deseja executar.
+                                                     <div className={'text-right'}>
+                                                         <Link to={'/account/billing/order'}>
+                                                             <Button className={'w-1/2 text-white font-normal'}>
+-                                                                View Options{' '}
++                                                                Visualizar opções{' '}
+                                                                 <FontAwesomeIcon
+                                                                     icon={faCircleArrowRight}
+                                                                     className={'ml-2'}
+@@ -128,7 +130,10 @@ export default () => {
+                                                     </div>
+                                                 </>
+                                             ) : (
+-                                                <>Think this is a mistake? Please contact our support team.</>
++                                                <>
++                                                    Acha que isso é um erro? Entre em contato com nossa equipe de
++                                                    suporte.
++                                                </>
+                                             )}
+                                         </div>
+                                     </div>
+@@ -156,7 +161,7 @@ export default () => {
+                                                 <div css={tw`w-full sm:w-3/4 md:w-1/2 rounded-lg text-center relative`}>
+                                                     <img src={NotFoundSvg} css={tw`w-2/3 h-auto select-none mx-auto`} />
+                                                     <h2 css={tw`mt-10 mb-6 text-white font-medium text-xl`}>
+-                                                        No servers could be found.
++                                                        Nenhum servidor foi encontrado.
+                                                     </h2>
+                                                 </div>
+                                             </div>
+@@ -168,7 +173,7 @@ export default () => {
+                     )}
+                 </div>
+                 {activityEnabled && (
+-                    <ContentBox title={'Account Activity'}>
++                    <ContentBox title={'Atividade da conta'}>
+                         <ActivityLogContainer />
+                     </ContentBox>
+                 )}
+diff --git a/resources/scripts/components/account/Onboarding.tsx b/resources/scripts/components/account/Onboarding.tsx
+index f79ca7465..c9ed0aade 100644
+--- a/resources/scripts/components/account/Onboarding.tsx
++++ b/resources/scripts/components/account/Onboarding.tsx
+@@ -33,25 +33,25 @@ export default () => {
+             hideCloseIcon
+             preventExternalClose
+             onClose={() => undefined}
+-            title={`👋 Welcome to ${appName.toString()}!`}
++            title={`👋 Bem-vindo ao ${appName.toString()}!`}
+         >
+             <FlashMessageRender byKey={'onboarding'} className={'my-3'} />
+             <Formik onSubmit={submit} initialValues={{ username: '', password: '' }}>
+                 <Form>
+-                    <p className={'mt-2'}>We are missing some details - please enter them now.</p>
++                    <p className={'mt-2'}>Faltam alguns dados - informe-os agora.</p>
+                     <p className={'text-sm text-gray-400'}>
+-                        {content ?? "You can change these at any time in the 'Account' tab."}
++                        {content ?? "Você pode alterá-los a qualquer momento na aba 'Conta'."}
+                     </p>
+                     <div className={'my-6'}>
+                         <Field
+                             type={'text'}
+                             id={'username'}
+                             name={'username'}
+-                            label={'Account Username'}
++                            label={'Nome de usuário da conta'}
+                             placeholder={'everestuser1'}
+                         />
+                         <p className={'text-xs text-gray-400 mt-2'}>
+-                            This will be the unique username for your account. Maybe make this your name?
++                            Este será o nome de usuário exclusivo da sua conta. Que tal usar o seu nome?
+                         </p>
+                     </div>
+                     <div className={'my-6'}>
+@@ -60,25 +60,25 @@ export default () => {
+                             name={'password'}
+                             type={'password'}
+                             placeholder={'••••••••'}
+-                            label={'Account Password'}
++                            label={'Senha da conta'}
+                         />
+                         <p className={'text-xs text-gray-400 mt-2'}>
+-                            Your password must be at least 8 characters and include at least 1 special character.
++                            Sua senha deve ter pelo menos 8 caracteres e incluir pelo menos 1 caractere especial.
+                         </p>
+                     </div>
+                     {force2fa && (
+                         <Alert type={'warning'} className={'my-6'}>
+-                            The security policies on this Panel indicate you must enable Two Factor Authentication for
+-                            secure access. You can enable it by clicking the &apos;Setup 2FA&apos; button on the next
+-                            page.
++                            As políticas de segurança deste Painel exigem que você ative a autenticação de dois fatores
++                            para um acesso seguro. Você pode ativá-la clicando no botão &apos;Configurar 2FA&apos; na
++                            próxima página.
+                         </Alert>
+                     )}
+                     <div className={'flex w-full justify-between'}>
+                         <p className={'my-auto text-xs text-gray-400'}>
+                             <FontAwesomeIcon icon={faExclamationTriangle} className={'mr-1 text-yellow-600'} />
+-                            This action will cause your account to logout.
++                            Esta ação desconectará a sua conta.
+                         </p>
+-                        <Button type={'submit'}>Save Changes</Button>
++                        <Button type={'submit'}>Salvar alterações</Button>
+                     </div>
+                 </Form>
+             </Formik>
+diff --git a/resources/scripts/components/account/ServerRow.tsx b/resources/scripts/components/account/ServerRow.tsx
+index 22b82c283..6c8c26c03 100644
+--- a/resources/scripts/components/account/ServerRow.tsx
++++ b/resources/scripts/components/account/ServerRow.tsx
+@@ -57,14 +57,31 @@ export function statusToLabel(state?: ServerPowerState): string {
+         case 'running':
+             return 'Online';
+         case 'starting':
+-            return 'Starting';
++            return 'Iniciando';
+         case 'stopping':
+-            return 'Stopping';
++            return 'Parando';
+         default:
+             return 'Offline';
+     }
+ }
+ 
++export function serverStatusToLabel(state?: string | null): string {
++    switch (state) {
++        case 'installing':
++            return 'instalando';
++        case 'install_failed':
++            return 'com erro na instalação';
++        case 'reinstall_failed':
++            return 'com erro na reinstalação';
++        case 'restoring_backup':
++            return 'restaurando backup';
++        case 'suspended':
++            return 'suspenso';
++        default:
++            return 'offline';
++    }
++}
++
+ /** Animated pulsing dot indicator */
+ const StatusDot = ({ state }: { state?: ServerPowerState }) => {
+     const color = {
+@@ -151,7 +168,7 @@ export default ({
+         clearFlashes();
+         removeServerFromGroup(group!.id, server.uuid)
+             .then(() => {
+-                addFlash({ type: 'success', key: 'dashboard:groups', message: 'Server removed from group.' });
++                addFlash({ type: 'success', key: 'dashboard:groups', message: 'Servidor removido do grupo.' });
+                 setOpen({ open: 'none', serverId: undefined });
+                 setRemoved(true);
+             })
+@@ -256,11 +273,7 @@ export default ({
+                                         : statusToBg(powerState) + ' ' + statusToColor(powerState),
+                                 )}
+                             >
+-                                {isSuspended
+-                                    ? 'Suspended'
+-                                    : isTransferring
+-                                    ? 'Transferring'
+-                                    : statusToLabel(powerState)}
++                                {isSuspended ? 'Suspenso' : isTransferring ? 'Transferindo' : statusToLabel(powerState)}
+                             </span>
+                             {hasGroup ? (
+                                 <span
+@@ -278,7 +291,7 @@ export default ({
+                                         className={
+                                             'ml-0.5 text-gray-600 hover:text-red-400 transition-colors duration-150'
+                                         }
+-                                        title={'Remove from group'}
++                                        title={'Remover do grupo'}
+                                     >
+                                         <FontAwesomeIcon icon={faTrash} size={'xs'} />
+                                     </button>
+@@ -291,7 +304,7 @@ export default ({
+                                     }
+                                 >
+                                     <FontAwesomeIcon icon={faPlus} size={'xs'} />
+-                                    Group
++                                    Grupo
+                                 </button>
+                             )}
+                         </div>
+@@ -308,7 +321,7 @@ export default ({
+                                 <span className={'flex items-center gap-1.5 text-xs text-gray-500'}>
+                                     <FontAwesomeIcon icon={faClock} size={'xs'} className={'text-gray-600'} />
+                                     <span>
+-                                        Renews in{' '}
++                                        Renova em{' '}
+                                         <span
+                                             className={classNames(
+                                                 'font-medium',
+@@ -342,10 +355,10 @@ export default ({
+                             />
+                             <span className={'text-sm text-gray-500'}>
+                                 {isTransferring
+-                                    ? 'Transfer in progress…'
++                                    ? 'Transferência em andamento...'
+                                     : isSuspended
+-                                    ? 'This server is suspended'
+-                                    : `Server is ${server.status ?? 'offline'}`}
++                                    ? 'Este servidor está suspenso'
++                                    : `Servidor está ${serverStatusToLabel(server.status ?? 'offline')}`}
+                             </span>
+                         </div>
+                     ) : (
+@@ -363,7 +376,7 @@ export default ({
+                             <ResourceBar
+                                 value={Number(memoryUsed.toFixed(1))}
+                                 icon={faMemory}
+-                                label={'Memory'}
++                                label={'Memória'}
+                                 colorClass={'bg-white/50'}
+                             />
+                         </div>
+@@ -377,7 +390,7 @@ export default ({
+                         }
+                     >
+                         <FontAwesomeIcon icon={faArrowUpRightFromSquare} size={'xs'} />
+-                        Manage
++                        Gerenciar
+                     </Link>
+                 </div>
+             </div>
+diff --git a/resources/scripts/components/account/groups/ModifyServerGroup.tsx b/resources/scripts/components/account/groups/ModifyServerGroup.tsx
+index 03ebe987c..30e7f5f4d 100644
+--- a/resources/scripts/components/account/groups/ModifyServerGroup.tsx
++++ b/resources/scripts/components/account/groups/ModifyServerGroup.tsx
+@@ -44,26 +44,26 @@ export default ({
+         <Dialog.Confirm
+             open={!!open}
+             onClose={() => setOpen({ open: 'index' })}
+-            title={group ? `Modify ${group.name}` : 'Create new group'}
++            title={group ? `Editar ${group.name}` : 'Criar novo grupo'}
+             preventExternalClose
+             subDialog
+             onConfirmed={onSubmit}
+-            confirm={group ? 'Update' : 'Create'}
++            confirm={group ? 'Atualizar' : 'Criar'}
+         >
+             <div className={'mt-4'}>
+-                <Label>Group Name</Label>
++                <Label>Nome do grupo</Label>
+                 <InputField defaultValue={group?.name} name={'name'} onChange={updateValues}></InputField>
+-                <p className={'text-gray-400 text-sm mt-1'}>Provide a name for this server group.</p>
++                <p className={'text-gray-400 text-sm mt-1'}>Informe um nome para este grupo de servidores.</p>
+             </div>
+             <div className={'mt-2'}>
+-                <Label>Group Color</Label>
++                <Label>Cor do grupo</Label>
+                 <InputField
+                     type={'color'}
+                     name={'color'}
+                     onChange={updateValues}
+                     defaultValue={group?.color}
+                 ></InputField>
+-                <p className={'text-gray-400 text-sm mt-1'}>This is the hex value of the group color.</p>
++                <p className={'text-gray-400 text-sm mt-1'}>Este é o valor hexadecimal da cor do grupo.</p>
+             </div>
+         </Dialog.Confirm>
+     );
+diff --git a/resources/scripts/components/account/groups/ServerGroupDialog.tsx b/resources/scripts/components/account/groups/ServerGroupDialog.tsx
+index 7212e513a..58a0666eb 100644
+--- a/resources/scripts/components/account/groups/ServerGroupDialog.tsx
++++ b/resources/scripts/components/account/groups/ServerGroupDialog.tsx
+@@ -36,7 +36,11 @@ export default ({ open, setOpen, groups, setGroups }: Props) => {
+ 
+         deleteServerGroup(id)
+             .then(() => {
+-                addFlash({ type: 'success', key: 'dashboard:groups', message: 'Server group deleted successfully.' });
++                addFlash({
++                    type: 'success',
++                    key: 'dashboard:groups',
++                    message: 'Grupo de servidores excluído com sucesso.',
++                });
+                 setOpen({ open: 'none' });
+             })
+             .catch(error => clearAndAddHttpError({ key: 'dashboard:groups', error }));
+@@ -47,7 +51,11 @@ export default ({ open, setOpen, groups, setGroups }: Props) => {
+ 
+         addServerToGroup(id, open.serverId!)
+             .then(() => {
+-                addFlash({ type: 'success', key: 'dashboard:groups', message: 'Server group added successfully.' });
++                addFlash({
++                    type: 'success',
++                    key: 'dashboard:groups',
++                    message: 'Grupo de servidores adicionado com sucesso.',
++                });
+                 setOpen({ open: 'none', serverId: undefined });
+ 
+                 window.location.reload();
+@@ -61,7 +69,11 @@ export default ({ open, setOpen, groups, setGroups }: Props) => {
+         <>
+             <FlashMessageRender byKey={'dashboard:groups'} />
+             <ModifyServerGroup open={open.open === 'modify'} group={group} setOpen={setOpen} />
+-            <Dialog open={open.open === 'add'} onClose={() => setOpen({ open: 'none' })} title={'Add group to server'}>
++            <Dialog
++                open={open.open === 'add'}
++                onClose={() => setOpen({ open: 'none' })}
++                title={'Adicionar grupo ao servidor'}
++            >
+                 {groups ? (
+                     <div className={'my-3 grid grid-cols-2 lg:grid-cols-3 gap-4 cursor-pointer'}>
+                         {groups?.map(group => (
+@@ -83,18 +95,18 @@ export default ({ open, setOpen, groups, setGroups }: Props) => {
+                     </div>
+                 ) : (
+                     <div className={'text-gray-400 mt-4 text-center font-semibold'}>
+-                        No groups exist on this account.
++                        Nenhum grupo existe nesta conta.
+                     </div>
+                 )}
+             </Dialog>
+             <Dialog
+                 open={open.open === 'index'}
+                 onClose={() => setOpen({ open: 'none' })}
+-                title={'Server Group Configuration'}
++                title={'Configuração do grupo de servidores'}
+             >
+                 <div className={'absolute top-4 right-16'}>
+                     <Button size={Button.Sizes.Small} onClick={() => setOpen({ open: 'modify' })}>
+-                        <FontAwesomeIcon icon={faPlus} className={'mr-1'} /> Create
++                        <FontAwesomeIcon icon={faPlus} className={'mr-1'} /> Criar
+                     </Button>
+                 </div>
+                 {groups ? (
+@@ -123,7 +135,7 @@ export default ({ open, setOpen, groups, setGroups }: Props) => {
+                     </div>
+                 ) : (
+                     <div className={'text-gray-400 mt-4 text-center font-semibold'}>
+-                        No groups exist on this account.
++                        Nenhum grupo existe nesta conta.
+                     </div>
+                 )}
+             </Dialog>
+diff --git a/resources/scripts/components/account/search/SearchContainer.tsx b/resources/scripts/components/account/search/SearchContainer.tsx
+index f615eaa6f..3f951abd5 100644
+--- a/resources/scripts/components/account/search/SearchContainer.tsx
++++ b/resources/scripts/components/account/search/SearchContainer.tsx
+@@ -21,7 +21,7 @@ export default () => {
+ 
+             <div className={'navigation-link'} onClick={() => setVisible(true)}>
+                 <FontAwesomeIcon icon={faSearch} />
+-                Search
++                Buscar
+             </div>
+         </>
+     );
+diff --git a/resources/scripts/components/account/search/SearchModal.tsx b/resources/scripts/components/account/search/SearchModal.tsx
+index 59f46f317..cdeadad34 100644
+--- a/resources/scripts/components/account/search/SearchModal.tsx
++++ b/resources/scripts/components/account/search/SearchModal.tsx
+@@ -69,7 +69,7 @@ export default ({ ...props }: Props) => {
+         <Formik
+             onSubmit={search}
+             validationSchema={object().shape({
+-                term: string().min(3, 'Please enter at least three characters to begin searching.'),
++                term: string().min(3, 'Digite pelo menos três caracteres para começar a buscar.'),
+             })}
+             initialValues={{ term: '' } as Values}
+         >
+@@ -78,8 +78,8 @@ export default ({ ...props }: Props) => {
+                     <Form>
+                         <FormikFieldWrapper
+                             name={'term'}
+-                            label={'Search term'}
+-                            description={'Enter a server name, uuid, or allocation to begin searching.'}
++                            label={'Termo de busca'}
++                            description={'Informe o nome do servidor, o UUID ou a alocação para começar a buscar.'}
+                         >
+                             <SearchWatcher />
+                             <InputSpinner visible={isSubmitting}>

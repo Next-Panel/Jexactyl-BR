@@ -1,0 +1,510 @@
+From: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+Date: Tue, 27 Oct 2026 09:53:21 -0300
+Subject: i18n: traduz configurações de aparência, tema, alertas e links no admin
+
+Description:
+Traduz os módulos de personalização visual do painel administrativo: alertas
+do sistema (estilo de exibição, severidade e mensagem), gerenciamento de
+links personalizados na navegação e editor de tema com seleção de paleta de
+cores e janela de pré-visualização em tempo real.
+
+Origin: vendor
+Forwarded: not-needed
+Applied-Upstream: no
+Last-Update: 2026-10-27
+Signed-off-by: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+
+---
+
+diff --git a/resources/scripts/components/admin/modules/alert/AlertAppearance.tsx b/resources/scripts/components/admin/modules/alert/AlertAppearance.tsx
+index 0b26edd65..30adb8e34 100644
+--- a/resources/scripts/components/admin/modules/alert/AlertAppearance.tsx
++++ b/resources/scripts/components/admin/modules/alert/AlertAppearance.tsx
+@@ -71,13 +71,13 @@ export default () => {
+                 {alert.content}
+             </Dialog.Confirm>
+             <FlashMessageRender byKey={'alerts:view'} className={'mb-2'} />
+-            <AdminBox title={'Preview'} icon={faDesktop}>
++            <AdminBox title={'Pré-visualização'} icon={faDesktop}>
+                 {alert.enabled && alert.position === 'top-center' ? (
+                     <Alert type={alert.type}>{alert.content}</Alert>
+                 ) : alert.position === 'bottom-right' ? (
+                     <>
+                         <p className={'text-center text-lg text-gray-400 font-semibold'}>
+-                            Alert is being displayed in the bottom-right mode.
++                            O alerta está sendo exibido no modo inferior direito.
+                         </p>
+                         <div className={'fixed bottom-2 right-2 z-50 m-4'}>
+                             <MessageBox type={alert.type as FlashMessageType}>{alert.content}</MessageBox>
+@@ -86,7 +86,7 @@ export default () => {
+                 ) : alert.position === 'bottom-left' ? (
+                     <>
+                         <p className={'text-center text-lg text-gray-400 font-semibold'}>
+-                            Alert is being displayed in the bottom-left mode.
++                            O alerta está sendo exibido no modo inferior esquerdo.
+                         </p>
+                         <div className={'fixed bottom-2 left-64 z-50 m-4'}>
+                             <MessageBox type={alert.type as FlashMessageType}>{alert.content}</MessageBox>
+@@ -94,16 +94,16 @@ export default () => {
+                     </>
+                 ) : alert.position === 'center' ? (
+                     <p className={'text-center text-lg text-gray-400 font-semibold'}>
+-                        Alert is being displayed as a dialog in the center.
++                        O alerta está sendo exibido como diálogo no centro.
+                     </p>
+                 ) : (
+                     <p className={'text-center text-lg text-gray-400 font-semibold'}>
+-                        Alert is currently disabled, so no preview is available.
++                        O alerta está desativado no momento, por isso nenhuma pré-visualização está disponível.
+                     </p>
+                 )}
+             </AdminBox>
+             <div className={'mt-6'}>
+-                <AdminBox title={'Alert Format'} icon={faList} status={status}>
++                <AdminBox title={'Formato do alerta'} icon={faList} status={status}>
+                     <div className={'grid md:grid-cols-4 gap-8'}>
+                         <div onClick={() => submit('top-center' as AlertPosition)}>
+                             <DemoBox selected={alert.position === 'top-center'}>
+@@ -112,9 +112,7 @@ export default () => {
+                                     className={'absolute inset-x-12 top-12 h-5 rounded'}
+                                 ></div>
+                             </DemoBox>
+-                            <p className={'text-xs text-gray-400 mt-1'}>
+-                                Position the alert in the center of the page.
+-                            </p>
++                            <p className={'text-xs text-gray-400 mt-1'}>Posicione o alerta no centro da página.</p>
+                         </div>
+                         <div onClick={() => submit('bottom-right' as AlertPosition)}>
+                             <DemoBox selected={alert.position === 'bottom-right'}>
+@@ -125,7 +123,9 @@ export default () => {
+                                     &nbsp;
+                                 </div>
+                             </DemoBox>
+-                            <p className={'text-xs text-gray-400 mt-1'}>Position the alert to the bottom right.</p>
++                            <p className={'text-xs text-gray-400 mt-1'}>
++                                Posicione o alerta no canto inferior direito.
++                            </p>
+                         </div>
+                         <div onClick={() => submit('bottom-left' as AlertPosition)}>
+                             <DemoBox selected={alert.position === 'bottom-left'}>
+@@ -137,7 +137,7 @@ export default () => {
+                                 </div>
+                             </DemoBox>
+                             <p className={'text-xs text-gray-400 mt-1'}>
+-                                Position the alert to the bottom left of the page.
++                                Posicione o alerta no canto inferior esquerdo da página.
+                             </p>
+                         </div>
+                         <div
+@@ -157,7 +157,7 @@ export default () => {
+                                 </div>
+                             </DemoBox>
+                             <p className={'text-xs text-gray-400 mt-1'}>
+-                                Position the alert in the center of the page as a dialog.
++                                Posicione o alerta no centro da página como diálogo.
+                             </p>
+                         </div>
+                     </div>
+diff --git a/resources/scripts/components/admin/modules/alert/AlertRouter.tsx b/resources/scripts/components/admin/modules/alert/AlertRouter.tsx
+index 4c1d93f09..fb4dbbf11 100644
+--- a/resources/scripts/components/admin/modules/alert/AlertRouter.tsx
++++ b/resources/scripts/components/admin/modules/alert/AlertRouter.tsx
+@@ -8,25 +8,25 @@ import AlertAppearance from './AlertAppearance';
+ import { NotFound } from '@/elements/ScreenBlock';
+ 
+ export default () => (
+-    <AdminContentBlock title={'Alerts'}>
++    <AdminContentBlock title={'Alertas'}>
+         <FlashMessageRender byKey={'admin:alert'} className={'mb-4'} />
+         <div className={'w-full flex flex-row items-center mb-8'}>
+             <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
+-                <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Panel Alerts</h2>
++                <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Alertas do Painel</h2>
+                 <p
+                     className={
+                         'hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden'
+                     }
+                 >
+-                    Send warning and information alerts to your users.
++                    Envie alertas de aviso e informação aos seus usuários.
+                 </p>
+             </div>
+         </div>
+         <SubNavigation>
+-            <SubNavigationLink to={'/admin/alerts'} name={'General'} base>
++            <SubNavigationLink to={'/admin/alerts'} name={'Geral'} base>
+                 <ShieldExclamationIcon />
+             </SubNavigationLink>
+-            <SubNavigationLink to={'/admin/alerts/view'} name={'Appearance'}>
++            <SubNavigationLink to={'/admin/alerts/view'} name={'Aparência'}>
+                 <EyeIcon />
+             </SubNavigationLink>
+         </SubNavigation>
+diff --git a/resources/scripts/components/admin/modules/alert/AlertSettings.tsx b/resources/scripts/components/admin/modules/alert/AlertSettings.tsx
+index 12815f399..30193df60 100644
+--- a/resources/scripts/components/admin/modules/alert/AlertSettings.tsx
++++ b/resources/scripts/components/admin/modules/alert/AlertSettings.tsx
+@@ -32,7 +32,7 @@ export default () => {
+                 addFlash({
+                     type: 'success',
+                     key: 'settings:alert',
+-                    message: 'Settings have been updated successfully.',
++                    message: 'Configurações atualizadas com sucesso.',
+                 });
+             })
+             .catch(error => {
+@@ -60,10 +60,10 @@ export default () => {
+             <Form>
+                 <FlashMessageRender byKey={'settings:alert'} className={'mb-2'} />
+                 <div css={tw`grid grid-cols-1 md:grid-cols-4 gap-x-8 gap-y-6`}>
+-                    <AdminBox title={'Alert Status'} icon={faEye}>
++                    <AdminBox title={'Status do alerta'} icon={faEye}>
+                         <div>
+                             <div className={'inline-flex'}>
+-                                <Label className={'mt-1 mr-2'}>Show alert to users?</Label>
++                                <Label className={'mt-1 mr-2'}>Exibir alerta aos usuários?</Label>
+                                 <Field
+                                     id={'enabled'}
+                                     name={'enabled'}
+@@ -72,42 +72,42 @@ export default () => {
+                                 />
+                             </div>
+                             <p className={'text-gray-400 text-xs mt-1.5'}>
+-                                If enabled, your alert as it is currently configured will instantly be displayed to
+-                                users.
++                                Se ativado, seu alerta como está configurado atualmente será exibido aos usuários
++                                imediatamente.
+                             </p>
+                         </div>
+                     </AdminBox>
+-                    <AdminBox title={'Alert Type'} icon={faList}>
++                    <AdminBox title={'Tipo de alerta'} icon={faList}>
+                         <div>
+                             <div>
+                                 <Select
+                                     onChange={e => setType(e.currentTarget.value as AlertType)}
+                                     defaultValue={alert.type}
+                                 >
+-                                    <option value={'success'}>Success (Green)</option>
+-                                    <option value={'info'}>Info (Blue)</option>
+-                                    <option value={'warning'}>Warning (Yellow)</option>
+-                                    <option value={'danger'}>Danger (Red)</option>
++                                    <option value={'success'}>Sucesso (Verde)</option>
++                                    <option value={'info'}>Informação (Azul)</option>
++                                    <option value={'warning'}>Aviso (Amarelo)</option>
++                                    <option value={'danger'}>Perigo (Vermelho)</option>
+                                 </Select>
+                             </div>
+                             <p className={'text-gray-400 text-xs mt-1.5'}>
+-                                This option allows you to customize the severity and color of the alert shown.
++                                Esta opção permite personalizar a gravidade e a cor do alerta exibido.
+                             </p>
+                         </div>
+                     </AdminBox>
+-                    <AdminBox title={'Alert Content'} icon={faPaintBrush} className={'md:col-span-2'}>
++                    <AdminBox title={'Conteúdo do alerta'} icon={faPaintBrush} className={'md:col-span-2'}>
+                         <Field id={'content'} name={'content'} type={'text'} description={''} />
+                         <p className={'text-gray-400 text-xs mt-1.5'}>
+-                            Configure the alert to display content to end users.
++                            Configure o alerta para exibir conteúdo aos usuários finais.
+                         </p>
+                         <p className={'text-gray-400 text-xs mt-1'}>
+-                            Current UUID: <span className={'text-gray-600'}>{alert.uuid}</span>
++                            UUID atual: <span className={'text-gray-600'}>{alert.uuid}</span>
+                         </p>
+                     </AdminBox>
+                 </div>
+                 <div css={tw`w-full flex flex-row items-center mt-6`}>
+                     <div css={tw`flex ml-auto`}>
+-                        <Button type="submit">Save Changes</Button>
++                        <Button type="submit">Salvar alterações</Button>
+                     </div>
+                 </div>
+             </Form>
+diff --git a/resources/scripts/components/admin/modules/links/CreateLinkDialog.tsx b/resources/scripts/components/admin/modules/links/CreateLinkDialog.tsx
+index 5653e8753..a8d8806a7 100644
+--- a/resources/scripts/components/admin/modules/links/CreateLinkDialog.tsx
++++ b/resources/scripts/components/admin/modules/links/CreateLinkDialog.tsx
+@@ -35,23 +35,21 @@ export default ({ link, setOpen }: { link?: CustomLink; setOpen: Dispatch<SetSta
+ 
+     return (
+         <Dialog.Confirm
+-            confirm={'Create'}
++            confirm={'Criar'}
+             onConfirmed={onSubmit}
+             open
+             onClose={() => setOpen('none')}
+-            title={'Create new link'}
++            title={'Criar novo link'}
+         >
+             <div className={'mt-4'}>
+-                <Label>Link Name</Label>
++                <Label>Nome do link</Label>
+                 <InputField defaultValue={values.name} name={'name'} onChange={updateValues}></InputField>
+-                <p className={'text-gray-400 text-sm mt-1'}>Give the link a friendly name which clients can read.</p>
++                <p className={'text-gray-400 text-sm mt-1'}>Dê ao link um nome amigável que os clientes possam ler.</p>
+             </div>
+             <div className={'mt-2'}>
+-                <Label>Link URL</Label>
++                <Label>URL do link</Label>
+                 <InputField defaultValue={values.url} name={'url'} onChange={updateValues}></InputField>
+-                <p className={'text-gray-400 text-sm mt-1'}>
+-                    This is the URL which the link points to outside of the Panel.
+-                </p>
++                <p className={'text-gray-400 text-sm mt-1'}>Esta é a URL para a qual o link aponta fora do Painel.</p>
+             </div>
+             <div className={'xl:col-span-2 bg-black/50 border border-black shadow-inner p-4 rounded mt-4'}>
+                 <Switch
+@@ -60,9 +58,9 @@ export default ({ link, setOpen }: { link?: CustomLink; setOpen: Dispatch<SetSta
+                     onChange={() => {
+                         setValues(prev => ({ ...prev, visible: !values.visible }));
+                     }}
+-                    label={'Link Visibility'}
++                    label={'Visibilidade do link'}
+                     description={
+-                        "Toggle this setting to 'on' if you want to allow users to view and use this link. You can change this setting to 'off' at any time."
++                        "Altere esta configuração para 'on' se quiser permitir que os usuários vejam e usem este link. Você pode mudar esta configuração para 'off' a qualquer momento."
+                     }
+                 />
+             </div>
+diff --git a/resources/scripts/components/admin/modules/links/DeleteLinkDialog.tsx b/resources/scripts/components/admin/modules/links/DeleteLinkDialog.tsx
+index d4062e6eb..b0129c104 100644
+--- a/resources/scripts/components/admin/modules/links/DeleteLinkDialog.tsx
++++ b/resources/scripts/components/admin/modules/links/DeleteLinkDialog.tsx
+@@ -17,14 +17,14 @@ export default ({ id, setOpen }: { id?: number; setOpen: Dispatch<SetStateAction
+ 
+     return (
+         <Dialog.Confirm
+-            confirm={'Delete'}
++            confirm={'Excluir'}
+             onConfirmed={onSubmit}
+             open
+             onClose={() => setOpen('none')}
+-            title={'Delete custom link'}
++            title={'Excluir link personalizado'}
+         >
+             <div className={'mt-2'}>
+-                Are you sure you wish to delete this custom link? Users will no longer be able to use it.
++                Tem certeza de que deseja excluir este link personalizado? Os usuários não poderão mais usá-lo.
+             </div>
+         </Dialog.Confirm>
+     );
+diff --git a/resources/scripts/components/admin/modules/links/LinksContainer.tsx b/resources/scripts/components/admin/modules/links/LinksContainer.tsx
+index 7acff07da..b4e4d658f 100644
+--- a/resources/scripts/components/admin/modules/links/LinksContainer.tsx
++++ b/resources/scripts/components/admin/modules/links/LinksContainer.tsx
+@@ -14,24 +14,24 @@ export default () => {
+     const [open, setOpen] = useState<VisibleDialog>('none');
+ 
+     return (
+-        <AdminContentBlock title={'Custom Links'}>
++        <AdminContentBlock title={'Links personalizados'}>
+             {open === 'create' && <CreateLinkDialog setOpen={setOpen} />}
+             {open === 'update' && link && <CreateLinkDialog link={link} setOpen={setOpen} />}
+             {open === 'delete' && <DeleteLinkDialog id={link?.id} setOpen={setOpen} />}
+             <FlashMessageRender byKey={'admin:links'} className={'mb-4'} />
+             <div className={'w-full flex flex-row items-center mb-8'}>
+                 <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
+-                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Custom Links</h2>
++                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Links personalizados</h2>
+                     <p
+                         className={
+                             'hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden'
+                         }
+                     >
+-                        Create custom links to external sites for clients.
++                        Crie links personalizados para sites externos para os clientes.
+                     </p>
+                 </div>
+                 <div className={'flex ml-auto pl-4'}>
+-                    <Button onClick={() => setOpen('create')}>New Link</Button>
++                    <Button onClick={() => setOpen('create')}>Novo link</Button>
+                 </div>
+             </div>
+             <LinksTable setLink={setLink} setOpen={setOpen} />
+diff --git a/resources/scripts/components/admin/modules/links/LinksTable.tsx b/resources/scripts/components/admin/modules/links/LinksTable.tsx
+index 596a32d4a..3a481659b 100644
+--- a/resources/scripts/components/admin/modules/links/LinksTable.tsx
++++ b/resources/scripts/components/admin/modules/links/LinksTable.tsx
+@@ -59,7 +59,7 @@ const LinksTable = ({ setOpen, setLink }: Props) => {
+                                     onClick={() => setSort('id')}
+                                 />
+                                 <TableHeader
+-                                    name={'Name'}
++                                    name={'Nome'}
+                                     direction={sort === 'name' ? (sortDirection ? 1 : 2) : null}
+                                     onClick={() => setSort('name')}
+                                 />
+@@ -69,11 +69,11 @@ const LinksTable = ({ setOpen, setLink }: Props) => {
+                                     onClick={() => setSort('url')}
+                                 />
+                                 <TableHeader
+-                                    name={'Is Visible'}
++                                    name={'Visível'}
+                                     direction={sort === 'visibe' ? (sortDirection ? 1 : 2) : null}
+                                     onClick={() => setSort('visible')}
+                                 />
+-                                <TableHeader name={'Actions'} />
++                                <TableHeader name={'Ações'} />
+                             </TableHead>
+ 
+                             <TableBody>
+@@ -103,9 +103,9 @@ const LinksTable = ({ setOpen, setLink }: Props) => {
+                                                 css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap font-bold hover:brightness-125`}
+                                             >
+                                                 {link.visible ? (
+-                                                    <Pill type={'success'}>Visible</Pill>
++                                                    <Pill type={'success'}>Visível</Pill>
+                                                 ) : (
+-                                                    <Pill type={'danger'}>Hidden</Pill>
++                                                    <Pill type={'danger'}>Oculto</Pill>
+                                                 )}
+                                             </td>
+                                             <td className={'px-6 py-4 space-x-3'}>
+diff --git a/resources/scripts/components/admin/modules/theme/ColorSelect.tsx b/resources/scripts/components/admin/modules/theme/ColorSelect.tsx
+index 006c504f4..ee1f14e57 100644
+--- a/resources/scripts/components/admin/modules/theme/ColorSelect.tsx
++++ b/resources/scripts/components/admin/modules/theme/ColorSelect.tsx
+@@ -54,12 +54,12 @@ export default ({ setReload }: Props) => {
+     };
+ 
+     return (
+-        <AdminBox title={'Color Selection'} icon={faPaintbrush}>
++        <AdminBox title={'Seleção de cores'} icon={faPaintbrush}>
+             <FlashMessageRender byKey={'theme:colors'} className={'my-2'} />
+             {loading && <Spinner className={'absolute top-0 right-0 m-3.5'} size={'small'} />}
+             {success && <CheckCircleIcon className={'w-5 h-5 absolute top-0 right-0 m-3.5 text-green-500'} />}
+             <div>
+-                <Label>Primary Content (Accent Color)</Label>
++                <Label>Conteúdo principal (cor de destaque)</Label>
+                 <Input
+                     id={'primary'}
+                     type={'color'}
+@@ -68,12 +68,11 @@ export default ({ setReload }: Props) => {
+                     onChange={e => update('primary', e.target.value)}
+                 />
+                 <p className={'text-xs text-gray-400 mt-1'}>
+-                    This color is used as the main text color on the application and is also used for the buttons and
+-                    other components.
++                    Cor principal do texto, dos botões e de outros componentes.
+                 </p>
+             </div>
+             <div className={'mt-6'}>
+-                <Label>Secondary Content (Components)</Label>
++                <Label>Conteúdo secundário (componentes)</Label>
+                 <Input
+                     id={'secondary'}
+                     type={'color'}
+@@ -82,13 +81,12 @@ export default ({ setReload }: Props) => {
+                     onChange={e => update('secondary', e.target.value)}
+                 />
+                 <p className={'text-xs text-gray-400 mt-1'}>
+-                    Secondary content is elements of pages like this box, tables and other components. This should
+-                    usually be a dark, muted colour which doesn&apos;t blend in with the background easily.
++                    Elementos como caixas e tabelas. Use um tom escuro que contraste com o fundo.
+                 </p>
+             </div>
+             <div className={'h-0.5 my-6 rounded-full border-b border-gray-500 border-dashed'} />
+             <div className={'mt-6'}>
+-                <Label>Background Color</Label>
++                <Label>Cor de fundo</Label>
+                 <Input
+                     id={'background'}
+                     type={'color'}
+@@ -96,12 +94,10 @@ export default ({ setReload }: Props) => {
+                     value={colors.background}
+                     onChange={e => update('background', e.target.value)}
+                 />
+-                <p className={'text-xs text-gray-400 mt-1'}>
+-                    This color is used for the background of this application.
+-                </p>
++                <p className={'text-xs text-gray-400 mt-1'}>Cor usada no fundo do aplicativo.</p>
+             </div>
+             <div className={'my-6'}>
+-                <Label>Component Headers</Label>
++                <Label>Cabeçalhos dos componentes</Label>
+                 <Input
+                     id={'headers'}
+                     type={'color'}
+@@ -110,12 +106,12 @@ export default ({ setReload }: Props) => {
+                     onChange={e => update('headers', e.target.value)}
+                 />
+                 <p className={'text-xs text-gray-400 mt-1'}>
+-                    This color is used for headers of forms, boxes and tables. We usually advise that this colour is
+-                    slightly darker than &apos;Secondary Content&apos;.
++                    Cor dos cabeçalhos de formulários, caixas e tabelas. Deixe um pouco mais escura que o conteúdo
++                    secundário.
+                 </p>
+             </div>
+             <div className={'my-6'}>
+-                <Label>Sidebar & Navigation</Label>
++                <Label>Barra lateral e navegação</Label>
+                 <Input
+                     id={'sidebar'}
+                     type={'color'}
+@@ -123,9 +119,7 @@ export default ({ setReload }: Props) => {
+                     value={colors.sidebar}
+                     onChange={e => update('sidebar', e.target.value)}
+                 />
+-                <p className={'text-xs text-gray-400 mt-1'}>
+-                    This is the color of the sidebar to the left-hand side of your screen.
+-                </p>
++                <p className={'text-xs text-gray-400 mt-1'}>Cor da barra lateral à esquerda da sua tela.</p>
+             </div>
+         </AdminBox>
+     );
+diff --git a/resources/scripts/components/admin/modules/theme/Preview.tsx b/resources/scripts/components/admin/modules/theme/Preview.tsx
+index 58b167b67..e6e18604d 100644
+--- a/resources/scripts/components/admin/modules/theme/Preview.tsx
++++ b/resources/scripts/components/admin/modules/theme/Preview.tsx
+@@ -6,7 +6,7 @@ export default ({ reload }: { reload: boolean }) => {
+     const { primary } = useStoreState(s => s.theme.data!.colors);
+ 
+     return (
+-        <AdminBox title={'Preview'} icon={faDesktop} className={'lg:col-span-2'}>
++        <AdminBox title={'Pré-visualização'} icon={faDesktop} className={'lg:col-span-2'}>
+             <iframe
+                 src={reload ? '/null' : '/'}
+                 style={{ borderColor: primary }}
+diff --git a/resources/scripts/components/admin/modules/theme/ThemeContainer.tsx b/resources/scripts/components/admin/modules/theme/ThemeContainer.tsx
+index 8655076d8..5f7ef1c2f 100644
+--- a/resources/scripts/components/admin/modules/theme/ThemeContainer.tsx
++++ b/resources/scripts/components/admin/modules/theme/ThemeContainer.tsx
+@@ -28,23 +28,23 @@ export default () => {
+     return (
+         <AdminContentBlock showFlashKey={'theme:colors'}>
+             <Dialog.Confirm
+-                title={'Are you sure?'}
++                title={'Tem certeza?'}
+                 open={visible}
+                 onClose={() => setVisible(false)}
+                 onConfirmed={submit}
+             >
+-                Performing this action will immediately wipe all of your custom theming settings. Only do this if you
+-                wish to return to the stock appearance of Jexactyl. This action cannot be reversed.
++                Isso apagará todas as suas personalizações de tema e voltará à aparência padrão do Jexactyl. Essa ação
++                não pode ser desfeita.
+             </Dialog.Confirm>
+             <div className={'w-full flex flex-row items-center mb-8'}>
+                 <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
+-                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>System Theme</h2>
++                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Tema do sistema</h2>
+                     <p
+                         className={
+                             'hidden lg:block text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden'
+                         }
+                     >
+-                        View and update the theme of this interface.
++                        Visualize e atualize o tema desta interface.
+                     </p>
+                 </div>
+                 <div className={'flex ml-auto pl-4'}>
+@@ -54,7 +54,7 @@ export default () => {
+                         onClick={() => setVisible(true)}
+                         className={'h-10 px-4 py-0 whitespace-nowrap'}
+                     >
+-                        Reset to Defaults
++                        Redefinir para o padrão
+                     </Button>
+                 </div>
+             </div>

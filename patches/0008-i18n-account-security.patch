@@ -1,0 +1,781 @@
+From: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+Date: Tue, 27 Oct 2026 09:53:08 -0300
+Subject: i18n: traduz área de segurança, credenciais, 2FA, passkeys, SSH e API
+
+Description:
+Traduz a central de segurança da conta (SecurityRouter e
+CredentialsContainer), os formulários de atualização de e-mail, senha e
+avatar, os diálogos de configuração e desativação de 2FA (TOTP) e tokens de
+recuperação, o gerenciamento de passkeys WebAuthn, chaves SSH, chaves de API
+pessoais e o histórico de atividades da conta.
+
+Origin: vendor
+Forwarded: not-needed
+Applied-Upstream: no
+Last-Update: 2026-10-27
+Signed-off-by: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+
+---
+
+diff --git a/resources/scripts/components/account/AccountApiContainer.tsx b/resources/scripts/components/account/AccountApiContainer.tsx
+index 27c6a433c..d5d4bb4a3 100644
+--- a/resources/scripts/components/account/AccountApiContainer.tsx
++++ b/resources/scripts/components/account/AccountApiContainer.tsx
+@@ -7,6 +7,7 @@ import { faKey, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+ import { getApiKeys, deleteApiKey } from '@/api/routes/account/api-keys';
+ import { type ApiKey } from '@definitions/account';
+ import { format } from 'date-fns';
++import { dateLocale } from '@/lib/dateLocale';
+ import tw from 'twin.macro';
+ import GreyRowBox from '@/elements/GreyRowBox';
+ import { Dialog } from '@/elements/dialog';
+@@ -41,23 +42,23 @@ export default () => {
+ 
+     return (
+         <div css={tw`md:flex flex-nowrap my-10`}>
+-            <ContentBox title={'Create API Key'} css={tw`flex-none w-full md:w-1/2`}>
++            <ContentBox title={'Criar chave de API'} css={tw`flex-none w-full md:w-1/2`}>
+                 <CreateApiKeyForm onKeyCreated={key => setKeys(s => [...s!, key])} />
+             </ContentBox>
+-            <ContentBox title={'API Keys'} css={tw`flex-1 overflow-hidden mt-8 md:mt-0 md:ml-8`}>
++            <ContentBox title={'Chaves de API'} css={tw`flex-1 overflow-hidden mt-8 md:mt-0 md:ml-8`}>
+                 <SpinnerOverlay visible={loading} />
+                 <Dialog.Confirm
+-                    title={'Delete API Key'}
+-                    confirm={'Delete Key'}
++                    title={'Excluir chave de API'}
++                    confirm={'Excluir chave'}
+                     open={!!deleteIdentifier}
+                     onClose={() => setDeleteIdentifier('')}
+                     onConfirmed={() => doDeletion(deleteIdentifier)}
+                 >
+-                    All requests using the <Code>{deleteIdentifier}</Code> key will be invalidated.
++                    Todas as solicitações usando a chave <Code>{deleteIdentifier}</Code> serão invalidadas.
+                 </Dialog.Confirm>
+                 {keys.length === 0 ? (
+                     <p css={tw`text-center text-sm`}>
+-                        {loading ? 'Loading...' : 'No API keys exist for this account.'}
++                        {loading ? 'Carregando...' : 'Não existem chaves de API para esta conta.'}
+                     </p>
+                 ) : (
+                     keys.map((key, index) => (
+@@ -69,8 +70,8 @@ export default () => {
+                             <div css={tw`ml-4 flex-1 overflow-hidden`}>
+                                 <p css={tw`text-sm break-words`}>{key.description}</p>
+                                 <p css={tw`text-2xs text-neutral-300 uppercase`}>
+-                                    Last used:&nbsp;
+-                                    {key.lastUsedAt ? format(key.lastUsedAt, 'MMM do, yyyy HH:mm') : 'Never'}
++                                    Usado pela última vez:&nbsp;
++                                    {key.lastUsedAt ? format(key.lastUsedAt, 'MMM do, yyyy HH:mm', { locale: dateLocale() }) : 'Nunca'}
+                                 </p>
+                             </div>
+                             <p css={tw`text-sm ml-4 hidden md:block`}>
+diff --git a/resources/scripts/components/account/ApiKeyModal.tsx b/resources/scripts/components/account/ApiKeyModal.tsx
+index 90813906f..8510858c0 100644
+--- a/resources/scripts/components/account/ApiKeyModal.tsx
++++ b/resources/scripts/components/account/ApiKeyModal.tsx
+@@ -14,10 +14,10 @@ const ApiKeyModal = ({ apiKey }: Props) => {
+ 
+     return (
+         <>
+-            <h3 css={tw`mb-6 text-2xl`}>Your API Key</h3>
++            <h3 css={tw`mb-6 text-2xl`}>Sua chave de API</h3>
+             <p css={tw`text-sm mb-6`}>
+-                The API key you have requested is shown below. Please store this in a safe location, it will not be
+-                shown again.
++                A chave de API que você solicitou está abaixo. Guarde-a em um local seguro, ela não será exibida
++                novamente.
+             </p>
+             <pre css={tw`text-sm bg-neutral-900 rounded py-2 px-4 font-mono`}>
+                 <CopyOnClick text={apiKey}>
+@@ -26,7 +26,7 @@ const ApiKeyModal = ({ apiKey }: Props) => {
+             </pre>
+             <div css={tw`flex justify-end mt-6`}>
+                 <Button type={'button'} onClick={() => dismiss()}>
+-                    Close
++                    Fechar
+                 </Button>
+             </div>
+         </>
+diff --git a/resources/scripts/components/account/activity/ActivityLogContainer.tsx b/resources/scripts/components/account/activity/ActivityLogContainer.tsx
+index 06a005352..1ec8f0d17 100644
+--- a/resources/scripts/components/account/activity/ActivityLogContainer.tsx
++++ b/resources/scripts/components/account/activity/ActivityLogContainer.tsx
+@@ -37,7 +37,7 @@ export default () => {
+                         className={classNames(btnStyles.button, btnStyles.text, 'w-full sm:w-auto')}
+                         onClick={() => setFilters(value => ({ ...value, filters: {} }))}
+                     >
+-                        Clear Filters <XCircleIcon className={'ml-2 h-4 w-4'} />
++                        Limpar filtros <XCircleIcon className={'ml-2 h-4 w-4'} />
+                     </Link>
+                 </div>
+             )}
+diff --git a/resources/scripts/components/account/forms/ConfigureTwoFactorForm.tsx b/resources/scripts/components/account/forms/ConfigureTwoFactorForm.tsx
+index 3cf914ad1..82d3648a2 100644
+--- a/resources/scripts/components/account/forms/ConfigureTwoFactorForm.tsx
++++ b/resources/scripts/components/account/forms/ConfigureTwoFactorForm.tsx
+@@ -32,14 +32,16 @@ export default () => {
+             <DisableTOTPDialog open={visible === 'disable'} onClose={() => setVisible(null)} />
+             <p css={tw`text-sm`}>
+                 {isEnabled
+-                    ? 'Two-step verification is currently enabled on your account.'
+-                    : 'You do not currently have two-step verification enabled on your account. Click the button below to begin configuring it.'}
++                    ? 'A autenticação de dois fatores está ativada na sua conta.'
++                    : 'A autenticação de dois fatores não está ativada na sua conta. Clique no botão abaixo para começar a configurá-la.'}
+             </p>
+             <div css={tw`mt-6`}>
+                 {isEnabled ? (
+-                    <Button.Danger onClick={() => setVisible('disable')}>Disable Two-Step</Button.Danger>
++                    <Button.Danger onClick={() => setVisible('disable')}>
++                        Desativar autenticação de dois fatores
++                    </Button.Danger>
+                 ) : (
+-                    <Button onClick={() => setVisible('enable')}>Enable Two-Step</Button>
++                    <Button onClick={() => setVisible('enable')}>Ativar autenticação de dois fatores</Button>
+                 )}
+             </div>
+         </div>
+diff --git a/resources/scripts/components/account/forms/CreateApiKeyForm.tsx b/resources/scripts/components/account/forms/CreateApiKeyForm.tsx
+index c56a8b217..e834a7504 100644
+--- a/resources/scripts/components/account/forms/CreateApiKeyForm.tsx
++++ b/resources/scripts/components/account/forms/CreateApiKeyForm.tsx
+@@ -59,24 +59,24 @@ export default ({ onKeyCreated }: { onKeyCreated: (key: ApiKey) => void }) => {
+                     <Form>
+                         <SpinnerOverlay visible={isSubmitting} />
+                         <FormikFieldWrapper
+-                            label={'Description'}
++                            label={'Descrição'}
+                             name={'description'}
+-                            description={'A description of this API key.'}
++                            description={'Uma descrição desta chave de API.'}
+                             css={tw`mb-6`}
+                         >
+                             <Field name={'description'} as={Input} />
+                         </FormikFieldWrapper>
+                         <FormikFieldWrapper
+-                            label={'Allowed IPs'}
++                            label={'IPs permitidos'}
+                             name={'allowedIps'}
+                             description={
+-                                'Leave blank to allow any IP address to use this API key, otherwise provide each IP address on a new line.'
++                                'Deixe em branco para permitir que qualquer endereço IP use esta chave de API. Caso contrário, informe cada endereço IP em uma nova linha.'
+                             }
+                         >
+                             <Field name={'allowedIps'} as={CustomTextarea} />
+                         </FormikFieldWrapper>
+                         <div css={tw`flex justify-end mt-6`}>
+-                            <Button>Create</Button>
++                            <Button>Criar</Button>
+                         </div>
+                     </Form>
+                 )}
+diff --git a/resources/scripts/components/account/forms/DisableTOTPDialog.tsx b/resources/scripts/components/account/forms/DisableTOTPDialog.tsx
+index 9ead27613..a766bf6d8 100644
+--- a/resources/scripts/components/account/forms/DisableTOTPDialog.tsx
++++ b/resources/scripts/components/account/forms/DisableTOTPDialog.tsx
+@@ -42,7 +42,7 @@ const DisableTOTPDialog = () => {
+         <form id={'disable-totp-form'} className={'mt-6'} onSubmit={submit}>
+             <FlashMessageRender byKey={'account:two-step'} className={'-mt-2 mb-6'} />
+             <label className={'block pb-1'} htmlFor={'totp-password'}>
+-                Password
++                Senha
+             </label>
+             <Input.Text
+                 id={'totp-password'}
+@@ -52,14 +52,14 @@ const DisableTOTPDialog = () => {
+                 onChange={e => setPassword(e.currentTarget.value)}
+             />
+             <Dialog.Footer>
+-                <Button.Text onClick={close}>Cancel</Button.Text>
++                <Button.Text onClick={close}>Cancelar</Button.Text>
+                 <Tooltip
+                     delay={100}
+                     disabled={password.length > 0}
+-                    content={'You must enter your account password to continue.'}
++                    content={'Você precisa informar a senha da sua conta para continuar.'}
+                 >
+                     <Button.Danger type={'submit'} form={'disable-totp-form'} disabled={submitting || !password.length}>
+-                        Disable
++                        Desativar
+                     </Button.Danger>
+                 </Tooltip>
+             </Dialog.Footer>
+@@ -68,6 +68,6 @@ const DisableTOTPDialog = () => {
+ };
+ 
+ export default asDialog({
+-    title: 'Disable Two-Step Verification',
+-    description: 'Disabling two-step verification will make your account less secure.',
++    title: 'Desativar autenticação de dois fatores',
++    description: 'Desativar a autenticação de dois fatores deixará sua conta menos segura.',
+ })(DisableTOTPDialog);
+diff --git a/resources/scripts/components/account/forms/RecoveryTokensDialog.tsx b/resources/scripts/components/account/forms/RecoveryTokensDialog.tsx
+index d67da6093..0a19ca68b 100644
+--- a/resources/scripts/components/account/forms/RecoveryTokensDialog.tsx
++++ b/resources/scripts/components/account/forms/RecoveryTokensDialog.tsx
+@@ -19,9 +19,9 @@ export default ({ tokens, open, onClose }: RecoveryTokenDialogProps) => {
+         <Dialog
+             open={open}
+             onClose={onClose}
+-            title={'Two-Step Authentication Enabled'}
++            title={'Autenticação de dois fatores ativada'}
+             description={
+-                'Store the codes below somewhere safe. If you lose access to your phone you can use these backup codes to sign in.'
++                'Guarde os códigos abaixo em um local seguro. Se você perder o acesso ao seu celular, poderá usar estes códigos de recuperação para entrar.'
+             }
+             hideCloseIcon
+             preventExternalClose
+@@ -40,10 +40,10 @@ export default ({ tokens, open, onClose }: RecoveryTokenDialogProps) => {
+                 </pre>
+             </CopyOnClick>
+             <Alert type={'danger'} className={'mt-3'}>
+-                These codes will not be shown again.
++                Estes códigos não serão exibidos novamente.
+             </Alert>
+             <Dialog.Footer>
+-                <Button.Text onClick={onClose}>Done</Button.Text>
++                <Button.Text onClick={onClose}>Concluir</Button.Text>
+             </Dialog.Footer>
+         </Dialog>
+     );
+diff --git a/resources/scripts/components/account/forms/SetupTOTPDialog.tsx b/resources/scripts/components/account/forms/SetupTOTPDialog.tsx
+index a0a91894c..4c864735f 100644
+--- a/resources/scripts/components/account/forms/SetupTOTPDialog.tsx
++++ b/resources/scripts/components/account/forms/SetupTOTPDialog.tsx
+@@ -71,12 +71,12 @@ const ConfigureTwoFactorForm = ({ onTokens }: Props) => {
+             </div>
+             <CopyOnClick text={token?.secret}>
+                 <p className={'mt-2 text-center font-mono text-sm text-slate-100'}>
+-                    {token?.secret.match(/.{1,4}/g)!.join(' ') || 'Loading...'}
++                    {token?.secret.match(/.{1,4}/g)!.join(' ') || 'Carregando...'}
+                 </p>
+             </CopyOnClick>
+             <p id={'totp-code-description'} className={'mt-6'}>
+-                Scan the QR code above using the two-step authentication app of your choice. Then, enter the 6-digit
+-                code generated into the field below.
++                Escaneie o código QR acima usando o aplicativo de autenticação de dois fatores de sua preferência. Em
++                seguida, digite o código de 6 dígitos gerado no campo abaixo.
+             </p>
+             <Input.Text
+                 aria-labelledby={'totp-code-description'}
+@@ -91,7 +91,7 @@ const ConfigureTwoFactorForm = ({ onTokens }: Props) => {
+                 pattern={'\\d{6}'}
+             />
+             <label htmlFor={'totp-password'} className={'mt-3 block'}>
+-                Account Password
++                Senha da conta
+             </label>
+             <Input.Text
+                 variant={Input.Text.Variants.Loose}
+@@ -101,13 +101,13 @@ const ConfigureTwoFactorForm = ({ onTokens }: Props) => {
+                 onChange={e => setPassword(e.currentTarget.value)}
+             />
+             <Dialog.Footer>
+-                <Button.Text onClick={close}>Cancel</Button.Text>
++                <Button.Text onClick={close}>Cancelar</Button.Text>
+                 <Tooltip
+                     disabled={password.length > 0 && value.length === 6}
+                     content={
+                         !token
+-                            ? 'Waiting for QR code to load...'
+-                            : 'You must enter the 6-digit code and your password to continue.'
++                            ? 'Aguardando o código QR carregar...'
++                            : 'Você precisa informar o código de 6 dígitos e sua senha para continuar.'
+                     }
+                     delay={100}
+                 >
+@@ -116,7 +116,7 @@ const ConfigureTwoFactorForm = ({ onTokens }: Props) => {
+                         type={'submit'}
+                         form={'enable-totp-form'}
+                     >
+-                        Enable
++                        Ativar
+                     </Button>
+                 </Tooltip>
+             </Dialog.Footer>
+@@ -125,7 +125,7 @@ const ConfigureTwoFactorForm = ({ onTokens }: Props) => {
+ };
+ 
+ export default asDialog({
+-    title: 'Enable Two-Step Verification',
++    title: 'Ativar autenticação de dois fatores',
+     description:
+-        "Help protect your account from unauthorized access. You'll be prompted for a verification code each time you sign in.",
++        'Ajude a proteger sua conta contra acessos não autorizados. Você precisará informar um código de verificação sempre que entrar.',
+ })(ConfigureTwoFactorForm);
+diff --git a/resources/scripts/components/account/forms/UpdateAvatarForm.tsx b/resources/scripts/components/account/forms/UpdateAvatarForm.tsx
+index 122604a03..36cd6cf19 100644
+--- a/resources/scripts/components/account/forms/UpdateAvatarForm.tsx
++++ b/resources/scripts/components/account/forms/UpdateAvatarForm.tsx
+@@ -26,7 +26,7 @@ export default () => {
+         promise
+             .then(() => addFlash({ type: 'success', key: 'account:avatar', message }))
+             .catch(error =>
+-                addFlash({ type: 'error', key: 'account:avatar', title: 'Error', message: httpErrorToHuman(error) }),
++                addFlash({ type: 'error', key: 'account:avatar', title: 'Erro', message: httpErrorToHuman(error) }),
+             )
+             .then(() => setLoading(false));
+     };
+@@ -36,7 +36,7 @@ export default () => {
+             return;
+         }
+ 
+-        withFlashHandling(updateUserAvatarUrl(avatarUrl.trim()), 'Your avatar has been updated.');
++        withFlashHandling(updateUserAvatarUrl(avatarUrl.trim()), 'Seu Avatar foi atualizado.');
+         setAvatarUrl('');
+     };
+ 
+@@ -46,12 +46,12 @@ export default () => {
+             return;
+         }
+ 
+-        withFlashHandling(uploadUserAvatar(file), 'Your avatar has been updated.');
++        withFlashHandling(uploadUserAvatar(file), 'Seu Avatar foi atualizado.');
+         e.target.value = '';
+     };
+ 
+     const remove = () => {
+-        withFlashHandling(removeUserAvatar(), 'Your avatar has been reset to the default.');
++        withFlashHandling(removeUserAvatar(), 'Seu Avatar foi redefinido para o padrão.');
+     };
+ 
+     return (
+@@ -62,7 +62,7 @@ export default () => {
+                 <Avatar.User size={64} />
+             </div>
+ 
+-            <Label htmlFor={'avatar_url'}>Avatar URL</Label>
++            <Label htmlFor={'avatar_url'}>URL do Avatar</Label>
+             <Input
+                 id={'avatar_url'}
+                 type={'text'}
+@@ -72,13 +72,13 @@ export default () => {
+             />
+             <div css={tw`mt-4 flex flex-wrap gap-2`}>
+                 <Button type={'button'} disabled={!avatarUrl.trim() || loading} onClick={submitUrl}>
+-                    Use Link
++                    Usar link
+                 </Button>
+                 <Button.Text type={'button'} disabled={loading} onClick={() => fileInput.current?.click()}>
+-                    Upload Image
++                    Enviar imagem
+                 </Button.Text>
+                 <Button.Text type={'button'} disabled={loading} onClick={remove}>
+-                    Remove Avatar
++                    Remover Avatar
+                 </Button.Text>
+             </div>
+             <input ref={fileInput} type={'file'} accept={'image/*'} onChange={submitFile} css={tw`hidden`} />
+diff --git a/resources/scripts/components/account/forms/UpdateEmailAddressForm.tsx b/resources/scripts/components/account/forms/UpdateEmailAddressForm.tsx
+index b0e5b9b6a..601ba14ed 100644
+--- a/resources/scripts/components/account/forms/UpdateEmailAddressForm.tsx
++++ b/resources/scripts/components/account/forms/UpdateEmailAddressForm.tsx
+@@ -16,7 +16,7 @@ interface Values {
+ 
+ const schema = Yup.object().shape({
+     email: Yup.string().email().required(),
+-    password: Yup.string().required('You must provide your current account password.'),
++    password: Yup.string().required('Você precisa informar a senha atual da sua conta.'),
+ });
+ 
+ export default () => {
+@@ -33,14 +33,14 @@ export default () => {
+                 addFlash({
+                     type: 'success',
+                     key: 'account:email',
+-                    message: 'Your primary email has been updated.',
++                    message: 'Seu e-mail principal foi atualizado.',
+                 }),
+             )
+             .catch(error =>
+                 addFlash({
+                     type: 'error',
+                     key: 'account:email',
+-                    title: 'Error',
++                    title: 'Erro',
+                     message: httpErrorToHuman(error),
+                 }),
+             )
+@@ -56,17 +56,17 @@ export default () => {
+                 <Fragment>
+                     <SpinnerOverlay size={'large'} visible={isSubmitting} />
+                     <Form css={tw`m-0`}>
+-                        <Field id={'current_email'} type={'email'} name={'email'} label={'Email'} />
++                        <Field id={'current_email'} type={'email'} name={'email'} label={'E-mail'} />
+                         <div css={tw`mt-6`}>
+                             <Field
+                                 id={'confirm_password'}
+                                 type={'password'}
+                                 name={'password'}
+-                                label={'Confirm Password'}
++                                label={'Confirmar senha'}
+                             />
+                         </div>
+                         <div css={tw`mt-6`}>
+-                            <Button disabled={isSubmitting || !isValid}>Update Email</Button>
++                            <Button disabled={isSubmitting || !isValid}>Atualizar e-mail</Button>
+                         </div>
+                     </Form>
+                 </Fragment>
+diff --git a/resources/scripts/components/account/forms/UpdatePasswordForm.tsx b/resources/scripts/components/account/forms/UpdatePasswordForm.tsx
+index bb608d7c5..f2035e42f 100644
+--- a/resources/scripts/components/account/forms/UpdatePasswordForm.tsx
++++ b/resources/scripts/components/account/forms/UpdatePasswordForm.tsx
+@@ -17,11 +17,11 @@ interface Values {
+ }
+ 
+ const schema = Yup.object().shape({
+-    current: Yup.string().min(1).required('You must provide your current password.'),
++    current: Yup.string().min(1).required('Você precisa informar sua senha atual.'),
+     password: Yup.string().min(8).required(),
+     confirmPassword: Yup.string().test(
+         'password',
+-        'Password confirmation does not match the password you entered.',
++        'A confirmação de senha não corresponde à senha informada.',
+         function (value) {
+             return value === this.parent.password;
+         },
+@@ -47,7 +47,7 @@ export default () => {
+                 addFlash({
+                     key: 'account:password',
+                     type: 'error',
+-                    title: 'Error',
++                    title: 'Erro',
+                     message: httpErrorToHuman(error),
+                 }),
+             )
+@@ -65,20 +65,15 @@ export default () => {
+                     <Fragment>
+                         <SpinnerOverlay size={'large'} visible={isSubmitting} />
+                         <Form css={tw`m-0`}>
+-                            <Field
+-                                id={'current_password'}
+-                                type={'password'}
+-                                name={'current'}
+-                                label={'Current Password'}
+-                            />
++                            <Field id={'current_password'} type={'password'} name={'current'} label={'Senha atual'} />
+                             <div css={tw`mt-6`}>
+                                 <Field
+                                     id={'new_password'}
+                                     type={'password'}
+                                     name={'password'}
+-                                    label={'New Password'}
++                                    label={'Nova senha'}
+                                     description={
+-                                        'Your new password should be at least 8 characters in length and unique to this website.'
++                                        'Sua nova senha deve ter pelo menos 8 caracteres e ser exclusiva deste site.'
+                                     }
+                                 />
+                             </div>
+@@ -87,11 +82,11 @@ export default () => {
+                                     id={'confirm_new_password'}
+                                     type={'password'}
+                                     name={'confirmPassword'}
+-                                    label={'Confirm New Password'}
++                                    label={'Confirmar nova senha'}
+                                 />
+                             </div>
+                             <div css={tw`mt-6`}>
+-                                <Button disabled={isSubmitting || !isValid}>Update Password</Button>
++                                <Button disabled={isSubmitting || !isValid}>Atualizar senha</Button>
+                             </div>
+                         </Form>
+                     </Fragment>
+diff --git a/resources/scripts/components/account/passkeys/AccountPasskeyContainer.tsx b/resources/scripts/components/account/passkeys/AccountPasskeyContainer.tsx
+index cce839096..93d0d0092 100644
+--- a/resources/scripts/components/account/passkeys/AccountPasskeyContainer.tsx
++++ b/resources/scripts/components/account/passkeys/AccountPasskeyContainer.tsx
+@@ -24,13 +24,15 @@ export default () => {
+ 
+     return (
+         <div css={tw`md:flex flex-nowrap my-10`}>
+-            <ContentBox title={'Add Passkey'} css={tw`flex-none w-full md:w-1/2`}>
++            <ContentBox title={'Adicionar Passkey'} css={tw`flex-none w-full md:w-1/2`}>
+                 <CreatePasskeyForm />
+             </ContentBox>
+             <ContentBox title={'Passkeys'} css={tw`flex-1 overflow-hidden mt-8 md:mt-0 md:ml-8`}>
+                 <SpinnerOverlay visible={!data && isValidating} />
+                 {!data || !data.length ? (
+-                    <p css={tw`text-center text-sm`}>{!data ? 'Loading...' : 'No passkeys exist for this account.'}</p>
++                    <p css={tw`text-center text-sm`}>
++                        {!data ? 'Carregando...' : 'Não existem passkeys para esta conta.'}
++                    </p>
+                 ) : (
+                     data.map((passkey, index) => (
+                         <GreyRowBox
+@@ -41,11 +43,11 @@ export default () => {
+                             <div css={tw`flex-1`}>
+                                 <p css={tw`text-lg font-bold break-words`}>{passkey.name}</p>
+                                 <p css={tw`text-xs mt-1 text-gray-400 uppercase`}>
+-                                    Last used:&nbsp;
+-                                    {passkey.lastUsedAt ? passkey.lastUsedAt.toLocaleString() : 'Never'}
++                                    Usado pela última vez:&nbsp;
++                                    {passkey.lastUsedAt ? passkey.lastUsedAt.toLocaleString() : 'Nunca'}
+                                 </p>
+                                 <p css={tw`text-xs mt-1 text-gray-400 uppercase`}>
+-                                    Added on:&nbsp;
++                                    Adicionado em:&nbsp;
+                                     {passkey.createdAt.toLocaleString()}
+                                 </p>
+                             </div>
+diff --git a/resources/scripts/components/account/passkeys/CreatePasskeyForm.tsx b/resources/scripts/components/account/passkeys/CreatePasskeyForm.tsx
+index b33f329dd..7714ef76a 100644
+--- a/resources/scripts/components/account/passkeys/CreatePasskeyForm.tsx
++++ b/resources/scripts/components/account/passkeys/CreatePasskeyForm.tsx
+@@ -40,7 +40,7 @@ export default () => {
+     if (!passkeysSupported()) {
+         return (
+             <p css={tw`text-sm`}>
+-                This browser cannot use passkeys. Passkeys require a secure connection and a recent browser.
++                Este navegador não pode usar passkeys. Passkeys exigem uma conexão segura e um navegador recente.
+             </p>
+         );
+     }
+@@ -50,32 +50,33 @@ export default () => {
+             onSubmit={submit}
+             initialValues={{ name: '', password: '' }}
+             validationSchema={object().shape({
+-                name: string().required('Give this passkey a name so you can recognise it later.'),
+-                password: hasPassword ? string().required('Please enter your account password.') : string(),
++                name: string().required('Dê um nome a esta passkey para reconhecê-la depois.'),
++                password: hasPassword ? string().required('Informe a senha da sua conta.') : string(),
+             })}
+         >
+             {({ isSubmitting }) => (
+                 <Form>
+                     <SpinnerOverlay visible={isSubmitting} />
+                     <FormikFieldWrapper
+-                        label={'Passkey Name'}
++                        label={'Nome da passkey'}
+                         name={'name'}
+-                        description={'Something that identifies the device, such as "Work Laptop".'}
++                        description={'Algo que identifique o dispositivo, como "Work Laptop".'}
+                         css={tw`mb-6`}
+                     >
+                         <Field name={'name'} as={Input} />
+                     </FormikFieldWrapper>
+                     {hasPassword && (
+-                        <FormikFieldWrapper label={'Current Password'} name={'password'}>
++                        <FormikFieldWrapper label={'Senha atual'} name={'password'}>
+                             <Field name={'password'} type={'password'} as={Input} />
+                         </FormikFieldWrapper>
+                     )}
+                     <p css={tw`text-xs text-gray-400 mt-6`}>
+-                        Your device will ask you to confirm with a fingerprint, face, PIN, or security key. Once added,
+-                        you can sign in with it in a single step — no password or two-step code needed.
++                        Seu dispositivo pedirá confirmação com impressão digital, rosto, PIN ou chave de segurança.
++                        Depois de adicionada, você entra com ela em uma única etapa — sem senha ou código de dois
++                        fatores.
+                     </p>
+                     <div css={tw`flex justify-end mt-6`}>
+-                        <Button type={'submit'}>Add Passkey</Button>
++                        <Button type={'submit'}>Adicionar Passkey</Button>
+                     </div>
+                 </Form>
+             )}
+diff --git a/resources/scripts/components/account/passkeys/DeletePasskeyButton.tsx b/resources/scripts/components/account/passkeys/DeletePasskeyButton.tsx
+index aae4e327f..69c573628 100644
+--- a/resources/scripts/components/account/passkeys/DeletePasskeyButton.tsx
++++ b/resources/scripts/components/account/passkeys/DeletePasskeyButton.tsx
+@@ -42,10 +42,11 @@ export default ({ name, uuid }: { name: string; uuid: string }) => {
+ 
+     return (
+         <>
+-            <Dialog open={visible} onClose={close} title={'Remove Passkey'}>
++            <Dialog open={visible} onClose={close} title={'Remover Passkey'}>
+                 <Dialog.Icon type={'danger'} position={'container'} />
+                 <p css={tw`text-sm`}>
+-                    Removing the <Code>{name}</Code> passkey means it can no longer be used to sign in to this account.
++                    Remover a passkey <Code>{name}</Code> significa que ela não poderá mais ser usada para entrar nesta
++                    conta.
+                 </p>
+                 {hasPassword && (
+                     <div css={tw`mt-6`}>
+@@ -53,16 +54,16 @@ export default ({ name, uuid }: { name: string; uuid: string }) => {
+                             type={'password'}
+                             value={password}
+                             onChange={e => setPassword(e.currentTarget.value)}
+-                            placeholder={'Current password'}
++                            placeholder={'Senha atual'}
+                             autoComplete={'current-password'}
+                         />
+                     </div>
+                 )}
+                 <Dialog.Footer>
+-                    <Button.Text onClick={close}>Cancel</Button.Text>
++                    <Button.Text onClick={close}>Cancelar</Button.Text>
+                     {/* Button drops an explicit `disabled` prop, so the empty-password case is
+                         guarded inside onConfirmed instead. */}
+-                    <Button.Danger onClick={onConfirmed}>Remove Passkey</Button.Danger>
++                    <Button.Danger onClick={onConfirmed}>Remover Passkey</Button.Danger>
+                 </Dialog.Footer>
+             </Dialog>
+             <button css={tw`ml-4 p-2 text-sm`} onClick={() => setVisible(true)}>
+diff --git a/resources/scripts/components/account/security/CredentialsContainer.tsx b/resources/scripts/components/account/security/CredentialsContainer.tsx
+index 589d02a41..8388bde36 100644
+--- a/resources/scripts/components/account/security/CredentialsContainer.tsx
++++ b/resources/scripts/components/account/security/CredentialsContainer.tsx
+@@ -25,15 +25,15 @@ const Container = styled.div`
+ 
+ export default () => (
+     <Container css={tw`lg:grid lg:grid-cols-3 my-10`}>
+-        <ContentBox title="Update Password" showFlashes="account:password">
++        <ContentBox title="Atualizar senha" showFlashes="account:password">
+             <UpdatePasswordForm />
+         </ContentBox>
+ 
+-        <ContentBox css={tw`mt-8 lg:mt-0 lg:ml-8`} title="Update Email Address" showFlashes="account:email">
++        <ContentBox css={tw`mt-8 lg:mt-0 lg:ml-8`} title="Atualizar endereço de e-mail" showFlashes="account:email">
+             <UpdateEmailAddressForm />
+         </ContentBox>
+ 
+-        <ContentBox css={tw`mt-8 lg:mt-0 lg:ml-8`} title="Two-Step Verification">
++        <ContentBox css={tw`mt-8 lg:mt-0 lg:ml-8`} title="Autenticação de dois fatores">
+             <ConfigureTwoFactorForm />
+         </ContentBox>
+     </Container>
+diff --git a/resources/scripts/components/account/security/SecurityRouter.tsx b/resources/scripts/components/account/security/SecurityRouter.tsx
+index 5ca09a77e..3579d7229 100644
+--- a/resources/scripts/components/account/security/SecurityRouter.tsx
++++ b/resources/scripts/components/account/security/SecurityRouter.tsx
+@@ -26,9 +26,9 @@ interface SecurityTab {
+ const tabs: SecurityTab[] = [
+     {
+         path: '',
+-        name: 'Credentials',
+-        title: 'Credentials',
+-        description: 'Update the email address, password, and two-step verification on your account.',
++        name: 'Credenciais',
++        title: 'Credenciais',
++        description: 'Atualize o endereço de e-mail, a senha e a autenticação de dois fatores da sua conta.',
+         icon: Icon.LockClosedIcon,
+         component: CredentialsContainer,
+     },
+@@ -36,23 +36,23 @@ const tabs: SecurityTab[] = [
+         path: 'passkeys',
+         name: 'Passkeys',
+         title: 'Passkeys',
+-        description: 'Sign in with your fingerprint, face, or security key instead of a password.',
++        description: 'Entre com sua impressão digital, rosto ou chave de segurança em vez de uma senha.',
+         icon: Icon.FingerPrintIcon,
+         component: AccountPasskeyContainer,
+     },
+     {
+         path: 'ssh',
+-        name: 'SSH Keys',
+-        title: 'SSH Keys',
+-        description: 'Create, use and delete SSH keys to access servers.',
++        name: 'Chaves SSH',
++        title: 'Chaves SSH',
++        description: 'Crie, use e exclua chaves SSH para acessar servidores.',
+         icon: Icon.TerminalIcon,
+         component: AccountSSHContainer,
+     },
+     {
+         path: 'api',
+-        name: 'API Credentials',
+-        title: 'API Credentials',
+-        description: 'Create, edit and delete API keys to access the Panel.',
++        name: 'Credenciais de API',
++        title: 'Credenciais de API',
++        description: 'Crie, edite e exclua chaves de API para acessar o Painel.',
+         icon: Icon.CodeIcon,
+         component: AccountApiContainer,
+     },
+@@ -68,13 +68,13 @@ const SecurityRouter = () => {
+     return (
+         <PageContentBlock title={active.title}>
+             {state?.twoFactorRedirect && (
+-                <MessageBox title="2-Factor Required" type="error">
+-                    Your account must have two-factor authentication enabled in order to continue.
++                <MessageBox title="2FA obrigatório" type="error">
++                    Sua conta precisa ter a autenticação de dois fatores ativada para continuar.
+                 </MessageBox>
+             )}
+ 
+             <div className={'text-3xl lg:text-5xl font-bold mt-8 mb-8'}>
+-                Security
++                Segurança
+                 <p className={'text-gray-400 font-normal text-sm mt-1'}>{active.description}</p>
+             </div>
+ 
+diff --git a/resources/scripts/components/account/ssh/AccountSSHContainer.tsx b/resources/scripts/components/account/ssh/AccountSSHContainer.tsx
+index 5070aafe1..758d7d898 100644
+--- a/resources/scripts/components/account/ssh/AccountSSHContainer.tsx
++++ b/resources/scripts/components/account/ssh/AccountSSHContainer.tsx
+@@ -23,13 +23,15 @@ export default () => {
+ 
+     return (
+         <div css={tw`md:flex flex-nowrap my-10`}>
+-            <ContentBox title={'Add SSH Key'} css={tw`flex-none w-full md:w-1/2`}>
++            <ContentBox title={'Adicionar chave SSH'} css={tw`flex-none w-full md:w-1/2`}>
+                 <CreateSSHKeyForm />
+             </ContentBox>
+-            <ContentBox title={'SSH Keys'} css={tw`flex-1 overflow-hidden mt-8 md:mt-0 md:ml-8`}>
++            <ContentBox title={'Chaves SSH'} css={tw`flex-1 overflow-hidden mt-8 md:mt-0 md:ml-8`}>
+                 <SpinnerOverlay visible={!data && isValidating} />
+                 {!data || !data.length ? (
+-                    <p css={tw`text-center text-sm`}>{!data ? 'Loading...' : 'No SSH Keys exist for this account.'}</p>
++                    <p css={tw`text-center text-sm`}>
++                        {!data ? 'Carregando...' : 'Não existem chaves SSH para esta conta.'}
++                    </p>
+                 ) : (
+                     data.map((key, index) => (
+                         <GreyRowBox
+@@ -41,7 +43,7 @@ export default () => {
+                                 <p css={tw`text-lg font-bold break-words`}>{key.name}</p>
+                                 <p css={tw`text-xs mt-1 font-mono truncate text-gray-300`}>SHA256:{key.fingerprint}</p>
+                                 <p css={tw`text-xs mt-1 text-gray-400 uppercase`}>
+-                                    Added on:&nbsp;
++                                    Adicionado em:&nbsp;
+                                     {key.created_at.toLocaleString()}
+                                 </p>
+                             </div>
+diff --git a/resources/scripts/components/account/ssh/CreateSSHKeyForm.tsx b/resources/scripts/components/account/ssh/CreateSSHKeyForm.tsx
+index 91c5282ff..0233fd4b6 100644
+--- a/resources/scripts/components/account/ssh/CreateSSHKeyForm.tsx
++++ b/resources/scripts/components/account/ssh/CreateSSHKeyForm.tsx
+@@ -47,18 +47,18 @@ export default () => {
+                 {({ isSubmitting }) => (
+                     <Form>
+                         <SpinnerOverlay visible={isSubmitting} />
+-                        <FormikFieldWrapper label={'SSH Key Name'} name={'name'} css={tw`mb-6`}>
++                        <FormikFieldWrapper label={'Nome da chave SSH'} name={'name'} css={tw`mb-6`}>
+                             <Field name={'name'} as={Input} />
+                         </FormikFieldWrapper>
+                         <FormikFieldWrapper
+-                            label={'Public Key'}
++                            label={'Chave pública'}
+                             name={'publicKey'}
+-                            description={'Enter your public SSH key.'}
++                            description={'Informe sua chave SSH pública.'}
+                         >
+                             <Field name={'publicKey'} as={CustomTextarea} />
+                         </FormikFieldWrapper>
+                         <div css={tw`flex justify-end mt-6`}>
+-                            <Button>Save</Button>
++                            <Button>Salvar</Button>
+                         </div>
+                     </Form>
+                 )}
+diff --git a/resources/scripts/components/account/ssh/DeleteSSHKeyButton.tsx b/resources/scripts/components/account/ssh/DeleteSSHKeyButton.tsx
+index 43dc9f340..ef60f2168 100644
+--- a/resources/scripts/components/account/ssh/DeleteSSHKeyButton.tsx
++++ b/resources/scripts/components/account/ssh/DeleteSSHKeyButton.tsx
+@@ -28,12 +28,12 @@ export default ({ name, fingerprint }: { name: string; fingerprint: string }) =>
+         <>
+             <Dialog.Confirm
+                 open={visible}
+-                title={'Delete SSH Key'}
+-                confirm={'Delete Key'}
++                title={'Excluir chave SSH'}
++                confirm={'Excluir chave'}
+                 onConfirmed={onClick}
+                 onClose={() => setVisible(false)}
+             >
+-                Removing the <Code>{name}</Code> SSH key will invalidate its usage across the Panel.
++                Remover a chave SSH <Code>{name}</Code> invalidará seu uso em todo o Painel.
+             </Dialog.Confirm>
+             <button css={tw`ml-4 p-2 text-sm`} onClick={() => setVisible(true)}>
+                 <FontAwesomeIcon

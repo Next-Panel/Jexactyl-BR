@@ -1,0 +1,8 @@
+[package]
+name = "jx_core"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+thiserror = "1"
+toml_edit = "0.22"

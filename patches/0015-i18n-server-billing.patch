@@ -1,0 +1,311 @@
+From: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+Date: Tue, 27 Oct 2026 09:53:15 -0300
+Subject: i18n: traduz faturamento, renovação e upgrade de plano do servidor
+
+Description:
+Traduz a aba de cobrança individual do servidor (ServerBillingContainer,
+ServerPaymentButton e UpgradeContainer), incluindo resumo do pacote ativo,
+data da próxima renovação, regras para renovação de servidores gratuitos,
+histórico de pedidos vinculados e fluxo de upgrade de plano com cálculo
+proporcional.
+
+Origin: vendor
+Forwarded: not-needed
+Applied-Upstream: no
+Last-Update: 2026-10-27
+Signed-off-by: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+
+---
+
+diff --git a/resources/scripts/components/server/billing/ServerBillingContainer.tsx b/resources/scripts/components/server/billing/ServerBillingContainer.tsx
+index 73163b2b9..51135b463 100644
+--- a/resources/scripts/components/server/billing/ServerBillingContainer.tsx
++++ b/resources/scripts/components/server/billing/ServerBillingContainer.tsx
+@@ -87,37 +87,38 @@ export default () => {
+ 
+     return (
+         <PageContentBlock
+-            title={'Server Billing'}
++            title={'Faturamento do servidor'}
+             header
+-            description={'Control your billing settings for this server.'}
++            description={'Controle as configurações de faturamento deste servidor.'}
+         >
+             {!product && !loading && (
+                 <Alert type={'warning'} className={'mb-6'}>
+-                    The product package you purchase initially no longer exists, so some details may not be shown.
++                    O pacote do produto que você comprou inicialmente não existe mais, então alguns detalhes podem não
++                    ser exibidos.
+                 </Alert>
+             )}
+             {renewalDate && (
+                 <div className={'grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6'}>
+-                    <StatTile icon={faBoxOpen} label={'Plan'} value={product ? product.name : 'Unknown'} />
++                    <StatTile icon={faBoxOpen} label={'Plano'} value={product ? product.name : 'Desconhecido'} />
+                     <StatTile
+                         icon={faCalendarCheck}
+-                        label={'Cost'}
++                        label={'Custo'}
+                         value={product ? <Money value={product.price} /> : '...'}
+-                        caption={`every ${settings.renewal.days} days`}
++                        caption={`a cada ${settings.renewal.days} dias`}
+                     />
+-                    <StatTile icon={faHourglassHalf} label={'Renews In'} value={`${daysRemaining}d`} />
++                    <StatTile icon={faHourglassHalf} label={'Renova em'} value={`${daysRemaining}d`} />
+                     <StatTile
+                         icon={daysRemaining > settings.renewal.threshold ? faCircleCheck : faTriangleExclamation}
+                         label={'Status'}
+-                        value={daysRemaining > settings.renewal.threshold ? 'Active' : 'Renewing Soon'}
++                        value={daysRemaining > settings.renewal.threshold ? 'Ativo' : 'Renovação próxima'}
+                     />
+                 </div>
+             )}
+             <div className={'grid lg:grid-cols-3 gap-4'}>
+                 {!renewalDate ? (
+-                    <Alert type={'warning'}>There is no present renewal date for your server.</Alert>
++                    <Alert type={'warning'}>Não há data de renovação atual para o seu servidor.</Alert>
+                 ) : (
+-                    <ContentBox title={'Summary'}>
++                    <ContentBox title={'Resumo'}>
+                         <SpinnerOverlay visible={loading} />
+                         <div className={'flex items-center gap-6'}>
+                             <RadialProgress
+@@ -125,61 +126,61 @@ export default () => {
+                                 label={
+                                     <div className={'text-center'}>
+                                         <p className={'text-lg font-bold leading-none'}>{daysRemaining}d</p>
+-                                        <p className={'text-2xs text-gray-400 mt-1'}>left</p>
++                                        <p className={'text-2xs text-gray-400 mt-1'}>restantes</p>
+                                     </div>
+                                 }
+                             />
+                             <div>
+-                                <Label>Next renewal due</Label>
++                                <Label>Próxima renovação</Label>
+                                 <p className={'text-gray-400 text-sm'}>
+                                     {new Date(renewalDate).toLocaleDateString()}
+                                     {' - '}
+-                                    {timeUntil(renewalDate).days} days, {timeUntil(renewalDate).hours} hours
++                                    {timeUntil(renewalDate).days} dias, {timeUntil(renewalDate).hours} horas
+                                 </p>
+                             </div>
+                         </div>
+                         <div className={'my-6'}>
+-                            <Label>Your package</Label>
+-                            <p className={'text-gray-400 text-sm'}>{product ? product.name : 'Unknown'}</p>
++                            <Label>Seu pacote</Label>
++                            <p className={'text-gray-400 text-sm'}>{product ? product.name : 'Desconhecido'}</p>
+                             <p className={'text-gray-500 text-xs'}>{product && product.description}</p>
+                         </div>
+                         <div>
+-                            <Label>Plan cost</Label>
++                            <Label>Custo do plano</Label>
+                             <div className={'flex justify-between'}>
+                                 <p className={'text-gray-400 text-sm'}>
+-                                    {product ? <Money value={product.price} /> : '...'} every {settings.renewal.days}{' '}
+-                                    days
++                                    {product ? <Money value={product.price} /> : '...'} a cada {settings.renewal.days}{' '}
++                                    dias
+                                 </p>
+                                 <Link to={'/account/billing/orders'} className={'text-green-400 text-xs'}>
+-                                    View order <FontAwesomeIcon icon={faArrowRight} />
++                                    Ver pedido <FontAwesomeIcon icon={faArrowRight} />
+                                 </Link>
+                             </div>
+                         </div>
+                     </ContentBox>
+                 )}
+                 <div className={'lg:col-span-2'}>
+-                    <h2 className={'text-neutral-300 mb-4 px-4 text-2xl'}>Related Orders</h2>
++                    <h2 className={'text-neutral-300 mb-4 px-4 text-2xl'}>Pedidos relacionados</h2>
+                     <OrdersContainer server_id={Number(serverId)} />
+                 </div>
+-                <ContentBox title={'Renew Server'} className={'mt-6'}>
++                <ContentBox title={'Renovar servidor'} className={'mt-6'}>
+                     <FlashMessageRender byKey={'server:billing'} className={'mb-4'} />
+                     {!product ? (
+                         <Alert type={'danger'}>
+-                            The product package that the server was made with no longer exists. In order to renew your
+-                            server, you&apos;ll need to speak to an administrator.
++                            O pacote do produto com o qual o servidor foi criado não existe mais. Para renovar o seu
++                            servidor, você precisa falar com um administrador.
+                         </Alert>
+                     ) : (
+                         <>
+                             {product.price === 0 ? (
+                                 <div>
+                                     <p className={'mb-4'}>
+-                                        This is a free server. You must renew it before your server expires in{' '}
+-                                        {daysRemaining} days to prevent your server from being permenantly deleted.
++                                        Este é um servidor gratuito. Você precisa renová-lo antes que ele expire em{' '}
++                                        {daysRemaining} dias para evitar que o servidor seja excluído permanentemente.
+                                     </p>
+                                     {!(daysRemaining - 7 <= 0) && (
+                                         <p className={'mb-4 text-sm text-gray-400'}>
+-                                            You can renew your server within 7 days of the expiration date (in{' '}
+-                                            {daysRemaining - 7} days)
++                                            Você pode renovar o seu servidor em até 7 dias antes da data de expiração
++                                            (em {daysRemaining - 7} dias)
+                                         </p>
+                                     )}
+                                     {daysRemaining - 7 <= 0 && (
+@@ -188,7 +189,7 @@ export default () => {
+                                             disabled={renewing}
+                                             size={Button.Sizes.Large}
+                                         >
+-                                            {renewing ? 'Renewing...' : 'Renew Server'}
++                                            {renewing ? 'Renovando...' : 'Renovar servidor'}
+                                         </Button>
+                                     )}
+                                 </div>
+@@ -199,14 +200,15 @@ export default () => {
+                     )}
+                 </ContentBox>
+                 {settings.allow_upgrades && (
+-                    <ContentBox className={'mt-6 lg:col-span-2'} title={'Upgrade Server Package'}>
+-                        If you wish to pay extra for more resources for your server, you can use our upgrade system to
+-                        choose a new plan to suit your needs. A pro-rata price will be generated to cover the cost
+-                        between now and your next renewal date, and the new resources will be added upon payment.
++                    <ContentBox className={'mt-6 lg:col-span-2'} title={'Upgrade do pacote do servidor'}>
++                        Se você quiser pagar a mais por mais recursos para o seu servidor, pode usar o nosso sistema de
++                        upgrade para escolher um novo plano de acordo com as suas necessidades. Um valor proporcional
++                        será gerado para cobrir o custo entre agora e a próxima data de renovação, e os novos recursos
++                        serão adicionados após o pagamento.
+                         <div className={'text-right'}>
+                             <Link to={`/server/${serverUuid.slice(0, 8)}/billing/upgrade`}>
+                                 <Button className={'mt-8'} size={Button.Sizes.Large}>
+-                                    View Options <FontAwesomeIcon icon={faArrowRight} className={'ml-2'} />
++                                    Ver opções <FontAwesomeIcon icon={faArrowRight} className={'ml-2'} />
+                                 </Button>
+                             </Link>
+                         </div>
+diff --git a/resources/scripts/components/server/billing/ServerPaymentButton.tsx b/resources/scripts/components/server/billing/ServerPaymentButton.tsx
+index 301e2517d..38e798a1a 100644
+--- a/resources/scripts/components/server/billing/ServerPaymentButton.tsx
++++ b/resources/scripts/components/server/billing/ServerPaymentButton.tsx
+@@ -36,12 +36,12 @@ export default ({ product }: { product: Product }) => {
+             <SpinnerOverlay visible={loading} />
+             <FlashMessageRender byKey={'server:billing:payment'} className={'mb-4'} />
+             <p className={'mb-4'}>
+-                Renewing your server now will add another {days} days to your server, making your renewal date{' '}
+-                {new Date(updatedRenewalDate).toLocaleDateString()} (+{days} days).
++                Renovar o seu servidor agora vai adicionar mais {days} dias ao seu servidor, e a nova data de renovação
++                será {new Date(updatedRenewalDate).toLocaleDateString()} (+{days} dias).
+             </p>
+             <div className={'text-right'}>
+                 <Button className={'mt-4'} size={Button.Sizes.Large}>
+-                    Pay Now <FontAwesomeIcon icon={faCreditCard} className={'ml-2'} />
++                    Pagar agora <FontAwesomeIcon icon={faCreditCard} className={'ml-2'} />
+                 </Button>
+             </div>
+         </form>
+diff --git a/resources/scripts/components/server/billing/UpgradeContainer.tsx b/resources/scripts/components/server/billing/UpgradeContainer.tsx
+index 6c4106ce8..23784379c 100644
+--- a/resources/scripts/components/server/billing/UpgradeContainer.tsx
++++ b/resources/scripts/components/server/billing/UpgradeContainer.tsx
+@@ -72,19 +72,19 @@ export default () => {
+ 
+     return (
+         <PageContentBlock
+-            title={'Upgrade Options'}
++            title={'Opções de upgrade'}
+             header
+-            description={'View your current product and upgrade to a new option.'}
++            description={'Veja o seu produto atual e faça upgrade para uma nova opção.'}
+         >
+             {open && (
+                 <Dialog
+                     open
+                     onClose={() => setOpen(null)}
+-                    title={`Confirm Upgrade to ${open.name} - ${settings.currency.symbol}${open.price} / mo`}
++                    title={`Confirmar upgrade para ${open.name} - ${settings.currency.symbol}${open.price} / mês`}
+                 >
+-                    To upgrade in between your billing cycle, you must pay a one off charge specified below. Your server
+-                    will then instantly be upgraded to the selected package, and will renew at the new package monthly
+-                    cost.
++                    Para fazer upgrade no meio do ciclo de faturamento, você precisa pagar uma taxa única informada
++                    abaixo. O seu servidor será atualizado na hora para o pacote selecionado e será renovado pelo custo
++                    mensal do novo pacote.
+                     <div className={'my-3 w-full'}>
+                         <code className={'px-2 py-1 w-full bg-black/50 rounded-lg'}>
+                             {charge !== null ? (
+@@ -96,14 +96,16 @@ export default () => {
+                                 <FontAwesomeIcon icon={faSpinner} className={'animate-spin'} />
+                             )}
+                         </code>
+-                        <span className={'ml-2 italic text-gray-400'}>one-time charge to upgrade early, taken now</span>
++                        <span className={'ml-2 italic text-gray-400'}>
++                            taxa única para fazer upgrade antecipado, cobrada agora
++                        </span>
+                     </div>
+-                    Then, from {new Date(server.renewalDate!).toLocaleDateString()}, your renewal cost will be{' '}
++                    Depois, a partir de {new Date(server.renewalDate!).toLocaleDateString()}, o custo de renovação será{' '}
+                     {settings.currency.symbol}
+-                    {open.price}/mo.
++                    {open.price}/mês.
+                     <div className={'mt-4 text-right'}>
+                         <Button onClick={submit} disabled={!charge}>
+-                            Upgrade Now
++                            Fazer upgrade agora
+                         </Button>
+                     </div>
+                 </Dialog>
+@@ -113,8 +115,8 @@ export default () => {
+                 {!options ||
+                     (options.length === 0 && (
+                         <Alert type={'info'} className={'xl:col-span-3'}>
+-                            There are no packages available to upgrade to. If you wish to upgrade, please speak to an
+-                            administrator.
++                            Não há pacotes disponíveis para upgrade. Se você quiser fazer upgrade, fale com um
++                            administrador.
+                         </Alert>
+                     ))}
+                 {options?.map(product => (
+@@ -139,20 +141,23 @@ export default () => {
+                                     &nbsp;
+                                     {settings.currency.code.toUpperCase()}
+                                 </span>
+-                                <span className={'text-base'}>/ monthly</span>
++                                <span className={'text-base'}>/ mensal</span>
+                             </p>
+                             <div className={'grid justify-center items-center'}>
+                                 <LimitBox icon={faMicrochip} limit={<>{product.limits.cpu}% CPU</>} />
+-                                <LimitBox icon={faMemory} limit={<>{product.limits.memory / 1024} GiB of RAM</>} />
+-                                <LimitBox icon={faHdd} limit={<>{product.limits.disk / 1024} GiB of Storage</>} />
++                                <LimitBox icon={faMemory} limit={<>{product.limits.memory / 1024} GiB de RAM</>} />
++                                <LimitBox icon={faHdd} limit={<>{product.limits.disk / 1024} GiB de armazenamento</>} />
+                                 <div className={'border border-dashed border-gray-500 my-4'} />
+                                 {product.limits.backup ? (
+-                                    <LimitBox icon={faArchive} limit={<>{product.limits.backup} backup slots</>} />
++                                    <LimitBox icon={faArchive} limit={<>{product.limits.backup} espaços de backup</>} />
+                                 ) : (
+                                     <></>
+                                 )}
+                                 {product.limits.database ? (
+-                                    <LimitBox icon={faDatabase} limit={<>{product.limits.database} database slots</>} />
++                                    <LimitBox
++                                        icon={faDatabase}
++                                        limit={<>{product.limits.database} espaços de banco de dados</>}
++                                    />
+                                 ) : (
+                                     <></>
+                                 )}
+@@ -160,15 +165,15 @@ export default () => {
+                                     icon={faEthernet}
+                                     limit={
+                                         <>
+-                                            {product.limits.allocation} network port
+-                                            {product.limits.allocation > 1 && 's'}
++                                            {product.limits.allocation} porta
++                                            {product.limits.allocation > 1 && 's'} de rede
+                                         </>
+                                     }
+                                 />
+                             </div>
+                             <div className={'text-center mt-6'} onClick={() => setOpen(product)}>
+                                 <Button size={Button.Sizes.Large} className={'w-full'}>
+-                                    Configure
++                                    Configurar
+                                 </Button>
+                             </div>
+                         </div>

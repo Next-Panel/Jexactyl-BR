@@ -1,0 +1,17 @@
+[package]
+name = "jx_workspace"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+jx_core = { path = "../jx_core" }
+jx_git = { path = "../jx_git" }
+jx_ops = { path = "../jx_ops" }
+jx_patch = { path = "../jx_patch" }
+thiserror = "1"
+tar = "0.4"
+flate2 = "1"
+
+[dev-dependencies]
+jx_ops = { path = "../jx_ops", features = ["test-support"] }
+tempfile = "3"

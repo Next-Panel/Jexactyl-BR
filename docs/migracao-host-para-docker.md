@@ -42,9 +42,9 @@ aleatória se a variável não existir).
 
 ```bash
 # 1. Pausa o worker de filas do host
-sudo systemctl stop pteroq.service
-# Caso seu serviço tenha sido configurado como panel.service:
-# sudo systemctl stop panel.service
+sudo systemctl stop panel.service
+# Caso seu serviço ainda use o nome legado do Pterodactyl:
+# sudo systemctl stop pteroq.service
 
 # 2. Exporta o banco de dados do painel atual
 mariadb-dump -u root -p jexactyl > painel-backup.sql
@@ -109,9 +109,9 @@ O entrypoint executará automaticamente `php artisan migrate --force`, adaptando
 ### 6. Desativar serviços antigos do host
 
 ```bash
-sudo systemctl disable --now pteroq.service
-# Caso seu serviço tenha sido configurado como panel.service:
-# sudo systemctl disable --now panel.service
+sudo systemctl disable --now panel.service
+# Caso seu serviço ainda use o nome legado do Pterodactyl:
+# sudo systemctl disable --now pteroq.service
 ```
 
 ### 7. Verificar

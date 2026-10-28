@@ -38,3 +38,4 @@ patches/0023-i18n-admin-setup.patch
 patches/0024-gateway-mercadopago-multiprovedor.patch
 patches/0025-i18n-traducao-excecoes-atividade-datas.patch
 patches/0026-core-corrige-preview-tema-x-frame.patch
+patches/0027-core-corrige-binding-database-hosts.patch

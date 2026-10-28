@@ -1,0 +1,71 @@
+From: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+Date: Wed, 28 Oct 2026 02:02:50 +0000
+Subject: core: corrige route binding dos database hosts (500 em /admin/databases/:id)
+
+Description:
+As rotas usam o parametro {databaseHost:id}, mas view/update/delete declaravam
+DatabaseHost $database. O ImplicitRouteBinding casa por nome e ignorava o
+parametro, injetando um modelo vazio cujo created_at nulo quebrava o
+DatabaseHostTransformer com 500. Renomeia a variavel para $databaseHost nos
+tres metodos.
+
+Origin: vendor
+Forwarded: not-needed
+Applied-Upstream: no
+Last-Update: 2026-10-28
+Signed-off-by: Matheus Biolowons <30575805+Ashu11-A@users.noreply.github.com>
+
+---
+
+diff --git a/app/Http/Controllers/Api/Application/Databases/DatabaseController.php b/app/Http/Controllers/Api/Application/Databases/DatabaseController.php
+index 62387c095..abcc1778e 100644
+--- a/app/Http/Controllers/Api/Application/Databases/DatabaseController.php
++++ b/app/Http/Controllers/Api/Application/Databases/DatabaseController.php
+@@ -48,9 +48,9 @@ class DatabaseController extends ApplicationApiController
+     /**
+      * Returns a single database host.
+      */
+-    public function view(GetDatabaseRequest $request, DatabaseHost $database): array
++    public function view(GetDatabaseRequest $request, DatabaseHost $databaseHost): array
+     {
+-        return $this->transform($database, DatabaseHostTransformer::class);
++        return $this->transform($databaseHost, DatabaseHostTransformer::class);
+     }
+ 
+     /**
+@@ -76,13 +76,13 @@ class DatabaseController extends ApplicationApiController
+      *
+      * @throws \Throwable
+      */
+-    public function update(UpdateDatabaseRequest $request, DatabaseHost $database): array
++    public function update(UpdateDatabaseRequest $request, DatabaseHost $databaseHost): array
+     {
+-        $database = $this->updateService->handle($database->id, $request->validated());
++        $databaseHost = $this->updateService->handle($databaseHost->id, $request->validated());
+ 
+         Activity::event('admin:database-hosts:update')
+-            ->subject($database)
+-            ->property('database-host', $database)
++            ->subject($databaseHost)
++            ->property('database-host', $databaseHost)
+             ->property('new_data', $request->all())
+             ->description('A database host was updated')
+             ->log();
+@@ -95,13 +95,13 @@ class DatabaseController extends ApplicationApiController
+      *
+      * @throws \Exception
+      */
+-    public function delete(DeleteDatabaseRequest $request, DatabaseHost $database): Response
++    public function delete(DeleteDatabaseRequest $request, DatabaseHost $databaseHost): Response
+     {
+-        $database->delete();
++        $databaseHost->delete();
+ 
+         Activity::event('admin:database-hosts:delete')
+-            ->subject($database)
+-            ->property('database-host', $database)
++            ->subject($databaseHost)
++            ->property('database-host', $databaseHost)
+             ->description('A database host was deleted')
+             ->log();
+ 

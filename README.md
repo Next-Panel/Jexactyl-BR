@@ -68,11 +68,11 @@ O **Jexactyl-BR** adapta o [Jexactyl oficial](https://github.com/Jexactyl/Jexact
 
 Acesse a nossa **[Documentação Oficial (`nextpanel.com.br`)](https://nextpanel.com.br/docs/Jexactyl/intro)** para iniciar a auto-hospedagem do painel:
 
-* [**Instalação via Docker — Recomendado**](https://nextpanel.com.br/docs/Jexactyl/v4.0.7/docker/subida-rapida)
-* [**Instalação Diretamente na Máquina (Host — PHP 8.4)**](https://nextpanel.com.br/docs/Jexactyl/v4.0.7/host/dependencias)
-* [**Proxy Reverso com Caddy e Nginx (Com e Sem Certificado SSL)**](https://nextpanel.com.br/docs/Jexactyl/v4.0.7/docker/proxy-reverso)
-* [**Atualização e Migração (Host para Docker / v3.8.6 para v4.0.7 / Pterodactyl)**](https://nextpanel.com.br/docs/Jexactyl/v4.0.7/migracao/atualizar)
-* [**Pagamentos com Mercado Pago e Stripe**](https://nextpanel.com.br/docs/Jexactyl/v4.0.7/extras/Mercado_Pago)
+* [**Instalação via Docker — Recomendado**](https://nextpanel.com.br/docs/Jexactyl/v4.x.x/docker/subida-rapida)
+* [**Instalação Diretamente na Máquina (Host — PHP 8.4)**](https://nextpanel.com.br/docs/Jexactyl/v4.c.x/host/dependencias)
+* [**Proxy Reverso com Caddy e Nginx (Com e Sem Certificado SSL)**](https://nextpanel.com.br/docs/Jexactyl/v4.x.x/docker/proxy-reverso)
+* [**Atualização e Migração (Host para Docker / v3.8.6 para v4.0.7 / Pterodactyl)**](https://nextpanel.com.br/docs/Jexactyl/v4.x.x/migracao/atualizar)
+* [**Pagamentos com Mercado Pago e Stripe**](https://nextpanel.com.br/docs/Jexactyl/v4.x.x/extras/Mercado_Pago)
 
 ---
 

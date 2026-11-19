@@ -31,7 +31,7 @@
 >
 > Caso você ainda utilize o **Jexactyl v3** ou execute o painel sobre versões antigas do PHP, **atualize imediatamente para a v4 e atualize o runtime do PHP no seu servidor**.
 > As vulnerabilidades críticas conhecidas como **PHP2Shell** (**CVE-2026-109618** e **CVE-2026-109619**, CVSS 9.2) afetam o interpretador PHP (versões 5.4 a 8.5 anteriores aos patches de segurança de outubro de 2026) por falhas de corrupção de memória (*Out-of-Memory `longjmp()`*) e *Use-After-Free* no *session upload progress*.
-> Em painéis desatualizados, um atacante não autenticado pode ler a memória do processo (expondo `.env`, `APP_KEY`, credenciais do banco de dados e chaves de API) e executar código remotamente (RCE) no host do painel. Além disso, a árvore v3 não recebe mais correções de segurança da camada de aplicação (como a CVE-2025-49132). Migre para a **v4** e certifique-se de rodar versões corrigidas do PHP (`>= 8.4.27`, `>= 8.3.36` ou `>= 8.2.35`).
+> Em painéis desatualizados, um atacante não autenticado pode ler a memória do processo (expondo `.env`, `APP_KEY`, credenciais do banco de dados e chaves de API) e executar código remotamente (RCE) no host do painel. Além disso, a árvore v3 não recebe mais correções de segurança da camada de aplicação (como a CVE-2025-49132). Migre para a **v4** e certifique-se de rodar versões corrigidas do PHP (`>= 8.4.28`, `>= 8.3.37` ou `>= 8.2.36`, que incluem as correções de segurança de 19/11/2026).
 
 ---
 

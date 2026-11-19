@@ -52,7 +52,11 @@ RUN --mount=type=cache,target=/root/.local/share/pnpm \
     && test -f public/build/manifest.json
 
 # Stage 1: runtime PHP com as dependências do painel.
-FROM --platform=$TARGETOS/$TARGETARCH php:8.4-fpm-alpine
+# PHP 8.4.28 = release de segurança de 19/11/2026: corrige CVE-2026-129496
+# (RCE via cache de timezone), CVE-2026-126714 (RCE via sessão) e falhas do
+# PHP-FPM (CVE-2026-129291/129289/129292). Patch level fixado para o build
+# não regredir por cache da tag flutuante.
+FROM --platform=$TARGETOS/$TARGETARCH php:8.4.28-fpm-alpine
 WORKDIR /app
 COPY --from=src /build/upstream ./
 COPY --from=assets /app/public/build ./public/build
